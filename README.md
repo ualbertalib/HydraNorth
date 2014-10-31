@@ -1,4 +1,4 @@
-![HydraNorth Logo](/images/hydranorth.png)
+![HydraNorth Logo](/app/assets/images/hydranorth.png)
 
 Dependencies:
 --
