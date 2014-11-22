@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20141121233247) do
     t.datetime "updated_at"
   end
 
-  add_index "proxy_deposit_requests", ["receiving_user_id"], name: "index_proxy_deposit_requests_on_receiving_user_id"
-  add_index "proxy_deposit_requests", ["sending_user_id"], name: "index_proxy_deposit_requests_on_sending_user_id"
+  add_index "proxy_deposit_requests", ["receiving_user_id"], name: "index_proxy_deposit_requests_on_receiving_user_id", using: :btree
+  add_index "proxy_deposit_requests", ["sending_user_id"], name: "index_proxy_deposit_requests_on_sending_user_id", using: :btree
 
   create_table "proxy_deposit_rights", force: true do |t|
     t.integer  "grantor_id"
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(version: 20141121233247) do
     t.datetime "updated_at"
   end
 
-  add_index "proxy_deposit_rights", ["grantee_id"], name: "index_proxy_deposit_rights_on_grantee_id"
-  add_index "proxy_deposit_rights", ["grantor_id"], name: "index_proxy_deposit_rights_on_grantor_id"
+  add_index "proxy_deposit_rights", ["grantee_id"], name: "index_proxy_deposit_rights_on_grantee_id", using: :btree
+  add_index "proxy_deposit_rights", ["grantor_id"], name: "index_proxy_deposit_rights_on_grantor_id", using: :btree
 
   create_table "searches", force: true do |t|
     t.text     "query_params"
