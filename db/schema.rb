@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121233247) do
+ActiveRecord::Schema.define(version: 20141204125600) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -250,8 +250,13 @@ ActiveRecord::Schema.define(version: 20141121233247) do
     t.text     "group_list"
     t.datetime "groups_last_update"
     t.string   "linkedin_handle"
+    t.string   "unconfirmed_email"
+    t.string   "confirmation_token"
+    t.string   "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
