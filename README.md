@@ -5,8 +5,8 @@ Dependencies:
 (see https://code.library.ualberta.ca/hg/ansible-dev/hydranorth.yml for authoritative list)
 * Rails application stack
   * ruby (2.1.0) /rails (4.0.4) /bundler (1.6.0)
-  * nginx
-  * unicorn
+  * httpd 
+  * passenger 
 * microservices
  * fits
  * redis
