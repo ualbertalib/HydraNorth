@@ -72,6 +72,26 @@ ActiveRecord::Schema.define(version: 20141204125600) do
   add_index "featured_works", ["generic_file_id"], name: "index_featured_works_on_generic_file_id", using: :btree
   add_index "featured_works", ["order"], name: "index_featured_works_on_order", using: :btree
 
+  create_table "file_download_stats", force: true do |t|
+    t.datetime "date"
+    t.integer  "downloads"
+    t.string   "file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "file_download_stats", ["file_id"], name: "index_file_download_stats_on_file_id", using: :btree
+
+  create_table "file_view_stats", force: true do |t|
+    t.datetime "date"
+    t.integer  "views"
+    t.string   "file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "file_view_stats", ["file_id"], name: "index_file_view_stats_on_file_id", using: :btree
+
   create_table "follows", force: true do |t|
     t.integer  "followable_id",                   null: false
     t.string   "followable_type",                 null: false
