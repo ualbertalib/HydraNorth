@@ -5,7 +5,13 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+require 'factory_girl_rails'
+require File.join(Sufia::Engine.root, 'spec/factories/generic_files')
+require File.join(Sufia::Engine.root, 'spec/support/features/session_helpers')
+require File.join(Sufia::Engine.root, 'spec/support/features')
 #
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
@@ -86,4 +92,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  config.include Warden::Test::Helpers, type: :feature
+  config.after(:each, type: :feature) { Warden.test_reset! }
+  config.infer_spec_type_from_file_location!
 end
+

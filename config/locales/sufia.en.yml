@@ -5,3 +5,5 @@ en:
     institution_homepage_url:   "http://ualberta.ca"
     division_name:      "UA Libraries"
     division_homepage_url:   "http://library.ualberta.ca"
+    directory:
+      suffix:  "@ualberta.ca"
