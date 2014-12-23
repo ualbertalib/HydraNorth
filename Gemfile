@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'sufia', '~> 4.2.0'
+gem 'sufia', '~> 6.0.0.beta1'
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'  # required to handle pagination properly in dashboard. See https://github.com/amatsuda/kaminari/pull/322
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+#gem 'rails', '4.0.4'
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
