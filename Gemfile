@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'sufia', '~> 6.0.0.beta1'
+gem 'sufia', '6.0.0.rc1' 
 gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'  # required to handle pagination properly in dashboard. See https://github.com/amatsuda/kaminari/pull/322
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
@@ -52,4 +52,16 @@ group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
   gem "capybara"
+end
+
+group :development, :test do
+end
+
+group :development, :test do
+end
+
+group :development, :test do
+end
+
+group :development, :test do
 end
