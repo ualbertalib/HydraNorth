@@ -52,6 +52,8 @@ group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
   gem "capybara"
+  gem "poltergeist", "~> 1.5"
+  gem "factory_girl_rails"
 end
 
 group :development, :test do
