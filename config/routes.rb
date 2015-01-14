@@ -1,6 +1,5 @@
 Hydranorth::Application.routes.draw do
   
-  
   blacklight_for :catalog
   devise_for :users
 

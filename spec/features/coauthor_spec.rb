@@ -2,58 +2,58 @@ require 'spec_helper'
 
 describe 'coauthor', :type => :feature do
 
-  before :all do
-    cleanup_jetty
-    @fixtures = find_or_create_file_fixtures
+  let(:abby) { FactoryGirl.create :user_with_fixtures }
+  let(:barbara) { FactoryGirl.create :dit, display_name: 'dit.application.test' }
+  let!(:file) do
+    GenericFile.new.tap do |f|
+      f.title = ['little_file.txt']
+      f.creator = ['little_file.txt_creator']
+      f.resource_type = ["stuff" ]
+      f.read_groups = ['public']
+      f.apply_depositor_metadata(abby.user_key)
+      f.save!
+    end
   end
+
   after :all do
     cleanup_jetty
   end
 
-  before :all do
-    @barbara = FactoryGirl.create :dit
-    @abby = FactoryGirl.create :user_with_fixtures
-  end
-
   context 'abby shares work' do
     before do 
-      sign_in @abby 
+      sign_in abby 
       visit "/dashboard/files"
-      within("#document_#{@fixtures.first.noid}") do
+      within("#document_#{file.noid}") do
         click_button "Select an action"
         click_link "Edit File"
       end
       click_link "Permissions"
     end
     it '@ included' do
-      new_user_skel @barbara.email
-      expect(page).to have_content( @barbara.email ) 
-      click_button "Save"
-      click_link "Permissions"
-      expect(page).to have_content( @barbara.email )
+      new_user_skel barbara.email
+      share_work_with barbara
     end
     it '@ not included' do
-      new_user_skel 'dit.application.test' 
-      expect(page).to have_content( @barbara.email ) 
-      click_button "Save"
-      click_link "Permissions"
-      expect(page).to have_content( @barbara.email )
+      new_user_skel barbara.display_name 
+      share_work_with barbara
     end
     it 'but not a user' do
       uid = 'not-a-user@example.com'
       within("#new-user") do
-        fill_in "new_user_name_skel", with: uid 
-        find("#new_user_permission_skel").select("Edit")
-        expect(page).to have_content( "User id (#{uid}) does not exist." )
+        expect{ select2(uid, from: "Account Label", search: true) }.to raise_error
       end
+      expect(page).to have_content( "No matches found" )
     end
   
     it 'barbara can edit and feature' do
-      sign_in @barbara
+      new_user_skel barbara.email
+      share_work_with barbara
+
+      sign_in barbara
       visit "/dashboard/files"
       click_link "Files Shared with Me"
-      expect(page).to have_content( @fixtures.first.title.first)
-      within("#document_#{@fixtures.first.noid}") do
+      expect(page).to have_content( file.title.first)
+      within("#document_#{file.noid}") do
         click_button("Select an action")
       end
       expect(page).to have_content( "Edit File" )
@@ -62,9 +62,15 @@ describe 'coauthor', :type => :feature do
   end
   def new_user_skel(uid)
     within("#new-user") do
-      fill_in "new_user_name_skel", with: uid 
+      select2(uid, from: "Account Label", search: true)
       find("#new_user_permission_skel").select("Edit")
       find("#add_new_user_skel").click
     end
+  end
+  def share_work_with user
+      expect(page).to have_content( user.email ) 
+      click_button "Save"
+      click_link "Permissions"
+      expect(page).to have_content( user.email )
   end
 end
