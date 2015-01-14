@@ -12,6 +12,11 @@ FactoryGirl.define do
       email 'dit.application.test@ualberta.ca'
     end
 
+    factory :admin do
+      email 'admin@example.com'
+      group_list 'admin'
+    end
+
     factory :archivist, aliases: [:user_with_fixtures] do
       email 'archivist1@example.com'
     end
