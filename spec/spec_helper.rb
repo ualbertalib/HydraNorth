@@ -92,6 +92,20 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before :each do |example|
+    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.start
+    end
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+
   config.include Warden::Test::Helpers, type: :feature
   config.after(:each, type: :feature) { Warden.test_reset! }
   config.infer_spec_type_from_file_location!

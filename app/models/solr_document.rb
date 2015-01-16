@@ -2,6 +2,8 @@
 class SolrDocument 
 
   include Blacklight::Solr::Document
+  include Blacklight::Gallery::OpenseadragonSolrDocument
+
   # Adds Sufia behaviors to the SolrDocument.
   include Sufia::SolrDocumentBehavior
 

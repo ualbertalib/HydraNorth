@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204125600) do
+ActiveRecord::Schema.define(version: 20141204125604) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -78,9 +78,11 @@ ActiveRecord::Schema.define(version: 20141204125600) do
     t.string   "file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "file_download_stats", ["file_id"], name: "index_file_download_stats_on_file_id", using: :btree
+  add_index "file_download_stats", ["user_id"], name: "index_file_download_stats_on_user_id", using: :btree
 
   create_table "file_view_stats", force: true do |t|
     t.datetime "date"
@@ -88,9 +90,11 @@ ActiveRecord::Schema.define(version: 20141204125600) do
     t.string   "file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "file_view_stats", ["file_id"], name: "index_file_view_stats_on_file_id", using: :btree
+  add_index "file_view_stats", ["user_id"], name: "index_file_view_stats_on_user_id", using: :btree
 
   create_table "follows", force: true do |t|
     t.integer  "followable_id",                   null: false
@@ -236,6 +240,17 @@ ActiveRecord::Schema.define(version: 20141204125600) do
     t.datetime "updated_at"
   end
 
+  create_table "user_stats", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "date"
+    t.integer  "file_views"
+    t.integer  "file_downloads"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_stats", ["user_id"], name: "index_user_stats_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -274,6 +289,7 @@ ActiveRecord::Schema.define(version: 20141204125600) do
     t.string   "confirmation_token"
     t.string   "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "orcid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

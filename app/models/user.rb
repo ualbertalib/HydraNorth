@@ -1,7 +1,12 @@
 class User < ActiveRecord::Base
 # Connects this user object to Hydra behaviors. 
+ include Hydra::User
+# Connects this user object to Hydra behaviors. 
  include Hydra::User# Connects this user object to Sufia behaviors. 
  include Sufia::User
+  include Sufia::UserUsageStats
+ include Sufia::UserUsageStats
+  include Sufia::UserUsageStats
 
 
   attr_accessible :email, :password, :password_confirmation if Rails::VERSION::MAJOR < 4
