@@ -1,6 +1,11 @@
 development:
   archivist:
     - archivist1@example.com
+    - dittest@ualberta.ca
+  admin_policy_object_editor:
+    - dittest@ualberta.ca
+  admin:
+    - dittest@ualberta.ca
 test:
   archivist:
     - archivist1@example.com
