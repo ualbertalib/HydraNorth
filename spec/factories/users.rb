@@ -16,6 +16,11 @@ FactoryGirl.define do
       email 'archivist1@example.com'
     end
 
+    factory :admin do 
+      email 'admin@example.com'
+      group_list 'admin'
+    end
+
     factory :user_with_mail do
       after(:create) do |user|
         # TODO: what is this class for?
