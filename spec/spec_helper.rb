@@ -93,7 +93,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
-
   config.before :each do |example|
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
       DatabaseCleaner.strategy = :truncation
