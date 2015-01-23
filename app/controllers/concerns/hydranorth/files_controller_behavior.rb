@@ -7,14 +7,13 @@ module Hydranorth
     extend ActiveSupport::Concern
     include Sufia::FilesControllerBehavior
 
-
     protected
    def actor
       @actor ||= Hydranorth::GenericFile::Actor.new(@generic_file, current_user, attributes)
    end
     
     def attributes
-      attributes = params.dup
+      attributes = params
     end
 
 

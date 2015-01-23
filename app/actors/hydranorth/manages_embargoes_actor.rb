@@ -43,7 +43,10 @@ module Hydranorth
         attributes.delete(:visibility)
         generic_file.apply_embargo(attributes[:embargo_release_date], attributes.delete(:visibility_during_embargo),
                   attributes.delete(:visibility_after_embargo))
-        generic_file.save 
+        if generic_file.embargo
+          generic_file.embargo.save
+        end 
+        generic_file.save
         true
       end
     end

@@ -6,10 +6,9 @@ module Hydranorth
       attr_reader :attributes, :generic_file, :user
 
       def initialize(generic_file, user, input_attributes)
-        Rails.logger.debug "enter actor #{input_attributes.inspect}" 
         @generic_file = generic_file
         @user = user
-        @attributes = input_attributes.dup.with_indifferent_access
+        @attributes = input_attributes
 
       end
 
