@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
   def to_s
     email
   end
+
+  def admin?
+    groups.include? 'admin'
+  end
 end
