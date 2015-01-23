@@ -8,14 +8,25 @@ describe Ability, :type => :model do
                   gf.apply_depositor_metadata(user)
                   gf.save!
                end}
+  let (:collection) { Collection.new( title: "test collection").tap do |c|
+                        c.apply_depositor_metadata(user)
+                        c.save!
+                      end }
 
   describe "a user with no roles" do
     let(:guest) { nil }
     subject { Ability.new(guest) }
+
     it { is_expected.not_to be_able_to(:create, GenericFile) }
     it { is_expected.not_to be_able_to(:edit, file) }
     it { is_expected.not_to be_able_to(:update, file) }
     it { is_expected.not_to be_able_to(:destroy, file) }
+
+    it { is_expected.not_to be_able_to(:create, Collection) }
+    it { is_expected.not_to be_able_to(:edit, collection) }
+    it { is_expected.not_to be_able_to(:update, collection) }
+    it { is_expected.not_to be_able_to(:destroy, collection) }
+
     it { is_expected.not_to be_able_to(:create, TinymceAsset) }
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
   end
@@ -26,6 +37,12 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:edit, file) }
     it { is_expected.to be_able_to(:update, file) }
     it { is_expected.to be_able_to(:destroy, file) }
+
+    it { is_expected.to be_able_to(:create, Collection) }
+    it { is_expected.to be_able_to(:edit, collection) }
+    it { is_expected.to be_able_to(:update, collection) }
+    it { is_expected.to be_able_to(:destroy, collection) }
+
     it { is_expected.not_to be_able_to(:create, TinymceAsset) }
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
   end
@@ -38,6 +55,12 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:edit, file) }
     it { is_expected.to be_able_to(:update, file) }
     it { is_expected.to be_able_to(:destroy, file) }
+
+    it { is_expected.to be_able_to(:create, Collection) }
+    it { is_expected.to be_able_to(:edit, collection) }
+    it { is_expected.to be_able_to(:update, collection) }
+    it { is_expected.to be_able_to(:destroy, collection) }
+
     it { is_expected.to be_able_to(:create, TinymceAsset) }
     it { is_expected.to be_able_to(:update, ContentBlock) }
   end
