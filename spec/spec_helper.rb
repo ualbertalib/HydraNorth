@@ -92,6 +92,14 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+module EngineRoutes
+  def self.included(base)
+    base.routes { Sufia::Engine.routes }
+  end
+  def main_app
+    Rails.application.class.routes.url_helpers
+  end
+end
 
   config.before :each do |example|
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
@@ -105,6 +113,9 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+
+  config.include Devise::TestHelpers, type: :controller
+  config.include EngineRoutes, type: :controller
 
   config.include Warden::Test::Helpers, type: :feature
   config.after(:each, type: :feature) { Warden.test_reset! }

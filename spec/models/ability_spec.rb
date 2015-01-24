@@ -12,6 +12,9 @@ describe Ability, :type => :model do
                         c.apply_depositor_metadata(user)
                         c.save!
                       end }
+  after do
+    cleanup_jetty
+  end
 
   describe "a user with no roles" do
     let(:guest) { nil }
@@ -60,6 +63,11 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:edit, collection) }
     it { is_expected.to be_able_to(:update, collection) }
     it { is_expected.to be_able_to(:destroy, collection) }
+
+    it { is_expected.to be_able_to(:create, User) }
+    it { is_expected.to be_able_to(:edit, user) }
+    it { is_expected.to be_able_to(:update, user) }
+    it { is_expected.to be_able_to(:destroy, user) }
 
     it { is_expected.to be_able_to(:create, TinymceAsset) }
     it { is_expected.to be_able_to(:update, ContentBlock) }
