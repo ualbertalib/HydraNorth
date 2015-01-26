@@ -14,10 +14,6 @@ describe UsersController, :type => :controller do
       @u1 = FactoryGirl.find_or_create(:admin)
       @u2 = FactoryGirl.find_or_create(:jill)
     end
-    after do
-      @u1.destroy
-      @u2.destroy
-    end
     describe "requesting html" do
       it "should test users" do
         get :index
