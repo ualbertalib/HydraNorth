@@ -29,6 +29,11 @@ class CatalogController < ApplicationController
     solr_name('date_modified', :stored_sortable, type: :date)
   end
 
+  def add_access_controls_to_solr_params(solr_parameters, user_parameters)
+    return [] if current_user && (current_user.admin?)
+    super
+  end
+
   configure_blacklight do |config|
     #Show gallery view
     config.view.gallery.partials = [:index_header, :index]
