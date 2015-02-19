@@ -21,6 +21,7 @@ describe UsersController, :type => :controller do
           expect(response).to be_success
           expect(response).to render_template('users/edit')
           expect(flash[:alert]).to be_nil
+          expect(assigns(:user)).to eq(user)
         end
       end
     end
