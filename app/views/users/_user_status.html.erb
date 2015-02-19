@@ -1,0 +1,9 @@
+<div id="user_status_buttons">
+  <% if current_user.admin? %>
+    <% if @user.access_locked? %>
+      <%= link_to "Activate User", unlock_access_user_path(@user) %>
+    <% else %>
+      <%= link_to "Deactivate User", lock_access_user_path(@user) %>
+    <% end %>
+  <% end %>
+</div>
