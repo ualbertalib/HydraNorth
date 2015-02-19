@@ -16,4 +16,12 @@ describe User do
     expect(user.confirmed?).to be_truthy
 
   end
+
+  let(:user) { FactoryGirl.create(:user) }
+  it "can lock and unlock user access" do
+    user.lock_access!
+    expect(user.access_locked?).to be_truthy
+    user.unlock_access!
+    expect(user.access_locked?).to be_falsey
+  end
 end 

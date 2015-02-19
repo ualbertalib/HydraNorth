@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204125604) do
+ActiveRecord::Schema.define(version: 20150219000322) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -290,6 +290,9 @@ ActiveRecord::Schema.define(version: 20141204125604) do
     t.string   "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "orcid"
+    t.integer  "failed_attempts",        default: 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
