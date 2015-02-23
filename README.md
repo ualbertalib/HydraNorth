@@ -4,7 +4,7 @@ Dependencies:
 --
 (see https://code.library.ualberta.ca/hg/ansible-dev/hydranorth.yml for authoritative list)
 * Rails application stack
-  * ruby (2.1.0) /rails (4.0.4) /bundler (1.6.0)
+  * ruby (2.1.5) /rails (4.1.8) /bundler (1.6.0)
   * httpd 
   * passenger 
 * microservices
@@ -16,8 +16,8 @@ Dependencies:
  * poppler
  * clamav
 * backing store
- * Solr
- * Fedora 3.7
+ * Solr 4.10.2
+ * Fedora 4.0
  * MySQL
 
 To Install Application:
@@ -40,5 +40,5 @@ To Run Tests:
 --
 (see http://cardiff.library.ualberta.ca/job/HydraNorth/)
 
-```rake test```
+```rake spec```
 
