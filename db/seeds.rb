@@ -15,3 +15,8 @@ admin = User.new({
 
 admin.skip_confirmation!
 admin.save!
+
+theses = Collection.new(title: "Theses").tap do |c|
+  c.apply_depositor_metadata("dittest@ualberta.ca")
+end
+theses.save!
