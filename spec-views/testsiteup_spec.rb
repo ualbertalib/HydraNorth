@@ -1,9 +1,9 @@
 require "json"
 require "selenium-webdriver"
 require "rspec"
-require "./spec/helper.rb"
-require "./spec/before.rb"
-require "./spec/after.rb"
+require "./spec-views/helper.rb"
+require "./spec-views/before.rb"
+require "./spec-views/after.rb"
 include RSpec::Expectations
 
 include Before
