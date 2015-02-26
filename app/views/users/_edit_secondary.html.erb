@@ -1,0 +1,12 @@
+<h2><i class="glyphicon glyphicon-user"></i> User Info</h2>
+<%= render 'user_info',  {user: @user } %>
+<%= render 'user_status',  {user: @user } %>
+
+<% if 0 < @user.groups.count %>
+  <hr />
+
+  <h2><i class="glyphicon glyphicon-group"></i> Groups Info</h2>
+  <% @user.groups.each do |g| %>
+    <i class="glyphicon glyphicon-asterisk"></i> <%= g %><br />
+  <% end %>
+<% end %>

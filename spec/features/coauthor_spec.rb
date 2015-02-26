@@ -23,7 +23,7 @@ describe 'coauthor', :type => :feature do
     before do 
       sign_in abby 
       visit "/dashboard/files"
-      within("#document_#{file.noid}") do
+      within("#document_#{file.id}") do
         click_button "Select an action"
         click_link "Edit File"
       end
@@ -40,7 +40,7 @@ describe 'coauthor', :type => :feature do
     it 'but not a user' do
       uid = 'not-a-user@example.com'
       within("#new-user") do
-        expect{ select2(uid, from: "Account Label", search: true) }.to raise_error
+        expect{ select2(uid, from: "User (without the @ualberta.ca part)", search: true) }.to raise_error
       end
       expect(page).to have_content( "No matches found" )
     end
@@ -53,7 +53,7 @@ describe 'coauthor', :type => :feature do
       visit "/dashboard/files"
       click_link "Files Shared with Me"
       expect(page).to have_content( file.title.first)
-      within("#document_#{file.noid}") do
+      within("#document_#{file.id}") do
         click_button("Select an action")
       end
       expect(page).to have_content( "Edit File" )
@@ -62,7 +62,7 @@ describe 'coauthor', :type => :feature do
   end
   def new_user_skel(uid)
     within("#new-user") do
-      select2(uid, from: "Account Label", search: true)
+      select2(uid, from: "User (without the @ualberta.ca part)", search: true)
       find("#new_user_permission_skel").select("Edit")
       find("#add_new_user_skel").click
     end
