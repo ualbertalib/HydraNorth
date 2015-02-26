@@ -1,0 +1,6 @@
+---
+base_url: "http://hydranorth.local"
+regular_user:
+  name: dittest@ualberta.ca
+  password: password
+
