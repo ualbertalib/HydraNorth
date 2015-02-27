@@ -35,6 +35,9 @@ module Hydranorth
         attributes.delete(:visibility_during_embargo)
         attributes.delete(:visibility_after_embargo)
         attributes.delete(:embargo_release_date)
+        generic_file.deactivate_embargo!
+        generic_file.embargo.save if generic_file.embargo
+        generic_file.visibility = attributes[:visibility]
         true
       elsif !attributes[:embargo_release_date]
         generic_file.errors.add(:visibility, 'When setting visibility to "embargo" you must also specify embargo release date.')
@@ -60,6 +63,9 @@ module Hydranorth
         attributes.delete(:visibility_during_lease)
         attributes.delete(:visibility_after_lease)
         attributes.delete(:lease_expiration_date)
+        generic_file.deactivate_lease!
+        generic_file.lease.save if generic_file.lease
+        generic_file.visibility = attributes[:visibility]
         true
       elsif !attributes[:lease_expiration_date]
         generic_file.errors.add(:visibility, 'When setting visibility to "lease" you must also specify lease expiration date.')
