@@ -42,3 +42,36 @@ To Run Tests:
 
 ```rake spec```
 
+To Restart Components
+---
+* Jetty
+ * ```cd /var/www/sites/hydranorth && rake jetty:restart```
+* Resque/Redis
+ * ```service resque-pool restart```
+* Rails/Passenger/Httpd
+ * ```service httpd restart```
+
+To Reset Components
+---
+ * Jetty
+ 
+```
+  rake jetty:stop
+  rake jetty:clean
+  rake sufia:jetty:config
+  rake jetty:start
+```
+ * Resque/Redis
+```
+  redis-cli
+  $ FLUSHALL
+  $ exit
+```
+```
+  kill -9  `ps aux | grep [r]esque | grep -v grep | cut -c 10-16` # another way to stop all resque workers
+  service resque-pool start
+```
+ * MySQL
+```
+ rake db:reset
+```
