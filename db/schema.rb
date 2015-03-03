@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219000322) do
+ActiveRecord::Schema.define(version: 20150303172843) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -43,9 +43,8 @@ ActiveRecord::Schema.define(version: 20150219000322) do
     t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "external_key"
   end
-
-  add_index "content_blocks", ["name"], name: "index_content_blocks_on_name", unique: true, using: :btree
 
   create_table "domain_terms", force: true do |t|
     t.string "model"
