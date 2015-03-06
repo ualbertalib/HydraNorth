@@ -5,6 +5,14 @@ Hydranorth::Application.routes.draw do
 
   Hydra::BatchEdit.add_routes(self)
 
+  # Administrative URLs
+  namespace :admin do
+    # Job monitoring
+    constraints Sufia::ResqueAdmin do
+      mount Resque::Server, at: 'queues'
+    end
+  end
+
   mount BrowseEverything::Engine => '/browse'
   mount Hydra::Collections::Engine => '/'
   mount Sufia::Engine => '/'
