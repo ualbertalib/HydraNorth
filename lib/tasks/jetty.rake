@@ -1,2 +1,2 @@
 require 'jettywrapper'
-Jettywrapper.hydra_jetty_version = "v8.1.1"
+Jettywrapper.hydra_jetty_version = "v8.2.1"
