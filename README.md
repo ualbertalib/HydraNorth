@@ -16,8 +16,8 @@ Dependencies:
  * poppler
  * clamav
 * backing store
- * Solr 4.10.2
- * Fedora 4.0
+ * Solr 4.10.3
+ * Fedora 4.1 with authorization
  * MySQL
 
 To Install Application:
