@@ -43,10 +43,7 @@ describe 'delete', :type => :feature do
     end
 
     it "can't delete" do
-      select_delete file
-      expect(page).to have_content( "Not authorized to destroy generic file. Contact administrator for assistance." )
-      setup user
-      expect(page).to have_content( file.title.first )
+      expect { select_delete file }.to raise_error
     end
 
     it "doesn't see batch delete" do
