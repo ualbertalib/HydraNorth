@@ -40,7 +40,7 @@ module Sufia
       params[:controller].match(/^my\/files/)
     end
 
-    def on_my_all?
+    def all_my_files?
       params[:controller].match(/^my\/all/)
     end
 
