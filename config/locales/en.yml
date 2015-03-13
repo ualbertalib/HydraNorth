@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  # for cancan from https://github.com/ryanb/cancan/wiki/exception-handling
+  unauthorized:
+    manage:
+      all: "Not authorized to %{action} %{subject}. Contact administrator for assistance."

@@ -39,7 +39,7 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:create, GenericFile) }
     it { is_expected.to be_able_to(:edit, file) }
     it { is_expected.to be_able_to(:update, file) }
-    it { is_expected.to be_able_to(:destroy, file) }
+    it { is_expected.to_not be_able_to(:destroy, file) }
 
     it { is_expected.to be_able_to(:create, Collection) }
     it { is_expected.to be_able_to(:edit, collection) }
