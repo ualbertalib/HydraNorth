@@ -4,7 +4,6 @@ module Sufia
       extend ActiveSupport::Concern
 
       included do
-        Rails.logger.info "INSIDE LOCAL SUFIA"
 
         property :label, predicate: ActiveFedora::RDF::Fcrepo::Model.downloadFilename, multiple: false
 
@@ -31,20 +30,17 @@ module Sufia
         property :contributor, predicate: ::RDF::DC.contributor do |index|
           index.as :stored_searchable, :facetable
         end
-        property :description, predicate: ::RDF::DC.description do |index|
+        property :description, predicate: ::RDF::DC.description, multiple: false do |index|
           index.type :text
           index.as :stored_searchable
         end
-        property :tag, predicate: ::RDF::DC.relation do |index|
-          index.as :stored_searchable, :facetable
-        end
-        property :rights, predicate: ::RDF::DC.rights do |index|
+        property :rights, predicate: ::RDF::DC.rights, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :publisher, predicate: ::RDF::DC.publisher do |index|
-          index.as :stored_searchable, :facetable
+        property :license, predicate: ::RDF::DC.license, multiple: false do |index|
+          index.as :stored_searchable
         end
-        property :date_created, predicate: ::RDF::DC.created do |index|
+        property :date_created, predicate: ::RDF::DC.created, multiple: false do |index|
           index.as :stored_searchable
         end
 
@@ -65,23 +61,24 @@ module Sufia
         property :subject, predicate: ::RDF::DC.subject do |index|
           index.as :stored_searchable, :facetable
         end
+
         property :language, predicate: ::RDF::DC.language, multiple: false do |index|
           index.as :stored_searchable, :facetable
         end
-        property :identifier, predicate: ::RDF::DC.identifier do |index|
+        property :related_url, predicate: ::RDF::DC.relation, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :based_near, predicate: ::RDF::FOAF.based_near do |index|
-          index.as :stored_searchable, :facetable
-        end
-        property :related_url, predicate: ::RDF::RDFS.seeAlso do |index|
+        property :source, predicate: ::RDF::DC.source, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :bibliographic_citation, predicate: ::RDF::DC.bibliographicCitation do |index|
-          index.as :stored_searchable
-        end
-        property :source, predicate: ::RDF::DC.source do |index|
-          index.as :stored_searchable
+
+        # TODO: Move this somewhere more appropriate
+        begin
+          LocalAuthority.register_vocabulary(self, "subject", "lc_subjects")
+          LocalAuthority.register_vocabulary(self, "language", "lexvo_languages")
+          LocalAuthority.register_vocabulary(self, "tag", "lc_genres")
+        rescue
+          puts "tables for vocabularies missing"
         end
       end
 

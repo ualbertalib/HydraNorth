@@ -8,6 +8,10 @@ module Hydranorth
     include Sufia::FilesControllerBehavior
     include Hydranorth::Breadcrumbs
 
+  included do
+    self.edit_form_class = Hydranorth::Forms::GenericFileEditForm
+    self.presenter_class = Hydranorth::GenericFilePresenter
+  end
     protected
    def actor
       @actor ||= Hydranorth::GenericFile::Actor.new(@generic_file, current_user, attributes)
