@@ -6,7 +6,7 @@
       <%= content_tag :p, t('sufia.batch.help.title'), class: "help-block" %>
       <% @batch.generic_files.sort! { |a,b| a.label.downcase <=> b.label.downcase }.each_with_index  do |gen_f, index| %>
         <div class="form-group">
-          <%= f.input_label :title, as: :multi_value_with_help, label: "Title #{index + 1}" %>
+          <%= f.input_label :title, as: :multi_value_with_help, label: "Title or Caption #{index + 1}" %>
           <div id="additional_title_clone">
             <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: gen_f.label, class: 'form-control', required: true %>
           </div>
@@ -29,14 +29,12 @@
       <h3>Applies to all files just uploaded</h3>
       <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.resource_types,
           input_html: { class: 'form-control', multiple: true, required: true } %>
-
-      <%= f.input :tag, as: :multi_value_with_help, input_html: { required: true } %>
-
+      <%= f.input :language, as: :select_with_help, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
       <%= f.input :creator, as: :multi_value_with_help, input_html: { required: true } %>
-
+      <%= f.input :subject, as: :multi_value_with_help, input_html: {required: true} %>
       <%= f.input :rights, as: :select_with_modal_help, collection: Sufia.config.cc_licenses, 
           input_html: { class: 'form-control', multiple: true, required: true }, include_blank: true %>
- 
+       
 
       <%= render "generic_files/rights_modal" %>
 

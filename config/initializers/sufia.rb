@@ -28,50 +28,47 @@ Sufia.config do |config|
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
 
   config.resource_types = {
-    "Article" => "Article",
-    "Audio" => "Audio",
     "Book" => "Book",
-    "Capstone Project" => "Capstone Project",
-    "Conference Proceeding" => "Conference Proceeding",
-    "Dataset" => "Dataset",
-    "Dissertation" => "Dissertation",
+    "Book Chapter" => "Book Chapter",
+    "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
+    "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
     "Image" => "Image",
-    "Journal" => "Journal",
-    "Map or Cartographic Material" => "Map or Cartographic Material",
-    "Masters Thesis" => "Masters Thesis",
-    "Part of Book" => "Part of Book",
-    "Poster" => "Poster",
-    "Presentation" => "Presentation",
-    "Project" => "Project",
+    "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
+    "Journal Article (Published)" => "Journal Article (Published)",
+    "Learning Object" => "Learning Object",
     "Report" => "Report",
-    "Research Paper" => "Research Paper",
-    "Software or Program Code" => "Software or Program Code",
-    "Video" => "Video",
-    "Other" => "Other",
+    "Research Material" => "Research Material",
+    "Review" => "Review",
   }
 
   config.resource_types_to_schema = {
-    "Article" => "http://schema.org/Article",
-    "Audio" => "http://schema.org/AudioObject",
     "Book" => "http://schema.org/Book",
-    "Capstone Project" => "http://schema.org/CreativeWork",
-    "Conference Proceeding" => "http://schema.org/ScholarlyArticle",
-    "Dataset" => "http://schema.org/Dataset",
-    "Dissertation" => "http://schema.org/ScholarlyArticle",
+    "Book Chapter" => "http://schema.org/Book",
+    "Conference\/Workshop Poster" => "http://schema.org/CreativeWork",
+    "Conference\/Workshop Presentation" => "http://schema.org/CreativeWork",
     "Image" => "http://schema.org/ImageObject",
-    "Journal" => "http://schema.org/CreativeWork",
-    "Map or Cartographic Material" => "http://schema.org/Map",
-    "Masters Thesis" => "http://schema.org/ScholarlyArticle",
-    "Part of Book" => "http://schema.org/Book",
-    "Poster" => "http://schema.org/CreativeWork",
-    "Presentation" => "http://schema.org/CreativeWork",
-    "Project" => "http://schema.org/CreativeWork",
+    "Journal Article (Draft-Submitted)" => "http://schema.org/Article",
+    "Journal Article (Published)" => "http://schema.org/Article",
+    "Learning Object" => "http://schema.org/CreativeWork",
     "Report" => "http://schema.org/CreativeWork",
-    "Research Paper" => "http://schema.org/ScholarlyArticle",
-    "Software or Program Code" => "http://schema.org/Code",
-    "Video" => "http://schema.org/VideoObject",
-    "Other" => "http://schema.org/CreativeWork",
+    "Research Material" => "http://schema.org/CreativeWork",
+    "Review" => "http://schema.org/Review",
   }
+
+  config.languages = {
+    "English" => "English",
+    "French" => "French",
+    "Spanish" => "Spanish",
+    "Chinese" => "Chinese",
+    "German" => "German",
+    "Italian" => "Italian",
+    "Russian" => "Russian",
+    "Ukrainian" => "Ukrainian",
+    "Japanese" => "Japanese",
+    "No linguistic content" => "No linguistic content",
+    "Other" => "other",
+  }
+
 
   config.permission_levels = {
     "Choose Access"=>"none",
@@ -102,15 +99,12 @@ Sufia.config do |config|
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
   # config.enable_ffmpeg = true
 
-  # Specify the path to the minter-state file
-   config.minter_statefile = "tmp/minter-state"
-
   # Specify the Fedora pid prefix:
   # config.id_namespace = "sufia"
 
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
-   config.fits_path = "fits"
+   config.fits_path = "/usr/local/bin/fits-0.6.2/fits.sh"
 
   # Specify how many seconds back from the current time that we should show by default of the user's activity on the user's dashboard
   # config.activity_to_show_default_seconds_since_now = 24*60*60
