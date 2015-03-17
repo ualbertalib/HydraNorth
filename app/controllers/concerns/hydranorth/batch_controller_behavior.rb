@@ -15,7 +15,6 @@ module Hydranorth
 
 
     def update
-#      ActiveFedora::Base.reindex_everything
       authenticate_user!
       @batch = Batch.find_or_create(params[:id])
       @batch.status = ["processing"]
