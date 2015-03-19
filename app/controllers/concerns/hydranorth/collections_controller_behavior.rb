@@ -1,7 +1,7 @@
-module Hydranorth 
+module Hydranorth
   module CollectionsControllerBehavior
     extend ActiveSupport::Concern
-    include Hydra::CollectionsControllerBehavior
+    include Sufia::CollectionsControllerBehavior
 
     included do
       include Blacklight::Catalog::SearchContext
@@ -9,7 +9,6 @@ module Hydranorth
       include BlacklightAdvancedSearch::Controller
       include Hydranorth::Breadcrumbs
 
-      prepend_before_filter :normalize_identifier, except: [:index, :create, :new]
       before_filter :filter_docs_with_read_access!, except: :show
       before_filter :has_access?, except: :show
       before_filter :build_breadcrumbs, only: [:edit, :show]
@@ -33,7 +32,7 @@ module Hydranorth
       if current_user.group_list == 'admin'
         self.solr_search_params_logic -= [:add_access_controls_to_solr_params]
       end
-
+    
       super
       presenter
     end
