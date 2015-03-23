@@ -7,3 +7,7 @@ en:
     division_homepage_url:   "http://library.ualberta.ca"
     directory:
       suffix:  "@ualberta.ca"
+  hydranorth:
+    dashboard:
+      my:
+        all: "All Files"

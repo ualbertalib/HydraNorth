@@ -6,6 +6,7 @@ module Hydranorth
   module FilesControllerBehavior
     extend ActiveSupport::Concern
     include Sufia::FilesControllerBehavior
+    include Hydranorth::Breadcrumbs
 
     protected
    def actor
