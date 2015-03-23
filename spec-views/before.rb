@@ -5,7 +5,7 @@ module Before
   def setup
 
   before(:all) do
-    @properties = YAML.load_file('properties.yml')
+    @properties = YAML.load_file('spec-views/properties.yml')
     @base_dir = Dir.pwd.to_s
     @download_dir = @base_dir + '/tmp/'
     @screenshots_dir = @base_dir + '/spec/reports/'

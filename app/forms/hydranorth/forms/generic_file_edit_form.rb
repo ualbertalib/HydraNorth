@@ -1,7 +1,9 @@
 module Hydranorth
   module Forms
+    extend ActiveSupport::Autoload
     class GenericFileEditForm < GenericFilePresenter
       include HydraEditor::Form
+      include HydraEditor::Form::Permissions
       self.required_fields = [:title, :resource_type, :language, :creator, :subject, :license ]
 
       # This is required so that fields_for will draw a nested form.
