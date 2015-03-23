@@ -1,0 +1,10 @@
+#!/bin/bash
+bin/rake jetty:stop
+bin/rake jetty:clean
+bin/rake sufia:jetty:config
+bin/rake jetty:start
+redis-cli flushall
+# wait for jetty to be available on port 8983
+sleep 30
+bin/rake db:reset
+service httpd restart

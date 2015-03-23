@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /var/www/sites/hydranorth && rake jetty:restart
+service resque-pool restart
+service httpd restart
