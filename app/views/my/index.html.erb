@@ -1,0 +1,43 @@
+<% current_tab = @selected_tab.to_s %>
+
+<%= javascript_tag do %>
+  <%= render partial: 'scripts', formats: [:js] %>
+<% end %>
+
+<% @page_title = "#{current_tab.capitalize} listing" %>
+
+
+<ul class="nav nav-tabs" id="my_nav">
+  <h1 class="sr-only">Listing Navigation Bar</h1>
+  <span class="sr-only">You are currently listing your <%= current_tab.pluralize %> .  You have <%= @response.docs.count %> <%= current_tab.pluralize(@response.docs.count)%> </span>
+  <li class="<%= "active" if @selected_tab == :files %>">
+    <%= link_to t('sufia.dashboard.my.files'), sufia.dashboard_files_path %>
+  </li>
+  <li class="<%= "active" if @selected_tab == :collections %>">
+    <%= link_to t('sufia.dashboard.my.collections'), sufia.dashboard_collections_path %>
+  </li>
+  <li class="<%= "active" if @selected_tab == :highlighted %>">
+    <%= link_to t('sufia.dashboard.my.highlights'), sufia.dashboard_highlights_path %>
+  </li>
+  <li class="<%= "active" if @selected_tab == :shared %>">
+    <%= link_to t('sufia.dashboard.my.shares'), sufia.dashboard_shares_path %>
+  </li>
+  <% if current_user.group_list == 'admin' %>
+  <li class="<%= "active" if @selected_tab == :all %>">
+    <%= link_to t('hydranorth.dashboard.my.all'), dashboard_all_path %>
+  </li>
+  <% end %>
+</ul>
+
+<%= render 'search_header' %>
+
+<h1 class="sr-only"><%=@page_title %></h1>
+<%= render partial: 'document_list' %>
+
+<% content_for :sidebar do %>
+  <%= link_to t("sufia.dashboard.upload"), sufia.new_generic_file_path, class: "btn btn-primary" %>
+  <%= link_to t("sufia.dashboard.create_collection"), collections.new_collection_path, id: "hydra-collection-add", class: "btn btn-primary" %>
+  <%= render partial: 'facets', locals: {current_tab: current_tab} %>
+<% end %>
+
+<%= render 'results_pagination' %>
