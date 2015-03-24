@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 bundler_args: --without development debug
-sudo: false
+sudo: required
 rvm:
   - 2.1
 before_install:
