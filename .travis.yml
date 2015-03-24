@@ -10,11 +10,11 @@ services:
   - redis-server
 before_script:
   - redis-cli info
-  - rake db:migrate db:seed
-  - rake jetty:start
+  - bundle exec rake db:migrate db:seed
+  - bundle exec rake jetty:start
   - sleep 15
 after_script:
-  - rake jetty:stop
+  - bundle exec rake jetty:stop
 notifications:
   email:
   recipients:
