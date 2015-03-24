@@ -50,6 +50,7 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 group :development, :test do
   gem "rspec-rails"
+  gem "selenium-webdriver"
   gem "jettywrapper"
   gem "capybara"
   gem "poltergeist", "~> 1.5"
