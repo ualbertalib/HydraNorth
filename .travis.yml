@@ -1,0 +1,18 @@
+language: ruby
+cache: bundler
+bundler_args: --without development debug
+sudo: false
+rvm:
+  - 2.1.5p273
+before_install:
+- export PATH="$PATH:$(pwd)/fits"
+services:
+- redis-server
+before_script:
+- redis-cli info
+notifications:
+email:
+recipients:
+- "5200011-grp-34@ualberta.ca"
+on_success: "change"
+on_failure: "always"
