@@ -6,3 +6,4 @@ admin:
 user1:
   name: dit.application.test@ualberta.ca
   password: password
+file: "spec-views/files/test.txt"

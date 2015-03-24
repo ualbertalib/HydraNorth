@@ -19,4 +19,4 @@ module User
     @driver.get(@base_url+"/dashboard")
     verify { (@driver.find_element(:class, "hidden-xs").text.strip).should == @properties[user]['name'] }
   end
-
+end
