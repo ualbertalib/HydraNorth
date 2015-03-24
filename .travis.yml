@@ -10,7 +10,7 @@ services:
   - redis-server
 before_script:
   - redis-cli info
-  - bundle exec rake db:migrate db:seed
+  - bundle exec rake db:create db:migrate db:seed
   - bundle exec rake jetty:start
   - sleep 15
 after_script:
