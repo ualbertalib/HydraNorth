@@ -5,14 +5,19 @@ sudo: required
 rvm:
   - 2.1
 before_install:
-- export PATH="$PATH:$(pwd)/fits"
+  - export PATH="$PATH:$(pwd)/fits"
 services:
-- redis-server
+  - redis-server
 before_script:
-- redis-cli info
+  - redis-cli info
+  - rake db:migrate db:seed
+  - rake jetty:start
+  - sleep 15
+after_script:
+  - rake jetty:stop
 notifications:
-email:
-recipients:
-- "peter.binkley@ualberta.ca"
-on_success: "change"
-on_failure: "always"
+  email:
+  recipients:
+    - "peter.binkley@ualberta.ca"
+  on_success: "change"
+  on_failure: "always"
