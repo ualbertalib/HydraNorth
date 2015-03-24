@@ -1,23 +1,23 @@
 language: ruby
 cache: bundler
-bundler_args: --without development debug
+#bundler_args: --without development debug
 sudo: required
 rvm:
-  - 2.1
+  - 2.1.5
 before_install:
   - export PATH="$PATH:$(pwd)/fits"
 services:
   - redis-server
 before_script:
   - redis-cli info
-  - bundle exec rake db:create db:migrate db:seed
   - bundle exec rake jetty:start
-  - sleep 15
+  - sleep 60
+  - bundle exec rake db:setup
 after_script:
   - bundle exec rake jetty:stop
 notifications:
   email:
-  recipients:
-    - "peter.binkley@ualberta.ca"
-  on_success: "change"
-  on_failure: "always"
+    recipients:
+      - "peter.binkley@ualberta.ca"
+    on_success: "change"
+    on_failure: "always"
