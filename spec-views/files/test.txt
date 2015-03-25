@@ -50,11 +50,11 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 group :development, :test do
   gem "rspec-rails"
-  gem "selenium-webdriver"
   gem "jettywrapper"
   gem "capybara"
   gem "poltergeist", "~> 1.5"
   gem "factory_girl_rails"
   gem "database_cleaner"
+  gem "selenium-webdriver"
   gem "capybara-select2", github: "goodwill/capybara-select2"
 end

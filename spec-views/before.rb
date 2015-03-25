@@ -5,7 +5,7 @@ module Before
   def setup
 
   before(:all) do
-    @properties = YAML.load_file('properties.yml')
+    @properties = YAML.load_file('spec-views/properties.yml')
     @base_dir = Dir.pwd.to_s
     @download_dir = @base_dir + '/tmp/'
     @screenshots_dir = @base_dir + '/spec/reports/'
@@ -27,12 +27,11 @@ module Before
     # disable Adobe Acrobat PDF preview plugin
     profile["plugin.scan.plid.all"] = false
     profile["plugin.scan.Acrobat"] = "99.0"
-    
-    @driver = Selenium::WebDriver.for :firefox, :profile => profile
     @base_url = @properties['base_url']
     @accept_next_alert = true
-    @driver.manage.timeouts.implicit_wait = 30
     @verification_errors = []
+    @driver = Selenium::WebDriver.for :firefox, :profile => profile
+    @driver.manage.timeouts.implicit_wait = 30
   end
   sleep 10
 

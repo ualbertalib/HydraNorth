@@ -1,6 +1,9 @@
 ---
 base_url: "http://hydranorth.local"
-regular_user:
+admin:
   name: dittest@ualberta.ca
   password: password
-
+user1:
+  name: dit.application.test@ualberta.ca
+  password: password
+file: "spec-views/files/test.txt"
