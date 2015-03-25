@@ -1,4 +1,5 @@
 #!/bin/bash
 cd /var/www/sites/hydranorth && rake jetty:restart
-service resque-pool restart
+kill -9  `ps aux | grep [r]esque | grep -v grep | cut -c 10-16` # another way to stop all resque workers
+service resque-pool start
 service httpd restart
