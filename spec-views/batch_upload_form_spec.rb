@@ -16,7 +16,7 @@ describe "Batch Upload Form" do
 
   teardown
 
-  it "form is up" do 
+  it "form is up and submission can complete" do 
     @driver.get(@base_url + "/")
     @driver.find_element(:link, "Login").click
     verify { (@driver.current_url).should == @base_url+"/users/sign_in"}
@@ -64,17 +64,15 @@ describe "Batch Upload Form" do
     @driver.find_element(:id, "generic_file_related_url").send_keys "http://www.ualberta.ca"
     @driver.find_element(:id, "visibility_open").click
     @driver.find_element(:id, "upload_submit").click
-    i = 0 
-    begin
-      i += 1
-      sleep 60
+    for i in 0..5
+      sleep 30
       @driver.find_element(:id, "dashboard_sort_submit").click
-      resque=@driver.find_element(:class, "ss-"+file_id).displayed?
-      raise "Backend Resque Job has not finished yet" if resque
-         
-    rescue
-      retry unless i > 3
-    end  
+      processing = @driver.find_element(:id, "permission_"+file_id)
+      text = processing.find_element(:class, "label-success").text
+      break if text == "Open Access" 
+      puts "Resque job can't complete after 5 tries. Please check if Resque runs properly."
+    end
+
     
     a_id = "src_copy_link"+file_id 
     @driver.find_element(:id, a_id).click
