@@ -102,9 +102,13 @@ Sufia.config do |config|
   # Specify the Fedora pid prefix:
   # config.id_namespace = "sufia"
 
+  
+  # Specify the path to the minter-state file
+  config.minter_statefile = "tmp/minter-state"
+
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
-   config.fits_path = "/usr/local/bin/fits-0.6.2/fits.sh"
+  config.fits_path = "fits"
 
   # Specify how many seconds back from the current time that we should show by default of the user's activity on the user's dashboard
   # config.activity_to_show_default_seconds_since_now = 24*60*60

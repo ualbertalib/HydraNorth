@@ -5,28 +5,28 @@ describe 'catalog searching', :type => :feature do
   before(:all) do
     @gfP = GenericFile.new.tap do |f|
       f.title = ['Title P']
-      f.tag = ['p']
+      f.subject = ['p']
       f.apply_depositor_metadata('dituser')
       f.read_groups = ['public']
       f.save!
     end
     @gfQ = GenericFile.new.tap do |f|
       f.title = ['Title Q']
-      f.tag = ['q']
+      f.subject = ['q']
       f.apply_depositor_metadata('dituser')
       f.read_groups = ['public']
       f.save!
     end
     @gfR = GenericFile.new.tap do |f|
       f.title = ['Title R']
-      f.tag = ['r']
+      f.subject = ['r']
       f.apply_depositor_metadata('dituser')
       f.read_groups = ['public']
       f.save!
     end
     @gfS = GenericFile.new.tap do |f|
       f.title = ['Title S']
-      f.tag = ['p', 'q']
+      f.subject = ['p', 'q']
       f.apply_depositor_metadata('dituser')
       f.read_groups = ['public']
       f.save!
