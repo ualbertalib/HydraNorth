@@ -64,8 +64,18 @@ describe "Batch Upload Form" do
     @driver.find_element(:id, "generic_file_related_url").send_keys "http://www.ualberta.ca"
     @driver.find_element(:id, "visibility_open").click
     @driver.find_element(:id, "upload_submit").click
-    sleep 45
-    @driver.find_element(:id, "dashboard_sort_submit").click 
+    i = 0 
+    begin
+      i += 1
+      sleep 60
+      @driver.find_element(:id, "dashboard_sort_submit").click
+      resque=@driver.find_element(:class, "ss-"+file_id).displayed?
+      raise "Backend Resque Job has not finished yet" if resque
+         
+    rescue
+      retry unless i > 3
+    end  
+    
     a_id = "src_copy_link"+file_id 
     @driver.find_element(:id, a_id).click
     verify {@driver.current_url.should include @base_url + "/files/"+file_id}

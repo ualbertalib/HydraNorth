@@ -1,2 +1,5 @@
+<% unless record.language.nil? %>  
+
   <span itemprop="inLanguage"><%= link_to_facet(record.language, Solrizer.solr_name("language", :facetable)) %></span><br />
 
+<% end %>
