@@ -1,0 +1,13 @@
+#!/bin/bash
+bundle exec rake jetty:stop
+bundle exec rake jetty:clean
+bundle exec rake sufia:jetty:config
+bundle exec rake jetty:start
+redis-cli flushall
+# wait for jetty to be available on port 8983
+sleep 30
+bundle exec rake db:reset
+service httpd restart
+# kill old resque workers
+kill -9 `ps aux | grep [r]esque | grep -v grep | cut -c 10-16`
+service resque-pool start

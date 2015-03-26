@@ -5,8 +5,8 @@ Dependencies:
 (see https://code.library.ualberta.ca/hg/ansible-dev/hydranorth.yml for authoritative list)
 * Rails application stack
   * ruby (2.1.5) /rails (4.1.8) /bundler (1.6.0)
-  * httpd 
-  * passenger 
+  * httpd
+  * passenger
 * microservices
  * fits
  * redis
@@ -28,8 +28,8 @@ To Install Application:
 ansible-playbook hydranorth.yml
 ```
 This assumes that you've created a hosts inventory with a hydranorth group.  If not consider
- using the vagrant or dev inventories that exist 
- 
+ using the vagrant or dev inventories that exist
+
  ```ansible-playbook -i vagrant hydranorth.yml```
 
 If you're using Vagrant the easiest path is to
@@ -44,6 +44,7 @@ To Run Tests:
 
 To Restart Components
 ---
+The shell script `bin/restart-all` runs these commands:
 * Jetty
  * ```cd /var/www/sites/hydranorth && rake jetty:restart```
 * Resque/Redis
@@ -53,8 +54,9 @@ To Restart Components
 
 To Reset Components
 ---
+The shell script `bin/reset-all` runs these commands:
  * Jetty
- 
+
 ```
   rake jetty:stop
   rake jetty:clean
