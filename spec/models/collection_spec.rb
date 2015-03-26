@@ -63,5 +63,10 @@ describe Collection do
   it 'returns false for processing?' do
     expect(subject.processing?).to be_falsey
   end
+  
+  it "should have a fedora3 foxml datastream" do
+    subject.add_file(File.open(fixture_path + '/foxml.xml'), path: 'fedora3foxml', original_name: 'foxml.xml')
+    expect(subject.fedora3foxml).to be_kind_of Fedora3FoxmlDatastream
+  end
 
 end

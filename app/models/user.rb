@@ -24,4 +24,28 @@ class User < ActiveRecord::Base
   def admin?
     groups.include? 'admin'
   end
+  def valid_password?(password)
+    if self.legacy_password.present?
+      if ::Digest::MD5.hexdigest(password) == self.legacy_password
+        if password.length >= 8
+          self.password = password
+          self.legacy_password = nil
+          self.save!
+          true
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      super
+    end
+  end
+
+  def reset_password!(*args)
+    self.legacy_password = nil
+    super
+  end
+  
 end

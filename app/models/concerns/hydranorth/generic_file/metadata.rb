@@ -1,4 +1,4 @@
-require "./lib/rdf_vocabularies/dams"
+require "./lib/rdf_vocabularies/ualterms"
 
 module Hydranorth 
   module GenericFile
@@ -9,10 +9,10 @@ module Hydranorth
         property :license, predicate: ::RDF::DC.license, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :trid, predicate: ::DamsVocabulary.trid, multiple: false do |index|
+        property :trid, predicate: ::UALTerms.trid, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
-        property :ser, predicate: ::DamsVocabulary.ser, multiple: false do |index|
+        property :ser, predicate: ::UALTerms.ser, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
         
@@ -22,7 +22,7 @@ module Hydranorth
 
         property :spatial, predicate: ::RDF::DC.spatial, multiple:false do |index|
           index.as :stored_searchable, :facetable
-	end
+      	end
 
         property :is_version_of, predicate: ::RDF::DC.isVersionOf, multiple:false do |index|
           index.as :stored_searchable
@@ -30,6 +30,26 @@ module Hydranorth
 
         property :hasCollection, predicate: ::DamsVocabulary.hasCollection do |index|
           index.as :symbol, :stored_searchable
+
+        end
+        property :unicorn, predicate: ::UALTerms.unicorn, multiple: false do |index|
+          index.as :stored_searchable
+        end
+       
+        property :proquest, predicate: ::UALTerms.proquest, multiple: false do |index|
+          index.as :stored_searchable
+        end
+
+        property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
+          index.as :stored_searchable
+        end
+
+        property :fedora3handle, predicate: ::UALTerms.fedora3handle, multiple: false do |index|
+          index.as :stored_searchable
+        end
+
+        property :ingestbatch, predicate: ::UALTerms.ingestbatch, multiple: false do |index|
+          index.as :stored_searchable
         end
 
       end
