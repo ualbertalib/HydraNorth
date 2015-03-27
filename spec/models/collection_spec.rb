@@ -4,6 +4,13 @@ describe Collection do
 
   let(:reloaded_subject) { Collection.find(subject.id) }
   let(:user) { FactoryGirl.create(:user) }
+  let(:file) do
+    GenericFile.create do |f|
+      f.add_file(File.open(fixture_path + '/world.png'), path: 'content', original_name: 'world.png')
+      f.apply_depositor_metadata(user.user_key)
+    end
+  end
+  let(:another_collection) { FactoryGirl.create(:collection) }
 
   before do
     subject.title = 'A title'
@@ -33,8 +40,24 @@ describe Collection do
     expect(reloaded_subject.members).to eq []
   end
 
-  it 'returns [] for file_size' do
-    expect(subject.file_size).to eq []
+  it 'returns 0 bytes for empty collection' do
+    expect(subject.bytes).to eq 0 
+  end
+
+  it 'returns 0 bytes for member collection' do
+    subject.members << another_collection
+    expect(subject.bytes).to eq 0 
+  end
+
+  it 'returns bytes for member file' do
+    subject.members << file
+    expect(subject.bytes).to eq 4218 
+  end
+
+  it 'returns bytes for collections and files' do
+    subject.members << another_collection
+    subject.members << file
+    expect(subject.bytes).to eq 4218 
   end
 
   it 'returns false for processing?' do
