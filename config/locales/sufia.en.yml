@@ -173,6 +173,7 @@ en:
         temporal:         "Is this item about a time?"
         spatial:          "Is this item about a place?"
         source:           "Source"
+        is_version_of:    "Citation for previous publication"
       collection:
         description:      "Abstract or Summary"
         subject:          "Subject/Keyword"
