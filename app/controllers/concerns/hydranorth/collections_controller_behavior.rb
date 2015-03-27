@@ -3,10 +3,9 @@ module Hydranorth
     extend ActiveSupport::Concern
     include Sufia::CollectionsControllerBehavior
 
-
     def show
-      if current_user.group_list == 'admin'
-        self.solr_search_params_logic -= [:add_access_controls_to_solr_params]
+      if current_user.admin?
+        self.search_params_logic -= [:add_access_controls_to_solr_params]
       end
     
       super

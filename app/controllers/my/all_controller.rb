@@ -2,7 +2,7 @@ module My
   class AllController < MyController
 
     def index
-      self.solr_search_params_logic += [
+      self.search_params_logic += [
         :show_only_generic_files
       ]  
       super
