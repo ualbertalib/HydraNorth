@@ -1,0 +1,6 @@
+<% if f.object.class.multiple? key %>
+  <%= f.input :is_version_of, as: :multi_value_with_help, input_html: { rows: '5', type: 'textarea'}, required: false %>
+<% else %>
+  <%= f.input :is_version_of, as: :single_text_with_help, input_html: { rows: '5', type: 'textarea' } %>
+<% end %>
+

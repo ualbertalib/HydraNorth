@@ -32,6 +32,7 @@ Sufia.config do |config|
     "Book Chapter" => "Book Chapter",
     "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
     "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
+    "Dataset" => "Dataset", 
     "Image" => "Image",
     "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
     "Journal Article (Published)" => "Journal Article (Published)",
@@ -46,6 +47,7 @@ Sufia.config do |config|
     "Book Chapter" => "http://schema.org/Book",
     "Conference\/Workshop Poster" => "http://schema.org/CreativeWork",
     "Conference\/Workshop Presentation" => "http://schema.org/CreativeWork",
+    "Dataset" => "http://schema.org/Dataset",
     "Image" => "http://schema.org/ImageObject",
     "Journal Article (Draft-Submitted)" => "http://schema.org/Article",
     "Journal Article (Published)" => "http://schema.org/Article",
@@ -102,13 +104,9 @@ Sufia.config do |config|
   # Specify the Fedora pid prefix:
   # config.id_namespace = "sufia"
 
-  
-  # Specify the path to the minter-state file
-  config.minter_statefile = "tmp/minter-state"
-
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
-  config.fits_path = "fits"
+   config.fits_path = "/usr/local/bin/fits-0.6.2/fits.sh"
 
   # Specify how many seconds back from the current time that we should show by default of the user's activity on the user's dashboard
   # config.activity_to_show_default_seconds_since_now = 24*60*60
