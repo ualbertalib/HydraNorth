@@ -3,8 +3,13 @@ source 'https://rubygems.org'
 # Use database to store sessions
 gem 'activerecord-session_store'
 
-gem 'sufia', '6.0.0.rc4' 
-gem 'kaminari', github: 'harai/kaminari', branch: 'route_prefix_prototype'  # required to handle pagination properly in dashboard. See https://github.com/amatsuda/kaminari/pull/322
+# Avoid cannot load such file -- google/api_client
+gem 'google-api-client', '~> 0.7.1'
+
+gem 'sufia', '~> 6.0.0' 
+gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
+gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 
@@ -30,7 +35,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
