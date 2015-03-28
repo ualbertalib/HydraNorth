@@ -172,6 +172,7 @@ en:
         related_url:      "Link to related item"
         temporal:         "Is this item about a time?"
         spatial:          "Is this item about a place?"
+        is_version_of:    "Citation for previous publication"
         source:           "Source"
       collection:
         description:      "Abstract or Summary"
