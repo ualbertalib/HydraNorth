@@ -32,7 +32,7 @@ Sufia.config do |config|
     "Book Chapter" => "Book Chapter",
     "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
     "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
-    "Dataset" => "Dataset",
+    "Dataset" => "Dataset", 
     "Image" => "Image",
     "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
     "Journal Article (Published)" => "Journal Article (Published)",
