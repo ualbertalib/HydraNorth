@@ -175,10 +175,9 @@ en:
         is_version_of:    "Citation for previous publication"
         source:           "Source"
       collection:
-        description:      "Abstract or Summary"
+        description:      "Description"
         subject:          "Subject/Keyword"
         date_created:     "Date Created"
-        related_url:      "Related URL"
         total_items:      "Total Items"
         size:             "Size"
 
@@ -204,6 +203,11 @@ en:
         source: "Brief information about a physical item from which this item was derived."
         is_version_of: "If your item has been previously published, provide a citation"
         related_url: "must be a url - example: http://www.ualberta.ca"
+      collection:
+        title: "A name for the collection to aid in identifying it. &lt;em&gt;This is a required field&lt;/em&gt;."
+        description: "Free-text notes about the collection. "
+        creator_html: "The person or group responsible for the file being uploaded. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot; &lt;em&gt;This is a required field&lt;/em&gt;."
+        resource_type_html: "Pre-defined categories to describe the type of file content included in the collection, such as &quot;article&quot; or &quot;dataset.&quot."
 
     aria_label:
       generic_file:
@@ -212,6 +216,9 @@ en:
         description: "Usage information for abstract or summary"
         tag: "Usage information for keyword"
         rights: "Usage information for rights"
+        license: "Usage information for license"
+      collection:
+        license: "Usage information for license"
 
   hydranorth:
     dashboard:

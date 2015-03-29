@@ -1,0 +1,3 @@
+ <%= f.input :license, as: :select_with_modal_help, collection: Sufia.config.cc_licenses,
+          input_html: { class: 'form-control', required: true }, include_blank: true %>
+ <%= render "collections/license_modal" %>
