@@ -214,10 +214,11 @@ en:
         default: "Usage information for %{title}"
         based_near: "Usage information for location"
         description: "Usage information for abstract or summary"
-        tag: "Usage information for keyword"
+        subject: "Usage information for keyword"
         rights: "Usage information for rights"
         license: "Usage information for license"
       collection:
+        default: "Usage information for %{title}" 
         license: "Usage information for license"
 
   hydranorth:
