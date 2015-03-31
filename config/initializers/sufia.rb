@@ -68,7 +68,14 @@ Sufia.config do |config|
     "Other" => "other",
   }
 
+  config.cstr_collection_id = "6q182p35f"
+  config.ser_collection_id = "6q182p36q"
 
+  config.special_reports = {
+    "cstr" => "Computing Science Technical Report",
+    "ser" => "Structural Engineering Report",
+  }
+ 
   config.permission_levels = {
     "Choose Access"=>"none",
     "View/Download" => "read",
