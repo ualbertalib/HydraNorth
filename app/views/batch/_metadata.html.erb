@@ -10,6 +10,19 @@
           <div id="additional_title_clone">
             <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: gen_f.label, class: 'form-control', required: true %>
           </div>
+           <% if @form[:resource_type].include? Sufia.config.special_reports['cstr'] %>
+
+
+            <%= f.input_label :trid, as: :multi_value_with_help, label: "Computing Science Technical Report ID #{index + 1}" %>
+            <div id="additional_title_clone">
+              <%= f.text_field :trid, name: "trid[#{gen_f.id}][]", class: 'form-control', required: true %>
+            </div>
+          <% end %>
+          <% if @form[:resource_type].include? Sufia.config.special_reports['ser'] %>
+            <%= f.input_label :ser, as: :multi_value_with_help, label: "Structural Engineering Report Number #{index + 1}" %>
+            <div id="additional_title_clone">
+              <%= f.text_field :ser, name: "ser[#{gen_f.id}][]", class: 'form-control', required: true %>
+            </div>
         </div>
       <% end %>
     </div>
