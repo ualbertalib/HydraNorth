@@ -11,8 +11,11 @@ class BatchUpdateJob
   def initialize(login, batch_id, title, trid, ser, file_attributes, visibility)
     self.login = login
     self.title = title || {}
-    self.trid = trid if trid.present?
-    self.ser = ser if ser.present?
+    if trid.present?
+      self.trid = trid
+    elsif ser.present?
+      self.ser = ser
+    end
     self.file_attributes = file_attributes
     self.visibility = visibility
     self.batch_id = batch_id
@@ -44,8 +47,11 @@ class BatchUpdateJob
     end
     gf.title = title[gf.id] if title[gf.id]
     gf.attributes = file_attributes
-    gf.trid = trid[gf.id] if (trid.present? && trid[gf.id])
-    gf.ser = ser[gf.id] if (ser.present? && ser[gf.id])
+    if (trid.present? && trid[gf.id])
+      gf.trid = trid[gf.id]
+    elsif (ser.present? && ser[gf.id])
+      gf.ser = ser[gf.id]
+    end
     gf.visibility= visibility
     save_tries = 0
     begin
