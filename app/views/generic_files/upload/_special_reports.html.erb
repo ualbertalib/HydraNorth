@@ -4,5 +4,6 @@
   <%= label_tag :resource_type, 'Computing Science Technical Report' %>
   <%= radio_button_tag :resource_type, 'Structural Engineering Report' %>
   <%= label_tag :resource_type, 'Structural Engineering Report' %>
-  <%= button_tag "Reset", type: :reset %>  
+  <%= button_tag "Clear", class: 'btn btn-warning cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
+
 </div>
