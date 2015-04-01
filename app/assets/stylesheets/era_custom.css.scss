@@ -1,0 +1,262 @@
+html{
+	height: 100%;
+}
+body{
+	font-family: 'Abel', serif;
+	height: 100%;
+	margin: 0;
+	font-size: 14px;
+}
+h1, h2{
+	font-family: 'Playfair Display', serif;
+}
+.front-images{
+	margin: 0px 40px;
+	height: 85%;
+	overflow: hidden;
+}
+.branding{
+	position: absolute;
+	top:70px;
+	left:50%;
+	transform: translate(-50%);
+	z-index: 500;
+	text-align: center;
+}
+.branding>h1{
+	font-size: 150px;
+	font-weight: bold;
+	letter-spacing: -9px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+.branding>h1:hover{
+	color: #3e4a2e;
+}
+.branding>h2{
+	font-size: 22px;
+	text-align: center;
+	padding: 0;
+	margin: -5px 0 0 20px;
+}
+.lib-logo{
+	padding-bottom: 6px;
+	padding-top: 8px;
+}
+.lib-logo .btn{
+	float: right;
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 5px;
+}
+.lib-logo .btn span{
+	margin-left: -5px;
+}
+.slides{
+	background-size: cover;
+	height: 100%;
+	opacity: 0.8;
+	text-align: center;
+}
+#slide1{
+	background-image: url('slide.jpg');
+}
+#slide2{
+	background-image: url('slide2.jpg');
+}
+.call-to-action{
+	padding: 4px 10px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.6);
+	font-size: 23px;
+	letter-spacing: 1px;
+	color: #fff;
+	margin-top: 50%;
+	text-align: center;
+	display: inline-block;
+}
+.call-to-action:hover{
+	color: #efefef;
+	background-color: #000;
+	text-decoration: none;
+}
+.query{
+	font-size: 20px;
+	margin-top: -7px;
+}
+.more-info{
+	background-color: rgba(0, 0, 0, 0.8);
+	position: absolute;
+	bottom:58px;
+	height: 40px;
+	color: #fff;
+	padding: 10px;
+	text-align: left;
+}
+.more-info>h4{
+	margin: 0 0 0 40px;
+	padding: 0;
+}
+.more-info>h4>a{
+	color: #b5fd99;
+}
+.dn-wrap{
+	width: 90px;
+	height:90px;
+	left:50%;
+	transform: translate(-50%, -50%);
+	top:86.5%;
+	position: absolute;
+	text-align: center;
+	z-index: 1000;
+}
+.triangle{
+	width: 0; 
+	height: 0; 
+	border-left: 45px solid transparent;
+	border-right: 45px solid transparent;
+	border-bottom: 45px solid white;
+	
+}
+.dn{
+	z-index: 1100;
+	margin-top: -27px;
+}
+.grid{
+	background-color: #ebe8e5;
+	margin-top: 60px;
+}
+.boxes{
+	margin: 0 40px 30px 40px;
+}
+
+.boxes>.first-row{
+	padding-bottom:30%;
+	border: solid 5px #ebe8e5;
+	border-width: 10px 5px 5px 5px;
+}
+.boxes>.second-row{
+	padding-bottom:22.5%;
+	border: solid 5px #ebe8e5;
+	border-width: 5px 5px 10px 5px;
+}
+
+.boxes>div>div{
+	position: absolute;
+
+}
+.dark-tan{
+	background-color: #d7d2cb;
+}
+.dark-tan:hover{
+	background-color: #c3beb6;
+}
+.second{
+	background-color: #555;
+}
+.white{
+	background-color: #fff;
+}
+.blue{
+	background-color: #2d353d;
+}
+.blue p{
+	color: #fff;
+	font-size: 150%;
+	padding: 8%;
+	line-height: 1.7;
+}
+.blue:hover{
+	background-color: #22292f;
+}
+.northern, .researcher{
+	background-image: url('northern.jpg');
+	background-size:cover;
+	background-position:center;
+	height: 100%;
+	width: 100%;
+	margin-left:-15px;
+}
+.researcher{
+	background-image: url('researcher.jpg');
+}
+.whatsin{
+	background-image: url('whatsin.jpg');
+	height: 100%;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: 40px 50px;
+}
+.mandate{
+	padding: 15% 10%;
+	font-family: 'Playfair Display', serif;
+	font-size: 26px;
+	font-size: 1.9vw;
+	line-height: 1.7;
+}
+.show-info{
+	background-color: rgba(0, 0, 0, 0.7);
+	height: 100%;
+	width: 100%;
+	color: #fff;
+	padding:10px 40px;
+	font-size: 20px;
+	display:none;
+	text-align: center;
+}
+.show-info a{
+	background-color: #fff;
+	padding: 5px 10px;
+	background-color: #000;
+	border: 3px solid #b5fd99;
+	color: #fff;
+	display: inline-block;
+	margin-top: 10px;
+}
+.show-info a:hover{
+	color: #b5fd99;
+	text-decoration: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	}
+.show-info p{
+	font-size: 18px;
+	line-height: 30px;
+	font-weight: normal;
+}
+.show-info h4{
+	color: #b5fd99;
+	letter-spacing: 1px;
+	font-size: 14px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #fff;
+}
+.pane{
+	padding: 20px 40px 80px 40px;
+}
+
+.dark{
+	background-color: #2d353d;
+	color: #fff;
+	height: 300px;
+}
+.tweets{
+	padding:6%;
+	font-size: 13px;
+	background-image:url('twitter-logo.png');
+	background-position: 10px 20px;
+	background-repeat: no-repeat;
+	min-height: 100px;
+	min-width: 100px;
+}
+.tweets ul{
+	margin: 0px;
+	padding: 20px;
+}
+.tweets ul li{
+	list-style: none;
+	margin: 15px 0;
+	padding: 0;
+	font-size: 14px;
+}
+

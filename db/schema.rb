@@ -299,8 +299,6 @@ ActiveRecord::Schema.define(version: 20150325172313) do
     t.string   "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "orcid"
-    t.integer  "failed_attempts",        default: 0
-    t.string   "unlock_token"
     t.datetime "locked_at"
   end
 
