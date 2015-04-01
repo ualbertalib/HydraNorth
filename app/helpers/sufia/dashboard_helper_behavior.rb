@@ -40,6 +40,14 @@ module Sufia
       params[:controller].match(/^my\/files/)
     end
 
+    def on_my_collections?
+      params[:controller].match(/^my\/collections/)
+    end
+
+    def on_my_highlights?
+      params[:controller].match(/^my\/highlights/)
+    end
+
     def all_my_files?
       params[:controller].match(/^my\/all/)
     end
