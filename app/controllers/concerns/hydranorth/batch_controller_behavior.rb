@@ -25,12 +25,10 @@ module Hydranorth
       resource_type = @batch.generic_files.map(&:resource_type).flatten
       if resource_type.include? Sufia.config.special_reports['cstr']
         @collection = Collection.find(Sufia.config.cstr_collection_id)
+        add_to_collection
       elsif resource_type.include? Sufia.config.special_reports['ser']
         @collection = Collection.find(Sufia.config.ser_collection_id)
-      end
-      @batch.generic_files.each do |gf|
-        @collection.member_ids = @collection.member_ids.push(gf.id)
-        @collection.save
+        add_to_collection
       end
       file_attributes = Hydranorth::Forms::BatchEditForm.model_attributes(params[:generic_file])
       Sufia.queue.push(BatchUpdateJob.new(current_user.user_key, params[:id], params[:title], params[:trid], params[:ser], file_attributes, params[:visibility]))
@@ -43,6 +41,13 @@ module Hydranorth
     end
 
     protected
+    def add_to_collection
+      @batch.generic_files.each do |gf|
+      @collection.member_ids = @collection.member_ids.push(gf.id)
+      @collection.save
+    end
+ 
+    end
     def edit_form
       generic_file = ::GenericFile.new(creator: [current_user.name], title: @batch.generic_files.map(&:label))
       resource_type = @batch.generic_files.map(&:resource_type).flatten
