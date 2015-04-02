@@ -40,7 +40,7 @@
         <a href="#" class="call-to-action">Share Your Research</a>
         <div class="row">
           <div class="col-md-12 more-info">
-           <h4>Get <a href="#">help</a> or <a href="#">more information</a> about this service.</h4>
+           <h4>Get <a href="#">help</a> or <a href="#info">more information</a> about this service.</h4>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
           <div class="show-image northern"><div class="show-info"><h4>Highlighed Collection</h4><h2>Northern North America Collection</h2><p>These images were donated to the University of Alberta by Dr. Joel Martin Halpern, a prominent anthropologist who did extensive work in the northern parts of North America.</p><a href="#">go to collection</a></div></div>
         </div>
         <div class="col-md-4 dark-tan first-row">
-          <div class="text"><p class="mandate">Our Mandate is to <em>Collect</em>, <em>Distribute</em> &amp; <em>Preserve</em> the intellectual work of the University of Alberta&hellip;</p></div>
+          <div class="text"><p class="mandate">Our Mandate is to <em>Collect</em>, <em>Distribute</em> &amp; <em>Preserve</em> the intellectual work of the University of Alberta.</p></div>
         </div>
          <div class="col-md-4 first-row">
           <div class="show-image researcher"> <div class="show-info"><h4>Researcher Profile</h4><h2>Joanne McNeal</h2><p>Joanne McNeal learned about Arctic life and cultures during her career working at colleges in the Northwest Territories and the Yukon. </p><a href="#">go to Joanne's profile</a></div></div>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="col-md-3 blue second-row">
-          <div><p>ERA is built on Hydra, an open source technical framework for repositories. Hydra is a large, multi-institutional collaboration&hellip;</p></div>
+          <div class="technical-info"><p>ERA is built on Hydra, an open source technical framework for repositories. Hydra is a large, multi-institutional collaboration.</p></div>
         </div>
         <div class="col-md-4 dark-tan second-row">
           <div class="tweets"></div>
@@ -69,7 +69,15 @@
        
     </div>
   </div>
-   
+    <div class="container-fluid info-pane pane">
+      <h2><a name="info">The Vision for DAMS</a></h2>
+      <h3>(Digital Asset Management System)</h3>
+
+<p>The University of Alberta Libraries will support a trustworthy Digital Asset Management System (DAMS), which represents a consolidated access, discovery and preservation software/technology stack. Characteristics of our stack include: scalability, extensibility, predictability, stability, and very importantly &mdash; community-based support. </p>
+
+<p>Hydra utilizes Fedora and Blacklight within a Ruby on Rails development framework (all open source), thus consolidating our technology stack to fewer technologies that are better supported by a broad, highly-skilled professional community of which we are a part. Leveraging the Hydra community to support core infrastructure frees us  to better invest our time into helping propel not just ourselves, but the entire cohort forward by spending less time on “the basics” and more time on the research and development of much needed, richer features and functions that can be merged back into the communal codebase and in turn benefit the community. </p>
+      
+    </div>
     <%= render partial: "/footer" %>
 <%= render 'shared/ajax_modal' %>
 </body>

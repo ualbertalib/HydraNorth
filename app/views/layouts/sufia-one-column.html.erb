@@ -3,25 +3,21 @@
   <head>
     <%= render partial: 'layouts/head_tag_content' %>
   </head>
-
-<body>
-<div  id="wrapper">
-  <div class="container-fluid">
-    <div id="page-positioner">
+  <body>
+    <div class="container-fluid">
       <%= render partial: '/masthead' %>
-      <%= render partial: '/controls' %>
-      <%= render partial: '/flash_msg' %>
-      <div id="content-wrapper" class="container-fluid">
+    </div>
+    <div class="tan container-fluid">
+      <div class="container main">
         <div id="content" class="row">
+          <%= render partial: '/flash_msg' %>
           <div class="col-xs-12">
             <%= yield %>
           </div>
         </div><!-- /#content -->
       </div><!-- /#content-wrapper -->
-      <%= render partial: '/footer' %>
-    </div><!-- /#page-positioner -->
-  </div><!-- /.container -->
-</div><!-- /#wrapper -->
-<%= render 'shared/ajax_modal' %>
-</body>
+    </div>
+    <%= render partial: '/footer' %>
+    <%= render 'shared/ajax_modal' %>
+  </body>
 </html>
