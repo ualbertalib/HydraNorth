@@ -44,7 +44,6 @@ ser = Collection.find_or_create_with_type("Structural Engineering Report").tap d
 end
 ser.save!
 config = File.open("config/initializers/sufia.rb", &:read)
-config = config.gsub(/#?(config.cstr_collection_id = ")/, '\1'+cstr.id)
-config = config.gsub(/#?(config.ser_collection_id = ")/, '\1'+ser.id)
-puts config  
+config = config.gsub(/#?\s*(config.cstr_collection_id = ")/, '\1'+cstr.id)
+config = config.gsub(/#?\s*(config.ser_collection_id = ")/, '\1'+ser.id)
 File.write("config/initializers/sufia.rb", config)
