@@ -6,17 +6,45 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-admin = User.new({
+
+# HYDRANORTH - PLEASE NOTE:
+# When adding new initial data 
+# please make sure you use methods or conditions to avoid duplication of the data/record
+# as rake db:seed may be run after the initial setup
+
+
+if !User.find_by_user_key("dittest@ualberta.ca")
+
+  admin = User.new({
       :email => "dittest@ualberta.ca",
       :password => "password",
       :password_confirmation => "password",
       :group_list => "admin" # this is the important part
-    })
+    }) unless User.find_by_user_key("dittest@ualberta.ca")
 
-admin.skip_confirmation!
-admin.save!
+  admin.skip_confirmation!
+  admin.save!
+end
 
-theses = Collection.new(title: "Theses").tap do |c|
+# IDs of the collections created below will be added to config/initializers/sufia.rb
+# please restart httpd after rake db:seed
+
+theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
 end
 theses.save!
+
+cstr = Collection.find_or_create_with_type("Computing Science Technical Report").tap do |c|
+  c.apply_depositor_metadata("dittest@ualberta.ca")
+end
+cstr.save!
+
+ser = Collection.find_or_create_with_type("Structural Engineering Report").tap do |c|
+  c.apply_depositor_metadata("dittest@ualberta.ca")
+end
+ser.save!
+config = File.open("config/initializers/sufia.rb", &:read)
+config = config.gsub(/#?(config.cstr_collection_id = ")/, '\1'+cstr.id)
+config = config.gsub(/#?(config.ser_collection_id = ")/, '\1'+ser.id)
+puts config  
+File.write("config/initializers/sufia.rb", config)
