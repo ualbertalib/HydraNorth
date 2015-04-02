@@ -3,7 +3,7 @@ module Hydranorth
     class CollectionEditForm
       include HydraEditor::Form
       self.model_class = ::Collection
-      self.terms = [:title, :creator, :description, :license]
+      self.terms = [:title, :resource_type, :creator, :description, :license]
       self.required_fields = [:title, :license ]
       # Test to see if the given field is required
       # @param [Symbol] key a field
