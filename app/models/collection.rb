@@ -25,6 +25,22 @@ class Collection < Sufia::Collection
 
   def processing?
     false
+
+  def self.find_or_create_with_type(resource_type) 
+    cols = []
+    Collection.all.each do |c| 
+      cols << c if c[:resource_type].include? resource_type 
+    end
+    begin 
+      case cols.length.to_s
+      when "1"
+        cols.first
+      when "0" 
+        Collection.new(title: resource_type + " Collection", resource_type: [resource_type])
+      else
+        raise "More than one #{resource_type} collection exists."
+      end
+    end
   end
 
 end
