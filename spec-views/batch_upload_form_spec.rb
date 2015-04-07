@@ -77,16 +77,15 @@ describe "Batch Upload Form" do
     a_id = "src_copy_link"+file_id 
     @driver.find_element(:id, a_id).click
     verify {@driver.current_url.should include @base_url + "/files/"+file_id}
-    verify { (@driver.find_element(:id, "permission_"+file_id).text).should == "Open Access"}
-    verify { @driver.find_element(:xpath, "//th[contains(text(), 'Type of Item')]/parent::tr/td/a").text.should == "Research Material" }
-    verify { @driver.find_element(:xpath, "//th[contains(text(), 'Title')]/parent::tr/td/span").text.should == "Test Doc from Selenium" }
+    verify { (@driver.find_element(:id, "permission_"+file_id).text).should == "Open Access" }
+    verify { (@driver.find_element(:css, "dd").text).should == "Research Material" }
+    verify { (@driver.find_element(:css, "h1.visibility").text).should == "Test Doc from Selenium Open Access" }
     verify { @driver.find_element(:xpath, "//span[@itemprop = 'creator']/span/a").text.should == @properties['admin']['name'] }
 
     verify { @driver.find_element(:xpath, "//span[@itemprop = 'contributor']/span/a").text.should == @properties['user1']['name'] }
-    verify { @driver.find_element(:xpath, "//span[@itemprop = 'description']").text.should == "Test description for the test object" }
     verify { @driver.find_element(:xpath, "//span[@itemprop = 'dateCreated']").text.should == "2015/03/23" }
-    verify { @driver.find_element(:xpath, "//th[contains(text(), 'Choose a license')]/parent::tr/td/a").text.should == "Public Domain Mark 1.0" }
     verify { @driver.find_element(:xpath, "//span[contains(@itemprop, 'about')]/span/a").text.should == "Test Text" }
+    verify { (@driver.find_element(:link, "Public Domain Mark 1.0").text).should == "Public Domain Mark 1.0" }
     verify { @driver.find_element(:xpath, "//span[contains(@itemprop, 'spatial')]").text.should == "Calgary, Alberta, Canada" }
     verify { @driver.find_element(:xpath, "//span[contains(@itemprop, 'temporal')]").text.should == "2015" }
     verify { @driver.find_element(:xpath, "//span[contains(@itemprop, 'source')]").text.should == "test source" }
