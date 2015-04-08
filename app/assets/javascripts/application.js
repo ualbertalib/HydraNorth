@@ -18,5 +18,3 @@
 //= require_tree .
 //
 //= require sufia
-//= require jquery.hoverIntent.min
-//= require custom
