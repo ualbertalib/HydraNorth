@@ -15,8 +15,8 @@
     </div>
     <div class="container-fluid front-images">
       <div class="row">
-        <div class="col-md-12 lib-logo">
-          <%= link_to (image_tag "lib-logo.jpg", :alt => "University of Alberta Libraries Logo"), "https://library.ualberta.ca"%>
+        <div class="col-md-12 lib-logo" id="home-logo">
+          <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
          
           <a class="btn btn-default btn-group" href="/users/sign_in" title="Login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> LOGIN</a>
         </div>
@@ -30,6 +30,7 @@
           </div>
           <button type="submit" class="call-to-action">Search ERA</button>
         </form>
+        <a href="/advanced" class="advanced">Advanced Search</a>
         <div class="row">
           <div class="col-md-12 more-info" id="browse">
            <h4>Or browse <a href="#">Collections</a>, <a href="#">Subjects</a>, <a href="#">Communities</a>, or <a href="#">formats</a></h4>
