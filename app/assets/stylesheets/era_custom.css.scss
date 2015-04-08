@@ -1,3 +1,4 @@
+
 * {
 margin: 0;
 }
@@ -9,6 +10,7 @@ body{
 	height: 100%;
 	margin: 0;
 	font-size: 16px;
+
 }
 h1, h2{
 	font-family: 'Playfair Display', serif;
@@ -107,6 +109,10 @@ h1, h2{
 	background-color: #000;
 	text-decoration: none;
 }
+.call-to-action:active, .call-to-action:visited, .call-to-action:link{
+	text-decoration: none;
+	color: #efefef;
+	}
 .advanced{
 	background-color: #fff;
 	display: inline-block;
@@ -384,8 +390,8 @@ h1, h2{
 	display: inline;
 }
 .mast-branding ul>li>a{
-	padding: 8px 24px;
-	font-size: 110%;
+	padding: 8px 18px;
+	font-size: 105%;
 
 	display: inline-block;
 }
@@ -421,3 +427,8 @@ h1, h2{
 	list-style: none;
 }
 
+/*dashboard styles*/
+
+.dashboard .panel-default > .dashboard-panel {
+  background-color: #2d353d;
+}
