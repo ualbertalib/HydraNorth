@@ -1,3 +1,6 @@
+* {
+margin: 0;
+}
 html{
 	height: 100%;
 }
@@ -9,6 +12,16 @@ body{
 }
 h1, h2{
 	font-family: 'Playfair Display', serif;
+}
+.wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -260px;
+}
+.footer, .push {
+	height: 260px;
+	clear:both;
 }
 .front-images{
 	margin: 0px 7%;
@@ -40,18 +53,31 @@ h1, h2{
 	padding: 0;
 	margin: -5px 0 0 20px;
 }
-.lib-logo{
+.lib-logo a.logo{
+	margin-top: 20px;
 	padding-bottom: 6px;
 	padding-top: 8px;
+	background-image: url('lib-logo.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	display: inline-block;
+	height: 40px;
+	width: 250px;
+}
+.lib-logo a.logo:hover{
+	background-position: 0px -45px;
 }
 .lib-logo .btn{
 	float: right;
 	font-size: 16px;
 	font-weight: bold;
-	margin-top: 5px;
+	margin-top: 10px;
 }
 .lib-logo .btn span{
 	margin-left: -5px;
+}
+#home-logo a.logo{
+	margin-top: 10px;
 }
 .slides{
 	background-size: cover;
@@ -81,6 +107,16 @@ h1, h2{
 	background-color: #000;
 	text-decoration: none;
 }
+.advanced{
+	background-color: #fff;
+	display: inline-block;
+	padding: 0px 16px;
+	margin-left: 210px;
+}
+.advanced:hover{
+	background-color: #efefef;
+	text-decoration: none;
+}
 .query{
 	font-size: 20px;
 	margin-top: -7px;
@@ -88,7 +124,7 @@ h1, h2{
 .more-info{
 	background-color: rgba(0, 0, 0, 0.8);
 	position: absolute;
-	bottom:58px;
+	bottom:56px;
 	height: 40px;
 	color: #fff;
 	padding: 10px;
@@ -127,7 +163,7 @@ h1, h2{
 	background-color: #ebe8e5;
 	margin-top: 60px;
 }
-.boxes, .footer, .pane, #masthead{
+.boxes, .pane{
 	margin: 0 7% 2% 7%;
 }
 
@@ -171,7 +207,7 @@ h1, h2{
 }
 .technical-info p{
 	color: #fff;
-	font-size: 180%;
+	font-size: 1.5vw;
 	padding: 7%;
 	line-height: 1.8;
 }
@@ -205,7 +241,7 @@ h1, h2{
 	height: 100%;
 	width: 100%;
 	color: #fff;
-	padding:10% 15%;
+	padding:3% 10%;
 	display:none;
 	text-align: center;
 }
@@ -225,36 +261,37 @@ h1, h2{
 	background-color: rgba(0, 0, 0, 0.5);
 }
 .show-info p{
-	font-size: 130%;
-	line-height: 1.7;
+	font-size: 1.3vw;
+	line-height: 1.5;
 	font-weight: normal;
 }
 .show-info h2{
-	font-size: 200%;
+	font-size: 1.8vw;
 }
 .show-info h4{
 	color: #b5fd99;
 	letter-spacing: 1px;
-	font-size: 110%;
+	font-size: 1vw;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #fff;
 }
 .info-pane h2{
 	text-align: center;
-	font-size: 250%;
+	font-size: 2vw;
 	padding: 35px 0 0px 0;
 }
 .info-pane h3{
 	text-align: center;
-	margin-bottom: 40px;
+	margin-bottom: 1.7vw;
 	color: #2d353d;
 }
 .info-pane p{
 	margin: 0 15% 0 15%;
 	padding-bottom: 10px;
 	text-indent: 5%;
-	font-size: 150%;
-	line-height: 2.2;
+	font-size: 120%;
+	font-size: 1.3vw;
+	line-height: 2.1;
 	font-family: 'Playfair Display', serif;
 	text-align: justify;
 }
@@ -282,6 +319,9 @@ h1, h2{
 	padding-top: 30px;
 	text-align: center;
 }
+.footer h2{
+	font-size: 150%;
+}
 .footer ul{
 	list-style: none;
 	margin: 0;
@@ -293,7 +333,7 @@ h1, h2{
 }
 .footer ul>li>a{
 	color: #b5fd99;
-	font-size: 130%;
+	font-size: 110%;
 	padding-bottom: 10px;	
 }
 .footer ul>li>a:hover{
@@ -306,15 +346,16 @@ h1, h2{
 .copyright>a{
 	color: #b5fd99;
 }
-#masthead {
-  background: #fff;
-  min-height: none;
+#masthead{
+	background-color: #ebe8e5;
+	min-height: 0px;
+	padding-bottom: 20px;
 }
 .mast-branding{
 	text-align: center;
 }
 .mast-branding h1{
-	font-size: 600%;
+	font-size: 650%;
 	font-weight: bold;
 	margin: 0;
 	padding: 0;
@@ -328,19 +369,28 @@ h1, h2{
 .mast-branding h2{
 	font-size: 85%;
 	margin: 0;
-	margin-top: 15px;
+	margin-top: 20px;
 	padding: 0;
 }
 .mast-branding ul{
 	list-style: none;
 	text-align: center;
+	border:0px solid #000;
+	border-width: 1px 0;
+	margin: 0;
+	padding: 0;
 }
 .mast-branding ul>li{
 	display: inline;
 }
 .mast-branding ul>li>a{
-	padding: 5px 20px;
-	font-size: 120%;
+	padding: 8px 24px;
+	font-size: 110%;
+	display: inline-block;
+}
+.mast-branding ul>li>a:hover{
+	background-color: #fff;
+	text-decoration: none;
 }
 .mast-search{
 	padding: 2px 8px;
@@ -358,4 +408,11 @@ h1, h2{
 }
 .main{
 	padding: 20px 0 40px 0;
+}
+.btn#advanced_search{
+	font-size: 120%;
+	margin-left:200px;
+}
+#advanced_search_tips{
+	list-style: none;
 }
