@@ -51,6 +51,10 @@ end
 
 gem "devise"
 gem "devise-guests", "~> 0.3"
+
+# clamav ruby bindings
+gem "clamav"
+
 group :development, :test do
   gem "rspec-rails"
   gem "selenium-webdriver"
