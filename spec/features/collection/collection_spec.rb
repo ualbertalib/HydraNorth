@@ -33,7 +33,8 @@ describe 'collection', :type => :feature do
       check "batch_document_#{collection.id}"
       click_button 'Add to Collection'
       expect(page).to have_content("Select the collection to add your files to:")
-      choose("id_#{community.id}", visible: false)
+      page.execute_script("document.getElementById('id_" + community.id + "').checked = true")
+      expect(find_field("id_#{community.id}")).to be_checked
       click_button 'Update Collection'
       expect(page).to have_content("Collection was successfully updated.")
       expect(page).to have_content(collection.title)
