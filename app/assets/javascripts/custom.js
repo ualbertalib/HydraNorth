@@ -30,36 +30,25 @@ $(document).ready(function(){
   		"enableLinks": true
 	};
 	twitterFetcher.fetch(config1);
-	
-	var doughnutData = [
-				{
-					value: 1,
-					label: "One"
-				},
-				{
-					value: 2,
-					label: "Two"
-				},
-				{
-					value: 3,
-					label: "Three"
-				},
-				{
-					value: 4,
-					label: "Four"
-				},
-				{
-					value: 5,
-					label: "Five"
-				}
+	var chart = new CanvasJS.Chart("chartContainer",
+    {
+      
+      data: [
+      {
+      	indexLabelFontSize: 16,
+			indexLabelFontColor: "darkgrey",
+			indexLabelPlacement: "outside",
+       type: "doughnut",
+       dataPoints: [
+       {  y: 17356, indexLabel: "Theses" },
+       {  y: 5593, indexLabel: "Research Materials" },
+       {  y: 9280, indexLabel: "Reports" },
+       {  y: 1611, indexLabel: "Journal Articles" },
+       {  y: 856, indexLabel: "Other" }
+       ]
+     }
+     ]
+   });
 
-			];
-
-			window.onload = function(){
-				var ctx = document.getElementById("chart-area").getContext("2d");
-				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
-			};
-
-
-
+    chart.render();
 });

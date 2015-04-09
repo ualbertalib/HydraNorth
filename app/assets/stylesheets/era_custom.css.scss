@@ -27,7 +27,7 @@ h1, h2{
 }
 .front-images{
 	margin: 0px 7%;
-	height: 85%;
+	height: 80%;
 	overflow: hidden;
 }
 .branding{
@@ -148,7 +148,7 @@ h1, h2{
 	height:90px;
 	left:50%;
 	transform: translate(-50%, -50%);
-	top:86.5%;
+	top:81.5%;
 	position: absolute;
 	text-align: center;
 	z-index: 1000;
@@ -413,10 +413,21 @@ h1, h2{
 .dashboard .panel-default > .dashboard-panel {
   background-color: #2d353d;
 }
+.chart{
+	width: 95%;
+	height: 100%;
+}
+#chartContainer{
+	width: 100%;
+	height: 76%;
+}
+.canvasjs-chart-credit{
+	display: none;
+}
 
 /*twitter styles*/
 #tweets{
-	padding:8% 19% 0% 10%;
+	padding:7% 15% 0% 5%;
 	font-size: 13px;
 	background-image:url('twitter-logo.png');
 	background-position: 5px 10px;
@@ -446,21 +457,13 @@ h1, h2{
 	font-size: 110%;
 	font-weight: bold;
 }
-#tweets .interact a{
-	padding: 0px 10px;
-	display: inline-block;
-	background-color: #ebe8e5;
-	color: #000;
-	margin-left: 2px;
+#tweets .interact{
+	display: none;
 }
-#tweets .interact a:hover{
-	background-size: #fff;
-	color: #666;
-	}
 #tweets .timePosted{
-	width: 150px;
-	float: left;
 	font-size: 80%;
+	margin-top: -8px;
+	color: #666;
 }
 #tweets ul li{
 	border-bottom: 1px solid #fff;
