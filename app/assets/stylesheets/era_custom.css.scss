@@ -116,7 +116,7 @@ h1, h2{
 .advanced{
 	background-color: #fff;
 	display: inline-block;
-	padding: 0px 16px;
+	padding: 0px 17px;
 	margin-left: 210px;
 }
 .advanced:hover{
@@ -302,25 +302,6 @@ h1, h2{
 	text-align: justify;
 }
 
-.tweets{
-	padding:6%;
-	font-size: 13px;
-	background-image:url('twitter-logo.png');
-	background-position: 10px 20px;
-	background-repeat: no-repeat;
-	min-height: 100px;
-	min-width: 100px;
-}
-.tweets ul{
-	margin: 0px;
-	padding: 20px;
-}
-.tweets ul li{
-	list-style: none;
-	margin: 15px 0;
-	padding: 0;
-	font-size: 14px;
-}
 .footer{
 	padding-top: 30px;
 	text-align: center;
@@ -432,3 +413,60 @@ h1, h2{
 .dashboard .panel-default > .dashboard-panel {
   background-color: #2d353d;
 }
+
+/*twitter styles*/
+#tweets{
+	padding:8% 19% 0% 10%;
+	font-size: 13px;
+	background-image:url('twitter-logo.png');
+	background-position: 5px 10px;
+	background-repeat: no-repeat;
+	min-height: 100px;
+	min-width: 100px;
+}
+#tweets .user img{
+	display: none;
+}
+#tweets ul{
+	margin: 0px;
+	padding: 20px;
+}
+#tweets ul li{
+	list-style: none;
+	margin: 15px 0;
+	padding: 0;
+	font-size: 14px;
+}
+#tweets ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#tweets .user{
+	font-size: 110%;
+	font-weight: bold;
+}
+#tweets .interact a{
+	padding: 0px 10px;
+	display: inline-block;
+	background-color: #ebe8e5;
+	color: #000;
+	margin-left: 2px;
+}
+#tweets .interact a:hover{
+	background-size: #fff;
+	color: #666;
+	}
+#tweets .timePosted{
+	width: 150px;
+	float: left;
+	font-size: 80%;
+}
+#tweets ul li{
+	border-bottom: 1px solid #fff;
+}
+#tweets a{
+	color: #337ab7;
+}
+
+
