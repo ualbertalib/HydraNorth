@@ -8,6 +8,7 @@ before_install:
   - export PATH="$PATH:$(pwd)/fits"
 services:
   - redis-server
+  - clamd
 before_install:
   - sudo apt-get update
   - sudo apt-get install libclamav6 libclamav-dev clamav
