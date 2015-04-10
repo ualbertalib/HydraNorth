@@ -8,6 +8,9 @@ before_install:
   - export PATH="$PATH:$(pwd)/fits"
 services:
   - redis-server
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install libclamav6 libclamav-dev clamav
 before_script:
   - redis-cli info
   - bundle exec rake jetty:start
