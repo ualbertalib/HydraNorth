@@ -30,14 +30,14 @@ $(document).ready(function(){
   		"enableLinks": true
 	};
 	twitterFetcher.fetch(config1);
+	
 	var chart = new CanvasJS.Chart("chartContainer",
     {
-      
       data: [
       {
       	indexLabelFontSize: 16,
-			indexLabelFontColor: "darkgrey",
-			indexLabelPlacement: "outside",
+		indexLabelFontColor: "darkgrey",
+		indexLabelPlacement: "outside",
        type: "doughnut",
        dataPoints: [
        {  y: 17356, indexLabel: "Theses" },
