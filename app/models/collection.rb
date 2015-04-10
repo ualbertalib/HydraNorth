@@ -25,6 +25,7 @@ class Collection < Sufia::Collection
 
   def processing?
     false
+  end
 
   def self.find_or_create_with_type(resource_type) 
     cols = []

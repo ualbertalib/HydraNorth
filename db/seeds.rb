@@ -43,7 +43,10 @@ ser = Collection.find_or_create_with_type("Structural Engineering Report").tap d
   c.apply_depositor_metadata("dittest@ualberta.ca")
 end
 ser.save!
-config = File.open("config/initializers/sufia.rb", &:read)
-config = config.gsub(/#?\s*(config.cstr_collection_id = ")/, '\1'+cstr.id)
-config = config.gsub(/#?\s*(config.ser_collection_id = ")/, '\1'+ser.id)
+config = File.read("config/initializers/sufia.rb", &:read)
+config = config.gsub(/^.*config\.cstr_collection_id.*$/, '')
+config = config.gsub(/^.*config\.ser_collection_id.*$/, '')
+config = config.gsub(/(^.*config\.special_reports.*$)/, '  config.cstr_collection_id = "'+cstr.id+'"'+"\n"+'\1')
+config = config.gsub(/(^.*config\.special_reports.*$)/, '  config.ser_collection_id = "'+ser.id+'"'+"\n"+'\1')
+
 File.write("config/initializers/sufia.rb", config)
