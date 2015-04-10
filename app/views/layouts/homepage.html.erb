@@ -15,12 +15,14 @@
     </div>
     <div class="container-fluid front-images">
       <div class="row">
-        <div class="col-md-12 lib-logo" id="home-logo">
+        <div class="col-md-8 lib-logo" id="home-logo">
           <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
-         
-          <a class="btn btn-default btn-group" href="/users/sign_in" title="Login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> LOGIN</a>
         </div>
-      </div>
+         <div class="col-md-4 user-util">
+         <%= render partial: "/user_util_links"%>
+        </div>
+        </div>
+
       <div class="col-md-6 slides" id="slide1">
         <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline">
           <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
