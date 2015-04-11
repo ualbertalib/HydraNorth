@@ -6,9 +6,6 @@ Sufia.config do |config|
     file_author: :creator
   }
 
-  # Specify a different template for your repositories unique identifiers
-  # config.noid_template = ".reeddeeddk"
-
   config.max_days_between_audits = 7
 
   config.max_notifications_for_dashboard = 5
@@ -87,7 +84,7 @@ Sufia.config do |config|
   # Enable displaying usage statistics in the UI
   # Defaults to FALSE
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
-  config.analytics = false
+  config.analytics = true
 
   # Specify a Google Analytics tracking ID to gather usage statistics
   # config.google_analytics_id = 'UA-99999999-1'
@@ -98,15 +95,24 @@ Sufia.config do |config|
   # Where to store tempfiles, leave blank for the system temp directory (e.g. /tmp)
   # config.temp_file_base = '/home/developer1'
 
+  # Specify the form of hostpath to be used in Endnote exports
+  # config.persistent_hostpath = 'http://localhost/files/'
+
   # If you have ffmpeg installed and want to transcode audio and video uncomment this line
   # config.enable_ffmpeg = true
 
-  # Specify the Fedora pid prefix:
-  # config.id_namespace = "sufia"
+  # Sufia uses NOIDs for files and collections instead of Fedora UUIDs
+  # where NOID = 10-character string and UUID = 32-character string w/ hyphens
+  # config.enable_noids = true
 
+  # Specify a different template for your repository's NOID IDs
+  # config.noid_template = ".reeddeeddk"
   
   # Specify the path to the minter-state file
   config.minter_statefile = "tmp/minter-state"
+
+  # Specify the prefix for Redis keys:
+  # config.redis_namespace = "sufia"
 
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
@@ -120,7 +126,7 @@ Sufia.config do |config|
   # NOTE: if you have always sent analytics to GA for downloads and page views leave this commented out
   # config.analytic_start_date = DateTime.new(2014,9,10)
   #
-  # Method of converting pids into URIs for storage in Fedora
+  # Method of converting ids into URIs for storage in Fedora
   # config.translate_uri_to_id = lambda { |uri| uri.to_s.split('/')[-1] }
   # config.translate_id_to_uri = lambda { |id|
   #      "#{ActiveFedora.fedora.host}#{ActiveFedora.fedora.base_path}/#{Sufia::Noid.treeify(id)}" }

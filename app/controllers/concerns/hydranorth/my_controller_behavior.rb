@@ -10,10 +10,10 @@ module Hydranorth
 
     def index
       if current_user.group_list == 'admin'
-        self.solr_search_params_logic -= [:add_access_controls_to_solr_params]
+        self.search_params_logic -= [:add_access_controls_to_solr_params]
       end
 
-      (@response, @document_list) = get_search_results
+      (@response, @document_list) = search_results(params, search_params_logic)
       @user = current_user
       @events = @user.events(100)
       @last_event_timestamp = @user.events.first[:timestamp].to_i || 0 rescue 0
