@@ -10,8 +10,7 @@ services:
   - redis-server
 before_install:
   - sudo apt-get update
-  - sudo apt-get install libclamav6 libclamav-dev clamav
-  - sudo freshclam
+  - sudo apt-get install libclamav6 libclamav-dev clamav clamav-data
 before_script:
   - redis-cli info
   - bundle exec rake jetty:start
