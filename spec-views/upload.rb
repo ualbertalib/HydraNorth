@@ -46,7 +46,6 @@ module Upload
 
 
   def verify_generic_metadata(file_id)
-<<<<<<< HEAD
 
     verify { (@driver.find_element(:id, "permission_"+file_id).text).should == "Open Access" }
     verify { (@driver.find_element(:css, "dd").text).should == "Research Material" }
