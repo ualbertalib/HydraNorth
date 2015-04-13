@@ -48,4 +48,5 @@ class Collection < Sufia::Collection
       gf.respond_to?(:content) ? sum + gf.content.size.to_i : sum
     end
   end
+
 end
