@@ -68,7 +68,17 @@ Sufia.config do |config|
     "Other" => "other",
   }
 
-
+  # please run rake db:seed to create the collections and restart httpd. 
+  # The collection IDs will be added here
+  # In production it assumes that the collections will be available in the system at the time of deposit
+  # config.cstr_collection_id = ""
+  # config.ser_collection_id = ""
+ 
+  config.special_reports = {
+    "cstr" => "Computing Science Technical Report",
+    "ser" => "Structural Engineering Report",
+  }
+ 
   config.permission_levels = {
     "Choose Access"=>"none",
     "View/Download" => "read",
