@@ -8,11 +8,12 @@ module Hydranorth
     include Hydra::Collections::SelectsCollections
     include Sufia::MyControllerBehavior
 
-    def index
-      if current_user.group_list == 'admin'
-        self.search_params_logic -= [:add_access_controls_to_solr_params]
-      end
 
+    included do
+      self.search_params_logic -= [:add_access_controls_to_solr_params]
+    end
+
+    def index
       (@response, @document_list) = search_results(params, search_params_logic)
       @user = current_user
       @events = @user.events(100)
@@ -36,5 +37,13 @@ module Hydranorth
         format.atom { render layout: false }
       end
     end
+
+    protected
+
+    def show_only_files_with_access solr_parameters, user_parameters
+      solr_parameters[:q] ||= []
+      solr_parameters[:q] << "#{Solrizer.solr_name("depositor", :symbol)}:#{current_user.user_key} or (#{Solrizer.solr_name("read_access_person", :symbol)}:#{current_user.user_key}) or (#{Solrizer.solr_name("edit_access_person", :symbol)}:#{current_user.user_key})"
+    end
+
   end
 end

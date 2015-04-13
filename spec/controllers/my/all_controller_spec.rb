@@ -9,7 +9,7 @@ describe My::AllController, :type => :controller do
 
   let(:my_file) do
     GenericFile.new.tap do |g|
-      g.apply_depositor_metadata(user.user_key)
+      g.apply_depositor_metadata(admin.user_key)
       g.save!
     end
   end
@@ -43,31 +43,14 @@ describe My::AllController, :type => :controller do
     Collection.destroy_all
   end
 
-  describe "#index" do
- 
-    describe "User" do
-      before do
-        sign_in user
-      end
 
-      it "should respond with success" do
-        get :index, use_route: :dashboard
-        expect(response).to be_successful
-      end
+  describe "User" do
+    before do
+      sign_in user
+    end
 
-      it "shows the correct files" do
-        get :index, use_route: :dashboard
-        # shows documents I deposited
-        expect(assigns[:document_list].map(&:id)).to include(@my_file.id)
-        # doesn't show collections
-        expect(assigns[:document_list].map(&:id)).to_not include(@my_collection.id)
-        # doesn't show shared files
-        expect(assigns[:document_list].map(&:id)).to include(@shared_file.id)
-        # doesn't show other users' files
-        expect(assigns[:document_list].map(&:id)).to_not include(@unrelated_file.id)
-        # doesn't show non-generic files
-        expect(assigns[:document_list].map(&:id)).to_not include(@wrong_type.id)
-      end
+    it 'should respond with error' do
+      expect{ get :index, user_route: dashboard }.to raise_error
     end
   end
 
@@ -87,7 +70,9 @@ describe My::AllController, :type => :controller do
       expect(assigns[:document_list].map(&:id)).to include(@my_file.id)
       # doesn't show collections
       expect(assigns[:document_list].map(&:id)).to_not include(@my_collection.id)
-      # doesn't show other users' files
+      # does show shared files
+      expect(assigns[:document_list].map(&:id)).to include(@shared_file.id)
+      # does show other users' files
       expect(assigns[:document_list].map(&:id)).to include(@unrelated_file.id)
       # doesn't show non-generic files
       expect(assigns[:document_list].map(&:id)).to_not include(@wrong_type.id)
