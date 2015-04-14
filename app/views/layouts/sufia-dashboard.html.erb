@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="<%= t("sufia.document_language") %>">
+<head><%= render partial: 'layouts/head_tag_content' %></head>
+<body>
+  <div class="wrap">
+      <div class="container-fluid tan">
+      <%= render partial: '/masthead' %>
+  
+    </div>
+
+      <div id="content-wrapper" class="dashboard">
+           
+        <div class="container">
+           <%= render partial: '/flash_msg' %>
+          <div id="content-header" class="row"><%= yield :heading %></div>
+        </div>
+        <div class="container">
+          <div id="content" class="row">
+            <div id="sidebar" class="col-xs-12 col-sm-3"><%= yield :sidebar %></div>
+            <div class="col-xs-12 col-sm-9"><%= yield %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="push"></div>
+  </div>
+
+      <%= render partial: '/footer' %>
+
+
+<%= render 'shared/ajax_modal' %>
+</body>
+</html>

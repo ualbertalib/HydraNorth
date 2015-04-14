@@ -96,9 +96,9 @@ describe 'catalog searching', :type => :feature do
   end
 
   def search(query) 
-    within('#masthead_controls') do
+    within('#search-form-header') do
       fill_in('search-field-header', with: query) 
-      click_button("Go")
+      click_button("Search ERA")
     end
   end
 
