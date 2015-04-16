@@ -11,7 +11,7 @@
                 <th class="sorts"><i id="login" class="<%=params[:sort]== "login desc" ? 'caret' : params[:sort]== "login" ? 'caret up' : ''%>"></i>User Id</th>
                 <th class="sorts"><i id="department" class="<%=params[:sort]== "department desc" ? 'caret' : params[:sort]== "department" ? 'caret up' : ''%>"></i>Department</th>
                 <th>Files Deposited</th> 
-                <% if current_user.admin? %>
+                <% if current_user && current_user.admin? %>
                   <th>Status</th>
                 <% end %>
             </tr> 
@@ -24,7 +24,7 @@
                    <td><a href="<%= sufia.profile_path(user) %>"  ><%= user.user_key %><a></td>
                    <td><%= user.department %> </td> 
                    <td><%= number_of_deposits(user) %> </td>
-                   <% if current_user.admin? %>
+                   <% if current_user && current_user.admin? %>
                      <td><%= !user.confirmed? ? 'Not Confirmed' : user.access_locked? ? 'Deactivated' : 'Registered' %></td>
                    <% end %>
                 </tr> 
