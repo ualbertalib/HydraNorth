@@ -54,4 +54,6 @@ describe 'collection', :type => :feature do
       expect(page).to_not have_content("Theses")
     end
   end	
+
+  it { expect { visit "/collections/#{collection.id}" }.to_not raise_error }
 end

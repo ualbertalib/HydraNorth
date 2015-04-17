@@ -4,7 +4,7 @@ module Hydranorth
     include Sufia::CollectionsControllerBehavior
 
     def show
-      if current_user.admin?
+      if current_user && current_user.admin?
         self.search_params_logic -= [:add_access_controls_to_solr_params]
       end
     
