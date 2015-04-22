@@ -27,6 +27,11 @@ module Hydranorth
         property :is_version_of, predicate: ::RDF::DC.isVersionOf, multiple:false do |index|
           index.as :stored_searchable
         end
+
+        property :hasCollection, predicate: ::DamsVocabulary.hasCollection do |index|
+          index.as :symbol, :stored_searchable
+        end
+
       end
 
     end

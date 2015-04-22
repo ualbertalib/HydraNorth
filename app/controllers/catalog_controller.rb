@@ -43,14 +43,16 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
-    config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 5
-    config.add_facet_field solr_name("tag", :facetable), label: "Keyword", limit: 5
-    config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 5
-    config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 5
-    config.add_facet_field solr_name("based_near", :facetable), label: "Location", limit: 5
-    config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
-    config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
+    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 3
+    config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 3
+#    config.add_facet_field solr_name("tag", :facetable), label: "Keyword", limit: 3
+    config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 3
+    config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 3
+#    config.add_facet_field solr_name("based_near", :facetable), label: "Location", limit: 3
+#    config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 3
+#    config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 3
+    config.add_facet_field solr_name("hasCollection", :symbol), label:"Collection", limit: 3 
+    config.add_facet_field "date_uploaded_dtsi", label: "Year", query: { ten_years: { label: '0 TO 10 YEARS', fq: 'date_uploaded_dtsi:[NOW-10YEAR TO NOW]'}, twenty_years: { label: '10 TO 20 YEARS', fq: 'date_uploaded_dtsi:[NOW-20YEAR TO NOW-10YEAR]'}, thirty_years: { label: '20 TO 30 YEARS', fq: 'date_uploaded_dtsi:[NOW-30YEAR TO NOW-20YEAR]'}, fourty_years: { label: '30 TO 40 YEARS', fq: 'date_uploaded_dtsi:[NOW-40YEAR TO NOW-30YEAR]'}, fifty_years: { label: '40 TO 50 YEARS', fq: 'date_uploaded_dtsi:[NOW-40YEAR TO NOW-50YEAR]'}}, limit:3
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -75,6 +77,8 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_index_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_index_field solr_name("identifier", :stored_searchable), label: "Identifier"
+    config.add_index_field solr_name("hasCollection", :stored_searchable), label: "Collection"
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
