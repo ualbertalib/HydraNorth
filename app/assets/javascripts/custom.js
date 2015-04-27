@@ -23,14 +23,16 @@ $(document).ready(function(){
  	var images2 = ['slide2.jpg', 'slide3.jpg', 'slide4.jpg', 'slide7.jpg'];
  	$('#slide2').css({'background-image': 'url(assets/' + images2[Math.floor(Math.random() * images.length)] + ')'});
 
- 	var config1 = {
-  		"id": '586195044660424704',
-  		"domId": 'tweets',
-  		"maxTweets": 2,
-  		"enableLinks": true
-	};
-	twitterFetcher.fetch(config1);
-	
+ 	if ($("#tweets").length){
+	 	var config1 = {
+	  		"id": '586195044660424704',
+	  		"domId": 'tweets',
+	  		"maxTweets": 1,
+	  		"enableLinks": true
+		};
+		twitterFetcher.fetch(config1);
+	}
+	if ($("#chartContainer").length){
 	var chart = new CanvasJS.Chart("chartContainer",
     {
       data: [
@@ -51,4 +53,5 @@ $(document).ready(function(){
    });
 
     chart.render();
+}
 });

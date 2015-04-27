@@ -54,6 +54,24 @@ Sufia.config do |config|
     "Review" => "http://schema.org/Review",
   }
 
+   config.admin_resource_types = {
+    "Book" => "Book",
+    "Book Chapter" => "Book Chapter",
+    "Computing Science Technical Report" => "Computing Science Technical Report",
+    "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
+    "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
+    "Dataset" => "Dataset",
+    "Image" => "Image",
+    "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
+    "Journal Article (Published)" => "Journal Article (Published)",
+    "Learning Object" => "Learning Object",
+    "Report" => "Report",
+    "Research Material" => "Research Material",
+    "Review" => "Review",
+    "Structural Engineering Report" => "Structural Engineering Report",
+    "Thesis" => "Thesis",
+  }
+
   config.languages = {
     "English" => "English",
     "French" => "French",
