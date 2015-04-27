@@ -42,6 +42,15 @@ To Run Tests:
 
 ```rake spec```
 
+To View Logs:
+--
+Relative to the application directory
+
+* **Application** ```log/<RAILS_ENV>.log```
+* **Jetty** ```jetty/jettywrapper.log```
+* **Solr/Fedora** ```jetty/logs```
+* **Resque** ```log/resque-pool.std[err|out].log```
+
 To Restart Components
 ---
 The shell script `bin/restart-all` runs these commands:
