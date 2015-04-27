@@ -73,7 +73,6 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_index_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_index_field solr_name("identifier", :stored_searchable), label: "Identifier"
-    config.add_index_field solr_name("hasCollection", :stored_searchable), label: "Collection"
 
 
     # solr fields to be displayed in the show (single result) view
