@@ -5,7 +5,7 @@ module Hydranorth
 
     self.model_class = ::Collection
     # Terms is the list of fields displayed by app/views/collections/_show_descriptions.html.erb
-    self.terms = [:title, :total_items, :size, :description, :creator, 
+    self.terms = [:title, :resource_type, :total_items, :size, :description, :creator,
                   :license, :date_created]
 
     # Depositor and permissions are not displayed in app/views/collections/_show_descriptions.html.erb
