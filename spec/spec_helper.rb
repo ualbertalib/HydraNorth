@@ -50,6 +50,8 @@ RSpec.configure do |config|
 
   config.fixture_path = File.expand_path("../fixtures", __FILE__)
 
+  config.include ShowMeTheCookies, :type => :feature
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
