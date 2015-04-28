@@ -28,6 +28,7 @@ h1, h2{
 .front-images{
 	margin: 0px 7%;
 	height: 80%;
+	min-height: 500px;
 	overflow: hidden;
 }
 .branding{
@@ -59,7 +60,7 @@ h1, h2{
 	margin-top: 20px;
 	padding-bottom: 6px;
 	padding-top: 8px;
-	background-image: url('lib-logo.png');
+	background-image: asset_url('lib-logo.png');
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	display: inline-block;
@@ -95,10 +96,10 @@ h1, h2{
 	text-align: center;
 }
 #slide1{
-	background-image: url('slide.jpg');
+	background-image: asset_url('slide.jpg');
 }
 #slide2{
-	background-image: url('slide2.jpg');
+	background-image: asset_url('slide2.jpg');
 }
 .call-to-action{
 	padding: 4px 10px;
@@ -225,7 +226,7 @@ h1, h2{
 	line-height: 1.8;
 }
 .northern, .researcher{
-	background-image: url('northern.jpg');
+	background-image: asset_url('northern.jpg');
 	background-size:cover;
 	background-position:center;
 	height: 100%;
@@ -233,10 +234,10 @@ h1, h2{
 	margin-left:-15px;
 }
 .researcher{
-	background-image: url('researcher.jpg');
+	background-image: asset_url('researcher.jpg');
 }
 .whatsin{
-	background-image: url('whatsin.jpg');
+	background-image: asset_url('whatsin.jpg');
 	height: 100%;
 	width: 100%;
 	background-repeat: no-repeat;
@@ -439,7 +440,7 @@ h1, h2{
 #tweets{
 	padding:10%;
 	font-size: 13px;
-	background-image:url('twitter-logo.png');
+	background-image:asset_url('twitter-logo.png');
 	background-position: 5px 10px;
 	background-repeat: no-repeat;
 	min-height: 100px;
@@ -475,9 +476,17 @@ h1, h2{
 	margin-top: -8px;
 	color: #666;
 }
-
 #tweets a{
 	color: #337ab7;
+}
+
+/* Collections */
+
+.collection_description, .genericfile_description {
+	font-family: 'Playfair Display', serif;
+	font-size: 18px;
+	line-height: 33px;
+	letter-spacing: 0px;
 }
 
 
