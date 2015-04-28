@@ -18,6 +18,30 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
 
+  describe 'delete collection' do
+    let!(:collection_delete) do
+      Collection.create( title: 'Test Collection') do |c|
+        c.apply_depositor_metadata(admin.user_key)
+      end
+    end
+
+    before do
+      sign_in admin
+      visit '/dashboard/collections'
+    end
+
+    it "should delete a collection" do
+      expect(page).to have_content(collection_delete.title)
+      within('#documents') do
+        within('#document_'+collection_delete.id) do
+          click_button("Select an action")
+          click_link('Delete Collection')
+        end
+      end
+     expect(page).not_to have_content(collection_delete.title)
+    end
+  end
+
   describe 'show collection as admin' do
     before do
       sign_in admin
@@ -56,4 +80,25 @@ describe 'collection', :type => :feature do
   end	
 
   it { expect { visit "/collections/#{collection.id}" }.to_not raise_error }
+
+  describe 'paginate collections' do
+    let!(:collection_delete) do
+      (0..10).map do |x|
+        Collection.create( title: 'Title #{x}') do |c|
+          c.apply_depositor_metadata(admin.user_key)
+        end
+      end
+    end
+
+    before do
+      sign_in admin
+      visit '/dashboard/collections'
+    end
+
+    it "should page" do
+      click_link('Next')
+      click_link('Previous')
+    end
+  end
+
 end

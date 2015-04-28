@@ -26,6 +26,10 @@ Hydranorth::Application.routes.draw do
     get '/files/page/:page',  controller: 'my/files', action: :index
     get '/files/facet/:id',   controller: 'my/files', action: :facet, as: 'dashboard_files_facet'
 
+    get '/collections',             controller: 'my/collections', action: :index, as: 'dashboard_collections'
+    get '/collections/page/:page',  controller: 'my/collections', action: :index
+    get '/collections/facet/:id',   controller: 'my/collections', action: :facet, as: 'dashboard_collections_facet'
+
     get '/all',             controller: 'my/all', action: :index, as: 'dashboard_all'
     get '/all/page/:page',  controller: 'my/all', action: :index
     get '/all/facet/:id',   controller: 'my/all', action: :facet, as: 'dashboard_all_facet'
