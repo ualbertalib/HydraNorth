@@ -84,7 +84,7 @@ describe 'collection', :type => :feature do
   describe 'paginate collections' do
     let!(:collection_delete) do
       (0..10).map do |x|
-        Collection.create( title: 'Title #{x}') do |c|
+        Collection.create( title: "Z") do |c|
           c.apply_depositor_metadata(admin.user_key)
         end
       end
@@ -97,6 +97,9 @@ describe 'collection', :type => :feature do
 
     it "should page" do
       click_link('Next')
+      page.status_code.should be 200    
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Z")
       click_link('Previous')
     end
   end
