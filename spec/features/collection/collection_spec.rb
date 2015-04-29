@@ -14,8 +14,32 @@ describe 'collection', :type => :feature do
     end
   end
 
-  after :all do
+  after :each do
     cleanup_jetty
+  end
+
+  describe 'delete collection' do
+    let!(:collection_delete) do
+      Collection.create( title: 'Test Collection') do |c|
+        c.apply_depositor_metadata(admin.user_key)
+      end
+    end
+
+    before do
+      sign_in admin
+      visit '/dashboard/collections'
+    end
+
+    it "should delete a collection" do
+      expect(page).to have_content(collection_delete.title)
+      within('#documents') do
+        within('#document_'+collection_delete.id) do
+          click_button("Select an action")
+          click_link('Delete Collection')
+        end
+      end
+     expect(page).not_to have_content(collection_delete.title)
+    end
   end
 
   describe 'show collection as admin' do
@@ -56,4 +80,35 @@ describe 'collection', :type => :feature do
   end	
 
   it { expect { visit "/collections/#{collection.id}" }.to_not raise_error }
+
+  describe 'paginate collections' do
+    let!(:collection_delete) do
+      (0..11).map do |x|
+        Collection.create( title: "Title #{x}") do |c|
+          c.apply_depositor_metadata(admin.user_key)
+        end
+      end
+    end
+
+    before do
+      sign_in admin
+      visit '/dashboard/collections'
+    end
+
+    it "should page" do
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Title 0")
+      expect(current_path).to eq '/dashboard/collections'
+      click_link('Next')
+      expect(page.status_code).to be 200    
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Title 11")
+      expect(current_path).to eq '/dashboard/collections/page/2'
+      click_link('Previous')
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Title 0")
+      expect(current_path).to eq '/dashboard/collections'
+    end
+  end
+
 end
