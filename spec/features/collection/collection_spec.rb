@@ -14,7 +14,7 @@ describe 'collection', :type => :feature do
     end
   end
 
-  after :all do
+  after :each do
     cleanup_jetty
   end
 
@@ -83,8 +83,8 @@ describe 'collection', :type => :feature do
 
   describe 'paginate collections' do
     let!(:collection_delete) do
-      (0..10).map do |x|
-        Collection.create( title: "Z") do |c|
+      (0..11).map do |x|
+        Collection.create( title: "Title #{x}") do |c|
           c.apply_depositor_metadata(admin.user_key)
         end
       end
@@ -96,11 +96,18 @@ describe 'collection', :type => :feature do
     end
 
     it "should page" do
-      click_link('Next')
-      page.status_code.should be 200    
       expect(page).to have_content("My Collections")
-      expect(page).to have_content("Z")
+      expect(page).to have_content("Title 0")
+      expect(current_path).to eq '/dashboard/collections'
+      click_link('Next')
+      expect(page.status_code).to be 200    
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Title 11")
+      expect(current_path).to eq '/dashboard/collections/page/2'
       click_link('Previous')
+      expect(page).to have_content("My Collections")
+      expect(page).to have_content("Title 0")
+      expect(current_path).to eq '/dashboard/collections'
     end
   end
 
