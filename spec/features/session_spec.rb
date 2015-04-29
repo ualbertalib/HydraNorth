@@ -12,6 +12,9 @@ describe 'session', :type => :feature do
     expect(session).to_not eq(get_me_the_cookie('_session_id')[:value])
   end
 
+  it { expect(user.timedout?(30.minutes.ago)).to be_truthy }
+  it { expect(user.timedout?(29.minutes.ago)).to be_falsey }
+
   describe 'expire cookie with logout' do
     before do
       sign_in user
