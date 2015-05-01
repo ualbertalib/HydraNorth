@@ -62,6 +62,7 @@ gem "clamav"
 
 group :development, :test do
   gem "rspec-rails"
+  gem "rspec-its"
   gem "selenium-webdriver"
   gem "jettywrapper"
   gem "capybara"
