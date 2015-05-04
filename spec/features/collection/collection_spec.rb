@@ -110,5 +110,36 @@ describe 'collection', :type => :feature do
       expect(current_path).to eq '/dashboard/collections'
     end
   end
+ 
+  describe 'delete items from collection' do
+    let!(:collection_modify) do
+      Collection.create( title: 'Test Collection') do |c|
+        c.apply_depositor_metadata(admin.user_key)
+      end
+    end
+    let!(:generic_file) do
+      GenericFile.create( title: ['Test Item']) do |g|
+        g.apply_depositor_metadata(admin.user_key)
+      end
+    end
+
+    before do
+      sign_in admin
+      visit '/dashboard/files'
+    end
+
+    it "should add and delete item from collection" do
+      first('input#check_all').click
+      click_button "Add to Collection"
+      click_button "Update Collection"
+      expect(page).to have_content "Items in this Collection"
+      expect(page).to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
+
+      click_button("Select an action")
+      click_button('Remove from Collection')
+      expect(page).not_to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
+    end
+ 
+  end
 
 end
