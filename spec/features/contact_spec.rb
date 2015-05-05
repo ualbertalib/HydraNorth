@@ -21,7 +21,7 @@ describe 'Contact form', :type => :feature do
 
   let(:admin_message) {
     sent_messages.detect do |message|
-      message.from == ['sent-from@example.com']
+      message.from == ['erahelp@ualberta.ca']
     end
   }
 
