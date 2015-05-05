@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'search', :type => :feature do
   let(:admin) { FactoryGirl.create(:admin) }
   let!(:generic_file) do
-    GenericFile.create( title: ['Test']) do |c|
+    GenericFile.create( title: ['Test'], read_groups: ["public"] ) do |c|
       c.apply_depositor_metadata(admin.user_key)
     end
   end
@@ -28,16 +28,15 @@ describe 'search', :type => :feature do
     end
   end
 
-  describe 'search item listing' do
-    before do
-      sign_in admin
-      visit '/dashboard'
-    end
+  it "search results should not have depositor info" do
+    visit '/'
+    click_button("Search ERA")
+    expect(page).not_to have_content("Depositor:")
+  end
 
-    it "should not have depositor info" do
-      click_button("Search ERA")
-      expect(page).not_to have_content("Depositor:")
-    end
+  it "item display should not have depositor info" do
+    visit "/files/#{generic_file.id}"
+    expect(page).not_to have_content("Depositor:")
   end
 
 end
