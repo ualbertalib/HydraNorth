@@ -43,11 +43,11 @@ h1, h2{
 .branding>h1:hover{
 	color: #3e4a2e;
 }
-.branding>h1>span{
-	font-size: 15px;
+.branding>span{
+	font-size: 13px;
 }
 .branding>h2{
-	font-size: 22px;
+	font-size: 15px;
 	text-align: center;
 	padding: 0;
 	margin: -5px 0 0 20px;
@@ -98,13 +98,12 @@ h1, h2{
 	background-image: asset_url('slide2.jpg');
 }
 .call-to-action{
-	padding: 4px 10px;
-	border: 3px solid #fff;
+	padding: 4px 8px;
+	border: 2px solid #fff;
 	background-color: rgba(0, 0, 0, 0.6);
-	font-size: 23px;
+	font-size: 18px;
 	letter-spacing: 1px;
 	color: #fff;
-	margin-top: 50%;
 	text-align: center;
 	display: inline-block;
 }
@@ -116,20 +115,35 @@ h1, h2{
 .call-to-action:active, .call-to-action:visited, .call-to-action:link{
 	text-decoration: none;
 	color: #efefef;
-	}
+}
+#query-button{
+	margin-top: 0;
+	z-index:2000;
+}
 .advanced{
 	background-color: #fff;
-	display: inline-block;
-	padding: 0px 17px;
-	margin-left: 210px;
+	padding: 1px 0;
+	display: block;
+	width: 97%;
+	margin:auto;
 }
 .advanced:hover{
 	background-color: #efefef;
 	text-decoration: none;
 }
+.form-group>.col-sm-7{
+	padding-right: 0;
+}
+.query-actions{
+	padding-left: 0;
+	margin-top: 0px;
+}
 .query{
-	font-size: 20px;
-	margin-top: -7px;
+	font-size: 15px;
+}
+.input-lg{
+	  padding: 4px 8px;
+	  height: 45px;
 }
 .more-info{
 	background-color: rgba(0, 0, 0, 0.8);
@@ -141,8 +155,9 @@ h1, h2{
 	text-align: left;
 }
 .more-info>h4{
-	margin: 0 0 0 40px;
+	margin: 0 0 0 20px;
 	padding: 0;
+	font-size: 90%;
 }
 .more-info>h4>a{
 	color: #b5fd99;
@@ -284,6 +299,9 @@ h1, h2{
 	font-size: 1vw;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #fff;
+}
+.info-pane{
+	padding-bottom:50px;
 }
 .info-pane h2{
 	text-align: center;
@@ -437,7 +455,7 @@ h1, h2{
 	padding:10%;
 	font-size: 13px;
 	background-image:asset_url('twitter-logo.png');
-	background-position: 5px 10px;
+	background-position: 0px 10px;
 	background-repeat: no-repeat;
 	min-height: 100px;
 	min-width: 100px;
@@ -447,19 +465,20 @@ h1, h2{
 }
 #tweets ul{
 	margin: 0px;
-	padding: 20px;
+	padding: 0px;
+	list-style: none;
 }
 #tweets ul li{
 	list-style: none;
-	margin: 15px 0;
-	padding: 0;
+	margin: 0px 0px 5px 0px;
+	padding: 8px;
+	background-color:rgba(255, 255, 255, 0.2);
 	font-size: 14px;
 }
-#tweets ul{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
+#tweets ul li:nth-child(2){
+		display: none;
+	}
+
 #tweets .user{
 	font-size: 110%;
 	font-weight: bold;
@@ -471,10 +490,14 @@ h1, h2{
 	font-size: 80%;
 	margin-top: -8px;
 	color: #666;
+	margin-bottom: 0px;
 }
 #tweets a{
 	color: #337ab7;
 }
+.chart h3{
+  		font-size: 17px;
+	}
 
 /* Collections */
 
@@ -489,29 +512,27 @@ h1, h2{
 @media (min-width: 768px){
 	.branding{
 		position: absolute;
-		top:70px;
+		top:80px;
 		left:50%;
 		transform: translate(-50%);
 		z-index: 500;
 		text-align: center;
 	}
 	.branding>h1{
-		font-size: 150px;
+		font-size: 110px;
 		font-weight: bold;
 		letter-spacing: -9px;
 		text-align: center;
 		margin: 0;
-		margin-top: -20px;
+		margin-top: 0px;
 		padding: 0;
 	}
 	.branding>span{
 			letter-spacing: normal;
-			font-size: 22px;
-			
+			font-size: 15px;
 			background-color: #333;
 			color: #fff;
-		
-			padding: 5px 10px;
+			padding: 4px 8px;
 	}
 	.front-images{
 		margin: 0px 7%;
@@ -519,5 +540,112 @@ h1, h2{
 		min-height: 500px;
 		overflow: hidden;
 	}
+	.call-to-action{
+		margin-top: 65%;
+	}
+	.form-group{
+		margin-top: 65%;
+	}
+	.more-info>h4{
+		margin: 0 0 0 20px;
+		font-size: 95%;
+	}
+	.info-pane p{
+		margin: 0 5% 0 5%;
+		padding-bottom: 10px;
+		text-indent: 4%;
+		font-size: 160%;
+		font-size: 2vw;
+		line-height: 1.8;
+	}
 }
+@media (min-width: 992px){
+	.branding{
+		top:80px;
+	}
+	.chart h3{
+  		font-size: 24px;
+	}
+	.branding>h1{
+		font-size: 120px;
+		margin-top: -15px;
+	}
+	.branding>h2{
+		font-size: 22px;
+	}
+	.branding>span{
+		font-size: 22px;
+	}
+	.call-to-action{
+		margin-top: 55%;
+		padding: 5px 11px;
+		font-size: 23px;
+		letter-spacing: 1px;
+	}
+	.form-group{
+		margin-top: 55%;
+	}
+	.more-info>h4{
+		font-size: 100%;
+		margin: 0 0 0 25px;
+	}
+	.query{
+		font-size: 20px;
+		margin-top: -7px;
+	}
+	.input-lg{
+	  padding: 10px 16px;
+	   height: 46px;
+	}
+	.advanced {
+  		padding: 3px 0;
+	}
+	.info-pane p{
+		margin: 0 10% 0 10%;
+		font-size: 140%;
+		font-size: 1.5vw;
+		line-height: 1.8;
+	}
+	#tweets ul li{
+		list-style: none;
+		margin: 0px 0px 5px 0px;
+		padding: 8px;
+		background-color:rgba(255, 255, 255, 0.2);
+		font-size: 14px;
+	}
+	.query-actions{
+		padding-left: 0;
+		margin-top: -6px;
+	}
+
+}
+
+@media (min-width: 1200px) {
+	.branding>h1{
+		font-size: 150px;
+		margin-top: -23px;
+	}
+	.call-to-action{
+		margin-top: 50%;
+	}
+	.form-group{
+		margin-top: 50%;
+	}
+	.more-info>h4{
+		margin: 0 0 0 40px;
+		font-size: 120%;
+	}
+	.info-pane p{
+		margin: 0 15% 0 15%;
+		padding-bottom: 15px;
+		text-indent: 5%;
+		font-size: 120%;
+		font-size: 1.3vw;
+		line-height: 2.1;
+	}
+		#tweets ul li:nth-child(2){
+		display: block;
+	}
+}
+
 
