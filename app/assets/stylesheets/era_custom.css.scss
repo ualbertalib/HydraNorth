@@ -15,6 +15,7 @@ body{
 h1, h2{
 	font-family: 'Playfair Display', serif;
 }
+
 .wrap {
 	min-height: 100%;
 	height: auto !important;
@@ -27,28 +28,23 @@ h1, h2{
 }
 .front-images{
 	margin: 0px 7%;
-	height: 80%;
-	min-height: 500px;
-	overflow: hidden;
+
 }
 .branding{
-	position: absolute;
-	top:70px;
-	left:50%;
-	transform: translate(-50%);
-	z-index: 500;
 	text-align: center;
 }
 .branding>h1{
-	font-size: 150px;
+	font-size: 70px;
 	font-weight: bold;
-	letter-spacing: -9px;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 }
 .branding>h1:hover{
 	color: #3e4a2e;
+}
+.branding>h1>span{
+	font-size: 15px;
 }
 .branding>h2{
 	font-size: 22px;
@@ -90,13 +86,13 @@ h1, h2{
 	text-align: right;
 }
 .slides{
-	background-size: cover;
-	height: 100%;
-	opacity: 0.8;
-	text-align: center;
+		background-size: cover;
+		height: 100%;
+		opacity: 0.8;
+		text-align: center;
 }
 #slide1{
-	background-image: asset_url('slide.jpg');
+	background-image: asset_url('slide2.jpg');
 }
 #slide2{
 	background-image: asset_url('slide2.jpg');
@@ -489,4 +485,39 @@ h1, h2{
 	letter-spacing: 0px;
 }
 
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px){
+	.branding{
+		position: absolute;
+		top:70px;
+		left:50%;
+		transform: translate(-50%);
+		z-index: 500;
+		text-align: center;
+	}
+	.branding>h1{
+		font-size: 150px;
+		font-weight: bold;
+		letter-spacing: -9px;
+		text-align: center;
+		margin: 0;
+		margin-top: -20px;
+		padding: 0;
+	}
+	.branding>span{
+			letter-spacing: normal;
+			font-size: 22px;
+			
+			background-color: #333;
+			color: #fff;
+		
+			padding: 5px 10px;
+	}
+	.front-images{
+		margin: 0px 7%;
+		height: 80%;
+		min-height: 500px;
+		overflow: hidden;
+	}
+}
 
