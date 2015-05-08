@@ -5,3 +5,4 @@ plugins:
   - table
   - fullscreen
   - uploadimage
+  - link

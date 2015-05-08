@@ -162,6 +162,9 @@ h1, h2{
 .more-info>h4>a{
 	color: #b5fd99;
 }
+.more-info>h4>a:hover{
+	color: #ccffcc;
+}
 .dn-wrap{
 	width: 90px;
 	height:90px;
@@ -230,11 +233,19 @@ h1, h2{
 	background-color: #2d353d;
 	color: #fff;
 }
-.technical-info p{
+.technical-info>p{
 	color: #fff;
 	font-size: 1.5vw;
 	padding: 7%;
 	line-height: 1.8;
+}
+.technical-info>p>a{
+	color: #b5fd99;
+	text-decoration: none;
+}
+.technical-info>p>a:hover{
+	text-decoration: underline;
+	color: #ccffcc;
 }
 .northern, .researcher{
 	background-image: asset_url('northern.jpg');
@@ -322,6 +333,13 @@ h1, h2{
 	line-height: 2.1;
 	font-family: 'Playfair Display', serif;
 	text-align: justify;
+}
+.info-pane p>a{
+	text-decoration: underline;
+	color: #337ab7;
+}
+.info-pane p>a{
+	text-decoration: none;
 }
 
 .footer{
@@ -495,6 +513,12 @@ h1, h2{
 #tweets a{
 	color: #337ab7;
 }
+#tweets a span{
+	display: none;
+} 
+#tweets .user a span{
+	display: inline;
+} 
 .chart h3{
   		font-size: 17px;
 	}
@@ -543,7 +567,7 @@ h1, h2{
 	.call-to-action{
 		margin-top: 65%;
 	}
-	.form-group{
+	#slide1 .form-group{
 		margin-top: 65%;
 	}
 	.more-info>h4{
@@ -582,7 +606,7 @@ h1, h2{
 		font-size: 23px;
 		letter-spacing: 1px;
 	}
-	.form-group{
+	#slide1 .form-group{
 		margin-top: 55%;
 	}
 	.more-info>h4{
@@ -628,7 +652,7 @@ h1, h2{
 	.call-to-action{
 		margin-top: 50%;
 	}
-	.form-group{
+	#slide1 .form-group{
 		margin-top: 50%;
 	}
 	.more-info>h4{
