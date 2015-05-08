@@ -6,3 +6,4 @@ plugins:
   - fullscreen
   - uploadimage
   - link
+  - code

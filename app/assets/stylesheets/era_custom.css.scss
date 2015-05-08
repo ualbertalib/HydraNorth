@@ -28,10 +28,12 @@ h1, h2{
 }
 .front-images{
 	margin: 0px 7%;
-
 }
 .branding{
 	text-align: center;
+	background-color: #2d353d;
+	color: #fff;
+	padding-bottom: 20px;
 }
 .branding>h1{
 	font-size: 70px;
@@ -146,12 +148,6 @@ h1, h2{
 	  height: 45px;
 }
 .more-info{
-	background-color: rgba(0, 0, 0, 0.8);
-	position: absolute;
-	bottom:56px;
-	height: 40px;
-	color: #fff;
-	padding: 10px;
 	text-align: left;
 }
 .more-info>h4{
@@ -312,36 +308,39 @@ h1, h2{
 	border-bottom: 1px solid #fff;
 }
 .info-pane{
+	
 	padding-bottom:50px;
 }
 .info-pane h2{
 	text-align: center;
-	font-size: 2vw;
-	padding: 35px 0 0px 0;
 }
 .info-pane h3{
 	text-align: center;
 	margin-bottom: 1.7vw;
 	color: #2d353d;
 }
-.info-pane p{
-	margin: 0 15% 0 15%;
-	padding-bottom: 10px;
-	text-indent: 5%;
-	font-size: 120%;
-	font-size: 1.3vw;
-	line-height: 2.1;
-	font-family: 'Playfair Display', serif;
-	text-align: justify;
-}
-.info-pane p>a{
+
+.info-pane p>a, .about p>a{
 	text-decoration: underline;
 	color: #337ab7;
 }
 .info-pane p>a{
 	text-decoration: none;
 }
-
+.about{
+	padding: 20px 40px;
+}
+.about p{
+	font-size: 19px;
+	line-height: 40px;
+	font-family: 'Playfair Display', serif;
+	text-indent: 5%;
+	padding-top: 15px;
+}
+.right-aligned{
+	float: right;
+	margin:10px 0 10px 10px;
+}
 .footer{
 	padding-top: 30px;
 	text-align: center;
@@ -531,17 +530,36 @@ h1, h2{
 	line-height: 33px;
 	letter-spacing: 0px;
 }
+.mobile-message{
+	padding: 10px;
+	font-weight: bold;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding{
 		position: absolute;
-		top:80px;
+		top:60px;
 		left:50%;
 		transform: translate(-50%);
 		z-index: 500;
 		text-align: center;
+		background-color: transparent;
+		color: #333;
+		padding-bottom: 0px;
 	}
+	.more-info{
+		background-color: rgba(0, 0, 0, 0.8);
+		position: absolute;
+		bottom:56px;
+		height: 40px;
+		color: #fff;
+		padding: 10px;
+	}
+	.info-pane h2{
+	font-size: 2vw;
+	padding: 35px 0 0px 0;
+}
 	.branding>h1{
 		font-size: 110px;
 		font-weight: bold;

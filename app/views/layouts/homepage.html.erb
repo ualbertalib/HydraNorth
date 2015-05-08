@@ -17,7 +17,7 @@
 
     <div class="container-fluid front-images">
       <div class="row">
-        <div class="col-sm-8 lib-logo" id="home-logo">
+        <div class="col-sm-8 lib-logo hidden-xs" id="home-logo">
           <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
         </div>
          <div class="col-sm-4 user-util">
@@ -39,19 +39,23 @@
       <div class="col-xs-12 visible-xs">
         <%= render partial: "/front_search_form"%>
       </div>
+     
     </div>
+     <div class="tan visible-xs pane">
+        <p class="mobile-message">This is the mobile version of ERA. You can search and browse items - however to deposit please visit this site on a desktop or tablet computer.</p>
+      </div>
 
 
 <%= render partial: '/flash_msg' %>
-    <div class="container-fluid grid">
+    <div class="container-fluid grid hidden-xs">
      <div class="boxes">
-        <div class="col-sm-4 first-row hidden-xs">
+        <div class="col-sm-4 first-row">
           <div class="show-image northern"><div class="show-info"><h4>Highlighted Collection</h4><h2>Northern North America Collection</h2><p>These images were donated to the University of Alberta by Dr. Joel Martin Halpern, a prominent anthropologist who did extensive work in the northern parts of North America.</p><a href="#">go to collection</a></div></div>
         </div>
-        <div class="col-sm-4 dark-tan first-row hidden-xs">
+        <div class="col-sm-4 dark-tan first-row">
           <div class="text"><p class="mandate"><em>Keep it. Share it. Use it.</em> Welcome to University of Alberta’s Digital Repository and Asset Management Services.</p></div>
         </div>
-         <div class="col-sm-4 first-row  hidden-xs">
+         <div class="col-sm-4 first-row">
           <div class="show-image researcher"> <div class="show-info"><h4>Researcher Profile</h4><h2>Joanne McNeal</h2><p>Joanne McNeal learned about Arctic life and cultures during her career working at colleges in the Northwest Territories and the Yukon. </p><a href="#">go to Joanne's profile</a></div></div>
         </div>
         <div class="col-sm-5 white second-row">
@@ -64,7 +68,7 @@
     </div>
         </div>
 
-        <div class="col-sm-3 blue second-row  hidden-xs">
+        <div class="col-sm-3 blue second-row ">
           <div class="technical-info"><p>ERA builds on multi-institutional collaborations around open source technologies. For a full list of technical specifications, <a href="/about">see here</a>.</p></div>
         </div>
         <div class="col-sm-4 dark-tan second-row">
@@ -76,7 +80,7 @@
     </div>
   </div>
     <div class="container-fluid info-pane pane">
-      <h2><a name="info">What is ERA?</a></h2>
+      <h2><a name="info"></a>What is ERA?</h2>
       <h3>Education &amp; Research Archive</h3>
 
 <p>ERA is the name for University of Alberta’s Digital Asset Management strategy as actively being developed and supported by the <a href="https://www.ualberta.ca">University of Alberta Libraries</a>. </p>
