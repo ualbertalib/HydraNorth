@@ -1,8 +1,9 @@
 class Collection < Sufia::Collection
   include Hydranorth::Collections::Metadata
+  include Hydranorth::Collections::Fedora3Foxml
   include Hydra::Collections::Collectible
   include Hydra::Collection
-
+  has_and_belongs_to_many :members, predicate:  ActiveFedora::RDF::Fcrepo::RelsExt.hasCollectionMember, class_name: "ActiveFedora::Base" , after_remove: :update_member, solr_page_size:70
   before_save :remove_self_from_members
 
   def can_be_member_of_collection?(collection)

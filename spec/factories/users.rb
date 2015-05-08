@@ -48,6 +48,18 @@ FactoryGirl.define do
       email 'curator1@example.com'
     end
 
+    
+    factory :new_user do
+      email            'new_user@example.com'
+      password         "123456789"
+    end
+
+    factory :legacy_user, :class => 'User' do
+      email             'legacy_user@example.com'
+      password          Digest::MD5.hexdigest("123456789")
+      legacy_password   Digest::MD5.hexdigest("123456789")   
+    end
+
   end
 end
 
