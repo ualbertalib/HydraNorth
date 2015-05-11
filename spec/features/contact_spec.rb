@@ -27,7 +27,7 @@ describe 'Contact form', :type => :feature do
     before { visit '/contact' }
     it { expect(page).to have_content 'Contact Form' }
     it 'should have general inquiry first' do
-      expect(find('#contact_form_category').all('option')[2]).to have_content 'General inquiry or request'
+      expect(find('#contact_form_category').all('option')[1]).to have_content 'General inquiry or request'
     end
     it { expect(page).to have_select('contact_form_category', with_options: ['Website or System Problem']) }
   end
