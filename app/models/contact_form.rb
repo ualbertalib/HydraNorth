@@ -2,11 +2,11 @@ require 'mail_form'
 
 class ContactForm < MailForm::Base
   ISSUE_TYPES = [
+      ["General inquiry or request", "General inquiry or request"],
       ["Depositing content", "Depositing content"],
       ["Making changes to my content", "Making changes to my content"],
       ["Browsing and searching", "Browsing and searching"],
-      ["Reporting a problem", "Reporting a problem"],
-      ["General inquiry or request", "General inquiry or request"]
+      ["Reporting a problem", "Reporting a problem"]
     ]
   attribute :contact_method, captcha: true
   attribute :category, validate: true

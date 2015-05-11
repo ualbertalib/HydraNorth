@@ -23,9 +23,16 @@ describe 'Contact form', :type => :feature do
 
   end
 
+  describe 'selection list' do
+    before { visit '/contact' }
+    it { expect(page).to have_content 'Contact Form' }
+    it 'should have general inquiry first' do
+      expect(find('#contact_form_category').all('option')[2]).to have_content 'General inquiry or request'
+    end
+  end
+
   def fill_contact_form 
     visit '/contact'
-    expect(page).to have_content 'Contact Form'
     select 'Making changes to my content', from: 'contact_form_category'
     fill_in 'contact_form_name', with: 'Kurt Baker'
     fill_in 'contact_form_email', with: email_address
