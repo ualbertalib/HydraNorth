@@ -6,7 +6,7 @@ class ContactForm < MailForm::Base
       ["Depositing content", "Depositing content"],
       ["Making changes to my content", "Making changes to my content"],
       ["Browsing and searching", "Browsing and searching"],
-      ["Reporting a problem", "Reporting a problem"]
+      ["Website or System Problem", "Website or System Problem"]
     ]
   attribute :contact_method, captcha: true
   attribute :category, validate: true
