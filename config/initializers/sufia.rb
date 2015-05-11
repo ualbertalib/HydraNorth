@@ -147,7 +147,7 @@ Sufia.config do |config|
   config.fits_path = "fits"
 
   config.enable_contact_form_delivery = true
-  config.from_email = "HydraNorth Form <erahelp@ualberta.ca>"
+  config.from_email = "HydraNorth Form"
 
   # Specify how many seconds back from the current time that we should show by default of the user's activity on the user's dashboard
   # config.activity_to_show_default_seconds_since_now = 24*60*60

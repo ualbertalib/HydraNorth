@@ -21,12 +21,13 @@ describe 'Contact form', :type => :feature do
 
   let(:admin_message) {
     sent_messages.detect do |message|
-      message.from == ['erahelp@ualberta.ca']
+      message.from == [email_address]
     end
   }
 
   it 'should send a "HydraNorth Form" message to the admin' do
-    expect(admin_message.subject).to eq("Contact Form:#{email_subject}")
+    expect(admin_message.from).to include(email_address)
+    expect(admin_message.subject).to eq("ERA Contact Form : #{email_subject}")
   end
 
 end
