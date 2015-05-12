@@ -308,7 +308,6 @@ h1, h2{
 	border-bottom: 1px solid #fff;
 }
 .info-pane{
-	
 	padding-bottom:50px;
 }
 .info-pane h2{
@@ -366,7 +365,7 @@ h1, h2{
 	color: #efefef;
 }
 .copyright{
-	padding-top: 40px;
+	padding: 40px 20px 0 20px;
 	font-size: 90%;
 }
 .copyright>a{
@@ -539,7 +538,7 @@ h1, h2{
 @media (min-width: 768px){
 	.branding{
 		position: absolute;
-		top:60px;
+		top:80px;
 		left:50%;
 		transform: translate(-50%);
 		z-index: 500;
@@ -551,7 +550,7 @@ h1, h2{
 	.more-info{
 		background-color: rgba(0, 0, 0, 0.8);
 		position: absolute;
-		bottom:56px;
+		bottom:55px;
 		height: 40px;
 		color: #fff;
 		padding: 10px;
@@ -599,6 +598,10 @@ h1, h2{
 		font-size: 160%;
 		font-size: 2vw;
 		line-height: 1.8;
+		font-family: 'Playfair Display', serif;
+	}
+	.copyright{
+		padding: 40px 0 0 0;
 	}
 }
 @media (min-width: 992px){
@@ -626,6 +629,9 @@ h1, h2{
 	}
 	#slide1 .form-group{
 		margin-top: 55%;
+	}
+	.more-info{
+		bottom: 56px;
 	}
 	.more-info>h4{
 		font-size: 100%;
@@ -672,6 +678,9 @@ h1, h2{
 	}
 	#slide1 .form-group{
 		margin-top: 50%;
+	}
+	.more-info{
+		bottom: 56px;
 	}
 	.more-info>h4{
 		margin: 0 0 0 40px;
