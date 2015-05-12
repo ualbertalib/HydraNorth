@@ -43,7 +43,7 @@ h1, h2{
 	padding: 0;
 }
 .branding>h1:hover{
-	color: #3e4a2e;
+	color: #efefef;
 }
 .branding>span{
 	font-size: 13px;
@@ -53,6 +53,11 @@ h1, h2{
 	text-align: center;
 	padding: 0;
 	margin: -5px 0 0 20px;
+}
+.more-info{
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	padding: 10px;
 }
 .lib-logo a.logo{
 	margin-top: 20px;
@@ -149,16 +154,17 @@ h1, h2{
 }
 .more-info{
 	text-align: left;
+	margin-top: 20px;
 }
 .more-info>h4{
-	margin: 0 0 0 20px;
+	margin: 0;
 	padding: 0;
 	font-size: 90%;
 }
-.more-info>h4>a{
+.more-info>h4 a{
 	color: #b5fd99;
 }
-.more-info>h4>a:hover{
+.more-info>h4 a:hover{
 	color: #ccffcc;
 }
 .dn-wrap{
@@ -530,12 +536,19 @@ h1, h2{
 	letter-spacing: 0px;
 }
 .mobile-message{
-	padding: 10px;
+	padding: 10px 20px;
 	font-weight: bold;
+	font-size: 18px;
+}
+.mobile-search{
+	padding:15px 0px 30px 0px;
 }
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
+	.branding>h1:hover{
+		color: #3e4a2e;
+	}
 	.branding{
 		position: absolute;
 		top:80px;
@@ -548,12 +561,13 @@ h1, h2{
 		padding-bottom: 0px;
 	}
 	.more-info{
-		background-color: rgba(0, 0, 0, 0.8);
 		position: absolute;
 		bottom:55px;
 		height: 40px;
-		color: #fff;
-		padding: 10px;
+		margin-top: 0;
+	}
+	.more-info>h4{
+		margin: 0 0 0 20px;
 	}
 	.info-pane h2{
 	font-size: 2vw;
