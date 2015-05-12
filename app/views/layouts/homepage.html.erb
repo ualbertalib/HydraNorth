@@ -5,11 +5,7 @@
   </head>
 
   <body>
-    <div class="branding">
-      <span class="hidden-xs">beta</span>
-      <h1>ERA</h1>
-      <h2>education &amp; research archive</h2>
-    </div>
+    
     <div class="dn-wrap hidden-xs">
       <div class="triangle"></div>
       <div class="dn"><a href="#profiles"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
@@ -17,14 +13,20 @@
 
     <div class="container-fluid front-images">
       <div class="row">
-        <div class="col-sm-8 lib-logo hidden-xs" id="home-logo">
+        <div class="col-xs-8 lib-logo " id="home-logo">
           <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
         </div>
-         <div class="col-sm-4 user-util">
+         <div class="col-xs-4 user-util">
          <%= render partial: "/user_util_links"%>
         </div>
         </div>
-
+        <div class="row">
+<div class="branding">
+      <span class="hidden-xs">beta</span>
+      <h1>ERA</h1>
+      <h2>education &amp; research archive</h2>
+    </div>
+  </div>
       <div class="col-sm-6 slides hidden-xs" id="slide1">
        <%= render partial: "/front_search_form"%>
       </div>
@@ -32,7 +34,7 @@
         <a href="/files/new" class="call-to-action">Share Your Research</a>
         <div class="row">
           <div class="col-sm-12 more-info">
-           <h4><span class="hidden-sm">Get <a href="#info">more information</a> about this service or</span> <a href="contact">contact us</a>.</h4>
+           <h4><span class="hidden-sm">Get <a href="#info">more information</a> about this service or</span> <a href="contact">contact us</a></h4>
           </div>
         </div>
       </div>

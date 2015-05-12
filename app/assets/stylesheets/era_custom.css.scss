@@ -26,14 +26,13 @@ h1, h2{
 	height: 260px;
 	clear:both;
 }
-.front-images{
-	margin: 0px 7%;
-}
+
 .branding{
 	text-align: center;
 	background-color: #2d353d;
 	color: #fff;
 	padding-bottom: 20px;
+
 }
 .branding>h1{
 	font-size: 70px;
@@ -64,14 +63,12 @@ h1, h2{
 	padding-bottom: 6px;
 	padding-top: 8px;
 	background-image: asset_url('lib-logo.png');
+ 	background-size: 190px;
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	display: inline-block;
-	height: 40px;
+	height: 30px;
 	width: 250px;
-}
-.lib-logo a.logo:hover{
-	background-position: 0px -45px;
 }
 .lib-logo .btn{
 	float: right;
@@ -131,7 +128,7 @@ h1, h2{
 	background-color: #fff;
 	padding: 1px 0;
 	display: block;
-	width: 97%;
+	width: 90%;
 	margin:auto;
 }
 .advanced:hover{
@@ -543,7 +540,9 @@ h1, h2{
 .mobile-search{
 	padding:15px 0px 30px 0px;
 }
-
+.mobile-search .row{
+	margin: 0px 15px;
+}
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding>h1:hover{
@@ -560,6 +559,9 @@ h1, h2{
 		color: #333;
 		padding-bottom: 0px;
 	}
+	.front-images{
+	margin: 0px 7%;
+}
 	.more-info{
 		position: absolute;
 		bottom:55px;
@@ -588,6 +590,21 @@ h1, h2{
 			background-color: #333;
 			color: #fff;
 			padding: 4px 8px;
+	}
+	.lib-logo a.logo{
+		margin-top: 20px;
+		padding-bottom: 6px;
+		padding-top: 8px;
+		background-image: asset_url('lib-logo.png');
+		background-repeat: no-repeat;
+		background-size: 234px;
+		background-position: 0px 0px;
+		display: inline-block;
+		height: 40px;
+		width: 250px;
+	}
+	.lib-logo a.logo:hover{
+		background-position: 0px -45px;
 	}
 	.front-images{
 		margin: 0px 7%;
