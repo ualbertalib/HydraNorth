@@ -9,10 +9,8 @@ before_install:
 services:
   - redis-server
 before_install:
-  # add ppa for ffmpeg
-  - sudo add-apt-repository -y ppa:mc3man/trusty-media
   - sudo apt-get update
-  - sudo apt-get install libclamav-dev clamav-freshclam ffmpeg
+  - sudo apt-get install libclamav-dev clamav-freshclam
 before_script:
   - redis-cli info
   - bundle exec rake jetty:start
