@@ -144,7 +144,6 @@ Sufia.config do |config|
 
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
-   config.fits_path = "fits"
   config.fits_path = "fits"
 
   config.enable_contact_form_delivery = true
