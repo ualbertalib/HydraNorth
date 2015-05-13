@@ -38,30 +38,33 @@ namespace :migration do
           fax = fields[11].strip if !fields[11].nil? && !fields[11].blank?
           website = fields[12].strip if !fields[12].nil? && !fields[12].blank?
           MigrationLogger.info "Migrate user #{id}: #{username}"
-          user=User.new({
-            :first_name => first_name,
-            :last_name => last_name,
-            :username => username,
-            :password => password,
-            :password_confirmation => password,
-            :display_name => display_name,
-            :email => email,
-            :ccid => ccid,
-            :description => description,
-            :institution => institution,
-            :address => address,
-            :telephone => telephone,
-            :fax => fax,
-            :website => website,
-            :legacy_password => password
-            }) unless User.find_by_user_key(email)
-          MigrationLogger.info "User #{username} migrated successfully"
-          user.skip_confirmation! 
-          user.save!
+          if !User.find_by_user_key(email)
+
+            user=User.new({
+              :first_name => first_name,
+              :last_name => last_name,
+              :username => username,
+              :password => password,
+              :password_confirmation => password,
+              :display_name => display_name,
+              :email => email,
+              :ccid => ccid,
+              :description => description,
+              :institution => institution,
+              :address => address,
+              :telephone => telephone,
+              :fax => fax,
+              :website => website,
+              :legacy_password => password
+              }) 
+            MigrationLogger.info "User #{username} migrated successfully"
+            user.skip_confirmation! 
+            user.save!
+          end
           if User.find_by_user_key(email) 
             MigrationLogger.info "User #{id} #{username} is migrated successfully"
           else
-            MigrationLogger.info "User #{id} #{username} has not migrated."
+            MigrationLogger.info "FAILED: User #{id} #{username} has not migrated."
           end
           n = n + 1
         rescue Exception => e
