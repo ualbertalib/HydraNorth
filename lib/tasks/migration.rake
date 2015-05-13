@@ -1,16 +1,20 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 
+
   NS = {
-      "xmlns:foxml" => "info:fedora/fedora-system:def/foxml#",
-      "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
-      "xmlns:dcterms" => "http://purl.org/dc/terms/",
-      "xmlns:oai_dc" => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-      "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "xmlns:ualterms" => "https://terms.library/ualberta.ca",
-      "memberof" => "info:fedora/fedora-system:def/relations-external#",
-      "user_ns" => "http://era.library.ualberta.ca/schema/definitions.xsd#",
-  }
+        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", 
+        "xmlns:foxml"=>"info:fedora/fedora-system:def/foxml#", 
+        "xmlns:audit"=>"info:fedora/fedora-system:def/audit#", 
+        "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
+        "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
+        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
+        "xmlns:ualterms"=>"http://terms.library/ualberta.ca", 
+        "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
+        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#"
+    }
+
 
   LANG = {
       "eng" => "English",
@@ -226,9 +230,7 @@ namespace :migration do
       language = dc_version.xpath("dcterms:language",NS).text
       spatial = dc_version.xpath("dcterms:spatial/text()",NS).map(&:to_s).first
       temporal = dc_version.xpath("dcterms:temporal/text()", NS).map(&:to_s).first
-      era_identifiers = dc_version.xpath("dcterms:identifier/text()", NS).map(&:to_s)
-      fedora3handle = ''
-      era_identifiers.each {|id| fedora3handle = id if id.match(/handle/)} unless era_identifiers.nil?
+      fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
       # download files
       # get the content datastream DS
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
@@ -243,9 +245,7 @@ namespace :migration do
           #get the metadata for the physical file
 
           original_filename = file_version.attribute('LABEL').to_s
-          puts original_filename
           original_filename_normalize = original_filename.gsub(/[^0-9A-Za-z.\-]/, '_')
-          puts original_filename_normalize
           original_deposit_time = file_version.attribute('CREATED').to_s
           md5_node = file_version.xpath("foxml:contentDigest")
           original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
@@ -256,7 +256,6 @@ namespace :migration do
           MigrationLogger.info "Retrieve File #{original_filename}"
           #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
           file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
-          puts file_full
           #FileUtils.cp(file_ds, file_full)
           system "curl #{file_location} --create-dirs -o #{file_full}"
           # get md5 of the file
@@ -264,7 +263,7 @@ namespace :migration do
           # verify md5 with the MD5 in DS
           if !md5_node.empty? && original_md5 && md5 != original_md5
             MigrationLogger.warn "MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
-            File.open(ODDITIES, 'a') {|f| f.puts("MD5 not matching: #{uuid}") }
+            File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
           end
         end
 
@@ -284,7 +283,8 @@ namespace :migration do
 
       when ds_datastreams.length == 0
         MigrationLogger.warn "No DS datastream available - Please check the oddities report"
-        File.open(ODDITIES, 'a'){ |f| f.puts("NO CONTENT - #{uuid}" ) }
+        File.open(ODDITIES, 'a'){ |f| f.puts("#{Time.now} NO CONTENT - #{uuid}" ) }
+
       end
 
 	  
@@ -292,7 +292,7 @@ namespace :migration do
       license_node = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'LICENSE.')]", NS).last
       if license_node.nil?
         MigrationLogger.fatal "NO License datastream available - Please check the oddities report"
-        File.open(ODDITIES, 'a') {|f| f.puts("NO LICENSE - #{uuid}") }
+        File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
       else
         license = license_node.attribute('LABEL').to_s
       end
@@ -300,8 +300,8 @@ namespace :migration do
       relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",NS).last
       collections = relsext_version.xpath("memberof:isMemberOfCollection/@rdf:resource", NS).map{ |node| node.value.split("/")[1] }
       community = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
-      user = relsext_version.at_xpath("user_ns:userId", NS).text() if relsext_version.at_xpath("user_ns:userId", NS)
-      submitter = relsext_version.at_xpath("user_ns:submitterId", NS).text() if relsext_version.at_xpath("user_ns:submitterId", NS)
+      user = relsext_version.at_xpath("userns:userId", NS).text() if relsext_version.at_xpath("userns:userId", NS)
+      submitter = relsext_version.at_xpath("userns:submitterId", NS).text() if relsext_version.at_xpath("userns:submitterId", NS)
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
@@ -449,8 +449,8 @@ namespace :migration do
       # remove the file from temp location
       if migrated && incollections
         MigrationLogger.info "file migrated successfully"
-        File.delete(file_full) if ds_datastreams.length > 0
-        File.delete(download_foxml) if File.exist? (download_foxml)
+        FileUtils.rm(file_full) if ds_datastreams.length > 0
+        FileUtils.rm(download_foxml) if File.exist? (download_foxml)
         #move metadata to success location
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
@@ -559,6 +559,7 @@ namespace :migration do
 
       #if uuid has already been migrated
       solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
+      puts solr_rsp
       numFound = solr_rsp['response']['numFound']
       case
       when numFound == 1
@@ -572,7 +573,7 @@ namespace :migration do
               MigrationLogger.info "Item #{uuid} / #{id} is in collection #{this_collection.id}"
             else
               MigrationLogger.warn "Item #{uuid} / #{id} is not in collection #{this_collection.id}"
-              File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("COLLECTION INFO MISSING: Item #{id} not in collection #{this_collection.id} #{this_collection.title}" ) }
+              File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("#{Time.now} COLLECTION INFO MISSING: Item #{id} not in collection #{this_collection.id} #{this_collection.title}" ) }
             end
           end
         else
@@ -582,17 +583,17 @@ namespace :migration do
             MigrationLogger.info "Item #{uuid} / #{id} is in community #{this_community.id}"
           else
             MigrationLogger.warn "Item #{uuid} / #{id} is not in community #{this_community.id}"
-            #File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts(""COMMUNITY INFO MISSING: Item #{id} not in community #{this_community.id} #{this_community.title}") }
+            #File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("#{Time.now} COMMUNITY INFO MISSING: Item #{id} not in community #{this_community.id} #{this_community.title}") }
 
           end
 
         end
       when numFound == 0
         MigrationLogger.error "NOT MIGRATED: #{uuid} has not been migrated"
-        File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("NOT MIGRATED: Item #{uuid} was not migrated" ) }
+        File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("#{Time.now} NOT MIGRATED: Item #{uuid} was not migrated" ) }
       when numFound > 1
         MigrationLogger.error "DUPLICATED: #{uuid} has been migrated more than once"
-        File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("DUPLICATED: Item #{uuid} was duplicated" ) }
+        File.open(VERIFICATION_ERROR, 'a'){ |f| f.puts("#{Time.now} DUPLICATED: Item #{uuid} was duplicated" ) }
       end
     end
 
