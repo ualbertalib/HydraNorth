@@ -19,7 +19,7 @@ describe CreateDerivativesJob do
       allow_any_instance_of(GenericFile).to receive(:mime_type).and_return(mime_type)
       @generic_file.save!
     end
-    context 'with a video (.avi) file' do
+    context 'with a video (.avi) file', unless: $in_travis do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
 
