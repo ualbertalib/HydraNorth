@@ -59,7 +59,7 @@ h1, h2{
 	padding: 10px;
 }
 .lib-logo a.logo{
-	margin-top: 20px;
+	margin-top: 10px;
 	padding-bottom: 6px;
 	padding-top: 8px;
 	background-image: asset_url('lib-logo.png');
@@ -208,7 +208,7 @@ h1, h2{
 	position: absolute;
 }
 .tan{
-	background-color: #ebe8e5;
+	background-color: #fff;
 }
 .dark-tan{
 	background-color: #d7d2cb;
@@ -375,23 +375,26 @@ h1, h2{
 	color: #b5fd99;
 }
 #masthead{
-	background-color: #ebe8e5;
+	background-color: #fff;
 	min-height: 0px;
-	padding-bottom: 20px;
 }
 .mast-branding{
 	text-align: center;
 }
 .mast-branding h1{
-	font-size: 650%;
-	font-weight: bold;
-	margin: 0;
+	margin: 0px -45px;
 	padding: 0;
-	margin-top: -10px;
-	letter-spacing: -5px;
+}
+.mast-branding h1>a{
+	color: #fff;
+	font-size: 70px;
+	font-weight: bold;
+
+	display: block;
+	background-color: #2d353d;
 }
 .mast-branding h1 a:hover{
-	color: #3e4a2e;
+	color: #999;
 	text-decoration: none;
 }
 .mast-branding h2{
@@ -442,7 +445,7 @@ h1, h2{
   margin-top:0.5em;
 }
 .main{
-	padding: 20px 0 40px 0;
+	padding: 0px 0 40px 0;
 }
 .btn#advanced_search{
 	font-size: 120%;
@@ -538,7 +541,7 @@ h1, h2{
 	font-size: 18px;
 }
 .mobile-search{
-	padding:15px 0px 30px 0px;
+	padding:15px 0px 10px 0px;
 }
 .mobile-search .row{
 	margin: 0px 15px;
@@ -559,9 +562,32 @@ h1, h2{
 		color: #333;
 		padding-bottom: 0px;
 	}
+	.tan{
+		background-color: #ebe8e5;
+	}
+	#masthead{
+		background-color: #ebe8e5;
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+	}
+	.mast-branding{
+		background-color: transparent;
+	}
+	.mast-branding h1>a{
+		font-size: 350%;
+		color: #222;
+		letter-spacing: -5px;
+		background-color: transparent;
+	}
+	.main{
+		padding: 20px 0 40px 0;
+	}
+	.lib-logo a.logo{
+		margin-top: 20px;
+	}
 	.front-images{
-	margin: 0px 7%;
-}
+		margin: 0px 7%;
+	}
 	.more-info{
 		position: absolute;
 		bottom:55px;
@@ -572,7 +598,7 @@ h1, h2{
 		margin: 0 0 0 20px;
 	}
 	.info-pane h2{
-	font-size: 2vw;
+	font-size: 3vw;
 	padding: 35px 0 0px 0;
 }
 	.branding>h1{
@@ -718,11 +744,11 @@ h1, h2{
 		font-size: 120%;
 	}
 	.info-pane p{
-		margin: 0 15% 0 15%;
+		margin: 0 10% 0 10%;
 		padding-bottom: 15px;
 		text-indent: 5%;
-		font-size: 120%;
-		font-size: 1.3vw;
+		font-size: 130%;
+		font-size: 1.5vw;
 		line-height: 2.1;
 	}
 		#tweets ul li:nth-child(2){
