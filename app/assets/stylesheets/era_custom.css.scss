@@ -15,6 +15,7 @@ body{
 h1, h2{
 	font-family: 'Playfair Display', serif;
 }
+
 .wrap {
 	min-height: 100%;
 	height: auto !important;
@@ -25,50 +26,49 @@ h1, h2{
 	height: 260px;
 	clear:both;
 }
-.front-images{
-	margin: 0px 7%;
-	height: 80%;
-	min-height: 500px;
-	overflow: hidden;
-}
+
 .branding{
-	position: absolute;
-	top:70px;
-	left:50%;
-	transform: translate(-50%);
-	z-index: 500;
 	text-align: center;
+	background-color: #2d353d;
+	color: #fff;
+	padding-bottom: 20px;
+
 }
 .branding>h1{
-	font-size: 150px;
+	font-size: 70px;
 	font-weight: bold;
-	letter-spacing: -9px;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 }
 .branding>h1:hover{
-	color: #3e4a2e;
+	color: #efefef;
+}
+.branding>span{
+	font-size: 13px;
 }
 .branding>h2{
-	font-size: 22px;
+	font-size: 15px;
 	text-align: center;
 	padding: 0;
 	margin: -5px 0 0 20px;
 }
+.more-info{
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	padding: 10px;
+}
 .lib-logo a.logo{
-	margin-top: 20px;
+	margin-top: 10px;
 	padding-bottom: 6px;
 	padding-top: 8px;
 	background-image: asset_url('lib-logo.png');
+ 	background-size: 190px;
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	display: inline-block;
-	height: 40px;
+	height: 30px;
 	width: 250px;
-}
-.lib-logo a.logo:hover{
-	background-position: 0px -45px;
 }
 .lib-logo .btn{
 	float: right;
@@ -90,25 +90,24 @@ h1, h2{
 	text-align: right;
 }
 .slides{
-	background-size: cover;
-	height: 100%;
-	opacity: 0.8;
-	text-align: center;
+		background-size: cover;
+		height: 100%;
+		opacity: 0.8;
+		text-align: center;
 }
 #slide1{
-	background-image: asset_url('slide.jpg');
+	background-image: asset_url('slide2.jpg');
 }
 #slide2{
 	background-image: asset_url('slide2.jpg');
 }
 .call-to-action{
-	padding: 4px 10px;
-	border: 3px solid #fff;
+	padding: 4px 8px;
+	border: 2px solid #fff;
 	background-color: rgba(0, 0, 0, 0.6);
-	font-size: 23px;
+	font-size: 18px;
 	letter-spacing: 1px;
 	color: #fff;
-	margin-top: 50%;
 	text-align: center;
 	display: inline-block;
 }
@@ -120,36 +119,50 @@ h1, h2{
 .call-to-action:active, .call-to-action:visited, .call-to-action:link{
 	text-decoration: none;
 	color: #efefef;
-	}
+}
+#query-button{
+	margin-top: 0;
+	z-index:2000;
+}
 .advanced{
 	background-color: #fff;
-	display: inline-block;
-	padding: 0px 17px;
-	margin-left: 210px;
+	padding: 1px 0;
+	display: block;
+	width: 90%;
+	margin:auto;
 }
 .advanced:hover{
 	background-color: #efefef;
 	text-decoration: none;
 }
+.form-group>.col-sm-7{
+	padding-right: 0;
+}
+.query-actions{
+	padding-left: 0;
+	margin-top: 0px;
+}
 .query{
-	font-size: 20px;
-	margin-top: -7px;
+	font-size: 15px;
+}
+.input-lg{
+	  padding: 4px 8px;
+	  height: 45px;
 }
 .more-info{
-	background-color: rgba(0, 0, 0, 0.8);
-	position: absolute;
-	bottom:56px;
-	height: 40px;
-	color: #fff;
-	padding: 10px;
 	text-align: left;
+	margin-top: 20px;
 }
 .more-info>h4{
-	margin: 0 0 0 40px;
+	margin: 0;
 	padding: 0;
+	font-size: 90%;
 }
-.more-info>h4>a{
+.more-info>h4 a{
 	color: #b5fd99;
+}
+.more-info>h4 a:hover{
+	color: #ccffcc;
 }
 .dn-wrap{
 	width: 90px;
@@ -195,7 +208,7 @@ h1, h2{
 	position: absolute;
 }
 .tan{
-	background-color: #ebe8e5;
+	background-color: #fff;
 }
 .dark-tan{
 	background-color: #d7d2cb;
@@ -219,11 +232,19 @@ h1, h2{
 	background-color: #2d353d;
 	color: #fff;
 }
-.technical-info p{
+.technical-info>p{
 	color: #fff;
 	font-size: 1.5vw;
 	padding: 7%;
 	line-height: 1.8;
+}
+.technical-info>p>a{
+	color: #b5fd99;
+	text-decoration: none;
+}
+.technical-info>p>a:hover{
+	text-decoration: underline;
+	color: #ccffcc;
 }
 .northern, .researcher{
 	background-image: asset_url('northern.jpg');
@@ -289,27 +310,39 @@ h1, h2{
 	padding-bottom: 10px;
 	border-bottom: 1px solid #fff;
 }
+.info-pane{
+	padding-bottom:50px;
+}
 .info-pane h2{
 	text-align: center;
-	font-size: 2vw;
-	padding: 35px 0 0px 0;
 }
 .info-pane h3{
 	text-align: center;
 	margin-bottom: 1.7vw;
 	color: #2d353d;
 }
-.info-pane p{
-	margin: 0 15% 0 15%;
-	padding-bottom: 10px;
-	text-indent: 5%;
-	font-size: 120%;
-	font-size: 1.3vw;
-	line-height: 2.1;
-	font-family: 'Playfair Display', serif;
-	text-align: justify;
-}
 
+.info-pane p>a, .about p>a{
+	text-decoration: underline;
+	color: #337ab7;
+}
+.info-pane p>a{
+	text-decoration: none;
+}
+.about{
+	padding: 20px 40px;
+}
+.about p{
+	font-size: 19px;
+	line-height: 40px;
+	font-family: 'Playfair Display', serif;
+	text-indent: 5%;
+	padding-top: 15px;
+}
+.right-aligned{
+	float: right;
+	margin:10px 0 10px 10px;
+}
 .footer{
 	padding-top: 30px;
 	text-align: center;
@@ -335,30 +368,33 @@ h1, h2{
 	color: #efefef;
 }
 .copyright{
-	padding-top: 40px;
+	padding: 40px 20px 0 20px;
 	font-size: 90%;
 }
 .copyright>a{
 	color: #b5fd99;
 }
 #masthead{
-	background-color: #ebe8e5;
+	background-color: #fff;
 	min-height: 0px;
-	padding-bottom: 20px;
 }
 .mast-branding{
 	text-align: center;
 }
 .mast-branding h1{
-	font-size: 650%;
-	font-weight: bold;
-	margin: 0;
+	margin: 0px -45px;
 	padding: 0;
-	margin-top: -10px;
-	letter-spacing: -5px;
+}
+.mast-branding h1>a{
+	color: #fff;
+	font-size: 70px;
+	font-weight: bold;
+
+	display: block;
+	background-color: #2d353d;
 }
 .mast-branding h1 a:hover{
-	color: #3e4a2e;
+	color: #999;
 	text-decoration: none;
 }
 .mast-branding h2{
@@ -409,7 +445,7 @@ h1, h2{
   margin-top:0.5em;
 }
 .main{
-	padding: 20px 0 40px 0;
+	padding: 0px 0 40px 0;
 }
 .btn#advanced_search{
 	font-size: 120%;
@@ -441,7 +477,7 @@ h1, h2{
 	padding:10%;
 	font-size: 13px;
 	background-image:asset_url('twitter-logo.png');
-	background-position: 5px 10px;
+	background-position: 0px 10px;
 	background-repeat: no-repeat;
 	min-height: 100px;
 	min-width: 100px;
@@ -451,19 +487,20 @@ h1, h2{
 }
 #tweets ul{
 	margin: 0px;
-	padding: 20px;
+	padding: 0px;
+	list-style: none;
 }
 #tweets ul li{
 	list-style: none;
-	margin: 15px 0;
-	padding: 0;
+	margin: 0px 0px 5px 0px;
+	padding: 8px;
+	background-color:rgba(255, 255, 255, 0.2);
 	font-size: 14px;
 }
-#tweets ul{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
+#tweets ul li:nth-child(2){
+		display: none;
+	}
+
 #tweets .user{
 	font-size: 110%;
 	font-weight: bold;
@@ -475,10 +512,20 @@ h1, h2{
 	font-size: 80%;
 	margin-top: -8px;
 	color: #666;
+	margin-bottom: 0px;
 }
 #tweets a{
 	color: #337ab7;
 }
+#tweets a span{
+	display: none;
+} 
+#tweets .user a span{
+	display: inline;
+} 
+.chart h3{
+  		font-size: 17px;
+	}
 
 /* Collections */
 
@@ -487,6 +534,226 @@ h1, h2{
 	font-size: 18px;
 	line-height: 33px;
 	letter-spacing: 0px;
+}
+.mobile-message{
+	padding: 10px 20px;
+	font-weight: bold;
+	font-size: 18px;
+}
+.mobile-search{
+	padding:15px 0px 10px 0px;
+}
+.mobile-search .row{
+	margin: 0px 15px;
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px){
+	.branding>h1:hover{
+		color: #3e4a2e;
+	}
+	.branding{
+		position: absolute;
+		top:80px;
+		left:50%;
+		transform: translate(-50%);
+		z-index: 500;
+		text-align: center;
+		background-color: transparent;
+		color: #333;
+		padding-bottom: 0px;
+	}
+	.tan{
+		background-color: #ebe8e5;
+	}
+	#masthead{
+		background-color: #ebe8e5;
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+	}
+	.mast-branding{
+		background-color: transparent;
+	}
+	.mast-branding h1>a{
+		font-size: 350%;
+		color: #222;
+		letter-spacing: -5px;
+		background-color: transparent;
+	}
+	.main{
+		padding: 20px 0 40px 0;
+	}
+	.lib-logo a.logo{
+		margin-top: 20px;
+	}
+	.front-images{
+		margin: 0px 7%;
+	}
+	.more-info{
+		position: absolute;
+		bottom:55px;
+		height: 40px;
+		margin-top: 0;
+	}
+	.more-info>h4{
+		margin: 0 0 0 20px;
+	}
+	.info-pane h2{
+	font-size: 3vw;
+	padding: 35px 0 0px 0;
+}
+	.branding>h1{
+		font-size: 110px;
+		font-weight: bold;
+		letter-spacing: -9px;
+		text-align: center;
+		margin: 0;
+		margin-top: 0px;
+		padding: 0;
+	}
+	.branding>span{
+			letter-spacing: normal;
+			font-size: 15px;
+			background-color: #333;
+			color: #fff;
+			padding: 4px 8px;
+	}
+	.lib-logo a.logo{
+		margin-top: 20px;
+		padding-bottom: 6px;
+		padding-top: 8px;
+		background-image: asset_url('lib-logo.png');
+		background-repeat: no-repeat;
+		background-size: 234px;
+		background-position: 0px 0px;
+		display: inline-block;
+		height: 40px;
+		width: 250px;
+	}
+	.lib-logo a.logo:hover{
+		background-position: 0px -45px;
+	}
+	.front-images{
+		margin: 0px 7%;
+		height: 80%;
+		min-height: 500px;
+		overflow: hidden;
+	}
+	.call-to-action{
+		margin-top: 65%;
+	}
+	#slide1 .form-group{
+		margin-top: 65%;
+	}
+	.more-info>h4{
+		margin: 0 0 0 20px;
+		font-size: 95%;
+	}
+	.info-pane p{
+		margin: 0 5% 0 5%;
+		padding-bottom: 10px;
+		text-indent: 4%;
+		font-size: 160%;
+		font-size: 2vw;
+		line-height: 1.8;
+		font-family: 'Playfair Display', serif;
+	}
+	.copyright{
+		padding: 40px 0 0 0;
+	}
+}
+@media (min-width: 992px){
+	.branding{
+		top:80px;
+	}
+	.chart h3{
+  		font-size: 24px;
+	}
+	.branding>h1{
+		font-size: 120px;
+		margin-top: -15px;
+	}
+	.branding>h2{
+		font-size: 22px;
+	}
+	.branding>span{
+		font-size: 22px;
+	}
+	.call-to-action{
+		margin-top: 55%;
+		padding: 5px 11px;
+		font-size: 23px;
+		letter-spacing: 1px;
+	}
+	#slide1 .form-group{
+		margin-top: 55%;
+	}
+	.more-info{
+		bottom: 56px;
+	}
+	.more-info>h4{
+		font-size: 100%;
+		margin: 0 0 0 25px;
+	}
+	.query{
+		font-size: 20px;
+		margin-top: -7px;
+	}
+	.input-lg{
+	  padding: 10px 16px;
+	   height: 46px;
+	}
+	.advanced {
+  		padding: 3px 0;
+	}
+	.info-pane p{
+		margin: 0 10% 0 10%;
+		font-size: 140%;
+		font-size: 1.5vw;
+		line-height: 1.8;
+	}
+	#tweets ul li{
+		list-style: none;
+		margin: 0px 0px 5px 0px;
+		padding: 8px;
+		background-color:rgba(255, 255, 255, 0.2);
+		font-size: 14px;
+	}
+	.query-actions{
+		padding-left: 0;
+		margin-top: -6px;
+	}
+
+}
+
+@media (min-width: 1200px) {
+	.branding>h1{
+		font-size: 150px;
+		margin-top: -23px;
+	}
+	.call-to-action{
+		margin-top: 50%;
+	}
+	#slide1 .form-group{
+		margin-top: 50%;
+	}
+	.more-info{
+		bottom: 56px;
+	}
+	.more-info>h4{
+		margin: 0 0 0 40px;
+		font-size: 120%;
+	}
+	.info-pane p{
+		margin: 0 10% 0 10%;
+		padding-bottom: 15px;
+		text-indent: 5%;
+		font-size: 130%;
+		font-size: 1.5vw;
+		line-height: 2.1;
+	}
+		#tweets ul li:nth-child(2){
+		display: block;
+	}
 }
 
 

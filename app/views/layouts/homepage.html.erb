@@ -5,64 +5,62 @@
   </head>
 
   <body>
-    <div class="branding">
-      <h1>ERA</h1>
-      <h2>education &amp; research archive</h2>
-    </div>
-    <div class="dn-wrap">
+    
+    <div class="dn-wrap hidden-xs">
       <div class="triangle"></div>
-      <div class="dn"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+      <div class="dn"><a href="#profiles"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
     </div>
 
     <div class="container-fluid front-images">
       <div class="row">
-        <div class="col-md-8 lib-logo" id="home-logo">
+        <div class="col-xs-8 lib-logo " id="home-logo">
           <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
         </div>
-         <div class="col-md-4 user-util">
+         <div class="col-xs-4 user-util">
          <%= render partial: "/user_util_links"%>
         </div>
         </div>
-
-      <div class="col-md-6 slides" id="slide1">
-        <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline">
-          <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
-
-          <div class="form-group">
-            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" placeholder="enter search terms" autofocus="autofocus">
-          </div>
-          <button type="submit" class="call-to-action">Search ERA</button>
-        </form>
-        <a href="/advanced" class="advanced">Advanced Search</a>
         <div class="row">
-          <div class="col-md-12 more-info" id="browse">
-           <h4>Or browse <a href="#">Collections</a>, <a href="#">Subjects</a>, <a href="#">Communities</a>, or <a href="#">formats</a></h4>
-          </div>
-        </div>
+<div class="branding">
+      <span class="hidden-xs">beta</span>
+      <h1>ERA</h1>
+      <h2>education &amp; research archive</h2>
+    </div>
+  </div>
+      <div class="col-sm-6 slides hidden-xs" id="slide1">
+       <%= render partial: "/front_search_form"%>
       </div>
-      <div class="col-md-6 slides" id="slide2">
+      <div class="col-sm-6 slides hidden-xs" id="slide2">
         <a href="/files/new" class="call-to-action">Share Your Research</a>
         <div class="row">
-          <div class="col-md-12 more-info">
-           <h4>Get <a href="#">help</a> or <a href="#info">more information</a> about this service.</h4>
+          <div class="col-sm-12 more-info">
+           <h4><span class="hidden-sm">Get <a href="#info">more information</a> about this service or</span> <a href="contact">contact us</a></h4>
           </div>
         </div>
       </div>
-      
+      <div class="col-xs-12 visible-xs mobile-search">
+        <%= render partial: "/front_search_form"%>
+      </div>
+     
     </div>
+     <div class="tan visible-xs pane">
+        <p class="mobile-message">This is the mobile version of ERA. You can search and browse.However to deposit please visit this site on a desktop or tablet computer.</p>
+      </div>
+
+
 <%= render partial: '/flash_msg' %>
-    <div class="container-fluid grid">
-     <div class="boxes">
-        <div class="col-md-4 first-row">
-          <div class="show-image northern"><div class="show-info"><h4>Highlighed Collection</h4><h2>Northern North America Collection</h2><p>These images were donated to the University of Alberta by Dr. Joel Martin Halpern, a prominent anthropologist who did extensive work in the northern parts of North America.</p><a href="#">go to collection</a></div></div>
+    <div class="container-fluid grid hidden-xs">
+     <div class="boxes"><a name="profiles"></a>
+        <div class="col-sm-4 first-row">
+          <div class="show-image northern"><div class="show-info"><h4>Highlighted Collection</h4><h2>Northern North America Collection</h2><p>These images were donated to the University of Alberta by Dr. Joel Martin Halpern, a prominent anthropologist who did extensive work in the northern parts of North America.</p><a href="#">go to collection</a></div></div>
         </div>
-        <div class="col-md-4 dark-tan first-row">
-          <div class="text"><p class="mandate">Our Mandate is to <em>Collect</em>, <em>Distribute</em> &amp; <em>Preserve</em> the intellectual work of the University of Alberta.</p></div>
+        <div class="col-sm-4 dark-tan first-row">
+          <div class="text"><p class="mandate"><em>Keep it. Share it. Use it.</em> Welcome to University of Alberta’s Digital Repository and Asset Management Services.</p></div>
         </div>
-         <div class="col-md-4 first-row">
+         <div class="col-sm-4 first-row">
           <div class="show-image researcher"> <div class="show-info"><h4>Researcher Profile</h4><h2>Joanne McNeal</h2><p>Joanne McNeal learned about Arctic life and cultures during her career working at colleges in the Northwest Territories and the Yukon. </p><a href="#">go to Joanne's profile</a></div></div>
         </div>
-        <div class="col-md-5 white second-row">
+        <div class="col-sm-5 white second-row">
 
           <div class="chart"><h3>ERA currently has more than <strong>34,000</strong> items</h3>
          
@@ -72,10 +70,10 @@
     </div>
         </div>
 
-        <div class="col-md-3 blue second-row">
-          <div class="technical-info"><p>ERA is built on Hydra, an open source technical framework for repositories. Hydra is a large, multi-institutional collaboration.</p></div>
+        <div class="col-sm-3 blue second-row ">
+          <div class="technical-info"><p>ERA builds on multi-institutional collaborations around open source technologies. For a full list of technical specifications, <a href="/about">see here</a>.</p></div>
         </div>
-        <div class="col-md-4 dark-tan second-row">
+        <div class="col-sm-4 dark-tan second-row">
           <div id="tweets">
         
           </div>
@@ -84,12 +82,12 @@
     </div>
   </div>
     <div class="container-fluid info-pane pane">
-      <h2><a name="info">The Vision for DAMS</a></h2>
-      <h3>(Digital Asset Management System)</h3>
+      <h2><a name="info"></a>What is ERA?</h2>
+      <h3>Education &amp; Research Archive</h3>
 
-<p>The University of Alberta Libraries will support a trustworthy Digital Asset Management System (DAMS), which represents a consolidated access, discovery and preservation software/technology stack. Characteristics of our stack include: scalability, extensibility, predictability, stability, and very importantly &mdash; community-based support. </p>
+<p>ERA is the name for University of Alberta’s Digital Asset Management strategy as actively being developed and supported by the <a href="https://www.ualberta.ca">University of Alberta Libraries</a>. </p>
 
-<p>Hydra utilizes Fedora and Blacklight within a Ruby on Rails development framework (all open source), thus consolidating our technology stack to fewer technologies that are better supported by a broad, highly-skilled professional community of which we are a part. Leveraging the Hydra community to support core infrastructure frees us  to better invest our time into helping propel not just ourselves, but the entire cohort forward by spending less time on “the basics” and more time on the research and development of much needed, richer features and functions that can be merged back into the communal codebase and in turn benefit the community. </p>
+<p>ERA represents a coordinated approach to offering user-centred services in support of better access, discovery, shareability and preservation of digital research, teaching and learning objects. Scalability and extensibility are critical design requirements when dealing with wide ranging digital formats, including both raw and processed data. Security, stability, and trust are top of mind in providing the quality of service our users have come to depend on. For more on the technology behind ERA <a href="/about">see here</a>. </p>
       
     </div>
     <%= render partial: "/footer" %>

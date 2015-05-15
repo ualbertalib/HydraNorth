@@ -27,7 +27,7 @@ $(document).ready(function(){
 	 	var config1 = {
 	  		"id": '586195044660424704',
 	  		"domId": 'tweets',
-	  		"maxTweets": 1,
+	  		"maxTweets": 2,
 	  		"enableLinks": true
 		};
 		twitterFetcher.fetch(config1);
