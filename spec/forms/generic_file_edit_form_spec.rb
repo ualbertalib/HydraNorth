@@ -5,7 +5,7 @@ describe Hydranorth::Forms::GenericFileEditForm do
 
   describe "#terms" do
     it "should return a list" do
-      expect(subject.terms).to eq([:resource_type, :title, :creator, :contributor, :description, :date_created, :license, :subject, :spatial, :temporal, :is_version_of, :source, :related_url, :language ])
+      expect(subject.terms).to eq([:title, :creator, :contributor, :subject, :resource_type, :language, :spatial, :temporal, :description, :date_created, :license, :is_version_of, :source, :related_url ])
     end
 
   end
