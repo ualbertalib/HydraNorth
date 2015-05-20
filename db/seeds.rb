@@ -31,16 +31,19 @@ end
 
 theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
+  # c[:fedora3uuid] = "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
 end
 theses.save!
 
 cstr = Collection.find_or_create_with_type("Computing Science Technical Report").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
+  c[:fedora3uuid] = "uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"
 end
 cstr.save!
 
 ser = Collection.find_or_create_with_type("Structural Engineering Report").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
+  c[:fedora3uuid] = "uuid:b1535044-2f60-4e24-89de-c3a400d4255b"
 end
 ser.save!
 config = File.read("config/initializers/sufia.rb", &:read)

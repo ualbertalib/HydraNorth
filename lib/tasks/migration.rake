@@ -235,6 +235,8 @@ namespace :migration do
       spatial = dc_version.xpath("dcterms:spatial/text()",NS).map(&:to_s).first
       temporal = dc_version.xpath("dcterms:temporal/text()", NS).map(&:to_s).first
       fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
+      trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
+      ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS) 
       # download files
       # get the content datastream DS
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
@@ -383,7 +385,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
@@ -497,7 +499,7 @@ namespace :migration do
       uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
       MigrationLogger.info "UUID of the collection #{uuid}"
       #if uuid has already been migrated
-      next if duplicated?(uuid)
+      next if duplicated?(uuid) && !special_collection?(uuid)
 
       #get the metadata from DCQ
       collection_attributes = collection_dcq(metadata)
@@ -642,6 +644,12 @@ namespace :migration do
 
     
   end
+
+  def special_collection?(uuid)
+    # check if the collection is technical report collection or structural engineering report collection
+    return true if uuid=="uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5" || uuid == "uuid:b1535044-2f60-4e24-89de-c3a400d4255b"
+  end
+
  
   def duplicated?(uuid)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
@@ -687,9 +695,14 @@ namespace :migration do
       end
 
      MigrationLogger.info "Use Admin User for collection creation." 
-     #create the collection
-     collection = Collection.new
-     MigrationLogger.info "Collection #{collection.id} is created."
+     #create the collection unless it's a special collection and has been created during db:seed.
+     if special_collection?(collection_attributes[:fedora3uuid])
+       collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
+     else
+       collection = Collection.new
+     end
+     MigrationLogger.info "Collection #{collection.id} is created or found."
+ 
      collection.apply_depositor_metadata(current_user.user_key)
      collection.title = collection_attributes[:title] 
      collection.description = collection_attributes[:description]
