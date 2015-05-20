@@ -365,7 +365,7 @@ namespace :migration do
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
 	  
       @generic_file.apply_depositor_metadata(depositor.user_key)
-      @generic_file.date_uploaded = original_deposit_time
+      @generic_file.date_uploaded = DateTime.strptime(original_deposit_time, '%Y-%m-%dT%H:%M:%S.%N%Z') unless original_deposit_time.nil? 
       @generic_file.date_modified = date_modified
 	 
       if @batch_id
