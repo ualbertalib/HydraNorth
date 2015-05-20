@@ -96,4 +96,5 @@ Batch ingest
 - **migration:era_collection_community** which migrates collections and communities in the metadata directory use (run community migration first then collection migration): ```rake migration:era_collection_community['lib/tasks/migration/test-metadata/community']```
 ```rake migration:era_collection_community['lib/tasks/migration/test-metadata/collection']```
 - **migration:eraitem** which migrates active/non-deleted items from the metadata directory (argument from the rake task) use: ```rake migration:eraitem['lib/tasks/migration/test-metadata']```
+  - **note: migration has to happen in the following order: communities, collections, then eraitems.**
   - **note: file name should start with "uuid_", only those files will be selected.**
