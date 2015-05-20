@@ -212,7 +212,10 @@ namespace :migration do
   
       #get the owner ids
       owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", NS).map{ |node| node.to_s }
-    
+      #get the modifiedDate
+      date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
+      date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
+ 
       MigrationLogger.info "Get the current version of DCQ"
       dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", NS).last
       #get metadata from the lastest version of DCQ
@@ -363,7 +366,7 @@ namespace :migration do
 	  
       @generic_file.apply_depositor_metadata(depositor.user_key)
       @generic_file.date_uploaded = original_deposit_time
-      @generic_file.date_modified = time_in_utc
+      @generic_file.date_modified = date_modified
 	 
       if @batch_id
         @generic_file.batch_id = @batch_id
