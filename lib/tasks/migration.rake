@@ -227,7 +227,7 @@ namespace :migration do
       creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:creator", NS)
       contributors = dc_version.xpath("dcterms:contributor/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:contributor",NS)
       subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:to_s)
-      description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"')
+      description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
       date = dc_version.xpath("dcterms:created",NS).text
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
