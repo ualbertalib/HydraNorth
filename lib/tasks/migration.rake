@@ -420,18 +420,24 @@ namespace :migration do
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections}and community #{community} if needed"
       collection_noids = []
-        if !collections.empty?
-	  collections.each do |c|
-	    collection_noids << add_to_collection(@generic_file, c)
-	  end
-	else
-	  collection_noids << add_to_collection(@generic_file, community)
+      if !collections.empty?
+        collections.each do |c|
+	  collection_noids << add_to_collection(@generic_file, c)
 	end
-      MigrationLogger.info "Finish migrating the file"
+      else
+        collection_noids << add_to_collection(@generic_file, community)
+      end
+      collection_noids.each do |c|
+        @generic_file.hasCollection = [Collection.find(c).title]
+        @generic_file.save
+      end
 
       collection_t = Time.now
       collection_time = collection_time + (collection_t - save_t)
       puts "Add to Collection used #{collection_t - save_t}"
+      MigrationLogger.info "Finish migrating the file"
+
+
       rescue Exception => e
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
