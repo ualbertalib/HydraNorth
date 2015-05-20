@@ -198,7 +198,7 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/*.xml") do |file|
+    Dir.glob(metadata_dir+"/uuid_*.xml") do |file|
     begin
       start_time = Time.now
       MigrationLogger.info "Processing the file #{file}"
@@ -552,7 +552,7 @@ namespace :migration do
 
   def verify_object_migration(metadata_dir)
      MigrationLogger.info "************START Verify all files in #{metadata_dir}***************"
-     Dir.glob(metadata_dir+"*.xml") do |file|
+     Dir.glob(metadata_dir+"uuid_*.xml") do |file|
 
       MigrationLogger.info "++++++++++START Verifying if the file #{file} is migrated++++++++++"
 

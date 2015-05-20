@@ -94,4 +94,5 @@ Batch ingest
   - **note: this has only been tested with small dataset - need to proceed with caution due to the potential for sending emails to migrated users** 
   - TO-DO: migrate user avator/profile images 
 - **migration:era_collection_community** which migrates collections and communities in the metadata directory use: ```rake migration:era_collection_community['lib/tasks/migration/test-metadata/collection']```
-- **migration:eraitem** which migrates each item from the metadata directory (argument from the rake task) use: ```rake migration:eraitem['lib/tasks/migration/test-metadata/metadata']```
+- **migration:eraitem** which migrates active/non-deleted items from the metadata directory (argument from the rake task) use: ```rake migration:eraitem['lib/tasks/migration/test-metadata/metadata']```
+  - **note: file name should start with "uuid_", only those files will be selected.**
