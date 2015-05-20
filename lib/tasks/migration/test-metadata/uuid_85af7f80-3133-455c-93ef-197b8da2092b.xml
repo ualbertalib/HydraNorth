@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:85af7f80-3133-455c-93ef-197b8da2092b" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Ship near pack ice -- photograph"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-04-21T16:08:14.802Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-24T23:22:20.672Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:14.802Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:08:14.802Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:08:16.351Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:08:17.245Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:08:19.391Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:08:19.921Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T19:42:21.123Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC7">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T19:42:21.801Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC8">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T20:17:17.353Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC9">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T20:17:18.965Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC10">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T23:22:20.007Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC11">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T23:22:20.404Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC12">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T23:22:20.672Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:14.802Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" SIZE="426">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Ship near pack ice -- photograph</dc:title>
+          <dc:identifier>uuid:85af7f80-3133-455c-93ef-197b8da2092b</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:19.921Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.1" LABEL="Ship near pack ice -- photograph" MIMETYPE="text/xml" SIZE="954">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23079</dc:identifier>
+          <dc:title>Ship near pack ice -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Ships</dc:subject>
+          <dc:subject>Akademik Sergei Vavilov (ship)</dc:subject>
+          <dc:subject>Pack ice</dc:subject>
+          <dc:subject>Solar eclipse</dc:subject>
+          <dc:description>The ship Akademik Sergei Vavilov at the edge of the pack ice, 82 degrees north, off the north coast of Spitzbergen, Norway, shortly after a solar eclipse, August 1 2008</dc:description>
+          <dc:date>2008/08/01</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-28T19:42:21.801Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.2" LABEL="Ship near pack ice -- photograph" MIMETYPE="text/xml" SIZE="954">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23079</dc:identifier>
+          <dc:title>Ship near pack ice -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Ships</dc:subject>
+          <dc:subject>Akademik Sergei Vavilov (ship)</dc:subject>
+          <dc:subject>Pack ice</dc:subject>
+          <dc:subject>Solar eclipse</dc:subject>
+          <dc:description>The ship Akademik Sergei Vavilov at the edge of the pack ice, 82 degrees north, off the north coast of Spitzbergen, Norway, shortly after a solar eclipse, August 1 2008</dc:description>
+          <dc:date>2008/08/01</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-06T20:17:18.965Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.3" LABEL="Ship near pack ice -- photograph" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23079</dc:identifier>
+          <dc:title>Ship near pack ice -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>Ships</dc:subject>
+          <dc:subject>Akademik Sergei Vavilov (ship)</dc:subject>
+          <dc:subject>Pack ice</dc:subject>
+          <dc:subject>Solar eclipse</dc:subject>
+          <dc:description>The ship Akademik Sergei Vavilov at the edge of the pack ice, 82 degrees north, off the north coast of Spitzbergen, Norway, shortly after a solar eclipse, August 1 2008</dc:description>
+          <dc:date>2008/08/01</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:16.351Z" ID="LICENSE.0" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/LICENSE/2011-04-21T16:08:16.351Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T23:22:20.404Z" ID="LICENSE.1" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="75f56eda47117f53d08c0cc376aa671e" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/LICENSE/2014-04-24T23:22:20.404Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:17.245Z" ID="DS1.0" LABEL="IMG_1051.JPG" MIMETYPE="image/pjpeg">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/DS1/2011-04-21T16:08:17.245Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T23:22:20.007Z" ID="DS1.1" LABEL="IMG_1051.JPG" MIMETYPE="image/pjpeg">
+      <foxml:contentDigest DIGEST="bde68ef79916f91cba29e1920851d7f6" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/DS1/2014-04-24T23:22:20.007Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-04-21T16:08:19.391Z" ID="THUMBNAIL.0" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/THUMBNAIL/2011-04-21T16:08:19.391Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T23:22:20.672Z" ID="THUMBNAIL.1" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentDigest DIGEST="4ab158ed85bbedfda92a4471f3f91307" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:85af7f80-3133-455c-93ef-197b8da2092b/THUMBNAIL/2014-04-24T23:22:20.672Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-06T20:17:20.897Z" ID="RELS-EXT.17" LABEL="Relationships" MIMETYPE="text/xml" SIZE="1219">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:85af7f80-3133-455c-93ef-197b8da2092b">
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:85af7f80-3133-455c-93ef-197b8da2092b</itemID>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-04-21T16:08:22.357Z</workflowDate>
+            <userId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</userId>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</submitterId>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23079</ualterms:fedora3handle>
+          <dcterms:title>Ship near pack ice -- photograph</dcterms:title>
+          <dcterms:creator>Seale, Linda N.</dcterms:creator>
+          <dcterms:subject>Ships</dcterms:subject>
+          <dcterms:subject>Akademik Sergei Vavilov (ship)</dcterms:subject>
+          <dcterms:subject>Pack ice</dcterms:subject>
+          <dcterms:subject>Solar eclipse</dcterms:subject>
+          <dcterms:description>The ship Akademik Sergei Vavilov at the edge of the pack ice, 82 degrees north, off the north coast of Spitzbergen, Norway, shortly after a solar eclipse, August 1 2008</dcterms:description>
+          <dcterms:created>2008/08/01</dcterms:created>
+          <dcterms:type>Research Material</dcterms:type>
+          <dcterms:format>image/pjpeg</dcterms:format>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:coverage xsi:nil="true"/>
+          <dcterms:spatial>Spitzbergen, Norway</dcterms:spatial>
+        </dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

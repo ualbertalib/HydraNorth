@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="A Uniform Behavioral Temporal Object Model"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T16:13:06.373Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T17:20:58.031Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:06.373Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T16:13:06.373Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:52:04.675Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:52:05.584Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T17:20:56.564Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T10:13:06.448Z to 2012-06-05T10:13:06.448Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:13:06.448Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T17:20:58.031Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T10:13:06.449Z to 2012-06-05T10:13:06.449Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:13:06.449Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T16:13:06.448Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR95-13</ualterms:trid>
+          <dcterms:title>A Uniform Behavioral Temporal Object Model</dcterms:title>
+          <dcterms:creator>Goralwalla, Iqbal</dcterms:creator>
+          <dcterms:creator>Leontiev, Yuri</dcterms:creator>
+          <dcterms:creator>Ozsu, M. Tamer</dcterms:creator>
+          <dcterms:creator>Szafron, Duane</dcterms:creator>
+          <dcterms:subject>temporal databases</dcterms:subject>
+          <dcterms:subject>object models </dcterms:subject>
+          <dcterms:subject>granularity</dcterms:subject>
+          <dcterms:subject>incomplete information</dcterms:subject>
+          <dcterms:subject>temporal indeterminancy</dcterms:subject>
+          <dcterms:description>Technical report TR95-13. In this work, we present a uniform behavioral temporal object model which includes a rich and extensible set of types and behaviors to support various notions of time. Our temporal model supports the continuous and discrete domains of time.  It also supports various specifications of time, namely, time instants, time intervals and time spans.
+Two issues that frequently arise in real-world applications which deal with temporal information are the need to consistently store and operate on temporal information that is comprised of different granularities, and the ability to represent indeterminate temporal information.  Temporal indeterminacy arises when we know for certain that an event did occur, but exactly when it occured is unknown.
+Our model provides a uniform framework that supports different granularities of time and temporal indeterminacy.  We show how different granularities can be converted to each other, and how this leads to temporal indeterminacy.  We further show how continuous and discrete indeterminate time intervals, spans and instants are consistently modeled in our framework.</dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>1995</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/27081</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:52:04.675Z" ID="DS1.1" LABEL="TR95-13.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="0d28ef0ca7f44fdaaf39e54c8c7df190" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce/DS1/2014-04-24T19:52:04.675Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:06.449Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1013">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T10:13:752Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:52:05.584Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce/LICENSE/2014-04-24T19:52:05.584Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:06.373Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>A Uniform Behavioral Temporal Object Model</dc:title>
+          <dc:identifier>uuid:2da51e1e-9a10-4813-ac03-82f2f42f30ce</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

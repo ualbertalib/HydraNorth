@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Brash ice -- photograph"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-05-04T21:49:01.587Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T20:43:33.150Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-04T21:49:01.587Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-04T21:49:01.587Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-04T21:49:03.360Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-04T21:49:04.243Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-04T21:49:05.183Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-04T21:49:05.791Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T19:54:02.318Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC7">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T19:54:04.209Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC8">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T21:31:20.418Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC9">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T21:31:27.802Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC10">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T21:31:28.069Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC11">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T20:43:23.780Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2011-05-04T15:49:04.243Z to 2011-05-04T15:49:04.243Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-05-04T15:49:04.243Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC12">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T20:43:31.896Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2011-05-04T15:49:03.360Z to 2011-05-04T15:49:03.360Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-05-04T15:49:03.360Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC13">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T20:43:33.150Z</audit:date>
+            <audit:justification>Purged datastream (ID=THUMBNAIL), versions ranging from 2011-05-04T15:49:05.183Z to 2011-05-04T15:49:05.183Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-05-04T15:49:05.183Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-05-04T21:49:01.587Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" SIZE="417">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Brash ice -- photograph</dc:title>
+          <dc:identifier>uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-04T21:49:05.791Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.1" LABEL="Brash ice -- photograph" MIMETYPE="text/xml" SIZE="845">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23134</dc:identifier>
+          <dc:title>Brash ice -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Brash ice</dc:subject>
+          <dc:subject>Uumannaq, Greenland</dc:subject>
+          <dc:subject>Sea ice</dc:subject>
+          <dc:description>Brash ice (floating ice that a zodiac or small boat can pass through) off Uummanaq, west coast of Greenland.  August 2000</dc:description>
+          <dc:date>2000/08</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Uumanaq, Greenland</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-06T19:54:04.209Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.2" LABEL="Brash ice -- photograph" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23134</dc:identifier>
+          <dc:title>Brash ice -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>Brash ice</dc:subject>
+          <dc:subject>Uumannaq, Greenland</dc:subject>
+          <dc:subject>Sea ice</dc:subject>
+          <dc:description>Brash ice (floating ice that a zodiac or small boat can pass through) off Uummanaq, west coast of Greenland.  August 2000</dc:description>
+          <dc:date>2000/08</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Uumanaq, Greenland</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T21:31:27.802Z" ID="LICENSE.1" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="75f56eda47117f53d08c0cc376aa671e" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1/LICENSE/2014-04-24T21:31:27.802Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T21:31:20.418Z" ID="DS1.1" LABEL="scan0001-2.jpg" MIMETYPE="image/pjpeg">
+      <foxml:contentDigest DIGEST="09233546027ba01b873cf28d0a5d1a88" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1/DS1/2014-04-24T21:31:20.418Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T21:31:28.069Z" ID="THUMBNAIL.1" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentDigest DIGEST="ee5dcd6212fdbec8b304a9ae86eac6c7" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1/THUMBNAIL/2014-04-24T21:31:28.069Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-06T19:54:06.273Z" ID="RELS-EXT.13" LABEL="Relationships" MIMETYPE="text/xml" SIZE="1223">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1">
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:583aeed8-ce0d-4287-9a4e-879b14a392f1</itemID>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-05-04T21:49:08.128Z</workflowDate>
+            <userId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</userId>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</submitterId>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23134</ualterms:fedora3handle>
+          <dcterms:title>Brash ice -- photograph</dcterms:title>
+          <dcterms:creator>Seale, Linda N.</dcterms:creator>
+          <dcterms:subject>Brash ice</dcterms:subject>
+          <dcterms:subject>Uumannaq, Greenland</dcterms:subject>
+          <dcterms:subject>Sea ice</dcterms:subject>
+          <dcterms:description>Brash ice (floating ice that a zodiac or small boat can pass through) off Uummanaq, west coast of Greenland.  August 2000</dcterms:description>
+          <dcterms:created>2000/08</dcterms:created>
+          <dcterms:type>Research Material</dcterms:type>
+          <dcterms:format>image/pjpeg</dcterms:format>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:coverage xsi:nil="true"/>
+          <dcterms:spatial>Uumanaq, Greenland</dcterms:spatial>
+        </dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

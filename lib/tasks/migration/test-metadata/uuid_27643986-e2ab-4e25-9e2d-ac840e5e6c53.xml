@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Discriminative Model Selection for Belief Net Structures"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T17:54:22.317Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T16:52:50.421Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T17:54:22.317Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T17:54:22.317Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:38:40.881Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:38:41.274Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:52:49.145Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T11:54:22.394Z to 2012-06-05T11:54:22.394Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T11:54:22.394Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:52:50.421Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T11:54:22.395Z to 2012-06-05T11:54:22.395Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T11:54:22.395Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T17:54:22.394Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR04-22</ualterms:trid>
+          <dcterms:title>Discriminative Model Selection for Belief Net Structures</dcterms:title>
+          <dcterms:creator>Guo, Yuhong</dcterms:creator>
+          <dcterms:creator>Greiner, Russ</dcterms:creator>
+          <dcterms:subject>Bayesian belief network</dcterms:subject>
+          <dcterms:subject>BN classifiers</dcterms:subject>
+          <dcterms:description>Technical report TR04-22. Model selection problem in Bayesian belief network (BN) structure learning is a classicial problem in the BN literature. To do model selection in BN structure learning, we need a evaluation score and a searching procedure. The generative criteria, AIC, BIC and BDe, are usually used to select the structure that is close to the true generative model. In this paper, we consider model selection in BN structure learning for classification tasks -- ie, we want to obtain the structure for an accurate BN classifier, As this is significantly different from the generative learning task, we consider using new discriminative criteria. Those discriminative criteria evaluate the classification performance of each structure instead of fitness to the joint distribution of the model. The discriminant criteria we investigated include Bias$^2$+Variance (BV), Classification Error (CE), and  Conditional BIC (CBIC). Our experimental results suggest that, while discriminant model selection criteria generally performs better than discriminant model selection criteria, this is not universal. To understand why, we therefore investigated the model selection problem across different cases --- eg, with the true generative model having different complexity. Our experimental results suggest that this complexity of the true generative model does influence the performance of different model selection criteria.</dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>2004</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/27149</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:38:40.881Z" ID="DS1.1" LABEL="TR04-22.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="819b9be0e55d8978d4c5e6dd42688eff" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53/DS1/2014-04-24T19:38:40.881Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T17:54:22.395Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1013">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T11:54:404Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:38:41.274Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53/LICENSE/2014-04-24T19:38:41.274Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T17:54:22.317Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Discriminative Model Selection for Belief Net Structures</dc:title>
+          <dc:identifier>uuid:27643986-e2ab-4e25-9e2d-ac840e5e6c53</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

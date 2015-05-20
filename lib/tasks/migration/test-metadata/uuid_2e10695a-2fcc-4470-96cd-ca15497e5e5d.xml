@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="The Alternating Semantics for Default Theories and Logic Programs"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T16:03:02.159Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T17:22:46.598Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:02.159Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T16:03:02.159Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:52:50.640Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:52:50.986Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T17:22:45.302Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T10:03:02.565Z to 2012-06-05T10:03:02.565Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:03:02.565Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T17:22:46.598Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T10:03:02.566Z to 2012-06-05T10:03:02.566Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:03:02.566Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T16:03:02.565Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR92-16</ualterms:trid>
+          <dcterms:title>The Alternating Semantics for Default Theories and Logic Programs</dcterms:title>
+          <dcterms:creator>Yuan, Li-Yan</dcterms:creator>
+          <dcterms:creator>You, Jia-Huai</dcterms:creator>
+          <dcterms:subject>Reiter's default logic</dcterms:subject>
+          <dcterms:subject>Gelder's alternating fixpoint theory</dcterms:subject>
+          <dcterms:subject>semantics for default theories</dcterms:subject>
+          <dcterms:description>Technical report TR92-16. Recent proposals for semantics of default theories are all based on some types of weaker notion of extensions. This is typified in the well-founded semantics and the  extension class semantics for default theories. Although these semantics solve the no-extension problem in Reiter's default logic, they also present a departure from Reiter's original extension semantics, even for default theories which can be completely characterized by the extension semantics. This results in a weaker capability for skeptical reasoning.
+In this paper we propose a semantics for default theories, based on van Gelder's alternating fixpoint theory.  The distinct feature of this semantics is its preservation of Reiter's  semantics when a default theory is not considered ``problematic'' under Reiter's semantics.  Differences arise only when a default theory has no extensions, or has only ``biased extensions'' under Reiter's semantics.  This feature allows skeptical reasoning in Reiter's logic to be properly preserved in the new semantics. By the familiar, natural translation from logic programs to default theories, the semantics proposed for default theories provides a natural extension to the stable model semantics of normal logic programs.</dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>1992</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/27038</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:52:50.640Z" ID="DS1.1" LABEL="TR92-16.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="ffc00615b933e6e724c00bb5383ff04c" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d/DS1/2014-04-24T19:52:50.640Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:02.566Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1012">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T10:3:704Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:52:50.986Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d/LICENSE/2014-04-24T19:52:50.986Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:02.159Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>The Alternating Semantics for Default Theories and Logic Programs</dc:title>
+          <dc:identifier>uuid:2e10695a-2fcc-4470-96cd-ca15497e5e5d</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

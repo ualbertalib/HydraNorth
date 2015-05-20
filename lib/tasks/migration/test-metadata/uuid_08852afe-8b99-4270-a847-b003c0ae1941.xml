@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:08852afe-8b99-4270-a847-b003c0ae1941" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Computer Poker"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T16:13:30.915Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-28T21:08:46.747Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:30.915Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T16:13:30.915Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:28:29.208Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:28:29.539Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-28T21:08:45.584Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T10:13:31.000Z to 2012-06-05T10:13:31.000Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:13:31.000Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-28T21:08:46.747Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T10:13:31.001Z to 2012-06-05T10:13:31.001Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:13:31.001Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T16:13:31.000Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR95-22</ualterms:trid>
+          <dcterms:title>Computer Poker</dcterms:title>
+          <dcterms:creator>Billings, Darse</dcterms:creator>
+          <dcterms:subject>poker</dcterms:subject>
+          <dcterms:subject>computer game playing</dcterms:subject>
+          <dcterms:subject>game theory</dcterms:subject>
+          <dcterms:subject>imperfect information</dcterms:subject>
+          <dcterms:subject>Computer Games</dcterms:subject>
+          <dcterms:description>Technical report TR95-22. Games are an interesting and challenging domain for computer science research, having the nice characteristics of a clearly defined set of rules and a specific goal.  Developing a program to play a strategic game well often involves the application of theoretical concepts to practical situations, and the relative success of that endeavour can be measured with quantifiable results.
+The game of poker is logistically simple yet strategically complex, and offers many properties not exhibited by chess, checkers, and most other well-studied games.  Most importantly, poker is a non-deterministic game with imperfect (hidden) information.  Handling unreliable or incomplete information is a fundamental problem in computer science, and poker provides an excellent domain for investigating problems of decision making under conditions of uncertainty.
+Somewhat surprisingly, the potential benefits of studying poker have been largely overlooked by computer scientists and game researchers.  In this essay we survey what resources are available for academic researchers, and lay some foundations for the scientific exploration of this fascinating game.</dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>1995</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:08852afe-8b99-4270-a847-b003c0ae1941</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/27089</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:28:29.208Z" ID="DS1.1" LABEL="TR95-22.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="3b8506b1656aaed14ac0ce8e90d4d704" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:08852afe-8b99-4270-a847-b003c0ae1941/DS1/2014-04-24T18:28:29.208Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:31.001Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1013">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:08852afe-8b99-4270-a847-b003c0ae1941">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T10:13:994Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:08852afe-8b99-4270-a847-b003c0ae1941</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:28:29.539Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:08852afe-8b99-4270-a847-b003c0ae1941/LICENSE/2014-04-24T18:28:29.539Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:13:30.915Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Computer Poker</dc:title>
+          <dc:identifier>uuid:08852afe-8b99-4270-a847-b003c0ae1941</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Optimizing Query Processing in Cache-Aware Wireless Sensor Networks"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T16:02:15.013Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T16:47:59.458Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:02:15.013Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T16:02:15.013Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:36:47.623Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:36:47.909Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:47:58.261Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T10:02:15.114Z to 2012-06-05T10:02:15.114Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:02:15.114Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:47:59.458Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T10:02:15.116Z to 2012-06-05T10:02:15.116Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:02:15.116Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T16:02:15.114Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR09-05</ualterms:trid>
+          <dcterms:title>Optimizing Query Processing in Cache-Aware Wireless Sensor Networks</dcterms:title>
+          <dcterms:creator>Nascimento, Mario</dcterms:creator>
+          <dcterms:creator>Alencar, Romulo</dcterms:creator>
+          <dcterms:creator>Brayner, Angelo</dcterms:creator>
+          <dcterms:subject>Database</dcterms:subject>
+          <dcterms:subject>Wireless sensor networks</dcterms:subject>
+          <dcterms:subject>Cache</dcterms:subject>
+          <dcterms:subject>Query optimization</dcterms:subject>
+          <dcterms:subject>Database Systems</dcterms:subject>
+          <dcterms:description>Technical report TR09-05. It is a well known fact that minimizing energy consumption in Wireless Sensor Networks (WSNs) is crucial for its usability; and minimizing the flow of data is one way to achieve that. Most WSN models assume the existence of a base station where query results could in principle be cached, however, the opportunity for re-using such cached data for minimizing data traffic in the WSN has not been well explored thus far. Aiming at filling this gap, we investigate the cache-aware query processing problem in WSNs. We propose an approach that first clips an original rectangular query area into a polygon by selecting a suitably good subset of the cached queries for reuse. Next, this polygon is partitioned into rectangular sub-queries that are then submitted to the WSN. Finding the cost-wise best combination of polygon clipping and rectangular partitioning amounts to a highly combinatorial problem that justifies the use of efficient and effective heuristics. This paper presents algorithms that are used within a cost-driven optimization search to find a good "query-plan". Algorithms for maintaining the cache consistency are also presented. Our proposal does not dependent on any particular algorithm for processing queries in a WSN; as long as there is a well-defined a cost-model for the same, any proposal can be used. Experimental results show that our heuristic algorithms are orders of magnitude faster than an exhaustive search, and yield no more than 10% loss compared to the optimal query cost, and are never worse than the two obvious alternatives, i.e., not using the cache at all or using all of it.</dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>2009</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/26996</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:36:47.623Z" ID="DS1.1" LABEL="TR09-05.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="e108814e516b6121a7cb4b1dd43ba795" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1/DS1/2014-04-24T19:36:47.623Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:02:15.115Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1012">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T10:2:532Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:36:47.909Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1/LICENSE/2014-04-24T19:36:47.909Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:02:15.013Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Optimizing Query Processing in Cache-Aware Wireless Sensor Networks</dc:title>
+          <dc:identifier>uuid:2636f991-c5ab-4d7f-91d7-888706f0d6f1</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

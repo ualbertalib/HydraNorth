@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Leopard seal -- photograph"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-05-25T16:13:07.987Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-24T22:47:55.482Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:07.987Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-25T16:13:07.987Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-25T16:13:09.584Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-25T16:13:10.436Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-25T16:13:11.389Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-25T16:13:11.920Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T22:47:54.864Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC7">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T22:47:55.213Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC8">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T22:47:55.482Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:07.987Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" SIZE="420">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Leopard seal -- photograph</dc:title>
+          <dc:identifier>uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:11.920Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.1" LABEL="Leopard seal -- photograph" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23297</dc:identifier>
+          <dc:title>Leopard seal -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>Leopard seal</dc:subject>
+          <dc:subject>Wilhelmina Bay</dc:subject>
+          <dc:subject>Antarctic Peninsula</dc:subject>
+          <dc:description>Leopard seal in Wilhelmina Bay, Antarctic Peninsula, January 2004.  Leopard seals dive and feed at great depths and need to rest on ice floes to recover.</dc:description>
+          <dc:date>2004/01</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Antarctic Peninsula</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:09.584Z" ID="LICENSE.0" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/LICENSE/2011-05-25T16:13:09.584Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T22:47:55.213Z" ID="LICENSE.1" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="75f56eda47117f53d08c0cc376aa671e" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/LICENSE/2014-04-24T22:47:55.213Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:10.436Z" ID="DS1.0" LABEL="scan0060.jpg" MIMETYPE="image/pjpeg">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/DS1/2011-05-25T16:13:10.436Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T22:47:54.864Z" ID="DS1.1" LABEL="scan0060.jpg" MIMETYPE="image/pjpeg">
+      <foxml:contentDigest DIGEST="69478a77d3e656d45bb5f87616313abd" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/DS1/2014-04-24T22:47:54.864Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:11.389Z" ID="THUMBNAIL.0" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/THUMBNAIL/2011-05-25T16:13:11.389Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-04-24T22:47:55.482Z" ID="THUMBNAIL.1" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentDigest DIGEST="c944ab3c9c3f6c4c3bc74e1dd6ebae7d" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45/THUMBNAIL/2014-04-24T22:47:55.482Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-25T16:13:15.493Z" ID="RELS-EXT.7" LABEL="Relationships" MIMETYPE="text/xml" SIZE="1219">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:779cb58b-4faa-4ef0-9cba-8450bb9a0d45</itemID>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-05-25T16:13:14.425Z</workflowDate>
+            <userId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</userId>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</submitterId>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23297</ualterms:fedora3handle>
+          <dcterms:title>Leopard seal -- photograph</dcterms:title>
+          <dcterms:creator>Seale, Linda N.</dcterms:creator>
+          <dcterms:subject>Leopard seal</dcterms:subject>
+          <dcterms:subject>Wilhelmina Bay</dcterms:subject>
+          <dcterms:subject>Antarctic Peninsula</dcterms:subject>
+          <dcterms:description>Leopard seal in Wilhelmina Bay, Antarctic Peninsula, January 2004.  Leopard seals dive and feed at great depths and need to rest on ice floes to recover.</dcterms:description>
+          <dcterms:created>2004/01</dcterms:created>
+          <dcterms:type>Research Material</dcterms:type>
+          <dcterms:format>image/pjpeg</dcterms:format>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:coverage xsi:nil="true"/>
+          <dcterms:spatial>Antarctic Peninsula</dcterms:spatial>
+        </dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

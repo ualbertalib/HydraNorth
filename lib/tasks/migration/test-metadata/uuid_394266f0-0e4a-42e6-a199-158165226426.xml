@@ -115,9 +115,9 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
     <foxml:datastreamVersion CREATED="2013-01-06T05:11:52.580Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-          <dcterms:title>Bison sculpture at the entrance to the USGS Ice Core Lab</dcterms:title>
-          <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:394266f0-0e4a-42e6-a199-158165226426</ualterms:fedora3uuid>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Bison sculpture at the entrance to the USGS Ice Core Lab</dc:title>
+          <dc:identifier>uuid:394266f0-0e4a-42e6-a199-158165226426</dc:identifier>
         </oai_dc:dc>
       </foxml:xmlContent>
     </foxml:datastreamVersion>
@@ -358,7 +358,7 @@
     </foxml:datastreamVersion>
   </foxml:datastream>
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
-  <foxml:datastreamVersion CREATED="2013-03-05T18:21:20.211Z" ID="DCQ.1" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:datastreamVersion CREATED="2013-03-05T18:21:20.211Z" ID="DCQ.1" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
         <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
           <dcterms:creator>Campbell, Sandy</dcterms:creator>
@@ -367,9 +367,9 @@
           <dcterms:subject>Photographs</dcterms:subject>
           <dcterms:subject>Ice Core Lab Entrance - photograph</dcterms:subject>
           <dcterms:subject>National Ice Core Laboratory - Lakewood, Colorado</dcterms:subject>
-          <dcterms:subject>Bison - Sculpture - Lakewood-Colorado - photograph</dcterms:subject>
+          <dcterms:subject>Bison -  Sculpture - Lakewood-Colorado - photograph</dcterms:subject>
           <dcterms:title>Bison sculpture at the entrance to the USGS Ice Core Lab</dcterms:title>
-          <dcterms:type>Image</dcterms:type>
+          <dcterms:type>Research Material</dcterms:type>
           <dcterms:created>2012/06/12</dcterms:created>
           <dcterms:dateaccepted xsi:type="dcterms:W3CDTF">2013-01-05T22:11:52Z</dcterms:dateaccepted>
           <dcterms:datesubmitted xsi:type="dcterms:W3CDTF">2013-01-05T22:11:52Z</dcterms:datesubmitted>
@@ -379,7 +379,8 @@
           <dcterms:spatial>Denver Federal Center, Lakewood, Colorado</dcterms:spatial>
         </dc>
       </foxml:xmlContent>
-    </foxml:datastreamVersion></foxml:datastream>
+    </foxml:datastreamVersion>
+</foxml:datastream>
   <foxml:datastream CONTROL_GROUP="E" ID="LICENSE" STATE="A" VERSIONABLE="true">
     <foxml:datastreamVersion CREATED="2013-01-06T05:11:57.923Z" ID="LICENSE.0" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
       <foxml:contentLocation REF="http://local.fedora.server/fedora/get/era-license:CreativeCommons-NC-ND-3.0/LICENSE" TYPE="URL"/>

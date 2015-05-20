@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:12331788-5085-428f-a88a-3a246febfa58" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Beluga whale skulls, Spitzbergen, Norway -- photograph"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-03-25T22:12:02.427Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T15:02:46.848Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-03-25T22:12:02.427Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-03-25T22:12:02.427Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-03-25T22:12:11.860Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-03-25T22:12:13.371Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-03-25T22:20:28.343Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-03-25T22:20:29.156Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T15:29:39.431Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC7">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T15:29:40.279Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC8">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:27:57.173Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC9">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T16:27:57.861Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC10">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-26T16:01:12.699Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC11">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-26T16:01:13.424Z</audit:date>
+            <audit:justification>[/action/deposit/save] lseale Initial  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC12">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T15:34:43.124Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC13">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T15:34:47.793Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC14">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T15:34:49.313Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC15">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-28T15:34:50.282Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC16">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T19:53:18.610Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC17">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T19:53:23.605Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC18">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:50:52.342Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC19">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:50:52.673Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC20">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:50:52.915Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC21">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T15:02:43.826Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2011-04-28T09:34:47.793Z to 2011-04-28T09:34:47.793Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-28T09:34:47.793Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC22">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T15:02:45.449Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2011-03-25T16:12:11.860Z to 2011-03-25T16:12:11.860Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-03-25T16:12:11.860Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC23">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T15:02:46.848Z</audit:date>
+            <audit:justification>Purged datastream (ID=THUMBNAIL), versions ranging from 2011-04-28T09:34:49.313Z to 2011-04-28T09:34:49.313Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-28T09:34:49.313Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-03-25T22:12:02.427Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" SIZE="448">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:identifier>uuid:12331788-5085-428f-a88a-3a246febfa58</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-03-25T22:12:13.371Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.1" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="872">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitsbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2011/03/25</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:source>Photograph</dc:source>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-03-25T22:20:29.156Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.2" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="872">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitsbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2011/03/25</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:source>Photograph</dc:source>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-21T15:29:40.279Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.3" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="872">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2011/03/25</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:source>Photograph</dc:source>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-21T16:27:57.861Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.4" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="836">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2008/08/06</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-26T16:01:13.424Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.5" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="836">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2008/08/06</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-28T15:34:50.282Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.6" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml" SIZE="944">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23104</dc:identifier>
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2008/08/06</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-06T19:53:23.605Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.7" LABEL="Beluga whale skulls, Spitzbergen, Norway -- photograph" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23104</dc:identifier>
+          <dc:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>beluga whales</dc:subject>
+          <dc:subject>whale skulls</dc:subject>
+          <dc:subject>whale hunts</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dc:description>
+          <dc:date>2008/08/06</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:50:52.673Z" ID="LICENSE.1" LABEL="Creative Commons Attribution-Non-Commercial 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="575d378cf83fa4f0adc65201704986a0" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:12331788-5085-428f-a88a-3a246febfa58/LICENSE/2014-04-24T18:50:52.673Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:50:52.342Z" ID="DS1.1" LABEL="scan0002.jpg" MIMETYPE="image/pjpeg">
+      <foxml:contentDigest DIGEST="64876cb77cf5c3b0c2f97b31ff6d78b8" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:12331788-5085-428f-a88a-3a246febfa58/DS1/2014-04-24T18:50:52.342Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:50:52.915Z" ID="THUMBNAIL.1" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentDigest DIGEST="6037de920305fff6b547a515dde549bf" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:12331788-5085-428f-a88a-3a246febfa58/THUMBNAIL/2014-04-24T18:50:52.915Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-06T19:53:28.800Z" ID="RELS-EXT.39" LABEL="Relationships" MIMETYPE="text/xml" SIZE="999">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:12331788-5085-428f-a88a-3a246febfa58">
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Initial</workflowState>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</submitterId>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-04-26T16:01:16.372Z</workflowDate>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23104</ualterms:fedora3handle>
+          <dcterms:title>Beluga whale skulls, Spitzbergen, Norway -- photograph</dcterms:title>
+          <dcterms:creator>Seale, Linda N.</dcterms:creator>
+          <dcterms:subject>beluga whales</dcterms:subject>
+          <dcterms:subject>whale skulls</dcterms:subject>
+          <dcterms:subject>whale hunts</dcterms:subject>
+          <dcterms:subject>Spitzbergen, Norway</dcterms:subject>
+          <dcterms:description>Skulls of beluga whales, extensively hunted in the 18th and 19th centuries, Bourbonhamna, west coast of Spitzbergen, Norway.  August 2008</dcterms:description>
+          <dcterms:created>2008/08/06</dcterms:created>
+          <dcterms:type>Research Material</dcterms:type>
+          <dcterms:format>image/pjpeg</dcterms:format>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:coverage xsi:nil="true"/>
+          <dcterms:spatial>Spitzbergen, Norway</dcterms:spatial>
+        </dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:28b9788b-1b20-49a4-bbab-3de9526661cd" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="The Query Model and Query Language of TIGUKAT"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="era-administrator"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2012-06-05T16:03:07.034Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T16:59:20.655Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:07.034Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2012-06-05T16:03:07.034Z</audit:date>
+            <audit:justification>Ingest Objects</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:41:34.242Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T19:41:34.669Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:59:19.330Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2012-06-05T10:03:07.126Z to 2012-06-05T10:03:07.126Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:03:07.126Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-29T16:59:20.655Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2012-06-05T10:03:07.127Z to 2012-06-05T10:03:07.127Z.  This resulted in the permanent removal of 1 datastream version(s) (2012-06-05T10:03:07.127Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2012-06-05T16:03:07.126Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DCQ.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <ualterms:trid xsi:type="string">TR93-01</ualterms:trid>
+          <dcterms:title>The Query Model and Query Language of TIGUKAT</dcterms:title>
+          <dcterms:creator>Peters, Randal J.</dcterms:creator>
+          <dcterms:creator>Lipka, Anna</dcterms:creator>
+          <dcterms:creator>Ozsu, M. Tamer</dcterms:creator>
+          <dcterms:creator>Szafron, Duane</dcterms:creator>
+          <dcterms:subject>query models</dcterms:subject>
+          <dcterms:subject>query language</dcterms:subject>
+          <dcterms:subject>TIGUKAT</dcterms:subject>
+          <dcterms:description>Technical report TR93-01. The establishment of a formal object model provides a theoretical foundation to investigate other objectbase features such as query processing.  In this report, we present an extensible uniform behavioral object query model for the TIGUKAT(*) object management system.  The TIGUKAT object model (see TR92-14) is purely behavioral in nature, supports full encapsulation of objects, defines a clear separation between primitive components such as types, classes, collections, behaviors and functions, and incorporates a uniform semantics over objects which makes it a favorable basis for an extensible query model.  Every concept that can be modeled in TIGUKAT has the uniform semantics of a first class object with well-defined behavior.  Following this semantics, queries are modeled as type and behavioral extensions to the base object model, thus incorporating queries as an extensible part of the model itself.
+The complete query model definition presented in this report includes: the type and behavior extensions to the base model; a formal object calculus with a logical foundation that introduces a function symbol to incorporate the behavioral paradigm of the object model into the calculus; a behavioral/functional object algebra with a comprehensive set of object-preserving and object-creating operators; an SQL-like ad hoc query language (TQL) for user-level retrieval of objects; user-level definition and control languages (TDL and TCL) for defining new types, classes, behaviors, functions, etc., and for controlling an interactive session with the query processor; a rigorous definition of safety based on the evaluable class of queries which is arguably the largest decidable subclass of the domain independent class; a notion of completeness that includes reductions between the algebra and calculus that prove their equivalence and a reduction from the user-level language to the calculus; and in addition to the formal aspects, we give a complete algorithmic translation from the calculus into the object algebra.  At this point, the algebraic expressions can be optimized and an execution plan can be generated and passed to the storage manager for processing.
+A prototype implementation of the object model on top of the EXODUS storage manager is ongoing.  We are implementing a compiler for the user language and an extensible query optimizer for the algebra. Furthermore, we are developing a view manager, with update semantics, for the model.
+*TIGUKAT (tee-goo-kat) is a term in the language of the Canadian Inuit people meaning "objects."  The Canadian Inuits, commonly known as Eskimos, are native to Canada with an ancestry originating in the Arctic regions of the country.  </dcterms:description>
+          
+          <dcterms:type>Report</dcterms:type>
+          <dcterms:created>1993</dcterms:created>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:rights>http://creativecommons.org/licenses/by/3.0/</dcterms:rights>
+          <ualterms:fedora3uuid xsi:type="string">uuid:28b9788b-1b20-49a4-bbab-3de9526661cd</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/27043</ualterms:fedora3handle>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:41:34.242Z" ID="DS1.1" LABEL="TR93-01.pdf" MIMETYPE="application/pdf">
+      <foxml:contentDigest DIGEST="6f6e7896d51edcf3e87ef5a469e6a010" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:28b9788b-1b20-49a4-bbab-3de9526661cd/DS1/2014-04-24T19:41:34.242Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:07.127Z" ID="RELS-EXT.0" LABEL="Item Relationships" MIMETYPE="text/xml" SIZE="1012">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:28b9788b-1b20-49a4-bbab-3de9526661cd">
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:78cb4c52-d943-4879-96f7-bdc4424620a8"/>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-06-05T10:3:333Z</workflowDate>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:28b9788b-1b20-49a4-bbab-3de9526661cd</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T19:41:34.669Z" ID="LICENSE.1" LABEL="Creative Commons Attribution 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="6e2b61e503cc1d3e990844d77e1a7c71" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:28b9788b-1b20-49a4-bbab-3de9526661cd/LICENSE/2014-04-24T19:41:34.669Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2012-06-05T16:03:07.034Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>The Query Model and Query Language of TIGUKAT</dc:title>
+          <dc:identifier>uuid:28b9788b-1b20-49a4-bbab-3de9526661cd</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

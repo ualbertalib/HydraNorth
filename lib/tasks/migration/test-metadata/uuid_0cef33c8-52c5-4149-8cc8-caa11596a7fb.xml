@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Polar bear footprint -- photograph"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-04-20T21:37:56.163Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-28T21:28:57.922Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-04-20T21:37:56.163Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:37:56.163Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:37:57.706Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:37:59.035Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:38:01.047Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:38:01.486Z</audit:date>
+            <audit:justification>[/action/deposit/submit] lseale Submit  - </audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:39:30.610Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC7">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:39:31.040Z</audit:date>
+            <audit:justification>Purged by lseale . . . Purged datastream (ID=LICENSE), versions ranging from the beginning of time to the end of time.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-20T15:37:57.706Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC8">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:39:31.547Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC9">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-20T21:39:32.074Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC10">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T15:36:06.818Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC11">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-04-21T15:36:07.481Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC12">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T20:15:52.250Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC13">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-06T20:15:53.848Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC14">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyObject</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-26T19:24:48.394Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC15">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>DC</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2011-05-26T19:24:48.998Z</audit:date>
+            <audit:justification>Modified by lseale</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC16">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:37:31.190Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC17">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:37:31.729Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC18">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByReference</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-24T18:37:32.176Z</audit:date>
+            <audit:justification>Add checksum to datastream</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC19">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-28T21:28:55.512Z</audit:date>
+            <audit:justification>Purged datastream (ID=DS1), versions ranging from 2011-04-20T15:37:59.035Z to 2011-04-20T15:37:59.035Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-20T15:37:59.035Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC20">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-28T21:28:56.789Z</audit:date>
+            <audit:justification>Purged datastream (ID=LICENSE), versions ranging from 2011-04-20T15:39:31.547Z to 2011-04-20T15:39:31.547Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-20T15:39:31.547Z) and all associated audit records.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC21">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>purgeDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-04-28T21:28:57.922Z</audit:date>
+            <audit:justification>Purged datastream (ID=THUMBNAIL), versions ranging from 2011-04-20T15:38:01.047Z to 2011-04-20T15:38:01.047Z.  This resulted in the permanent removal of 1 datastream version(s) (2011-04-20T15:38:01.047Z) and all associated audit records.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2011-04-20T21:37:56.163Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" SIZE="428">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:identifier>uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-20T21:38:01.486Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.1" LABEL="Polar bear footprint -- photograph" MIMETYPE="text/xml" SIZE="880">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23069</dc:identifier>
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Polar bear footprint</dc:subject>
+          <dc:subject>Worsleyneset</dc:subject>
+          <dc:subject>Lefdefjorden</dc:subject>
+          <dc:subject>Spitsbergen, Norway</dc:subject>
+          <dc:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitsbergen, Norway</dc:description>
+          <dc:date>2008/08/02</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitsbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-20T21:39:32.074Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.2" LABEL="Polar bear footprint -- photograph" MIMETYPE="text/xml" SIZE="880">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23069</dc:identifier>
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Polar bear footprint</dc:subject>
+          <dc:subject>Worsleyneset</dc:subject>
+          <dc:subject>Lefdefjorden</dc:subject>
+          <dc:subject>Spitsbergen, Norway</dc:subject>
+          <dc:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitsbergen, Norway</dc:description>
+          <dc:date>2008/08/02</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitsbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-04-21T15:36:07.481Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.3" LABEL="Polar bear footprint -- photograph" MIMETYPE="text/xml" SIZE="880">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23069</dc:identifier>
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:creator>Linda Seale</dc:creator>
+          <dc:subject>Polar bear footprint</dc:subject>
+          <dc:subject>Worsleyneset</dc:subject>
+          <dc:subject>Lefdefjorden</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitzbergen, Norway</dc:description>
+          <dc:date>2008/08/02</dc:date>
+          <dc:type>Learning Object</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-06T20:15:53.848Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.4" LABEL="Polar bear footprint -- photograph" MIMETYPE="text/xml" SIZE="886">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23069</dc:identifier>
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>Polar bear footprint</dc:subject>
+          <dc:subject>Worsleyneset</dc:subject>
+          <dc:subject>Lefdefjorden</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitzbergen, Norway</dc:description>
+          <dc:date>2008/08/02</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2011-05-26T19:24:48.998Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC.5" LABEL="Polar bear footprint -- photograph" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:identifier>http://hdl.handle.net/10402/era.23069</dc:identifier>
+          <dc:title>Polar bear footprint -- photograph</dc:title>
+          <dc:creator>Seale, Linda N.</dc:creator>
+          <dc:subject>Polar bear footprint</dc:subject>
+          <dc:subject>Worsleyneset</dc:subject>
+          <dc:subject>Lefdefjorden</dc:subject>
+          <dc:subject>Spitzbergen, Norway</dc:subject>
+          <dc:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitzbergen, Norway. August 2008</dc:description>
+          <dc:date>2008/08/02</dc:date>
+          <dc:type>Research Material</dc:type>
+          <dc:format>image/pjpeg</dc:format>
+          <dc:language>eng</dc:language>
+          <dc:coverage xsi:nil="true"/>
+          <dc:coverage>Spitzbergen, Norway</dc:coverage>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:37:31.190Z" ID="DS1.1" LABEL="IMG_1003.JPG" MIMETYPE="image/pjpeg">
+      <foxml:contentDigest DIGEST="a5c02fbbe2795f148c0ccfd200e4005e" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb/DS1/2014-04-24T18:37:31.190Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:37:32.176Z" ID="THUMBNAIL.1" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentDigest DIGEST="250371ab94832d791a8a9bbc9e5f53e5" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb/THUMBNAIL/2014-04-24T18:37:32.176Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-04-24T18:37:31.729Z" ID="LICENSE.1" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentDigest DIGEST="75f56eda47117f53d08c0cc376aa671e" TYPE="MD5"/>
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb/LICENSE/2014-04-24T18:37:31.729Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2011-05-26T19:24:50.986Z" ID="RELS-EXT.25" LABEL="Relationships" MIMETYPE="text/xml" SIZE="1219">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb">
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:0cef33c8-52c5-4149-8cc8-caa11596a7fb</itemID>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2011-04-20T21:38:03.696Z</workflowDate>
+            <userId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</userId>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">lseale</submitterId>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23069</ualterms:fedora3handle>
+          <dcterms:title>Polar bear footprint -- photograph</dcterms:title>
+          <dcterms:creator>Seale, Linda N.</dcterms:creator>
+          <dcterms:subject>Polar bear footprint</dcterms:subject>
+          <dcterms:subject>Worsleyneset</dcterms:subject>
+          <dcterms:subject>Lefdefjorden</dcterms:subject>
+          <dcterms:subject>Spitzbergen, Norway</dcterms:subject>
+          <dcterms:description>Polar bear footprint at Worsleyneset, Lefdfjorden, north coast of Spitzbergen, Norway. August 2008</dcterms:description>
+          <dcterms:created>2008/08/02</dcterms:created>
+          <dcterms:type>Research Material</dcterms:type>
+          <dcterms:format>image/pjpeg</dcterms:format>
+          <dcterms:language>eng</dcterms:language>
+          <dcterms:coverage xsi:nil="true"/>
+          <dcterms:spatial>Spitzbergen, Norway</dcterms:spatial>
+        </dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
