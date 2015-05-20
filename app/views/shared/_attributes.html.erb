@@ -15,9 +15,11 @@
           <th><span class="attribute-label h4">Subjects:</span></th>
           <td><%= work.subjects.join(', ') %></td>
         </tr>
-        <tr>
-          <th><span class="attribute-label h4">Date Uploaded:</span></th>
-          <td><%= work.date_uploaded %></td>
-        </tr>
+        <% if work.date_created? %>
+          <tr>
+            <th><span class="attribute-label h4">Date Created:</span></th>
+            <td><%= work.date_created %></td>
+          </tr>
+        <% end %>
       </table>
 
