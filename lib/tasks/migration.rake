@@ -399,6 +399,8 @@ namespace :migration do
       attr_time = attr_time + (attr_t - metadata_t)
       puts "Set attributes for the file used #{attr_t - metadata_t}"
 
+      MigrationLogger.info "Generic File attribute set id:#{@generic_file.id}"
+
       # save the file
       MigrationLogger.info "Save the file"
       save_tries = 0
@@ -417,7 +419,8 @@ namespace :migration do
       save_time = save_time + (save_t - attr_t)
       puts "Save file used #{save_t - attr_t}"
       Sufia.queue.push(CharacterizeJob.new(@generic_file.id))
-	  
+
+      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections}and community #{community} if needed"
       collection_noids = []
@@ -465,7 +468,7 @@ namespace :migration do
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
       rescue
-        puts "FAILS: Verification of migration #{uuid}!"
+        puts "FAILED: Verification of migration #{uuid}!"
         MigrationLogger.error "#{$!}, #{$@}"
         next
       end
