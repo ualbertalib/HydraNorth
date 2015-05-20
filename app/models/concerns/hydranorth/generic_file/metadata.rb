@@ -52,26 +52,6 @@ module Hydranorth
         property :hasCollection, predicate: ::UALTerms.hasCollection do |index|
           index.as :symbol, :stored_searchable
         end
- 
-        property :unicorn, predicate: ::UALTerms.unicorn, multiple: false do |index|
-          index.as :stored_searchable
-        end
-       
-        property :proquest, predicate: ::UALTerms.proquest, multiple: false do |index|
-          index.as :stored_searchable
-        end
-
-        property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
-          index.as :stored_searchable
-        end
-
-        property :fedora3handle, predicate: ::UALTerms.fedora3handle, multiple: false do |index|
-          index.as :stored_searchable
-        end
-
-        property :ingestbatch, predicate: ::UALTerms.ingestbatch, multiple: false do |index|
-          index.as :stored_searchable
-        end
 
       end
 
