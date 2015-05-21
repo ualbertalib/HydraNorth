@@ -14,9 +14,11 @@ $(document).ready(function(){
 	$(".show-image").hoverIntent(
 		function() {
 			$(this).find(".show-info").fadeIn(250);
+			$(this).find("span").hide();
 		},		
 		function() {
 			$(this).find(".show-info").fadeOut(250);
+			$(this).find("span").show();
 	});
 	var images = ['slide1.jpg', 'slide5.jpg', 'slide6.jpg', 'slide8.jpg'];
  	$('#slide1').css({'background-image': 'url(assets/' + images[Math.floor(Math.random() * images.length)] + ')'});
