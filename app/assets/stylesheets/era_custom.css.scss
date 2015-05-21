@@ -88,6 +88,8 @@ h1, h2{
 .user-util{
 	margin-top: 10px;
 	text-align: right;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 .slides{
 		background-size: cover;
@@ -557,6 +559,17 @@ h1, h2{
 .chart h3{
   		font-size: 17px;
 	}
+
+.tab-pane{
+	padding: 30px;
+}
+.tab-content{
+	border: 1px solid #ddd;
+	border-width: 0px 1px 1px 1px;
+}
+i.glyphicon{
+	margin-right: 10px;
+}
 
 /* Collections */
 
