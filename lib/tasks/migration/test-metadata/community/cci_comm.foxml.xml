@@ -105,30 +105,30 @@
 <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2010-02-19T15:35:13.894Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="424">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-  <dcterms:title>Canadian Circumpolar Institute</dcterms:title>
-  <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:d04b3b74-211d-4939-9660-c390958fa2ee</ualterms:fedora3uuid>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+  <dc:title>Canadian Circumpolar Institute</dc:title>
+  <dc:identifier>uuid:d04b3b74-211d-4939-9660-c390958fa2ee</dc:identifier>
 </oai_dc:dc>
 </foxml:xmlContent>
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.1" LABEL="Canadian Circumpolar Institute" CREATED="2010-02-19T15:35:16.076Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="727">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-  <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:d04b3b74-211d-4939-9660-c390958fa2ee</ualterms:fedora3uuid>
-  <dcterms:title>Canadian Circumpolar Institute</dcterms:title>
-  <dcterms:creator>Administrator admin</dcterms:creator>
-  <dcterms:description>The Canadian Circumpolar Institute is an interdisciplinary centre dedicated to promoting, facilitating and conducting research of the highest caliber throughout the circumpolar world. We strive to develop an institute that will contribute to effective decision making, assist in the development of sustainable communities, and advance the understanding of circumpolar regions generally.</dcterms:description>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:d04b3b74-211d-4939-9660-c390958fa2ee</dc:identifier>
+  <dc:title>Canadian Circumpolar Institute</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Canadian Circumpolar Institute is an interdisciplinary centre dedicated to promoting, facilitating and conducting research of the highest caliber throughout the circumpolar world. We strive to develop an institute that will contribute to effective decision making, assist in the development of sustainable communities, and advance the understanding of circumpolar regions generally.</dc:description>
 </oai_dc:dc>
 </foxml:xmlContent>
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.2" LABEL="Canadian Circumpolar Institute" CREATED="2013-09-20T19:45:30.028Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-  <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:d04b3b74-211d-4939-9660-c390958fa2ee</ualterms:fedora3uuid>
-  <ualterms:fedora3handle xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="anyURI">http://hdl.handle.net/10402/era.17144</ualterms:fedora3handle>
-  <dcterms:title>Canadian Circumpolar Institute</dcterms:title>
-  <dcterms:creator>Administrator admin</dcterms:creator>
-  <dcterms:description>The Canadian Circumpolar Institute is an interdisciplinary centre dedicated to promoting, facilitating and conducting research of the highest caliber throughout the circumpolar world. We strive to develop an institute that will contribute to effective decision making, assist in the development of sustainable communities, and advance the understanding of circumpolar regions generally.</dcterms:description>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:d04b3b74-211d-4939-9660-c390958fa2ee</dc:identifier>
+  <dc:identifier>http://hdl.handle.net/10402/era.17144</dc:identifier>
+  <dc:title>Canadian Circumpolar Institute</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Canadian Circumpolar Institute is an interdisciplinary centre dedicated to promoting, facilitating and conducting research of the highest caliber throughout the circumpolar world. We strive to develop an institute that will contribute to effective decision making, assist in the development of sustainable communities, and advance the understanding of circumpolar regions generally.</dc:description>
 </oai_dc:dc>
 </foxml:xmlContent>
 </foxml:datastreamVersion>
@@ -344,16 +344,16 @@
 </foxml:datastreamVersion>
 </foxml:datastream>
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
-  <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
-  <foxml:xmlContent>
-  <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:d04b3b74-211d-4939-9660-c390958fa2ee</ualterms:fedora3uuid>
   <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.17144</ualterms:fedora3handle>
   <dcterms:title>Canadian Circumpolar Institute</dcterms:title>
   <dcterms:creator>Administrator admin</dcterms:creator>
   <dcterms:description>The Canadian Circumpolar Institute is an interdisciplinary centre dedicated to promoting, facilitating and conducting research of the highest caliber throughout the circumpolar world. We strive to develop an institute that will contribute to effective decision making, assist in the development of sustainable communities, and advance the understanding of circumpolar regions generally.</dcterms:description>
 </dc>
-  </foxml:xmlContent>
-  </foxml:datastreamVersion>
-  </foxml:datastream>
-  </foxml:digitalObject>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

@@ -198,7 +198,7 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/*.xml") do |file|
+    Dir.glob(metadata_dir+"/uuid_*.xml") do |file|
     begin
       start_time = Time.now
       MigrationLogger.info "Processing the file #{file}"
@@ -212,7 +212,10 @@ namespace :migration do
   
       #get the owner ids
       owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", NS).map{ |node| node.to_s }
-    
+      #get the modifiedDate
+      date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
+      date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
+ 
       MigrationLogger.info "Get the current version of DCQ"
       dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", NS).last
       #get metadata from the lastest version of DCQ
@@ -221,9 +224,10 @@ namespace :migration do
 	next
       end
       title = dc_version.xpath("dcterms:title", NS).text
-      creator = dc_version.at_xpath("dcterms:creator", NS).text if  dc_version.at_xpath("dcterms:creator", NS)
+      creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:creator", NS)
+      contributors = dc_version.xpath("dcterms:contributor/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:contributor",NS)
       subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:to_s)
-      description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"')
+      description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
       date = dc_version.xpath("dcterms:created",NS).text
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
@@ -231,6 +235,8 @@ namespace :migration do
       spatial = dc_version.xpath("dcterms:spatial/text()",NS).map(&:to_s).first
       temporal = dc_version.xpath("dcterms:temporal/text()", NS).map(&:to_s).first
       fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
+      trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
+      ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS) 
       # download files
       # get the content datastream DS
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
@@ -362,8 +368,8 @@ namespace :migration do
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
 	  
       @generic_file.apply_depositor_metadata(depositor.user_key)
-      @generic_file.date_uploaded = original_deposit_time
-      @generic_file.date_modified = time_in_utc
+      @generic_file.date_uploaded = DateTime.strptime(original_deposit_time, '%Y-%m-%dT%H:%M:%S.%N%Z') unless original_deposit_time.nil? 
+      @generic_file.date_modified = date_modified
 	 
       if @batch_id
         @generic_file.batch_id = @batch_id
@@ -379,7 +385,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>[creator], "contributor"=>[], "description"=>description, "date_created"=>date, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
@@ -394,6 +400,8 @@ namespace :migration do
       attr_t = Time.now
       attr_time = attr_time + (attr_t - metadata_t)
       puts "Set attributes for the file used #{attr_t - metadata_t}"
+
+      MigrationLogger.info "Generic File attribute set id:#{@generic_file.id}"
 
       # save the file
       MigrationLogger.info "Save the file"
@@ -413,22 +421,29 @@ namespace :migration do
       save_time = save_time + (save_t - attr_t)
       puts "Save file used #{save_t - attr_t}"
       Sufia.queue.push(CharacterizeJob.new(@generic_file.id))
-	  
+
+      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections}and community #{community} if needed"
       collection_noids = []
-        if !collections.empty?
-	  collections.each do |c|
-	    collection_noids << add_to_collection(@generic_file, c)
-	  end
-	else
-	  collection_noids << add_to_collection(@generic_file, community)
+      if !collections.empty?
+        collections.each do |c|
+	  collection_noids << add_to_collection(@generic_file, c)
 	end
-      MigrationLogger.info "Finish migrating the file"
+      else
+        collection_noids << add_to_collection(@generic_file, community)
+      end
+      collection_noids.each do |c|
+        @generic_file.hasCollection = [Collection.find(c).title]
+        @generic_file.save
+      end
 
       collection_t = Time.now
       collection_time = collection_time + (collection_t - save_t)
       puts "Add to Collection used #{collection_t - save_t}"
+      MigrationLogger.info "Finish migrating the file"
+
+
       rescue Exception => e
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
@@ -455,7 +470,7 @@ namespace :migration do
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
       rescue
-        puts "FAILS: Verification of migration #{uuid}!"
+        puts "FAILED: Verification of migration #{uuid}!"
         MigrationLogger.error "#{$!}, #{$@}"
         next
       end
@@ -484,7 +499,7 @@ namespace :migration do
       uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
       MigrationLogger.info "UUID of the collection #{uuid}"
       #if uuid has already been migrated
-      next if duplicated?(uuid)
+      next if duplicated?(uuid) && !special_collection?(uuid)
 
       #get the metadata from DCQ
       collection_attributes = collection_dcq(metadata)
@@ -542,7 +557,7 @@ namespace :migration do
 
   def verify_object_migration(metadata_dir)
      MigrationLogger.info "************START Verify all files in #{metadata_dir}***************"
-     Dir.glob(metadata_dir+"*.xml") do |file|
+     Dir.glob(metadata_dir+"uuid_*.xml") do |file|
 
       MigrationLogger.info "++++++++++START Verifying if the file #{file} is migrated++++++++++"
 
@@ -629,6 +644,12 @@ namespace :migration do
 
     
   end
+
+  def special_collection?(uuid)
+    # check if the collection is technical report collection or structural engineering report collection
+    return true if uuid=="uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5" || uuid == "uuid:b1535044-2f60-4e24-89de-c3a400d4255b"
+  end
+
  
   def duplicated?(uuid)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
@@ -674,9 +695,14 @@ namespace :migration do
       end
 
      MigrationLogger.info "Use Admin User for collection creation." 
-     #create the collection
-     collection = Collection.new
-     MigrationLogger.info "Collection #{collection.id} is created."
+     #create the collection unless it's a special collection and has been created during db:seed.
+     if special_collection?(collection_attributes[:fedora3uuid])
+       collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
+     else
+       collection = Collection.new
+     end
+     MigrationLogger.info "Collection #{collection.id} is created or found."
+ 
      collection.apply_depositor_metadata(current_user.user_key)
      collection.title = collection_attributes[:title] 
      collection.description = collection_attributes[:description]

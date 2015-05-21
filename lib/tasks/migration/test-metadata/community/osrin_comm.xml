@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="1.1" PID="uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Oil Sands Research and Information Network (OSRIN)"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="admin"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2010-05-14T20:36:54.129Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-24T23:12:11.758Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2010-05-14T20:36:54.129Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>ingest</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-05-14T20:36:54.129Z</audit:date>
+<audit:justification>Created by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-05-14T20:36:55.634Z</audit:date>
+<audit:justification>Created by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-05-14T20:36:56.308Z</audit:date>
+<audit:justification>Created by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T15:06:29.033Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC5">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T15:06:45.743Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC6">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:08:58.113Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC7">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:08:58.785Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC8">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>THUMBNAIL</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:08:59.600Z</audit:date>
+<audit:justification>Created by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC9">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:09:00.247Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC10">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:16:35.493Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC11">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:16:36.228Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC12">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>THUMBNAIL</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:16:39.998Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC13">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-07-22T16:16:40.566Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC14">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-11T21:38:39.433Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC15">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-11T21:38:50.274Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC16">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-11T21:38:53.431Z</audit:date>
+<audit:justification>Modified by admin</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC17">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T16:38:12.682Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC18">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T16:38:13.477Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC19">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T16:38:14.178Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC20">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyObject</audit:action>
+<audit:componentID/>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T17:13:36.395Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC21">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T17:13:39.351Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC22">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2010-08-12T17:13:48.084Z</audit:date>
+<audit:justification>Modified by pcharoen</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC23">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-09-11T23:14:30.213Z</audit:date>
+<audit:justification>Changed+sets+from+communities+to+collections</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC24">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2012-09-11T23:18:24.780Z</audit:date>
+<audit:justification>Changed+sets+from+communities+to+collections</audit:justification>
+</audit:record>
+<audit:record ID="AUDREC25">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>THUMBNAIL</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2014-04-24T23:12:11.758Z</audit:date>
+<audit:justification>Add checksum to datastream</audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2010-05-14T20:36:54.129Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="440">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+  <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-05-14T20:36:55.634Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="357">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description/>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.2" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T15:06:45.743Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.3" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T16:08:58.785Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.4" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T16:16:36.228Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.5" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-11T21:38:50.274Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="1002">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.6" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-12T16:38:13.477Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="1002">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.7" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-12T17:13:39.351Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
+  <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
+  <dc:creator>Administrator admin</dc:creator>
+  <dc:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dc:description>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Community Relationships" CREATED="2010-05-14T20:36:56.308Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="Community Relationships" CREATED="2010-05-14T20:36:56.890Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.2" LABEL="Community Relationships" CREATED="2010-05-14T20:36:57.488Z" MIMETYPE="text/xml" SIZE="402">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.3" LABEL="Community Relationships" CREATED="2010-05-14T20:36:58.052Z" MIMETYPE="text/xml" SIZE="510">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.4" LABEL="Community Relationships" CREATED="2010-07-22T16:09:00.247Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.5" LABEL="Community Relationships" CREATED="2010-07-22T16:09:01.178Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.6" LABEL="Community Relationships" CREATED="2010-07-22T16:09:01.738Z" MIMETYPE="text/xml" SIZE="402">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.7" LABEL="Community Relationships" CREATED="2010-07-22T16:09:02.484Z" MIMETYPE="text/xml" SIZE="510">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.8" LABEL="Community Relationships" CREATED="2010-07-22T16:16:40.566Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.9" LABEL="Community Relationships" CREATED="2010-07-22T16:16:41.412Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.10" LABEL="Community Relationships" CREATED="2010-07-22T16:16:42.133Z" MIMETYPE="text/xml" SIZE="402">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.11" LABEL="Community Relationships" CREATED="2010-07-22T16:16:42.768Z" MIMETYPE="text/xml" SIZE="510">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.12" LABEL="Community Relationships" CREATED="2010-08-11T21:38:53.431Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.13" LABEL="Community Relationships" CREATED="2010-08-11T21:38:54.291Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.14" LABEL="Community Relationships" CREATED="2010-08-11T21:38:55.152Z" MIMETYPE="text/xml" SIZE="406">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.15" LABEL="Community Relationships" CREATED="2010-08-11T21:38:55.748Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.16" LABEL="Community Relationships" CREATED="2010-08-12T16:38:14.178Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.17" LABEL="Community Relationships" CREATED="2010-08-12T16:38:15.221Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.18" LABEL="Community Relationships" CREATED="2010-08-12T16:38:16.031Z" MIMETYPE="text/xml" SIZE="406">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.19" LABEL="Community Relationships" CREATED="2010-08-12T16:38:16.766Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.20" LABEL="Community Relationships" CREATED="2010-08-12T17:13:48.084Z" MIMETYPE="text/xml" SIZE="244">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.21" LABEL="Community Relationships" CREATED="2010-08-12T17:13:49.581Z" MIMETYPE="text/xml" SIZE="290">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.22" LABEL="Community Relationships" CREATED="2010-08-12T17:13:50.800Z" MIMETYPE="text/xml" SIZE="406">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.23" LABEL="Community Relationships" CREATED="2010-08-12T17:13:51.667Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.24" LABEL="Community Relationships" CREATED="2010-11-02T17:46:29.860Z" MIMETYPE="text/xml" SIZE="407">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.25" LABEL="Community Relationships" CREATED="2010-11-02T17:46:32.029Z" MIMETYPE="text/xml" SIZE="291">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.26" LABEL="Community Relationships" CREATED="2010-12-23T19:03:54.950Z" MIMETYPE="text/xml" SIZE="398">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.27" LABEL="Community Relationships" CREATED="2010-12-23T19:03:55.673Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.28" LABEL="Community Relationships" CREATED="2011-09-09T16:32:56.242Z" MIMETYPE="text/xml" SIZE="407">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.29" LABEL="Community Relationships" CREATED="2011-09-09T16:32:57.035Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.30" LABEL="Community Relationships" CREATED="2011-09-09T16:33:04.271Z" MIMETYPE="text/xml" SIZE="398">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.31" LABEL="Community Relationships" CREATED="2011-09-09T16:33:05.133Z" MIMETYPE="text/xml" SIZE="514">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+	<hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+	<setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</setSpec>
+	<setName xmlns="http://www.openarchives.org/OAI/2.0/">Oil Sands Research and Information Network (OSRIN)</setName>
+</rdf:Description>
+
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.32" LABEL="Community Relationships" CREATED="2012-09-11T23:14:30.213Z" MIMETYPE="text/xml" SIZE="296">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+    <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.33" LABEL="Community Relationships" CREATED="2012-09-11T23:18:24.780Z" MIMETYPE="text/xml" SIZE="296">
+<foxml:xmlContent>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5">
+    <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:COMMUNITY"/>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="THUMBNAIL" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="THUMBNAIL.0" LABEL="Community Logo" CREATED="2010-07-22T16:08:59.600Z" MIMETYPE="thumbnail/5136388551621176300.gif">
+<foxml:contentLocation TYPE="INTERNAL_ID" REF="uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5+THUMBNAIL+THUMBNAIL.0"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="THUMBNAIL.1" LABEL="Community Logo" CREATED="2010-07-22T16:16:39.998Z" MIMETYPE="thumbnail/5255117796036203500.gif">
+<foxml:contentLocation TYPE="INTERNAL_ID" REF="uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5+THUMBNAIL+THUMBNAIL.1"/>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="THUMBNAIL.2" LABEL="Community Logo" CREATED="2014-04-24T23:12:11.758Z" MIMETYPE="thumbnail/5255117796036203500.gif">
+<foxml:contentDigest TYPE="MD5" DIGEST="567cb57f142f84caab19365bfee2fa37"/>
+<foxml:contentLocation TYPE="INTERNAL_ID" REF="uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5+THUMBNAIL+THUMBNAIL.2"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ualterms:fedora3uuid xsi:type="string">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</ualterms:fedora3uuid>
+  <dcterms:title>Oil Sands Research and Information Network (OSRIN)</dcterms:title>
+  <dcterms:creator>Administrator admin</dcterms:creator>
+  <dcterms:description>The Oil Sands Research and Information Network (OSRIN) is a university-based, independent organization that compiles, interprets and analyses available knowledge about returning landscapes and water impacted by oil sands mining to a natural state and gets that knowledge into the hands of those who can use it to drive breakthrough improvements in reclamation regulations and practices.  OSRIN is a project of the University of Alberta’s School of Energy and the Environment (SEE).  OSRIN was launched with a start-up grant of $4.5 million from Alberta Environment and a $250,000 grant from the Canada School of Energy and Environment Ltd.</dcterms:description>
+</dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
