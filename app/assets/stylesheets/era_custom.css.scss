@@ -271,6 +271,18 @@ h1, h2{
 	font-size: 1.9vw;
 	line-height: 1.7;
 }
+.show-image span{
+	color: #fff;
+	padding: 10px;
+	position:absolute;
+	font-size: 140%;
+	background-color: transparent;
+	top:0;
+	right:0;
+}
+.show-image span.dark{
+	color: #333;
+}
 .show-info{
 	background-color: rgba(0, 0, 0, 0.7);
 	height: 100%;
