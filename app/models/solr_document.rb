@@ -6,7 +6,8 @@ class SolrDocument
 
   # Adds Sufia behaviors to the SolrDocument.
   include Sufia::SolrDocumentBehavior
-
+  # Adds Hydranorth behaviors to the SolrDocument.
+  include Hydranorth::SolrDocumentBehavior
 
   # self.unique_key = 'id'
   

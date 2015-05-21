@@ -57,7 +57,6 @@ module Hydranorth
         rescue
           puts "tables for vocabularies missing"
         end
- 
       end
 
     end
