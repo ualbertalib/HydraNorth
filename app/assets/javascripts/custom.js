@@ -20,10 +20,12 @@ $(document).ready(function(){
 			$(this).find(".show-info").fadeOut(250);
 			$(this).find("span").show();
 	});
-	var images = ['slide1.jpg', 'slide5.jpg', 'slide6.jpg', 'slide8.jpg'];
- 	$('#slide1').css({'background-image': 'url(assets/' + images[Math.floor(Math.random() * images.length)] + ')'});
- 	var images2 = ['slide2.jpg', 'slide3.jpg', 'slide4.jpg', 'slide7.jpg'];
- 	$('#slide2').css({'background-image': 'url(assets/' + images2[Math.floor(Math.random() * images.length)] + ')'});
+	var images = ['s1', 's5', 's6', 's8'];
+	var randomSlide1 = images[Math.floor(Math.random() * images.length)];
+ 	$('#slide1').addClass(randomSlide1);
+ 	var images2 = ['s2', 's3', 's4', 's7'];
+ 	var randomSlide2 = images2[Math.floor(Math.random() * images.length)];
+ 	$('#slide2').addClass(randomSlide2);
 
  	if ($("#tweets").length){
 	 	var config1 = {
