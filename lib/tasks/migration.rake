@@ -420,7 +420,7 @@ namespace :migration do
       save_t = Time.now 
       save_time = save_time + (save_t - attr_t)
       puts "Save file used #{save_t - attr_t}"
-      Sufia.queue.push(CharacterizeJob.new(@generic_file.id))
+      #Sufia.queue.push(CharacterizeJob.new(@generic_file.id))
 
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
