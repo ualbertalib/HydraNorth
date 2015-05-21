@@ -28,7 +28,13 @@ end
 
 # IDs of the collections created below will be added to config/initializers/sufia.rb
 # please restart httpd after rake db:seed
-
+not_exists = Collection.find_with_conditions('depositor' => 'dittest@ualberta.ca', 'title' => 'Communities').empty?
+if not_exists 
+  official = Collection.new(title: "Communities")
+  official.apply_depositor_metadata("dittest@ualberta.ca")
+  official.save!
+end
+  
 theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
   # c[:fedora3uuid] = "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
