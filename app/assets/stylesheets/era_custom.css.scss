@@ -88,6 +88,8 @@ h1, h2{
 .user-util{
 	margin-top: 10px;
 	text-align: right;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 .slides{
 		background-size: cover;
@@ -95,12 +97,31 @@ h1, h2{
 		opacity: 0.8;
 		text-align: center;
 }
-#slide1{
+.s1{
+	background-image: asset_url('slide1.jpg');
+}
+.s2{
 	background-image: asset_url('slide2.jpg');
 }
-#slide2{
-	background-image: asset_url('slide2.jpg');
+.s3{
+	background-image: asset_url('slide3.jpg');
 }
+.s4{
+	background-image: asset_url('slide4.jpg');
+}
+.s5{
+	background-image: asset_url('slide5.jpg');
+}
+.s6{
+	background-image: asset_url('slide6.jpg');
+}
+.s7{
+	background-image: asset_url('slide7.jpg');
+}
+.s8{
+	background-image: asset_url('slide8.jpg');
+}
+
 .call-to-action{
 	padding: 4px 8px;
 	border: 2px solid #fff;
@@ -270,6 +291,18 @@ h1, h2{
 	font-size: 26px;
 	font-size: 1.9vw;
 	line-height: 1.7;
+}
+.show-image span{
+	color: #fff;
+	padding: 10px;
+	position:absolute;
+	font-size: 140%;
+	background-color: transparent;
+	top:0;
+	right:0;
+}
+.show-image span.dark{
+	color: #333;
 }
 .show-info{
 	background-color: rgba(0, 0, 0, 0.7);
@@ -526,6 +559,17 @@ h1, h2{
 .chart h3{
   		font-size: 17px;
 	}
+
+.tab-pane{
+	padding: 30px;
+}
+.tab-content{
+	border: 1px solid #ddd;
+	border-width: 0px 1px 1px 1px;
+}
+i.glyphicon{
+	margin-right: 10px;
+}
 
 /* Collections */
 
