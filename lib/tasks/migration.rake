@@ -229,6 +229,7 @@ namespace :migration do
       subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:to_s)
       description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
       date = dc_version.xpath("dcterms:created",NS).text
+      year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank? 
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
       language = dc_version.xpath("dcterms:language",NS).text
@@ -385,7 +386,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "year_created"=>year_created, "license"=>license, "subject"=>subjects, "spatial"=>spatial, "temporal"=>temporal, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
