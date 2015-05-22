@@ -21,6 +21,12 @@ class CatalogController < ApplicationController
     solr_name('date_modified', :stored_sortable, type: :date)
   end
 
+  def self.date_created_field
+    value = solr_name('date_created', :stored_sortable, type: :string)
+    logger.debug "SOLR_SORT_DATE#{value}" 
+    return value
+  end
+
   configure_blacklight do |config|
     #Show gallery view
     config.view.gallery.partials = [:index_header, :index]
@@ -123,30 +129,23 @@ class CatalogController < ApplicationController
     # of Solr search fields.
     # creator, title, description, temporal, spatial, date_created,
     # subject, language, resource_type, format, identifier, spatial
-    config.add_search_field('contributor') do |field|
-      # solr_parameters hash are sent to Solr as ordinary url query params.
-      field.solr_parameters = { :"spellcheck.dictionary" => "contributor" }
 
+    config.add_search_field('author', label: 'Author', include_in_advanced_search: true) do |field|
+      # solr_parameters hash are sent to Solr as ordinary url query params.
+      field.solr_parameters = { :"spellcheck.dictionary" => "contributor", :"spellcheck.dictionary" => "creator" }
+      
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      solr_name = solr_name("contributor", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
+
+      field_included = [solr_name("contributor", :stored_searchable), solr_name("creator", :stored_searchable)].join(" ")
+      field.solr_parameters = {
+        qf: field_included,
+        pf: field_included
       }
     end
-
-    config.add_search_field('creator') do |field|
-      field.solr_parameters = { :"spellcheck.dictionary" => "creator" }
-      solr_name = solr_name("creator", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
+    
     config.add_search_field('title') do |field|
       field.solr_parameters = {
         :"spellcheck.dictionary" => "title"
@@ -170,18 +169,8 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('temporal') do |field|
-      field.solr_parameters = {
-        :"spellcheck.dictionary" => "temporal"
-      }
-      solr_name = solr_name("temporal", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
     config.add_search_field('date_created') do |field|
+      field.label = "Date"
       field.solr_parameters = {
         :"spellcheck.dictionary" => "date_created"
       }
@@ -192,17 +181,20 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('subject') do |field|
+
+    config.add_search_field('allsubject', label: 'Subject', include_in_advanced_search: true) do |field|
       field.solr_parameters = {
-        :"spellcheck.dictionary" => "subject"
+        :"spellcheck.dictionary" => "subject",
+        :"spellcheck.dictionary" => "temporal",
+        :"spellcheck.dictionary" => "spatial"
       }
-      solr_name = solr_name("subject", :stored_searchable)
+      field_included = [solr_name("subject", :stored_searchable), solr_name("spatial", :stored_searchable), solr_name("temporal", :stored_searchable)].join(" ")
       field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
+        qf: field_included,
+        pf: field_included 
       }
     end
-
+    
     config.add_search_field('language') do |field|
       field.solr_parameters = {
         :"spellcheck.dictionary" => "language"
@@ -215,6 +207,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('resource_type') do |field|
+      field.label = "Item Type"
       field.solr_parameters = {
         :"spellcheck.dictionary" => "resource_type"
       }
@@ -224,58 +217,32 @@ class CatalogController < ApplicationController
         pf: solr_name
       }
     end
+    # these two are something we need to enable for admin
+    #config.add_search_field('depositor') do |field|
+    #  solr_name = solr_name("depositor", :stored_searchable)
+    #  field.solr_local_parameters = {
+    #    qf: solr_name,
+    #    pf: solr_name
+    #  }
+    #end
 
-    config.add_search_field('format') do |field|
-      field.include_in_advanced_search = false
-      field.solr_parameters = {
-        :"spellcheck.dictionary" => "format"
-      }
-      solr_name = solr_name("format", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('spatial') do |field|
-      field.label = "Location"
-      field.include_in_advanced_search = true
-      field.solr_parameters = {
-        :"spellcheck.dictionary" => "spatial"
-      }
-      solr_name = solr_name("spatial", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('depositor') do |field|
-      solr_name = solr_name("depositor", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('license') do |field|
-      solr_name = solr_name("license", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
+    #config.add_search_field('license') do |field|
+    #  solr_name = solr_name("license", :stored_searchable)
+    #  field.solr_local_parameters = {
+    #    qf: solr_name,
+    #    pf: solr_name
+    #  }
+    #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     # label is key, solr field is value
-    config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance \u25BC"
-    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
-    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
-    config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "score desc, #{uploaded_field} desc", label: "Relevance \u25BC"
+    config.add_sort_field "#{date_created_field} desc", label: "Date (newest first)"
+    config.add_sort_field "#{date_created_field} asc", label: "Date (oldest first)"
+    config.add_sort_field "#{uploaded_field} desc", label: "New items"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
