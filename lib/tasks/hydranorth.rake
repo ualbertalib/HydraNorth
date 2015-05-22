@@ -65,7 +65,7 @@ namespace :hydranorth do
     desc "Harvest Geonames cities"
     task geonames_cities: :environment do |cmd, args|
       system "curl 'http://download.geonames.org/export/dump/cities1000.zip' -o '/tmp/cities1000.zip'"
-      system "unzip '/tmp/cities1000.zip'" 
+      system "unzip -o '/tmp/cities1000.zip' -d '/tmp'" 
       vocabs = ["/tmp/cities1000.txt"]
       LocalAuthority.harvest_tsv(cmd.to_s.split(":").last, vocabs, prefix: 'http://sws.geonames.org/')
     end
