@@ -47,6 +47,9 @@ class BatchUpdateJob
     end
     gf.title = title[gf.id] if title[gf.id]
     gf.attributes = file_attributes
+    date_created = file_attributes[:date_created]
+    year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
+    gf.year_created = year_created
     if (trid.present? && trid[gf.id])
       gf.trid = trid[gf.id]
     elsif (ser.present? && ser[gf.id])

@@ -34,7 +34,7 @@ class CatalogController < ApplicationController
 
     # Specify which field to use in the tag cloud on the homepage.
     # To disable the tag cloud, comment out this line.
-    config.tag_cloud_field_name = Solrizer.solr_name("tag", :facetable)
+    # config.tag_cloud_field_name = Solrizer.solr_name("tag", :facetable)
 
     # solr field configuration for document/show views
     config.index.title_field = solr_name("title", :stored_searchable)
@@ -48,7 +48,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 3
     config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 3
     config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 3 
-    config.add_facet_field "date_uploaded_dtsi", label: "Year", query: { ten_years: { label: '0 TO 10 YEARS', fq: 'date_uploaded_dtsi:[NOW-10YEAR TO NOW]'}, twenty_years: { label: '10 TO 20 YEARS', fq: 'date_uploaded_dtsi:[NOW-20YEAR TO NOW-10YEAR]'}, thirty_years: { label: '20 TO 30 YEARS', fq: 'date_uploaded_dtsi:[NOW-30YEAR TO NOW-20YEAR]'}, fourty_years: { label: '30 TO 40 YEARS', fq: 'date_uploaded_dtsi:[NOW-40YEAR TO NOW-30YEAR]'}, fifty_years: { label: '40 TO 50 YEARS', fq: 'date_uploaded_dtsi:[NOW-40YEAR TO NOW-50YEAR]'}, fifty_years_plus: { label: '50+ YEARS', fq: 'date_uploaded_dtsi:[* TO NOW-50YEAR]'}}, limit:3
+    config.add_facet_field solr_name("year_created", :facetable), label: "Year", limit: 3 
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -59,17 +59,16 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name'
     config.add_index_field solr_name("description", :stored_searchable), label: "Description", itemprop: 'description'
-    config.add_index_field solr_name("tag", :stored_searchable), label: "Keyword", itemprop: 'keywords'
-    config.add_index_field solr_name("subject", :stored_searchable), label: "Subject", itemprop: 'about'
-    config.add_index_field solr_name("creator", :stored_searchable), label: "Creator", itemprop: 'creator'
+    config.add_index_field solr_name("subject", :stored_searchable), label: "Subject(s)", itemprop: 'about'
+    config.add_index_field solr_name("creator", :stored_searchable), label: "Creator(s)", itemprop: 'creator'
     config.add_index_field solr_name("contributor", :stored_searchable), label: "Contributor", itemprop: 'contributor'
-    config.add_index_field solr_name("publisher", :stored_searchable), label: "Publisher", itemprop: 'publisher'
-    config.add_index_field solr_name("based_near", :stored_searchable), label: "Location", itemprop: 'contentLocation'
+    config.add_index_field solr_name("spatial", :stored_searchable), label: "Spatial", itemprop: 'contentLocation'
+    config.add_index_field solr_name("temporal", :stored_searchable), label: "Temporal", itemprop: 'contentTemporal'
     config.add_index_field solr_name("language", :stored_searchable), label: "Language", itemprop: 'inLanguage'
     config.add_index_field solr_name("date_uploaded", :stored_searchable), label: "Date Uploaded", itemprop: 'datePublished'
     config.add_index_field solr_name("date_modified", :stored_searchable), label: "Date Modified", itemprop: 'dateModified'
     config.add_index_field solr_name("date_created", :stored_searchable), label: "Date Created", itemprop: 'dateCreated'
-    config.add_index_field solr_name("rights", :stored_searchable), label: "Rights"
+    config.add_index_field solr_name("license", :stored_searchable), label: "License"
     config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_index_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_index_field solr_name("identifier", :stored_searchable), label: "Identifier"
@@ -79,21 +78,20 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_show_field solr_name("title", :stored_searchable), label: "Title"
     config.add_show_field solr_name("description", :stored_searchable), label: "Description"
-    config.add_show_field solr_name("tag", :stored_searchable), label: "Keyword"
     config.add_show_field solr_name("subject", :stored_searchable), label: "Subject"
     config.add_show_field solr_name("creator", :stored_searchable), label: "Creator"
     config.add_show_field solr_name("contributor", :stored_searchable), label: "Contributor"
-    config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
-    config.add_show_field solr_name("based_near", :stored_searchable), label: "Location"
+    config.add_show_field solr_name("spatial", :stored_searchable), label: "Location"
+    config.add_show_field solr_name("Temporal", :stored_searchable), label: "Time"
     config.add_show_field solr_name("language", :stored_searchable), label: "Language"
     config.add_show_field solr_name("date_uploaded", :stored_searchable), label: "Date Uploaded"
     config.add_show_field solr_name("date_modified", :stored_searchable), label: "Date Modified"
     config.add_show_field solr_name("date_created", :stored_searchable), label: "Date Created"
-    config.add_show_field solr_name("rights", :stored_searchable), label: "Rights"
+    config.add_show_field solr_name("license", :stored_searchable), label: "License"
     config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_show_field solr_name("format", :stored_searchable), label: "File Format"
-    config.add_show_field solr_name("identifier", :stored_searchable), label: "Identifier"
-
+    config.add_show_field solr_name("trid", :stored_searchable), label: "CS Technical Report ID"
+    config.add_show_field solr_name("ser", :stored_searchable), label: "Structural Engineering Report ID"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
@@ -123,8 +121,8 @@ class CatalogController < ApplicationController
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
-    # creator, title, description, publisher, date_created,
-    # subject, language, resource_type, format, identifier, based_near,
+    # creator, title, description, temporal, spatial, date_created,
+    # subject, language, resource_type, format, identifier, spatial
     config.add_search_field('contributor') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params.
       field.solr_parameters = { :"spellcheck.dictionary" => "contributor" }
@@ -172,11 +170,11 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('publisher') do |field|
+    config.add_search_field('temporal') do |field|
       field.solr_parameters = {
-        :"spellcheck.dictionary" => "publisher"
+        :"spellcheck.dictionary" => "temporal"
       }
-      solr_name = solr_name("publisher", :stored_searchable)
+      solr_name = solr_name("temporal", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
@@ -239,35 +237,13 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('identifier') do |field|
-      field.include_in_advanced_search = false
-      field.solr_parameters = {
-        :"spellcheck.dictionary" => "identifier"
-      }
-      solr_name = solr_name("id", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('based_near') do |field|
+    config.add_search_field('spatial') do |field|
       field.label = "Location"
+      field.include_in_advanced_search = true
       field.solr_parameters = {
-        :"spellcheck.dictionary" => "based_near"
+        :"spellcheck.dictionary" => "spatial"
       }
-      solr_name = solr_name("based_near", :stored_searchable)
-      field.solr_local_parameters = {
-        qf: solr_name,
-        pf: solr_name
-      }
-    end
-
-    config.add_search_field('tag') do |field|
-      field.solr_parameters = {
-        :"spellcheck.dictionary" => "tag"
-      }
-      solr_name = solr_name("tag", :stored_searchable)
+      solr_name = solr_name("spatial", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
@@ -282,8 +258,8 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field('rights') do |field|
-      solr_name = solr_name("rights", :stored_searchable)
+    config.add_search_field('license') do |field|
+      solr_name = solr_name("license", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name

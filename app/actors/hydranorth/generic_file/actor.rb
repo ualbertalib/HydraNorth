@@ -15,6 +15,12 @@ module Hydranorth
         interpret_visibility
       end
 
+      def update_metadata(attributes, visibility)
+        date_created = attributes[:date_created]
+        generic_file.year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
+        super
+      end
+
       def create_metadata_with_resource_type(batch_id, resource_type)
 
         if resource_type
@@ -25,6 +31,7 @@ module Hydranorth
 
         create_metadata(batch_id)
       end
+
 
     end
   end
