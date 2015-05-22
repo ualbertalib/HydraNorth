@@ -57,6 +57,17 @@ module Hydranorth
         rescue
           puts "tables for vocabularies missing"
         end
+
+        property :year_created, predicate: ::UALTerms.year_created, multiple: false do |index|
+          index.type :date 
+          index.as :stored_searchable, :facetable
+        end
+
+        property :year_created, predicate: ::UALTerms.year_created, multiple: false do |index|
+          index.type :date 
+          index.as :stored_searchable, :facetable
+        end
+
       end
 
     end
