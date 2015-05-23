@@ -88,7 +88,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("creator", :stored_searchable), label: "Creator"
     config.add_show_field solr_name("contributor", :stored_searchable), label: "Contributor"
     config.add_show_field solr_name("spatial", :stored_searchable), label: "Location"
-    config.add_show_field solr_name("Temporal", :stored_searchable), label: "Time"
+    config.add_show_field solr_name("temporal", :stored_searchable), label: "Time"
     config.add_show_field solr_name("language", :stored_searchable), label: "Language"
     config.add_show_field solr_name("date_uploaded", :stored_searchable), label: "Date Uploaded"
     config.add_show_field solr_name("date_modified", :stored_searchable), label: "Date Modified"
