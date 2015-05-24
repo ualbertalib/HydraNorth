@@ -302,6 +302,11 @@ namespace :migration do
         File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
       else
         license = license_node.attribute('LABEL').to_s
+        # exclude objects with a license file or text that is longer than 250 characters,  
+        # before we have plan to deal with these items.  
+        MigrationLogger.warn "#{uuid} license is a file or text is longer than 250 characters"
+        next if license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.length > 250
+
       end
       #get the relsext metadata
       relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",NS).last
