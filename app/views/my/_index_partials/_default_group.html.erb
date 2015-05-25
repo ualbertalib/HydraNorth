@@ -1,0 +1,26 @@
+<table class="table table-zebra-striped">
+  <caption class="sr-only">Listing of items you have deposited in <%= t('sufia.product_name') %></caption>
+<% unless params[:display_type] == 'list' %>
+  <thead>
+  <tr>
+    <th><label for="check_all" class="sr-only"><%= t("sufia.dashboard.my.sr.check_all_label") %></label><%= render_check_all %></th>
+    <th>Title</th>
+    <th class="sorts-dash"><i id="date_created_ssi" class="<%=params[:sort]== "date_created_ssi desc" ? 'caret' : params[:sort]== "date_created_ssi asc" ? 'caret up' : ''%>"></i>Date Created</th>
+    <th>Visibility</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <% end %>
+  <tbody>
+  <% docs.each_with_index do |document,counter| %>
+    <% case document.hydra_model %>
+    <% when "GenericFile" %>
+      <%= render partial: 'my/_index_partials/list_files', locals: {document: document, counter: counter} %>
+    <% when "Collection" %>
+      <%= render partial: 'my/_index_partials/list_collections', locals: {document: document, counter: counter} %>
+    <% else %>
+      <tr><td colspan='6'><%= document.hydra_model %> : <%= document.id %></td></tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
