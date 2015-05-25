@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:07185c11-20f1-445e-990f-db5cfdc71f47" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+  <foxml:objectProperties>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Above ground utilities in Yakutsk, Russia"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="scampbel"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2014-12-04T03:58:53.101Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-12-04T03:58:59.175Z"/>
+    <foxml:extproperty NAME="http://era.library.ualberta.ca/schema/definitions.xsd#version" VALUE="1.3.19"/>
+    <foxml:extproperty NAME="http://era.library.ualberta.ca/schema/definitions.xsd#developerId" VALUE="piyapong.charoenwattana@ualberta.ca"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.101Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>ingest</audit:action>
+            <audit:componentID/>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:53.101Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>RELS-EXT</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:53.525Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DS1</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:54.536Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>DCQ</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:54.904Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC5">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>LICENSE</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:55.934Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC6">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>THUMBNAIL</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2014-12-04T03:58:59.175Z</audit:date>
+            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.101Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+          <dc:title>Above ground utilities in Yakutsk, Russia</dc:title>
+          <dc:identifier>uuid:07185c11-20f1-445e-990f-db5cfdc71f47</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.525Z" ID="RELS-EXT.0" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="244">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47"/>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.192Z" ID="RELS-EXT.1" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="337">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.574Z" ID="RELS-EXT.2" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="511">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.362Z" ID="RELS-EXT.3" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="626">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.653Z" ID="RELS-EXT.4" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="719">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.963Z" ID="RELS-EXT.5" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="819">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.252Z" ID="RELS-EXT.6" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="994">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.562Z" ID="RELS-EXT.7" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="1097">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.912Z" ID="RELS-EXT.8" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="1230">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
+            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
+            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
+            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
+            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
+            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:07185c11-20f1-445e-990f-db5cfdc71f47</itemID>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:54.536Z" ID="DS1.0" LABEL="IMG_1446.3.jpg" MIMETYPE="image/jpeg">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:07185c11-20f1-445e-990f-db5cfdc71f47/DS1/2014-12-04T03:58:54.536Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+<foxml:datastreamVersion CREATED="2014-12-04T03:58:54.904Z" ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+          <dcterms:creator>Campbell, Sandy</dcterms:creator>
+          <dcterms:description>Because Yakutsk is on permafrost, utilities must be above ground.  The city is heated by hot water boilers in several sectors.  Hot water is carried through pipes like these to heat the city.</dcterms:description>
+          <dcterms:format xsi:type="dcterms:IMT">image/jpeg</dcterms:format>
+          <dcterms:language xsi:type="dcterms:ISO639-3">eng</dcterms:language>
+          <dcterms:subject>Photographs</dcterms:subject>
+          <dcterms:subject>Permafrost Engineering - Yakutsk Russia</dcterms:subject>
+          <dcterms:subject>Utilities - above ground</dcterms:subject>
+          <dcterms:subject>Large scale hot water heating</dcterms:subject>
+          <dcterms:title>Above ground utilities in Yakutsk, Russia</dcterms:title>
+          <dcterms:type>Image</dcterms:type>
+          <dcterms:created>2014/11/25</dcterms:created>
+          <dcterms:dateaccepted xsi:type="dcterms:W3CDTF">2014-12-03T20:58:52Z</dcterms:dateaccepted>
+          <dcterms:datesubmitted xsi:type="dcterms:W3CDTF">2014-12-03T20:58:52Z</dcterms:datesubmitted>
+          <dcterms:extent>379260 bytes</dcterms:extent>
+          <ualterms:fedora3uuid xsi:type="string">uuid:07185c11-20f1-445e-990f-db5cfdc71f47</ualterms:fedora3uuid>
+          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.40158</ualterms:fedora3handle>
+          <dcterms:spatial>Russia, Yakutsk</dcterms:spatial>
+          <dcterms:temporal>2014</dcterms:temporal>
+        </dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+</foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="E" ID="LICENSE" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.934Z" ID="LICENSE.0" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
+      <foxml:contentLocation REF="http://local.fedora.server/fedora/get/era-license:CreativeCommons-NC-ND-3.0/LICENSE" TYPE="URL"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2014-12-04T03:58:59.175Z" ID="THUMBNAIL.0" LABEL="Item Thumbnail" MIMETYPE="image/gif">
+      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:07185c11-20f1-445e-990f-db5cfdc71f47/THUMBNAIL/2014-12-04T03:58:59.175Z" TYPE="INTERNAL_ID"/>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>
