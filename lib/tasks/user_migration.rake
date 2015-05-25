@@ -67,6 +67,7 @@ namespace :migration do
             MigrationLogger.info "FAILED: User #{id} #{username} has not migrated."
           end
           n = n + 1
+          ActiveRecord::Base.connection.close
         rescue Exception => e
           puts "FAILED: User #{id} migration at #{n}!"
           puts e.message
