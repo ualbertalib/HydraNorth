@@ -332,15 +332,11 @@ namespace :migration do
       end
 	  
       # create the depositor
-      depositor = User.find_by_user_key(depositor_id+"@ualberta.ca")
+      depositor = User.find_by_username(depositor_id)
 
       if !depositor
-        depositor = User.new({
-          :email => depositor_id+"@ualberta.ca",
-          :password => "password",
-          :password_confirmation => "password",
-          :group_list => "regular"
-        })
+        MigrationLogger.warn "Depositor for this item was not migrated successfully"
+        next
       end
 
      # create the permission array for other coowners of the object
@@ -348,11 +344,12 @@ namespace :migration do
      coowners = owner_ids - [depositor_id]
      if coowners.count > 0
        coowners.each do |u|
-         coowner = User.find_by_user_key(u+"@ualberta.ca")
+         coowner = User.find_by_username(u)
          coowner = User.new({
-               :email => depositor_id+"@ualberta.ca",
-               :password => "password",
-               :password_confirmation => "password",
+               :username => u,
+               :email => u +"@hydranorth.ca",
+               :password => "reset_password",
+               :password_confirmation => "reset_password",
                :group_list => "regular"
               }) if !coowner
          permissions_attributes << {type: 'user', name: coowner.user_key, access: 'edit'}
@@ -504,8 +501,6 @@ namespace :migration do
       #get the uuid of the object
       uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
       MigrationLogger.info "UUID of the collection #{uuid}"
-      #if uuid has already been migrated
-      next if duplicated?(uuid) && !special_collection?(uuid)
 
       #get the metadata from DCQ
       collection_attributes = collection_dcq(metadata)
@@ -651,12 +646,6 @@ namespace :migration do
     
   end
 
-  def special_collection?(uuid)
-    # check if the collection is technical report collection or structural engineering report collection
-    return true if uuid=="uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5" || uuid == "uuid:b1535044-2f60-4e24-89de-c3a400d4255b"
-  end
-
- 
   def duplicated?(uuid)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
     numFound = solr_rsp['response']['numFound']
@@ -689,11 +678,12 @@ namespace :migration do
 
   def create_save_collection(collection_attributes)
     
-     current_user = User.find_by_user_key("dittest@ualberta.ca")
+     current_user = User.find_by_username('admin')
 
       if !current_user
         current_user = User.new({
-          :email => "dittest@ualberta.ca",
+          :email => "eraadmi@ualberta.ca",
+          :username => "admin",
           :password => "password",
           :password_confirmation => "password",
           :group_list => "admin"
@@ -701,8 +691,9 @@ namespace :migration do
       end
 
      MigrationLogger.info "Use Admin User for collection creation." 
-     #create the collection unless it's a special collection and has been created during db:seed.
-     if special_collection?(collection_attributes[:fedora3uuid])
+     #create the collection if not exists, and update collection if it's been seeded previously.
+     collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
+     if (!collection.nil? && !collection.blank?)  
        collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
      else
        collection = Collection.new
