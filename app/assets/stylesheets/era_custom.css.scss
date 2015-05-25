@@ -612,7 +612,12 @@ i.glyphicon{
 }
 
 .browse ul{
-	background-color: pink;
+	background-color: #666;
+	padding:0px 10px 10px 10px;
+
+}
+.browse li {
+
 }
 .browse ul li a{
 	padding: 10px 30px;
@@ -621,9 +626,22 @@ i.glyphicon{
 	display: block;
 }
 .browse ul li a:hover{
-	background-color: #999;
+	background-color: #cfcfcf;
+	color: #333;
+	text-decoration: none;
 }
-
+.browse-headers{
+	margin-bottom: 0px;
+}
+.browse .facet-label{
+	margin: 0px;
+	padding: 0px;
+}
+.browse .facet-count{
+	padding: 10px;
+	background-color: #efefef;
+	border-bottom: 2px solid #fff;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
