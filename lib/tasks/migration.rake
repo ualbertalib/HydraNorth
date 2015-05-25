@@ -302,10 +302,10 @@ namespace :migration do
         File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
       else
         license = license_node.attribute('LABEL').to_s
-        # exclude objects with a license file or text that is longer than 250 characters,  
-        # before we have plan to deal with these items.  
-        MigrationLogger.warn "#{uuid} license is a file or text is longer than 250 characters"
-        next if license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.length > 250
+        if challenge license
+          MigrationLogger.warn "#{uuid} license is a file or text is longer than 250 characters"
+          next
+        end
 
       end
       #get the relsext metadata
@@ -739,5 +739,11 @@ namespace :migration do
     memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
     return memberof
   end	
+
+  # exclude objects with a license file or text that is longer than 250 characters,  
+  # before we have plan to deal with these items.  
+  def challenge license
+    license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.length > 250
+  end
 	
 end
