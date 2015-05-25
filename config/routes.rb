@@ -13,7 +13,7 @@ Hydranorth::Application.routes.draw do
     end
   end
 
-  mount BrowseEverything::Engine => '/browse'
+  mount BrowseEverything::Engine => '/browse_everything'  
   mount Hydra::Collections::Engine => '/'
   mount HydraEditor::Engine => '/'
 
@@ -35,6 +35,8 @@ Hydranorth::Application.routes.draw do
     get '/all/facet/:id',   controller: 'my/all', action: :facet, as: 'dashboard_all_facet'
     
   end
+
+  get '/browse',  controller: 'browse', action: :index
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

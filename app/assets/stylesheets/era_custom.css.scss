@@ -590,6 +590,41 @@ i.glyphicon{
 .mobile-search .row{
 	margin: 0px 15px;
 }
+
+/* Browse */
+
+.browse .collapse{
+	display: block;
+}
+.browse .box{
+	width: 30%;
+	margin-right: 2%;
+	float: left;
+}
+.browse h3{
+	font-size: 25px;
+	font-weight: bold;
+	padding: 10px 30px;
+	background-color: #2d353d;
+	color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.browse ul{
+	background-color: pink;
+}
+.browse ul li a{
+	padding: 10px 30px;
+	background-color: #efefef;
+	border-bottom: 2px solid #fff;
+	display: block;
+}
+.browse ul li a:hover{
+	background-color: #999;
+}
+
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding>h1:hover{
