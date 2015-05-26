@@ -337,8 +337,8 @@ namespace :migration do
       if !depositor
         MigrationLogger.warn "Depositor for this item was not migrated successfully"
         depositor = User.new({
-               :username => u,
-               :email => u + "@hydranorth.ca",
+               :username => depositor_id,
+               :email => depositor_id + "@hydranorth.ca",
                :password => "reset_password",
                :password_confirmation => "reset_password",
                :group_list => "regular",
@@ -473,11 +473,11 @@ namespace :migration do
       # remove the file from temp location
       if migrated && incollections
         MigrationLogger.info "file migrated successfully"
-        FileUtils.rm(file_full) if ds_datastreams.length > 0
-        FileUtils.rm(download_foxml) if File.exist? (download_foxml)
         #move metadata to success location
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
+        FileUtils.rm(file_full) if ds_datastreams.length > 0
+        FileUtils.rm(download_foxml) if File.exist? (download_foxml)
       rescue
         puts "FAILED: Verification of migration #{uuid}!"
         MigrationLogger.error "#{$!}, #{$@}"
