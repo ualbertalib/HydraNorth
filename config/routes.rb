@@ -37,6 +37,7 @@ Hydranorth::Application.routes.draw do
   end
 
   get '/browse',  controller: 'browse', action: :index
+  get 'advanced' => 'advanced#index', as: :advanced
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
