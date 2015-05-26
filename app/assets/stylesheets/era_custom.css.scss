@@ -571,6 +571,16 @@ i.glyphicon{
 	margin-right: 10px;
 }
 
+/* Records */
+.file-show-descriptions, .file-show-details {
+  -moz-column-count: 1;
+  -webkit-column-count: 1;
+  column-count: 1;
+  -moz-column-width: 20em;
+  -webkit-column-width: 20em;
+  column-width: 20em;
+}
+
 /* Collections */
 
 .collection_description, .genericfile_description {
@@ -769,6 +779,15 @@ i.glyphicon{
 	.copyright{
 		padding: 40px 0 0 0;
 	}
+
+        .dl-horizontal dt {
+                width: 160px;
+                float: left;
+                clear: left;
+                text-align: right;
+                white-space: normal;
+                overflow: visible;
+        }
 }
 @media (min-width: 992px){
 	.branding{
