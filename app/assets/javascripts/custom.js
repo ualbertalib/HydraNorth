@@ -37,25 +37,31 @@ $(document).ready(function(){
 		twitterFetcher.fetch(config1);
 	}
 	if ($("#chartContainer").length){
-	var chart = new CanvasJS.Chart("chartContainer",
-    {
-      data: [
-      {
-      	indexLabelFontSize: 16,
-		indexLabelFontColor: "darkgrey",
-		indexLabelPlacement: "outside",
-       type: "doughnut",
-       dataPoints: [
-       {  y: 17356, indexLabel: "Theses" },
-       {  y: 5593, indexLabel: "Research Materials" },
-       {  y: 9280, indexLabel: "Reports" },
-       {  y: 1611, indexLabel: "Journal Articles" },
-       {  y: 856, indexLabel: "Other" }
-       ]
-     }
-     ]
+		var chart = new CanvasJS.Chart("chartContainer",
+    	{
+      		data: [
+      		{
+		      	indexLabelFontSize: 16,
+				indexLabelFontColor: "darkgrey",
+				indexLabelPlacement: "outside",
+		       type: "doughnut",
+		       dataPoints: [
+		       {  y: 17356, indexLabel: "Theses" },
+		       {  y: 5593, indexLabel: "Research Materials" },
+		       {  y: 9280, indexLabel: "Reports" },
+		       {  y: 1611, indexLabel: "Journal Articles" },
+		       {  y: 856, indexLabel: "Other" }
+       			]
+     		}
+     	]
    });
-
     chart.render();
-}
+	}
+	
+	if ($(".browse").length){
+		$(".facet_select")
+   		.each(function(){ 
+      		this.href = this.href.replace('browse', 'catalog');
+   		});
+   	}
 });

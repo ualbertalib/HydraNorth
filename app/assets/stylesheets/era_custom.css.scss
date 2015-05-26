@@ -590,6 +590,71 @@ i.glyphicon{
 .mobile-search .row{
 	margin: 0px 15px;
 }
+
+/* Browse */
+
+.browse .collapse{
+	display: block;
+}
+.browse .box{
+	width: 30%;
+	margin-right: 2%;
+	float: left;
+}
+.browse h3{
+	font-size: 25px;
+	font-weight: bold;
+	padding: 10px 30px;
+	background-color: #2d353d;
+	color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.browse ul{
+	background-color: #666;
+	padding:0px 10px 10px 10px;
+
+}
+.browse li {
+
+}
+.browse ul li a{
+	padding: 10px 30px;
+	background-color: #efefef;
+	border-bottom: 2px solid #fff;
+	display: block;
+}
+.browse ul li a:hover{
+	background-color: #cfcfcf;
+	color: #333;
+	text-decoration: none;
+}
+.browse-headers{
+	margin-bottom: 0px;
+}
+.browse .facet-label{
+	margin: 0px;
+	padding: 0px;
+}
+.browse .facet-count{
+	padding: 10px;
+	background-color: #efefef;
+	border-bottom: 2px solid #fff;
+}
+.browse a.more_facets_link{
+	display: block;
+	background-color: #333;
+	color: #efefef;
+	margin-left: 50px;
+	border-bottom: none;
+	text-align: center;
+}
+.browse a.more_facets_link:hover{
+	background-color: #444;
+	color: #fff;
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding>h1:hover{
@@ -674,7 +739,7 @@ i.glyphicon{
 		width: 250px;
 	}
 	.lib-logo a.logo:hover{
-		background-position: 0px -45px;
+		background-position: 0px -46px;
 	}
 	.front-images{
 		margin: 0px 7%;
