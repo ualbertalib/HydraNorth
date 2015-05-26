@@ -98,3 +98,4 @@ Batch ingest
 - **migration:eraitem** which migrates active/non-deleted items from the metadata directory (argument from the rake task) use: ```rake migration:eraitem['lib/tasks/migration/test-metadata']```
   - **note: migration has to happen in the following order: communities, collections, then eraitems.**
   - **note: file name should start with "uuid_", only those files will be selected.**
+- ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
