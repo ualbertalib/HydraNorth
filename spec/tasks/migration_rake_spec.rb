@@ -32,7 +32,6 @@ describe "Migration rake tasks" do
       Rake::Task["migration:era_collection_community"].reenable
       Collection.last.delete
     end
-    puts User.all
     subject { Collection.last }
     it "Community should be migrated" do
       expect(subject.fedora3uuid).to eq "uuid:d04b3b74-211d-4939-9660-c390958fa2ee"
@@ -48,7 +47,6 @@ describe "Migration rake tasks" do
       Rake::Task["migration:era_collection_community"].reenable
       Collection.last.delete
     end
-    puts User.all
     subject { Collection.last }
     it "Community should be migrated" do
       expect(subject.fedora3uuid).to eq "uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"

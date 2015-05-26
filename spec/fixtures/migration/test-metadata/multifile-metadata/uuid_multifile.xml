@@ -617,8 +617,8 @@
       <foxml:xmlContent>
         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <rdf:Description rdf:about="info:fedora/uuid:846f544d-94db-41b4-9f4a-654e1457ed8c">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:19e840dc-b8ec-42ec-8a1b-73d59e631f27"/>
+            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
+            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
             <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:Report"/>
           </rdf:Description>
         </rdf:RDF>
@@ -2086,7 +2086,7 @@
     </foxml:datastreamVersion>
   </foxml:datastream>
   <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-06-18T15:56:53.878Z" ID="LICENSE.0" LABEL="Permission Statement - Alberta Environment.pdf" MIMETYPE="application/pdf">
+    <foxml:datastreamVersion CREATED="2014-06-18T15:56:53.878Z" ID="LICENSE.0" LABEL="Permission Statement - Alberta Environment" MIMETYPE="application/pdf">
       <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:846f544d-94db-41b4-9f4a-654e1457ed8c/LICENSE/2014-06-18T15:56:53.878Z" TYPE="INTERNAL_ID"/>
     </foxml:datastreamVersion>
   </foxml:datastream>
