@@ -19,7 +19,6 @@ Sufia.config do |config|
     'Attribution-NonCommercial-ShareAlike 4.0 International' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/',
     'Public Domain Mark 1.0' => 'http://creativecommons.org/publicdomain/mark/1.0/',
     'CC0 1.0 Universal' => 'http://creativecommons.org/publicdomain/zero/1.0/',
-    'All rights reserved' => 'All rights reserved'
   }
 
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
