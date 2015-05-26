@@ -43,9 +43,9 @@ class BrowseController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 15
-    config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 15
-    config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 15 
+    config.add_facet_field solr_name("resource_type", :facetable), label: "Item Type", limit: 1
+    config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 20
+    config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 20 
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

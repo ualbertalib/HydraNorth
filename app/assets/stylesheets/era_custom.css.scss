@@ -642,6 +642,18 @@ i.glyphicon{
 	background-color: #efefef;
 	border-bottom: 2px solid #fff;
 }
+.browse a.more_facets_link{
+	display: block;
+	background-color: #333;
+	color: #efefef;
+	margin-left: 50px;
+	border-bottom: none;
+	text-align: center;
+}
+.browse a.more_facets_link:hover{
+	background-color: #444;
+	color: #fff;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
