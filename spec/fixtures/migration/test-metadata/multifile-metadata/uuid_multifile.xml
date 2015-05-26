@@ -2086,7 +2086,7 @@
     </foxml:datastreamVersion>
   </foxml:datastream>
   <foxml:datastream CONTROL_GROUP="M" ID="LICENSE" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-06-18T15:56:53.878Z" ID="LICENSE.0" LABEL="Permission Statement - Alberta Environment.pdf" MIMETYPE="application/pdf">
+    <foxml:datastreamVersion CREATED="2014-06-18T15:56:53.878Z" ID="LICENSE.0" LABEL="Permission Statement - Alberta Environment" MIMETYPE="application/pdf">
       <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:846f544d-94db-41b4-9f4a-654e1457ed8c/LICENSE/2014-06-18T15:56:53.878Z" TYPE="INTERNAL_ID"/>
     </foxml:datastreamVersion>
   </foxml:datastream>

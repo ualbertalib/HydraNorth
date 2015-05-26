@@ -336,7 +336,13 @@ namespace :migration do
 
       if !depositor
         MigrationLogger.warn "Depositor for this item was not migrated successfully"
-        next
+        depositor = User.new({
+               :username => u,
+               :email => u + "@hydranorth.ca",
+               :password => "reset_password",
+               :password_confirmation => "reset_password",
+               :group_list => "regular",
+               })
       end
 
      # create the permission array for other coowners of the object
@@ -692,8 +698,8 @@ namespace :migration do
 
      MigrationLogger.info "Use Admin User for collection creation." 
      #create the collection if not exists, and update collection if it's been seeded previously.
-     collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
-     if (!collection.nil? && !collection.blank?)  
+     
+     if duplicated?(collection_attributes[:fedora3uuid])
        collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
      else
        collection = Collection.new
