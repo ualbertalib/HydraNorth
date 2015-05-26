@@ -6,6 +6,27 @@ namespace :hydranorth do
     Rails.logger
   end
 
+  desc "Update Resource Type for selected collections"
+  task :update_special_itemtype => :environment do |t, args|
+    uuids = {'uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5' => 'Computing Science Technical Report', 'uuid:b1535044-2f60-4e24-89de-c3a400d4255b' => 'Structural Engineering Report'}
+    uuids.each do |uuid, resource_type|
+      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", 
+              params: {:q => 'fedora3uuid_tesim:'+uuid.to_s}
+      numFound = solr_rsp['response']['numFound']
+      if numFound == 1
+        id = solr_rsp['response']['docs'].first['id']
+      else
+        logger.error "Number of Collection retrieved by #{uuid} is incorrect: #{numFound}"
+      end
+      Collection.find(id).member_ids.each do |fid|
+        file = GenericFile.find(fid)
+        file.resource_type = [resource_type]      
+        file.save
+      end
+    end
+     
+  end
+
   desc "Characterize all files"
   task characterize: :environment do
     # grab the first increment of document ids from solr
