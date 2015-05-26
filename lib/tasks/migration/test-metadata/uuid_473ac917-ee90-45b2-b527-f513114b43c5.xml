@@ -2,7 +2,7 @@
   <foxml:objectProperties>
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Adelie penguins -- photograph"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="weiweis"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-05-20T17:18:31.731Z"/>
     <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T19:24:10.785Z"/>
   </foxml:objectProperties>
