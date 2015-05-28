@@ -1,14 +1,21 @@
 #!/bin/bash
-bundle exec rake jetty:stop
-bundle exec rake jetty:clean
-bundle exec rake sufia:jetty:config
-bundle exec rake jetty:start
-redis-cli flushall
-# wait for jetty to be available on port 8983
-sleep 30
-bundle exec rake db:reset
-bundle exec rake hydranorth:harvest:geonames_cities
-service httpd restart
-# kill old resque workers
-kill -9 `ps aux | grep [r]esque | grep -v grep | cut -c 10-16`
-service resque-pool start
+echo Checking environment...
+RAILS_ENV=`rails runner 'puts Rails.env' 2>/dev/null`
+if [ $RAILS_ENV = "development" ]
+then
+  bundle exec rake jetty:stop
+  bundle exec rake jetty:clean
+  bundle exec rake sufia:jetty:config
+  bundle exec rake jetty:start
+  redis-cli flushall
+  # wait for jetty to be available on port 8983
+  sleep 30
+  bundle exec rake db:reset
+  service httpd restart
+  # kill old resque workers
+  kill -9 `ps aux | grep [r]esque | grep -v grep | cut -c 10-16`
+  service resque-pool start
+else
+  echo "Do not use reset-all in test or production environment"
+fi
+
