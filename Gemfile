@@ -71,4 +71,6 @@ group :development, :test do
   gem "database_cleaner"
   gem "capybara-select2", github: "goodwill/capybara-select2"
   gem "show_me_the_cookies"
+  gem "brakeman"
+  gem "ci_reporter_rspec"
 end
