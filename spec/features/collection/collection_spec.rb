@@ -168,5 +168,35 @@ describe 'collection', :type => :feature do
 
   end
 
+  describe 'create collection' do
+    before do
+      sign_in admin
+      visit '/dashboard'
+      first('#hydra-collection-add').click
+    end
+
+    it "should have the collection creation page" do
+      expect(page).to have_content 'Create New Collection' 
+    end
+
+    it "should have a multivalue creator field" do
+      expect(page).to have_selector("div.collection_creator .input-append button.add")
+    end
+
+    it "should have the resource type as a selector" do
+      expect(page).to have_selector("select#collection_resource_type")
+    end
+
+    it "should be able to create a collection" do
+      fill_in('Title', with: 'TESTTEST')
+      find('#collection_license').find(:xpath, 'option[1]').select_option
+      click_button("Create Collection")
+      collection_id = Collection.last.id if Collection.last.title.include?('TESTTEST')
+      visit "/collections/#{collection_id}"
+      expect(page).to have_content 'Items in this Collection'
+      expect(page).to have_content 'TESTTEST'
+    end
+
+  end
 
 end
