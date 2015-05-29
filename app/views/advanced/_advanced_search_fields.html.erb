@@ -3,7 +3,7 @@
     <%= label_tag key, "#{field_def.label }:", class: 'control-label col-sm-4' %>
     <div class="col-sm-8">
       <% if field_def.label == "Item Type" %>
-        <%=select_tag key, options_for_select(Sufia.config.resource_types), {class: 'form-control', include_blank: true} %>
+        <%=select_tag key, options_for_select(Sufia.config.admin_resource_types), {class: 'form-control', include_blank: true} %>
       <% elsif field_def.label == "Language" %>
         <%=select_tag key, options_for_select(Sufia.config.languages), {class: 'form-control', include_blank: true} %> 
       <% else %>
