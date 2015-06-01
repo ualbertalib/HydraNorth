@@ -101,6 +101,16 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    brakeman (3.0.3)
+      erubis (~> 2.6)
+      fastercsv (~> 1.5)
+      haml (>= 3.0, < 5.0)
+      highline (~> 1.6.20)
+      multi_json (~> 1.2)
+      ruby2ruby (~> 2.1.1)
+      ruby_parser (~> 3.6.2)
+      sass (~> 3.0)
+      terminal-table (~> 1.4)
     breadcrumbs_on_rails (2.3.0)
     browse-everything (0.8.1)
       bootstrap-sass
@@ -128,6 +138,11 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
+    ci_reporter (2.0.0)
+      builder (>= 2.1.2)
+    ci_reporter_rspec (1.0.0)
+      ci_reporter (~> 2.0)
+      rspec (>= 2.14, < 4)
     clamav (0.4.1)
     cliver (0.3.2)
     coffee-rails (4.0.1)
@@ -169,6 +184,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    fastercsv (1.5.5)
     ffi (1.9.8)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -192,6 +208,7 @@ GEM
       oauth2 (>= 0.5.0)
     haml (4.0.6)
       tilt
+    highline (1.6.21)
     hike (1.2.3)
     htmlentities (4.3.3)
     httmultiparty (0.3.16)
@@ -452,6 +469,11 @@ GEM
       json
       multipart-post
       oauth2
+    ruby2ruby (2.1.4)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
+    ruby_parser (3.6.6)
+      sexp_processor (~> 4.1)
     rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -469,6 +491,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sexp_processor (4.6.0)
     show_me_the_cookies (2.6.0)
       capybara (~> 2.0)
     signet (0.6.0)
@@ -556,6 +579,7 @@ GEM
       resque (~> 1.23)
       resque-pool (~> 0.3)
     sxp (0.1.5)
+    terminal-table (1.4.5)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -593,8 +617,10 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  brakeman
   capybara
   capybara-select2!
+  ci_reporter_rspec
   clamav
   coffee-rails (~> 4.0.0)
   database_cleaner
