@@ -41,6 +41,12 @@ describe 'catalog searching', :type => :feature do
     GenericFile.destroy_all
   end
 
+  it "should have relevancy with newest" do
+    search
+    click_button 'Sort by Relevance ▼'
+    expect(page).to have_link('Relevance ▼', :href=> "/catalog?q=&sort=score+desc%2C+date_uploaded_dtsi+desc")
+  end
+
   it "p finds {P,S}" do
     search("p")
     expect(page).to have_content('Search Results')
@@ -95,7 +101,7 @@ describe 'catalog searching', :type => :feature do
     expect(page).to_not have_content(@gfS.title.first) 
   end
 
-  def search(query) 
+  def search(query="") 
     within('#search-form-header') do
       fill_in('search-field-header', with: query) 
       click_button("Search ERA")
