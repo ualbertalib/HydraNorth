@@ -46,11 +46,11 @@ $(document).ready(function(){
 				indexLabelPlacement: "outside",
 		       type: "doughnut",
 		       dataPoints: [
-		       {  y: 17356, indexLabel: "Theses" },
-		       {  y: 5593, indexLabel: "Research Materials" },
-		       {  y: 9280, indexLabel: "Reports" },
-		       {  y: 1611, indexLabel: "Journal Articles" },
-		       {  y: 856, indexLabel: "Other" }
+		       {  y: 1255, indexLabel: "Reports" },
+		       {  y: 1073, indexLabel: "Journal Articles" },
+		       {  y: 288, indexLabel: "Research Materials" },
+		       {  y: 85, indexLabel: "Reviews" },
+		       {  y: 123, indexLabel: "Other" }
        			]
      		}
      	]
