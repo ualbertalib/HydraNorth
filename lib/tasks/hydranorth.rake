@@ -31,26 +31,17 @@ namespace :hydranorth do
   task characterize: :environment do
     # grab the first increment of document ids from solr
 
-   resp = ActiveFedora::SolrService.instance.conn.get "select",
+    resp = ActiveFedora::SolrService.instance.conn.get "select",
               params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile"}
-    puts resp
     #get the totalNumber and the size of the current response
     totalNum =  resp["response"]["numFound"]
+  
+    resp = ActiveFedora::SolrService.instance.conn.get "select",
+              params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile", rows: totalNum }
     idList = resp["response"]["docs"]
-    page = 1
-
-    #loop through each page appending the ids to the original list
-    while idList.length < totalNum
-       page += 1
-       resp = ActiveFedora::SolrService.instance.conn.get "select",
-                      params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile",
-                      page:page}
-       idList = idList + resp["response"]["docs"]
-       totalNum =  resp["response"]["numFound"]
-    end
 
     # for each document in the database call characterize
-    idList.each { |o|  Sufia.queue.push(CharacterizeJob.new o["id"])}
+    idList.each { |o|  Sufia.queue.push(CharacterizeJob.new(o["id"]))}
   end
 
   desc "Re-solrize all objects"
@@ -117,29 +108,20 @@ namespace :hydranorth do
     solr = ActiveFedora::SolrService.instance.conn.get "select",
                   params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile"}
     total_docs = solr["response"]["numFound"]
-    logger.info "Total documents to process: #{total_docs}"
     
-    total_processed = errors = page = 0
-    while total_processed < total_docs
-      page += 1
-      solr = ActiveFedora::SolrService.instance.conn.get "select",
+    solr = ActiveFedora::SolrService.instance.conn.get "select",
                                   params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile",
-                                  page: page}
-      total_docs = solr["response"]["numFound"]
-      docs = solr["response"]["docs"]
-      docs.each do |doc|
-        begin
-          id = doc["id"]
-          Sufia.queue.push(CreateDerivativesJob.new id)
-        rescue Exception => e  
-          errors += 1
-          logger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"  
-        end
+                                  rows: total_docs}
+    docs = solr["response"]["docs"]
+    docs.each do |doc|
+      begin
+        id = doc["id"]
+        Sufia.queue.push(CreateDerivativesJob.new id)
+      rescue Exception => e  
+        errors += 1
+        logger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"  
       end
-      total_processed += docs.length
-      logger.info "Total documents queued: #{total_processed}"
     end
-    logger.error("Total errors: #{errors}") if errors > 0
 
   end
 

@@ -99,3 +99,5 @@ Batch ingest
   - **note: migration has to happen in the following order: communities, collections, then eraitems.**
   - **note: file name should start with "uuid_", only those files will be selected.**
 - ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
+- ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion. 
+  - **note: ```rake hydranorth:characterize_some['filename']``` will push the items in the given list to the characterize resque job. **
