@@ -27,15 +27,28 @@ $(document).ready(function(){
  	var randomSlide2 = images2[Math.floor(Math.random() * images.length)];
  	$('#slide2').addClass(randomSlide2);
 
- 	if ($("#tweets").length){
-	 	var config1 = {
-	  		"id": '586195044660424704',
-	  		"domId": 'tweets',
-	  		"maxTweets": 2,
-	  		"enableLinks": true
-		};
-		twitterFetcher.fetch(config1);
+ 	if ($("#generic_file_license").length){
+                $("#generic_file_rights").hide()
+                $("#generic_file_license").change(function() {
+                	if ($("#generic_file_license").val()=="I am required to use/link to a publisher's license") {
+    				$("#generic_file_rights").show();
+    				$("#generic_file_license").val("");
+  			}
+  			else {
+    				$("#generic_file_rights").hide();
+    				$("#generic_file_rights").val("");
+  			}
+		});
 	}
+        if ($("#tweets").length){
+                var config1 = {
+                        "id": '586195044660424704',
+                        "domId": 'tweets',
+                        "maxTweets": 2,
+                        "enableLinks": true
+                };
+                twitterFetcher.fetch(config1);
+        }
 	if ($("#chartContainer").length){
 		var chart = new CanvasJS.Chart("chartContainer",
     	{

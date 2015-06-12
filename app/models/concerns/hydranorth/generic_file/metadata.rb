@@ -9,6 +9,9 @@ module Hydranorth
         property :license, predicate: ::RDF::DC.license, multiple: false do |index|
           index.as :stored_searchable
         end
+        property :rights, predicate: ::RDF::DC.rights, multiple: false do |index|
+          index.as :stored_searchable
+        end
         property :trid, predicate: ::UALTerms.trid, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
