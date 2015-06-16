@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428213757) do
+ActiveRecord::Schema.define(version: 20150903180217) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       limit: 4,   null: false
@@ -308,6 +308,9 @@ ActiveRecord::Schema.define(version: 20150428213757) do
     t.string   "institution",            limit: 255
     t.string   "fax",                    limit: 255
     t.string   "legacy_password",        limit: 255
+    t.string   "provider",               limit: 255
+    t.string   "unconfirmed_ccid",       limit: 255
+    t.boolean  "should_force_link",                    default: false, null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

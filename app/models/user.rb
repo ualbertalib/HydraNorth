@@ -9,10 +9,20 @@ class User < ActiveRecord::Base
 # Connects this user object to Blacklights Bookmarks. 
   include Blacklight::User
   # Include default devise modules. Others available are:
-  # :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
-         :confirmable, :lockable, :timeoutable
+         :confirmable, :lockable, :timeoutable,
+         :omniauthable, :omniauth_providers => [:shibboleth]
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, ccid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.email = auth.uid
+      user.password = Devise.friendly_token[0,20]
+      user.skip_confirmation!
+      user.save!
+    end
+  end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
