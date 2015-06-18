@@ -17,6 +17,10 @@ before_script:
   - bundle exec rake jetty:start
   - sleep 60
   - bundle exec rake db:setup
+  - wget http://downloads.sourceforge.net/project/zaproxy/2.4.0/ZAP_2.4.0_Linux.tar.gz -O /tmp/ZAP_2.4.0_Linux.tar.gz
+  - tar xvf /tmp/ZAP_2.4.0_Linux.tar.gz
+script:
+  - zapr --summary --debug --zap-path $TRAVIS_BUILD_DIR/ZAP_2.4.0/zap.sh http://localhost:3000/
 after_script:
   - bundle exec rake jetty:stop
 notifications:
