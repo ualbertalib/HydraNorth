@@ -19,6 +19,7 @@ Sufia.config do |config|
     'Attribution-NonCommercial-ShareAlike 4.0 International' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/',
     'Public Domain Mark 1.0' => 'http://creativecommons.org/publicdomain/mark/1.0/',
     'CC0 1.0 Universal' => 'http://creativecommons.org/publicdomain/zero/1.0/',
+    "I am required to use/link to a publisher's license" => "I am required to use/link to a publisher's license",
   }
 
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
@@ -88,9 +89,19 @@ Sufia.config do |config|
   # please run rake db:seed to create the collections and restart httpd. 
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
-  # config.cstr_collection_id = ""
-  # config.ser_collection_id = ""
+
+
  
+
+
+
+
+
+
+
+
+  config.cstr_collection_id = "4m90dw65k"
+  config.ser_collection_id = "4m90dw66v"
   config.special_reports = {
     "cstr" => "Computing Science Technical Report",
     "ser" => "Structural Engineering Report",
@@ -143,6 +154,7 @@ Sufia.config do |config|
 
   # Specify the path to the file characterization tool:
   # config.fits_path = "fits.sh"
+   config.fits_path = "fits"
   config.fits_path = "fits"
 
   config.enable_contact_form_delivery = true

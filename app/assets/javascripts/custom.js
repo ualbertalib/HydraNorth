@@ -28,7 +28,6 @@ $(document).ready(function(){
  	$('#slide2').addClass(randomSlide2);
 
  	if ($("#generic_file_license").length){
-                debugger;
                 $("#generic_file_license").change(function() {
                 	if ($("#generic_file_license").val()=="I am required to use/link to a publisher's license") {
                                 $("#generic_file_rights").val("Enter full text rights");
@@ -46,7 +45,6 @@ $(document).ready(function(){
 		});
 	}
         if ($("#generic_file_rights").length){
-                debugger;
                 if (document.getElementById('generic_file_rights') == null) { 
                         $('label[for="generic_file_rights"]').hide();
                 	$("#generic_file_rights").hide();
@@ -62,9 +60,6 @@ $(document).ready(function(){
                         }
                 }
 	}
-        if ($("#upload_submit").length){
-                debugger;
-        } 
         if ($("#tweets").length){
                 var config1 = {
                         "id": '586195044660424704',
