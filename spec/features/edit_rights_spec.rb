@@ -1,0 +1,53 @@
+require 'spec_helper'
+
+describe 'Rights', :type => :feature do
+
+  let(:admin) { FactoryGirl.create :admin }
+  let!(:file) do
+    GenericFile.new.tap do |f|
+      f.title = ['non_standard_file.txt']
+      f.creator = ['non_standard_creator']
+      f.license = "Attribution 4.0 International"
+      f.read_groups = ['public']
+      f.apply_depositor_metadata(admin.user_key)
+      f.save!
+    end
+  end
+
+  after :all do
+    cleanup_jetty
+  end
+
+  describe 'check if rights does not exist' do
+
+    before do
+      sign_in admin
+      visit "/dashboard/files"
+      within("#document_#{file.id}") do
+        click_button "Select an action"
+        click_link "Edit File"
+      end
+    end
+  
+    it { expect(page).to have_select('generic_file_license', with_options: ['Attribution 4.0 International']) }
+    it { expect(page).to_not have_field('generic_file_rights') }
+  end
+
+  describe 'check if rights does exist' do
+
+    before do
+      sign_in admin
+      visit "/dashboard/files"
+      within("#document_#{file.id}") do
+        click_button "Select an action"
+        click_link "Edit File"
+      end
+      select("I am required to use/link to a publisher's license", from: "generic_file[license]")
+      fill_in 'generic_file_rights', :with => 'Rights'
+      click_button "Update Generic file"
+    end
+
+    it { expect(page).to have_field('generic_file_rights', with: 'Rights') }
+  end
+
+end

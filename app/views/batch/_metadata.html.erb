@@ -51,7 +51,7 @@
       <%= f.input :license, as: :select_with_modal_help, collection: Sufia.config.cc_licenses, 
           input_html: { class: 'form-control', required: false }, include_blank: true %>
 
-      <%= f.input :rights, label: false, required: false, input_html: { value: 'Enter license info here', type: 'textarea' } %>
+      <%= f.input :rights, required: false, input_html: { type: 'textarea' } %>
 
       <%= render "generic_files/license_modal" %>
 
