@@ -9,8 +9,8 @@ before_install:
 services:
   - redis-server
 before_install:
-#  - sudo apt-get update
-#  - sudo apt-get install libclamav-dev clamav-freshclam
+  - sudo apt-get update
+  - sudo apt-get install libclamav-dev clamav-freshclam
 #  - sudo freshclam
 before_script:
   - redis-cli info
