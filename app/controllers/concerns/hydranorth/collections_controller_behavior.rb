@@ -35,12 +35,15 @@ module Hydranorth
       collection ||= @collection
       collection.member_ids = batch.concat(collection.member_ids)
       batch.each do |id|
-        gf = ::GenericFile.find(id)
-        if gf.respond_to? :hasCollection
-          hasCollection = gf.hasCollection
+        begin
+          member = ::GenericFile.find(id) || Collection.find(id)
+        rescue
+        end
+        if member.respond_to? :hasCollection
+          hasCollection = member.hasCollection
           hasCollection.push collection.title
-          gf.hasCollection = hasCollection
-          gf.save!
+          member.hasCollection = hasCollection
+          member.save!
         end
       end
     end
@@ -48,12 +51,15 @@ module Hydranorth
     def remove_members_from_collection
       @collection.members.delete(batch.map { |pid| ActiveFedora::Base.find(pid) })
       batch.each do |id|
-        gf = ::GenericFile.find(id)
-        if gf.respond_to? :hasCollection
-          hasCollection = gf.hasCollection
+        begin
+          member = ::GenericFile.find(id) || Collection.find(id)
+        rescue
+        end
+        if member.respond_to? :hasCollection
+          hasCollection = member.hasCollection
           hasCollection.delete collection.title
-          gf.hasCollection = hasCollection
-          gf.save!
+          member.hasCollection = hasCollection
+          member.save!
         end
       end
     end
