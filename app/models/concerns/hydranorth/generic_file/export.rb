@@ -15,7 +15,8 @@ module Hydranorth
           date_created: 'date',
           resource_type: 'format',
           language: 'language',
-          license: 'license'
+          license: 'license' ,
+          rights: 'rights'
         }
         Rails.logger.debug "field_map #{field_map}"
         field_map.each do |element, kev|
@@ -28,6 +29,7 @@ module Hydranorth
           Rails.logger.debug "self.resource_type #{self.resource_type}"
           Rails.logger.debug "self.language #{self.language}"
           Rails.logger.debug "self.license #{self.license}"
+          Rails.logger.debug "self.rights #{self.rights}"
           Rails.logger.debug "self.contributor #{self.contributor.inspect}"
           values = self.send(element)
           Rails.logger.debug "values #{values}"

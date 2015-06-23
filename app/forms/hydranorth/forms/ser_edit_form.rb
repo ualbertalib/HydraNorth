@@ -2,7 +2,7 @@ module Hydranorth
   module Forms
     class SerEditForm < SerPresenter
       include HydraEditor::Form
-      self.required_fields = [:title, :creator, :subject, :license, :ser, :language]
+      self.required_fields = [:title, :creator, :subject, :ser, :language]
 
       # This is required so that fields_for will draw a nested form.
       # See ActionView::Helpers#nested_attributes_association?

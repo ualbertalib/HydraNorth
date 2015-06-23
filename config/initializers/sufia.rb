@@ -19,6 +19,7 @@ Sufia.config do |config|
     'Attribution-NonCommercial-ShareAlike 4.0 International' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/',
     'Public Domain Mark 1.0' => 'http://creativecommons.org/publicdomain/mark/1.0/',
     'CC0 1.0 Universal' => 'http://creativecommons.org/publicdomain/zero/1.0/',
+    "I am required to use/link to a publisher's license" => "I am required to use/link to a publisher's license",
   }
 
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
@@ -90,7 +91,6 @@ Sufia.config do |config|
   # In production it assumes that the collections will be available in the system at the time of deposit
   # config.cstr_collection_id = ""
   # config.ser_collection_id = ""
- 
   config.special_reports = {
     "cstr" => "Computing Science Technical Report",
     "ser" => "Structural Engineering Report",
