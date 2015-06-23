@@ -15,8 +15,12 @@
 //
 // Required by Blacklight
 //= require blacklight/blacklight
-//= require_tree .
 //
 //= require sufia
+//
 //= require jquery.hoverIntent.min
+//= require jquery.canvasjs.min
+//= require twitterFetcher_min
+//
 //= require custom
+//= require hydranorth_fileupload
