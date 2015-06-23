@@ -101,3 +101,11 @@ Batch ingest
 - ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
 - ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion. 
   - **note: ```rake hydranorth:characterize_some['filename']``` will push the items in the given list to the characterize resque job. **
+
+Populating Local Geonames Authority 
+---
+- **hydranorth:harvest:geonames_cities** which downloads the latest list of cities1000 file from geonames.org, and populates the data into local database tables: local_authorities, and local_authority_entries. 
+  - use: ```rake hydranorth:harvest:geonames_cities```
+  - file downloaded: http://download.geonames.org/export/dump/cities1000.zip
+  - scope for authority entries: contains all cities with a population >1000 or seats of adm div (ca 80.000)
+  - local_authority_entries includes labels and URIs. Currently labels are used for autocompletion and saved in the record. 
