@@ -3,7 +3,7 @@ module Hydranorth
     include Hydra::Presenter
     self.model_class = ::GenericFile
     # Terms is the list of fields displayed by app/views/generic_files/_show_descriptions.html.erb
-    self.terms = [:title, :creator, :contributor, :subject, :resource_type, :language, :spatial, :temporal, :description, :date_created, :license, :rights, :is_version_of, :source, :related_url]
+    self.terms = [:title, :creator, :contributor, :subject, :resource_type, :language, :identifier, :spatial, :temporal, :description, :date_created, :license, :is_version_of, :source, :related_url]
 
     # Depositor and permissions are not displayed in app/views/generic_files/_show_descriptions.html.erb
     # so don't include them in `terms'.

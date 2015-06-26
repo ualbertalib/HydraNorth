@@ -30,7 +30,7 @@ module Sufia
         property :contributor, predicate: ::RDF::DC.contributor do |index|
           index.as :stored_searchable, :facetable
         end
-        property :description, predicate: ::RDF::DC.description, multiple: false do |index|
+        property :description, predicate: ::RDF::DC.description do |index|
           index.type :text
           index.as :stored_searchable
         end
@@ -62,12 +62,16 @@ module Sufia
         property :language, predicate: ::RDF::DC.language, multiple: false do |index|
           index.as :stored_searchable, :facetable
         end
+        property :identifier, predicate: ::RDF::DC.identifier do |index|
+          index.as :stored_searchable
+        end
         property :related_url, predicate: ::RDF::DC.relation, multiple: false do |index|
           index.as :stored_searchable
         end
         property :source, predicate: ::RDF::DC.source, multiple: false do |index|
           index.as :stored_searchable
         end
+ 
 
       end
 

@@ -19,11 +19,11 @@ module Hydranorth
           index.as :stored_searchable, :sortable
         end
         
-        property :temporal, predicate: ::RDF::DC.temporal, multiple:false do |index|
+        property :temporal, predicate: ::RDF::DC.temporal  do |index|
           index.as :stored_searchable, :facetable
         end
 
-        property :spatial, predicate: ::RDF::DC.spatial, multiple:false do |index|
+        property :spatial, predicate: ::RDF::DC.spatial do |index|
           index.as :stored_searchable, :facetable
       	end
 
