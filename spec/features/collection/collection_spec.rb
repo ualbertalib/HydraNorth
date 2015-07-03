@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'collection', :type => :feature do
   let(:admin) { FactoryGirl.create(:admin) }
-  let(:dit) { FactoryGirl.create(:dit) }
+  let(:jill) { FactoryGirl.create(:jill) }
   let!(:collection) do
     Collection.create( title: 'Theses') do |c|
       c.apply_depositor_metadata(admin.user_key)
@@ -42,7 +42,7 @@ describe 'collection', :type => :feature do
     end
   end
 
-  describe 'show collection as admin' do
+  describe 'show collection as admin', :js => true do
     before do
       sign_in admin
       visit '/dashboard/collections'
@@ -69,8 +69,14 @@ describe 'collection', :type => :feature do
   end
 
   describe 'show collection as user' do
+    let!(:collection) do
+      Collection.create( title: 'Theses') do |c|
+        c.apply_depositor_metadata(admin.user_key)
+      end
+    end
+
     before do
-      sign_in dit
+      sign_in jill
       visit '/dashboard/collections'
     end
 
@@ -111,7 +117,7 @@ describe 'collection', :type => :feature do
     end
   end
  
-  describe 'delete items from collection' do
+  describe 'delete items from collection', :js => true do
     let!(:collection_modify) do
       Collection.create( title: 'Test Collection') do |c|
         c.apply_depositor_metadata(admin.user_key)
@@ -180,7 +186,7 @@ describe 'collection', :type => :feature do
     end
 
     it "should have a multivalue creator field" do
-      expect(page).to have_selector("div.collection_creator .input-append button.add")
+      expect(page).to have_css("input#collection_creator.string.multi_value.optional.form-control.collection_creator.form-control.multi-text-field")
     end
 
     it "should have the resource type as a selector" do

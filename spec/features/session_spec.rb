@@ -5,8 +5,10 @@ describe 'session', :type => :feature do
 
   it 'should assign new session after login' do
     visit '/'
-    fill_in "search-field-header", with: "Toothbrush"
-    click_button "Search ERA"
+    within "#slide1" do
+      fill_in "search-field-header", with: "Toothbrush"
+      click_button "Search ERA"
+    end
     session = get_me_the_cookie('_session_id')[:value]
     sign_in user
     expect(session).to_not eq(get_me_the_cookie('_session_id')[:value])

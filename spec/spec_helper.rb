@@ -28,6 +28,12 @@ require File.join(Sufia::Engine.root, 'spec/support/features')
 
 $in_travis = !ENV['TRAVIS'].nil? && ENV['TRAVIS'] == 'true'
 
+Capybara.default_selector = :css
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, :window_size => [1920, 1080], :phantomjs_logger => nil)
+end
+Capybara.javascript_driver = :poltergeist
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -30,7 +30,7 @@ describe 'Rights', :type => :feature do
     end
   
     it { expect(page).to have_select('generic_file_license', with_options: ['Attribution 4.0 International']) }
-    it { expect(page).to_not have_field('generic_file_rights') }
+    it { expect(page).to have_field('generic_file_rights', with: '') }
   end
 
   describe 'check if rights does exist' do
