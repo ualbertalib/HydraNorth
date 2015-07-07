@@ -69,6 +69,13 @@ $(document).ready(function(){
                 };
                 twitterFetcher.fetch(config1);
         }
+        $("#filter").userSearch();
+        $("#filter").bind("change", function() {
+        	obj = $("#filter").select2("data")
+                $("#filter").select2("val", '')
+		window.location = "/dashboard/all?f[creator_sim][]="+obj.text;
+		return false;
+        });
 	if ($("#chartContainer").length){
 		var chart = new CanvasJS.Chart("chartContainer",
     	{
