@@ -32,6 +32,10 @@
         <button class="btn btn-info" id="dashboard_sort_submit"><i class="glyphicon glyphicon-refresh"></i> Refresh</button>
       <% end %>
     <% end unless sort_fields.empty? %>
+    <% if all_my_files? %>
+      <label>Filter By User:</label>
+      <%= hidden_field_tag :filter, nil %>
+    <% end %>
   </div>
   
 </div>
