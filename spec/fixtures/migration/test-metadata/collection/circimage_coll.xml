@@ -81,7 +81,7 @@
 <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2010-07-26T14:24:53.777Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="417">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dcterms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dcterms:title>Circumpolar Photographs</dcterms:title>
   <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7</ualterms:fedora3uuid>
 </oai_dc:dc>
@@ -89,7 +89,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.1" LABEL="Circumpolar Photographs" CREATED="2010-07-26T14:24:55.465Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="334">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dcterms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7</ualterms:fedora3uuid>
   <dcterms:title>Circumpolar Photographs</dcterms:title>
   <dcterms:creator>Administrator admin</dcterms:creator>
@@ -99,7 +99,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.2" LABEL="Circumpolar Digital Image Collection" CREATED="2011-11-14T22:17:48.055Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dcterms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7</ualterms:fedora3uuid>
   <ualterms:fedora3handle xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="anyURI">http://hdl.handle.net/10402/era.17512</ualterms:fedora3handle>
   <dcterms:title>Circumpolar Digital Image Collection</dcterms:title>
@@ -247,7 +247,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
   <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
   <foxml:xmlContent>
-  <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc xmlns:dcterms="http://purl.org/dcterms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7</ualterms:fedora3uuid>
   <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.17512</ualterms:fedora3handle>
   <dcterms:title>Circumpolar Digital Image Collection</dcterms:title>
