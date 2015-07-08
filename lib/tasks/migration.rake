@@ -7,7 +7,7 @@ require './lib/tasks/migration/migration_logger'
         "xmlns:foxml"=>"info:fedora/fedora-system:def/foxml#", 
         "xmlns:audit"=>"info:fedora/fedora-system:def/audit#", 
         "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
-        "xmlns:dcterms"=>"http://purl.org/dcterms/", 
+        "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
         "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
         "xmlns:ualterms"=>"http://terms.library/ualberta.ca", 
         "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
