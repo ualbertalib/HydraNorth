@@ -9,7 +9,7 @@
     <%= link_to raw('<i class="glyphicon glyphicon-link over" aria-hidden="true"></i> Single-Use Link to File'), '#',
       class: "copypaste itemicon itemcode", title: "Single-Use Link to File", id: "copy_link_#{id}" %>
     </li>
-    <% if gf.depositor == @user.user_key or gf.edit_users.include? @user.user_key %>
+    <% if gf.depositor == @user.user_key or gf.edit_users.include? @user.user_key or current_user.admin? %>
     <li role="menuitem" tabindex="-1">
     <%= link_to raw('<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Edit File'), sufia.edit_generic_file_path(id),
       class: 'itemicon itemedit', title: 'Edit File' %>

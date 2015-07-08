@@ -13,7 +13,7 @@ module My
     protected
 
     def search_action_url *args
-      sufia.dashboard_shares_url *args
+      dashboard_all_url *args
     end
 
   end
