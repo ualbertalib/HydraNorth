@@ -26,6 +26,20 @@ if !User.find_by_user_key("dittest@ualberta.ca")
   admin.save!
 end
 
+# create a dummy admin user for dataverse
+if !User.find_by_user_key("dit.application.test@ualberta.ca")
+
+  admin = User.new({
+      :email => "dit.application.test@ualberta.ca",
+      :password => "password",
+      :password_confirmation => "password",
+      :group_list => "admin" # this is the important part
+    }) unless User.find_by_user_key("dit.application.test@ualberta.ca")
+
+  admin.skip_confirmation!
+  admin.save!
+end
+
 # IDs of the collections created below will be added to config/initializers/sufia.rb
 # please restart httpd after rake db:seed
 not_exists = Collection.find_with_conditions('depositor' => 'dittest@ualberta.ca', 'title' => 'Communities').empty?
@@ -34,6 +48,14 @@ if not_exists
   official.apply_depositor_metadata("dittest@ualberta.ca")
   official.save!
 end
+
+dataverse_not_exists = Collection.find_with_conditions('depositor' => 'dit.application.test@ualberta.ca', 'title' => 'Dataverse Datasets').empty?
+if dataverse_not_exists
+  official = Collection.new(title: "Dataverse Datasets")
+  official.apply_depositor_metadata("dit.application.test@ualberta.ca")
+  official.save!
+end
+
   
 theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
@@ -52,6 +74,7 @@ ser = Collection.find_or_create_with_type("Structural Engineering Report").tap d
   c[:fedora3uuid] = "uuid:b1535044-2f60-4e24-89de-c3a400d4255b"
 end
 ser.save!
+
 config = File.read("config/initializers/sufia.rb", &:read)
 config = config.gsub(/^.*config\.cstr_collection_id.*$/, '')
 config = config.gsub(/^.*config\.ser_collection_id.*$/, '')

@@ -44,14 +44,14 @@ describe CatalogController, type: :controller do
       f.filename = ['filename.filename']
       f.date_created = '1900/12/31'
       f.read_groups = ['public']
-      f.spatial = "Edmonton"
+      f.spatial = ["Edmonton"]
       f.language = "EnglishEnglish"
       f.creator = ["creator1"]
       f.contributor = ["contributor1"]
-      f.temporal = "temporaltemporal"
+      f.temporal = ["temporaltemporal"]
       f.subject = ["subjectsubject"]
       f.resource_type = ["resource_typeresource_type"]
-      f.description = "descriptiondescription"
+      f.description = ["descriptiondescription"]
       f.format_label = ["format_labelformat_label"]
       f.full_text.content = "full_textfull_text"
       f.apply_depositor_metadata('qw1')

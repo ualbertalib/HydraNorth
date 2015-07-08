@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dcterms="http://purl.org/dc/terms/">
+   <dcterms:title>Alberta Survey, May 27-July 16, 2010</dcterms:title>
+   <dcterms:identifier>http://dx.doi.org/10.7939/DVN/10008</dcterms:identifier>
+   <dcterms:creator>Stevens, Gillian</dcterms:creator>
+   <dcterms:publisher>Population Research Laboratory</dcterms:publisher>
+   <dcterms:created>2010-08-18</dcterms:created>
+   <dcterms:subject>Quality of Life</dcterms:subject>
+   <dcterms:subject>Household Survey</dcterms:subject>
+   <dcterms:description>This survey of households across the province of Alberta continues to enable academic researchers, government departments, and non-profit organizations to explore a wide range of topics in a structured research framework and environment. Sponsors'Â&#x99; research questions are asked together with demographic questions in a telephone interview of Alberta households.</dcterms:description>
+   <dcterms:temporal>2010-05 - 2010-07</dcterms:temporal>
+   <dcterms:temporal>2012-05-27 - 2012-07-16</dcterms:temporal>
+   <dcterms:spatial>Canada</dcterms:spatial>
+   <dcterms:spatial>Alberta</dcterms:spatial>
+   <dcterms:spatial>Province</dcterms:spatial>
+   <dcterms:description>Microdata</dcterms:description>
+   <dcterms:type>Dataset</dcterms:type>
+</oai_dc:dc>
