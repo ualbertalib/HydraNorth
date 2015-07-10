@@ -211,7 +211,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion CREATED="2014-05-01T15:14:52.600Z" ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca">
           <dcterms:creator>Maani, Rouzbeh</dcterms:creator>
           <dcterms:creator>Yang, Yee-Hong</dcterms:creator>
           <dcterms:creator>Kalra, Sanjay</dcterms:creator>

@@ -1,4 +1,4 @@
-class UALTerms < RDF::Vocabulary("http://terms.library/ualberta.ca/identifiers/")
+class UALTerms < RDF::Vocabulary("http://terms.library.library.ca/identifiers/")
   property :trid
   property :ser
   property :unicorn

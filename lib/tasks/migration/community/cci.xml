@@ -106,7 +106,7 @@
 	<foxml:datastream ID="DCQ" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 		<foxml:datastreamVersion ID="DC.2" LABEL="Canadian Circumpolar Institute" CREATED="2013-09-20T19:45:30.028Z" MIMETYPE="text/xml">
 			<foxml:xmlContent>
-				<dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ualterms="http://terms.library/ualberta.ca">
+				<dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ualterms="http://terms.library.library.ca">
 					<dcterms:identifier>uuid:d04b3b74-211d-4939-9660-c390958fa2ee</dcterms:identifier>
 					<dcterms:identifier>http://hdl.handle.net/10402/era.17144</dcterms:identifier>
 					<dcterms:title>Canadian Circumpolar Institute</dcterms:title>
