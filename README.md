@@ -7,6 +7,7 @@ Dependencies:
   * ruby (2.1.5) /rails (4.1.11) /bundler (1.6.0)
   * httpd
   * passenger
+  * shibboleth-sp
 * microservices
  * fits
  * redis
@@ -110,3 +111,10 @@ Populating Local Geonames Authority
   - file downloaded: http://download.geonames.org/export/dump/cities1000.zip
   - scope for authority entries: contains all cities with a population >1000 or seats of adm div (ca 80.000)
   - local_authority_entries includes labels and URIs. Currently labels are used for autocompletion and saved in the record. 
+
+Configuring Shibboleth
+---
+* assuming that you have installed and [configured a Shibboleth Service Provider (SP)](https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxRPMInstall)
+* visit '/Shibboleth.sso/Metadata' to download and review the metadata, rename to a filename of your preference
+* upload the SP metadata to http://testshib.org/register.html or your Identiy Provider (IdP)
+* login by clicking on 'Sign into Shibboleth' and choosing one of the available identities
