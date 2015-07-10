@@ -4,6 +4,7 @@ describe 'SAML' do
 
   it { expect { visit '/users/sign_in' }.to_not raise_error }
 
+  after { cleanup_jetty }
 
   describe 'should be able to use SAML credential to login' do
     before do
@@ -15,11 +16,22 @@ describe 'SAML' do
       })
     end
 
+    after :each do
+      logout
+    end
+
     it 'should use SAML to create acount' do
       visit '/users/sign_in'
       expect { click_link "Sign in with Shibboleth" }.to_not raise_error
       expect(page).to have_content "Successfully authenticated from Shibboleth account."
       expect(current_path).to eq('/dashboard')
+    end
+
+    it 'should redirect to protected target' do
+      visit '/files/new'
+      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      expect(page).to have_content "Successfully authenticated from Shibboleth account."
+      expect(current_path).to eq('/files/new')
     end
   end
 
@@ -31,6 +43,7 @@ describe 'SAML' do
 
     before do
       sign_in user
+      visit '/dashboard'
       click_link "Edit Profile"
     end
 

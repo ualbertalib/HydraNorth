@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Users::OmniauthCallbacksController, :omniauth, :type => :controller do
   routes { Rails.application.class.routes }
 
+  let(:me) { FactoryGirl.find_or_create(:testshib) }
+
   before do
     request.env["devise.mapping"] = Devise.mappings[:user] # If using Devise
     OmniAuth.config.test_mode = true
