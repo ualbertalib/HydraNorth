@@ -117,7 +117,7 @@
       <foxml:xmlContent>
         <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
           <dcterms:title>Bison sculpture at the entrance to the USGS Ice Core Lab</dcterms:title>
-          <ualterms:fedora3uuid xmlns:ualterms="http://terms.library/ualberta.ca" xsi:type="string">uuid:394266f0-0e4a-42e6-a199-158165226426</ualterms:fedora3uuid>
+          <ualterms:fedora3uuid xmlns:ualterms="http://terms.library.library.ca" xsi:type="string">uuid:394266f0-0e4a-42e6-a199-158165226426</ualterms:fedora3uuid>
         </oai_dc:dc>
       </foxml:xmlContent>
     </foxml:datastreamVersion>
@@ -360,7 +360,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
   <foxml:datastreamVersion CREATED="2013-03-05T18:21:20.211Z" ID="DCQ.1" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca">
           <dcterms:creator>Campbell, Sandy</dcterms:creator>
           <dcterms:format xsi:type="dcterms:IMT">image/pjpeg</dcterms:format>
           <dcterms:language xsi:type="dcterms:ISO639-3">eng</dcterms:language>

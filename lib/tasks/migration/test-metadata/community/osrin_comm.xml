@@ -685,7 +685,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</ualterms:fedora3uuid>
   <dcterms:title>Oil Sands Research and Information Network (OSRIN)</dcterms:title>
   <dcterms:creator>Administrator admin</dcterms:creator>
