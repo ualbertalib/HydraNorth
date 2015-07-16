@@ -69,6 +69,7 @@ namespace :migration do
       creators = metadata.xpath("dcterms:creator/text()", NS).map(&:to_s) if metadata.xpath("dcterms:creator", NS)
       subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
       description = metadata.xpath("dcterms:description/text()",NS).map(&:to_s)
+      publisher = metadata.xpath("dcterms:publisher/text()",NS).text if metadata.xpath("dcterms:publisher", NS)
       
       #description.gsub!(/"/, '\"').gsub!(/\n/,' ').gsub!(/\t/,' ') if description
    
@@ -133,7 +134,7 @@ namespace :migration do
 
       # add other metadata to the new object
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC

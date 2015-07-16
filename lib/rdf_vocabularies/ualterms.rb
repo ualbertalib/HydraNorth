@@ -7,4 +7,5 @@ class UALTerms < RDF::Vocabulary("http://terms.library.library.ca/identifiers/")
   property :fedora3handle
   property :ingestbatch
   property :year_created
+  property :remote_resource
 end

@@ -66,6 +66,7 @@ module Hydranorth
           index.as :stored_searchable, :facetable
         end
 
+        property :remote_resource, predicate: ::UALTerms.remote_resource, multiple:false
 
       end
 
