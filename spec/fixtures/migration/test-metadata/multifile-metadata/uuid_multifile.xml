@@ -581,7 +581,7 @@
       <foxml:xmlContent>
         <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
           <dcterms:title>Suncor Steepbank Mine Project Application</dcterms:title>
-          <ualterms:fedora3uuid xmlns:ualterms="http://terms.library.library.ca" xsi:type="string">uuid:846f544d-94db-41b4-9f4a-654e1457ed8c</ualterms:fedora3uuid>
+          <ualterms:fedora3uuid xmlns:ualterms="http://terms.library.ualberta.ca" xsi:type="string">uuid:846f544d-94db-41b4-9f4a-654e1457ed8c</ualterms:fedora3uuid>
         </oai_dc:dc>
       </foxml:xmlContent>
     </foxml:datastreamVersion>
@@ -1933,7 +1933,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
   <foxml:datastreamVersion CREATED="2014-06-27T15:33:13.762Z" ID="DCQ.10" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca">
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca">
           <dcterms:creator>Suncor Inc., Oil Sands Group</dcterms:creator>
           <dcterms:description>Suncor Inc. is applying for regulatory approval to proceed with the development of the proposed Steepbank Mine, to be located across the Athabasca River from its current operations near Fort McMurray in the Regional Municipality of Wood Buffalo in northeastern Alberta. In April1995 a disclosure document was released for the proposed mine. Since then, a comprehensive public and regulatory consultation and communication program and an environmental impact assessment have been underway in parallel with engineering feasibility studies. This document comprises the Application for Approval of Steepbank Mine and serves to meet the requirements under the Alberta Oil Sands Conservation Act, the Alberta Environmental Protection and Enhancement Act and the Alberta Water Resources Act. It also includes the Environmental Impact Assessment. This folder contains the main volumes of the EIA plus the supporting reports. Look at the Subject List at the left to see the Volume/Report titles then click on the applicable link on the right.</dcterms:description>
           <dcterms:format xsi:type="dcterms:IMT">application/pdf</dcterms:format>
