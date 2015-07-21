@@ -39,7 +39,7 @@ module Sufia
         end
 
         property :publisher, predicate: ::RDF::DC.publisher do |index|
-          index.as :stored_searchable
+          index.as :stored_searchable, :facetable
         end
 
         property :date_created, predicate: ::RDF::DC.created, multiple: false do |index|

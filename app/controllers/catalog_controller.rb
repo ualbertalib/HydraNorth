@@ -55,6 +55,8 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 3
     config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 3 
     config.add_facet_field solr_name("year_created", :facetable), label: "Year", limit: 3 
+    # publisher: has "show: false", but is needed to provide field label in "You searched for" box
+    config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", show: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -98,6 +100,8 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_show_field solr_name("trid", :stored_searchable), label: "CS Technical Report ID"
     config.add_show_field solr_name("ser", :stored_searchable), label: "Structural Engineering Report ID"
+    config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
+
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
