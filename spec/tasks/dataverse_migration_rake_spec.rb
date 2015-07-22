@@ -19,7 +19,7 @@ describe "Migration rake tasks" do
     end
     subject { GenericFile.last }
     it "dataverse item should be migrated" do
-      expect(subject.identifier).to include("http://dx.doi.org/10.7939/DVN/10161")
+      expect(subject.remote_resource).to eq "dataverse" 
       expect(subject.publisher).to include("University of Alberta Libraries")
     end 
 
