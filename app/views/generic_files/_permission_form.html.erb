@@ -26,6 +26,7 @@
       <input type="radio" id="visibility_open" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>" <% if gf.open_access? %> checked="true"<% end %>/> <span class="label label-success">Open Access</span> Visible to the world.
 
     </label>
+    <br/>
     <label>
       <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if gf.authenticated_only_access? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible to all <%=t('sufia.institution_name') %> users.
     </label>
@@ -36,11 +37,12 @@
         <span class="label label-warning">Embargo</span>
         <label for="visibility_during_embargo">Restricted to </label>
         <%= select_tag "visibility_during_embargo", options_for_select(visibility_options(:restrict), selected: gf.visibility_during_embargo ) %>
-        <label for="embargo_release_date"> until </label><input type="text" name='embargo_release_date' value="<%=gf.embargo_release_date || Date.tomorrow %>"/>
+        <label for="embargo_release_date"> until </label><input type="text" name='embargo_release_date' value="<%=gf.embargo_release_date %>"/> (yyyy-mm-dd)
         <label for="visibility_after_embargo"> then </label>
         <%= select_tag "visibility_after_embargo", options_for_select(visibility_options(:loosen), selected: gf.visibility_after_embargo) %>
        </div>
-  </label> 
+  </label>
+ 
     <label>
       <input type="radio" id="visibility_restricted" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>"<% if gf.private_access? %> checked="true"<% end %> /> <span class="label label-danger">Private</span> Visible to users/groups specified below, if any.
     </label>
