@@ -665,6 +665,17 @@ i.glyphicon{
 	color: #fff;
 }
 
+/* Upload form */
+
+.agreement-text {
+	height: 100px; 
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.special_reports {
+	margin-top: 20px;
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding>h1:hover{

@@ -1,9 +1,14 @@
 <div class="controls">
-  <%= label_tag :special_reports, 'Uploading Special Reports?' %>
-  <%= radio_button_tag :resource_type, 'Computing Science Technical Report' %>
-  <%= label_tag :resource_type, 'Computing Science Technical Report' %>
+  <div style="float: left; margin-right: 1em;">
+<%= label_tag :resource_type, 'Are you uploading a Computing Science Technical Report? yes' %>
+  <%= radio_button_tag :resource_type, 'Computing Science Technical Report?' %>
+<%= button_tag "Clear", class: 'btn cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
+<br/>
+  <%= label_tag :resource_type, 'Are you uploading a Structural Engineering Report? yes' %>
   <%= radio_button_tag :resource_type, 'Structural Engineering Report' %>
-  <%= label_tag :resource_type, 'Structural Engineering Report' %>
-  <%= button_tag "Clear", class: 'btn btn-warning cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
+<%= button_tag "Clear", class: 'btn cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
+  </div>
+<div>
+</div>
 
 </div>
