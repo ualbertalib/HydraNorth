@@ -140,7 +140,15 @@ namespace :migration do
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       MigrationLogger.info "Generic File attribute set id:#{@generic_file.id}"
 
-      id = Collection.find_with_conditions('title' => 'Dataverse Datasets').first['id']
+      dataverse_dataset = Collection.find_with_conditions('title' => 'Dataverse Datasets')
+      if !dataverse_dataset.present?
+        c = Collection.new('title'=> 'Dataverse Datasets')
+        c.apply_depositor_metadata("dit.application.test@ualberta.ca")
+        c.save!
+        id = c.id
+      else
+        id = dataverse_dataset.first['id']
+      end
       community = Collection.find(id) 
       @generic_file.hasCollection = [community.title]
       

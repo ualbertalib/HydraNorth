@@ -2,7 +2,12 @@ require 'spec_helper'
 require 'rake'
 require 'fileutils'
 describe "Migration rake tasks" do
-  let(:dataverse_collection) { FactoryGirl.create(:collection, title: "Dataverse Datasets") }
+  let(:dataverse_collection) do 
+    Collection.create(title: 'Dataverse Datasets') do |c|
+      c.apply_depositor_metadata(FactoryGirl.create(:dit).user_key)
+      c.save
+    end
+  end
 
   before do
     load File.expand_path("../../../lib/tasks/dataverse_migration.rake", __FILE__)
@@ -16,6 +21,7 @@ describe "Migration rake tasks" do
     after do 
       Rake::Task["migration:dataverse_objects"].reenable 
       GenericFile.last.delete
+      Collection.last.delete
     end
     subject { GenericFile.last }
     it "dataverse item should be migrated" do
