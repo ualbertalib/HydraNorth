@@ -11,6 +11,7 @@ module Hydranorth
           creator: 'creator',
           subject: 'subject',
           description: 'description',
+          publisher: 'publisher',
           contributor: 'contributor',
           date_created: 'date',
           resource_type: 'format',
@@ -25,6 +26,7 @@ module Hydranorth
           Rails.logger.debug "self.creator #{self.creator}"
           Rails.logger.debug "self.subject #{self.subject}"
           Rails.logger.debug "self.description #{self.description}"
+          Rails.logger.debug "self.publisher #{self.publisher}"
           Rails.logger.debug "self.date_create #{self.date_created}"
           Rails.logger.debug "self.resource_type #{self.resource_type}"
           Rails.logger.debug "self.language #{self.language}"

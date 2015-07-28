@@ -27,6 +27,8 @@ module Hydranorth
         Hydranorth::CstrPresenter.new(@generic_file)
       elsif @generic_file[:resource_type].include? Sufia.config.special_reports['ser']
         Hydranorth::SerPresenter.new(@generic_file)
+      elsif @generic_file[:remote_resource] == "dataverse"
+        Hydranorth::DataversePresenter.new(@generic_file)
       else
         Hydranorth::GenericFilePresenter.new(@generic_file)
       end
