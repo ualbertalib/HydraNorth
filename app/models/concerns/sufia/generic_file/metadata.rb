@@ -37,6 +37,7 @@ module Sufia
         property :rights, predicate: ::RDF::DC.rights, multiple: false do |index|
           index.as :stored_searchable
         end
+
         property :date_created, predicate: ::RDF::DC.created, multiple: false do |index|
           index.as :stored_searchable, :stored_sortable
         end
