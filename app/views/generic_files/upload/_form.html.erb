@@ -1,12 +1,16 @@
 <%= form_for(@generic_file, url: sufia.generic_files_path, html: { multipart: true, id: 'fileupload' }) do |f| %>
+  <%= render partial: 'generic_files/upload/tos_checkbox' %>
   <% unless current_user.can_make_deposits_for.empty? %>
     <div class="controls">
-      <%= label_tag :on_behalf_of, 'On Behalf of' %>
+      <%= label_tag :on_behalf_of, 'Uploading on behalf of' %>
       <%= select_tag :on_behalf_of, options_for_select(current_user.can_make_deposits_for), prompt: "Yourself" %>
     </div>
   <% end %>
-  <div class="well">
+  <div class="special_reports">
     <%= render partial: 'generic_files/upload/special_reports' %>
+    <br style="clear: both"/>
+  </div>
+  <div class="well">
     <%= render partial: 'generic_files/upload/form_fields' %>
   </div>
 <% end %>
