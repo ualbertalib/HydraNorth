@@ -67,7 +67,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
     <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.101Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
           <dc:title>Above ground utilities in Yakutsk, Russia</dc:title>
           <dc:identifier>uuid:07185c11-20f1-445e-990f-db5cfdc71f47</dc:identifier>
         </oai_dc:dc>
@@ -191,7 +191,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion CREATED="2014-12-04T03:58:54.904Z" ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca">
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca">
           <dcterms:creator>Campbell, Sandy</dcterms:creator>
           <dcterms:description>Because Yakutsk is on permafrost, utilities must be above ground.  The city is heated by hot water boilers in several sectors.  Hot water is carried through pipes like these to heat the city.</dcterms:description>
           <dcterms:format xsi:type="dcterms:IMT">image/jpeg</dcterms:format>

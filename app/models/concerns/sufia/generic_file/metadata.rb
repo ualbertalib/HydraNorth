@@ -38,6 +38,10 @@ module Sufia
           index.as :stored_searchable
         end
 
+        property :publisher, predicate: ::RDF::DC.publisher do |index|
+          index.as :stored_searchable, :facetable
+        end
+
         property :date_created, predicate: ::RDF::DC.created, multiple: false do |index|
           index.as :stored_searchable, :stored_sortable
         end
@@ -63,7 +67,6 @@ module Sufia
           index.as :stored_searchable
         end
  
-
       end
 
     end

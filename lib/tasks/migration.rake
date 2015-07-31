@@ -8,8 +8,9 @@ require './lib/tasks/migration/migration_logger'
         "xmlns:audit"=>"info:fedora/fedora-system:def/audit#", 
         "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
         "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
+        "xmlns:georss"=>"http://www.georss.org/georss/",
         "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
-        "xmlns:ualterms"=>"http://terms.library.library.ca", 
+        "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
         "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
         "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
         "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#"

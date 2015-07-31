@@ -1,0 +1,30 @@
+<%= render :partial => 'generic_files/upload/agreement', :locals => {:tab => "everything"} %>
+      <%= render partial: 'generic_files/upload/tos_checkbox' %>
+<div class="alert alert-success">
+  <%= form_tag(sufia.generic_files_path, id: 'browse_everything_form', method: 'post') do %>
+  <%=  t("sufia.upload.cloud_timeout_message", contact_href: link_to(t("sufia.upload.alert.contact_href_text"), sufia.contact_form_index_path)) %>
+</div>
+  <div class="special_reports">
+    <%= render partial: 'generic_files/upload/special_reports' %>
+    <br style="clear: both"/>
+  </div>
+<div class="well">
+      <%= hidden_field_tag(:batch_id, @batch_id) %>
+      <%= button_tag(t('sufia.upload.browse_everything.browse_files_button'), type: 'button', class: 'btn btn-lg btn-success', id: "browse-btn",
+        'data-toggle' => 'browse-everything', 'data-route' => browse_everything_engine.root_path,
+        'data-target' => '#browse_everything_form' ) %>
+      <%= button_tag("Submit selected files", type: 'submit', class: 'activate-submit btn btn-lg btn-primary', id: "submit-btn") %>
+
+  <p id="status">0 items selected</p>
+</div>
+  <% end %>
+<script>
+  // Update the count in #status element when user selects files.
+  $(document).ready(function() {
+    $('#browse-btn').browseEverything()
+      .done(function(data) {
+        $('#status').html(data.length.toString() + " <%= t('sufia.upload.browse_everything.files_selected')%>")
+        $('#submit-btn').html("Submit "+data.length.toString() + " selected files")
+      })
+  });
+</script>

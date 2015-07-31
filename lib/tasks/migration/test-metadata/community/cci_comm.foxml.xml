@@ -346,7 +346,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.library.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:d04b3b74-211d-4939-9660-c390958fa2ee</ualterms:fedora3uuid>
   <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.17144</ualterms:fedora3handle>
   <dcterms:title>Canadian Circumpolar Institute</dcterms:title>

@@ -82,7 +82,7 @@
   <foxml:datastream ID="DCQ" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
     <foxml:datastreamVersion ID="DCQ.2" LABEL="Circumpolar Digital Image Collection" CREATED="2011-11-14T22:17:48.055Z" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ualterms="http://terms.library.library.ca">
+        <dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ualterms="http://terms.library.ualberta.ca">
           <dcterms:identifier>uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7</dcterms:identifier>
           <dcterms:identifier>http://hdl.handle.net/10402/era.17512</dcterms:identifier>
           <dcterms:title>Circumpolar Digital Image Collection</dcterms:title>

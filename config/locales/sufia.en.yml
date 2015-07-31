@@ -64,6 +64,8 @@ en:
       greeting:                 "Hello, "
       upload:                   "Upload"
       create_collection:        "Create Collection"
+      my_collections:           "My Collections"
+      my_files:                 "My Files"
       view_collections:         "View Collections"
       view_files:               "View Files"
       user_activity:            "User Activity"
