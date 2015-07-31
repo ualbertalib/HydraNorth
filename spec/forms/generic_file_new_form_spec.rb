@@ -36,5 +36,24 @@ describe 'generic file new', :type => :feature do
       expect(page).to have_css('input#generic_file_trid')
     end
   end
+
+  describe 'check form fields' do
+    before do
+      visit '/'
+    end
+    it "Title and creator is blank" do      
+      sign_in user
+      visit '/files/new'
+      check('terms_of_service')
+      page.attach_file "files[]", ['/var/www/sites/hydranorth/spec/fixtures/world.png']
+      click_button('main_upload_start')
+      sleep(15)
+  
+      find_field('Description or Abstract').should have_content ''
+      find_field('Date Created').should have_content ''
+      find_field('Title or Caption 1').should have_content '' 
+      find_field('Creator').should have_content ''
+    end
+  end
 end
 
