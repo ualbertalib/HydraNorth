@@ -30,7 +30,7 @@ describe 'generic file new', :type => :feature do
       visit '/files/new'
       choose('resource_type_Computing_Science_Technical_Report')
       check('terms_of_service')
-      page.attach_file "files[]", ['/var/www/sites/hydranorth/spec/fixtures/world.png']
+      page.attach_file "files[]", ["#{Dir.pwd}/spec/fixtures/world.png"]
       click_button('main_upload_start')
       sleep(15)
       expect(page).to have_css('input#generic_file_trid')
