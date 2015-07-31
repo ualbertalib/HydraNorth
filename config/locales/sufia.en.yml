@@ -165,7 +165,7 @@ en:
         resource_type:    "Type of Item"
         trid:       "Computing Science Technical Report ID"
         ser:		  "Structural Engineering Report Number"
-        creator:          "Author or Creator"
+#        creator:          "Author or Creator"
         license:           "Choose a license"
         subject:          "Subject/Keyword"
         contributor:      "Additional Contributors"
@@ -200,15 +200,18 @@ en:
 
     metadata_help:
       generic_file:
-        resource_type_html: "Pre-defined categories to describe the type of file content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot."
+        resource_type_html: "If you do not see an appropriate item type, please contact erahelp@ualberta.ca."
         title: "A name for the file to aid in identifying it. Defaults to the file name, though a more descriptive title is encouraged. &lt;em&gt;This is a required field&lt;/em&gt;."
         tag: "Words or phrases you select to describe what the file is about. These are used to search for content. &lt;em&gt;This is a required field&lt;/em&gt;."
-        subject: "Enter subjects or keywords that describe the item. These are the keywords that will be used when someone searches for your item. Enter only one word or phrase per box"
+        subject: "Enter subjects or keywords that describe the item. These are the words that will be used when someone searches for your item. 
+"
         creator_html: "The person or group responsible for the file being uploaded. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot; &lt;em&gt;This is a required field&lt;/em&gt;."
         related_url: "A link to a website or other specific content (audio, video, PDF document) related to the file. An example is the URL of a research project from which the file was derived."
-        spatial: "A place name related to the file, such as the city, province, or country the file's contents are about. Calls upon the GeoNames web service ((&lt;a href=&quot;http://www.geonames.org&quot;&gt;http://www.geonames.org&lt;/a&gt;)."
-        temporal: "Temporal characteristics include those aspects of time that relate to the intellectual content of a resource and not its lifecycle. examples: 2009/09/01 || 2003/2010 (a date range) || the Enlightenment"
-        contributor_html: "A person or group you want to recognize for playing a role in the creation of the file, but not the primary role. If there is a specific role you would like noted, include it in parentheses, e.g. &quot;Jones, Mary (advisor).&quot;"
+        spatial: "A place name related to the item, such as the city, province, or country the item's contents are about."
+
+        temporal: "Examples: -a specific date: 2009/12/31 -a date range:  2003/2010 -a time period: the Enlightenment"
+        contributor_html: 'A person or group you want to recognize for playing a role in the creation of this item, but not the primary role. If there is a specific role you would like noted, include it in parentheses, e.g. "Jones, Mary (Advisor)."
+i.'
         date_created: "The date on which the file was generated. example: 2009/09/01."
         description: "Free-text notes about the file itself. If your item has an abstract put it here. "
         identifier: "A unique handle describing the file. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book."
@@ -217,7 +220,7 @@ en:
         language: "The language of the file content."
         publisher: "The person or group making the file available. Generally this is the institution."
         rights: "Licensing and distribution information governing access to the file. Select from the provided drop-down list. &lt;em&gt;This is a required field&lt;/em&gt;."
-        source: "Brief information about a physical item from which this item was derived."
+        source: "Brief information about an item from which this item was derived.:q!"
         is_version_of: "If your item has been previously published, provide a citation"
         related_url: "must be a url - example: http://www.ualberta.ca"
       collection:

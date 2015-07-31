@@ -49,7 +49,7 @@ module Hydranorth
  
     end
     def edit_form
-      generic_file = ::GenericFile.new(creator: [current_user.name], title: @batch.generic_files.map(&:label))
+      generic_file = ::GenericFile.new
       resource_type = @batch.generic_files.map(&:resource_type).flatten
       if resource_type.include? Sufia.config.special_reports['cstr']
         cstr_edit_form_class.new(generic_file)
