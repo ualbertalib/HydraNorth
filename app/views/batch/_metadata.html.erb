@@ -47,13 +47,13 @@
       <% end %>
       <%= f.input :language, as: :select, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
 
-      <%= f.input_label :creator, as: :multi_value_with_help, label: "Creator" %>
+      <%= f.input_label :creator, label: "Creator" %>
       <%= content_tag :div, "(Enter only one author per box. Example: Doe, Jane B.)", class: "help-block" %>
-      <%= f.input :creator, label: false, input_html: { required: true, value: '' } %>
+      <%= f.input :creator, as: :multi_value_with_help, label: false, input_html: { required: true, value: '' } %>
 
       <%= f.input_label :subject, label: "Subject/Keyword" %>
       <%= content_tag :div, "(Enter only one word or phrase per box.)", class: "help-block" %>
-      <%= f.input :subject, label: false, input_html: {required: true, value: ''} %>
+      <%= f.input :subject, as: :multi_value_with_help, label: false, input_html: {required: true, value: ''} %>
 
       <%= f.input :license, as: :select_with_modal_help, collection: Sufia.config.cc_licenses, 
           input_html: { class: 'form-control', required: false }, include_blank: true %>
