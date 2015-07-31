@@ -6,6 +6,7 @@ require './lib/tasks/migration/migration_logger'
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", 
         "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
         "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
+        "xmlns:georss"=>"http://www.georss.org/georss/",
         "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
         "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
     }
@@ -48,13 +49,13 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/*/export_oai_dc_dcterms.xml") do |file|
+    Dir.glob(metadata_dir+"/*/export_oai_dcterms.xml") do |file|
     begin
       object_id = File.dirname(file)[/(\d\d\d\d\d)/, 1]
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
-      metadata = metadata_file.xpath("//oai_dc:dc",NS)
+      metadata = metadata_file.xpath("//oai_dc:dcterms",NS)
       #get the doi of the object
       identifier = metadata.xpath("dcterms:identifier", NS).text
       
