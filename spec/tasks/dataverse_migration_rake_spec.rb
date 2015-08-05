@@ -45,9 +45,9 @@ end
 
   # TODO dry - copied from catalog_search_spec.rb
   def search(query="") 
-    within('#search-form-header') do
+    within('#slide1 #search-form-header') do
       fill_in('search-field-header', with: query) 
-      click_button("Search ERA")
+      click_button("query-button")
     end
   end
 

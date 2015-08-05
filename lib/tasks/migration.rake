@@ -195,7 +195,7 @@ namespace :migration do
     MigrationLogger.info " +++++++ START: object ingest #{metadata_dir} +++++++ "
     # create a ingest batch
     #@ingest_batch_id = ActiveFedora::Noid::Service.new.mint (will use in latest version of sufia)
-    @ingest_batch_id = Sufia::IdService.mint
+    @ingest_batch_id = ActiveFedora::Noid::Service.new.mint 
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
@@ -369,7 +369,7 @@ namespace :migration do
       time_in_utc = DateTime.now
 
       # create the batch for the file upload
-      @batch_id = Sufia::IdService.mint
+      @batch_id = ActiveFedora::Noid::Service.new.mint 
       @batch = Batch.find_or_create(@batch_id)
       # create the generic file
       @generic_file = GenericFile.new

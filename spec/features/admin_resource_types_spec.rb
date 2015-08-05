@@ -25,7 +25,7 @@ describe 'resource_types_list', :type => :feature do
     end
   end
 
-  after :all do
+  after :each do
     cleanup_jetty
   end
 

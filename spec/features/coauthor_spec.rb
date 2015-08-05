@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'coauthor', :type => :feature do
+describe 'coauthor', :type => :feature, :js => true do
 
   let(:abby) { FactoryGirl.create :user_with_fixtures }
   let(:barbara) { FactoryGirl.create :dit, display_name: 'dit.application.test' }

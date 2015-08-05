@@ -6,7 +6,7 @@ describe 'generic file new', :type => :feature do
     cleanup_jetty
   end
 
-  describe 'unfold agreement div' do
+  describe 'unfold agreement div', js: true do
     before do
       visit '/'
     end
@@ -14,45 +14,52 @@ describe 'generic file new', :type => :feature do
       sign_in user
       visit '/files/new'
       expect(page).not_to have_css('div#agreement-text-multiple.unfolded')
-      click_button('unfold-agreement-multiple')
-      expect(page).to have_css('div#agreement-text-multiple.unfolded')
-      click_button('unfold-agreement-multiple')
-      expect(page).not_to have_css('div#agreement-text-multiple.unfolded')
+      within ("#local") do
+        click_button('unfold-agreement-multiple')
+        expect(page).to have_css('div#agreement-text-multiple.unfolded')
+        click_button('unfold-agreement-multiple')
+        expect(page).not_to have_css('div#agreement-text-multiple.unfolded')
+      end
     end
   end
 
-  describe 'request CSTR item' do
+  describe 'request CSTR item', js: true do
     before do
       visit '/'
     end
     it "should have CSTR field" do
       sign_in user
       visit '/files/new'
-      choose('resource_type_Computing_Science_Technical_Report')
-      check('terms_of_service')
-      page.attach_file "files[]", ["#{Dir.pwd}/spec/fixtures/world.png"]
-      click_button('main_upload_start')
+      within ("#local #fileupload") do
+        choose('resource_type_Computing_Science_Technical_Report')
+        check('terms_of_service')
+        attach_file "files[]", [fixture_path + '/world.png']
+        click_button('main_upload_start')
+      end
       sleep(15)
       expect(page).to have_css('input#generic_file_trid')
     end
   end
 
-  describe 'check form fields' do
+  describe 'check form fields', js: true do
     before do
       visit '/'
     end
     it "Title and creator is blank" do      
       sign_in user
       visit '/files/new'
-      check('terms_of_service')
-      page.attach_file "files[]", ['/var/www/sites/hydranorth/spec/fixtures/world.png']
-      click_button('main_upload_start')
-      sleep(15)
-  
-      find_field('Description or Abstract').should have_content ''
-      find_field('Date Created').should have_content ''
-      find_field('Title or Caption 1').should have_content '' 
-      find_field('Creator').should have_content ''
+      within ("#local") do
+        check('terms_of_service')
+        page.attach_file "files[]", [fixture_path + '/world.png']
+        click_button('main_upload_start')
+      end
+      sleep 15
+      within("form#new_generic_file") do
+        find_field('Description or Abstract').should have_content ''
+        find_field('Date Created').should have_content ''
+        find_field('Title or Caption 1').should have_content '' 
+        find_field('Creator').should have_content ''
+      end
     end
   end
 end

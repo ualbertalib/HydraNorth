@@ -30,7 +30,9 @@ describe 'search', :type => :feature do
 
   it "search results should not have depositor info" do
     visit '/'
-    click_button("Search ERA")
+    within "#slide1" do
+      click_button("Search ERA")
+    end
     expect(page).not_to have_content("Depositor:")
   end
 

@@ -27,6 +27,7 @@ describe 'facet', :type => :feature do
       r.resource_type =  ['Report']
       r.read_groups = ['public']
       r.hasCollection = ['Test']
+      r.year_created = '2009'
       r.date_uploaded = DateTime.now
       r.save!
     end
@@ -41,6 +42,10 @@ describe 'facet', :type => :feature do
     end
   end
 
+  after :each do
+    cleanup_jetty
+  end
+
   describe 'new facets' do
 
     before do
@@ -52,8 +57,8 @@ describe 'facet', :type => :feature do
       within("#facets") do
         expect(page).to have_content( "Year" )
         click_link("Year")
-        within("#facet-date_uploaded_dtsi") do
-          expect(page).to have_content( "0 TO 10 YEARS" )
+        within("#facet-year_created_sim") do
+          expect(page).to have_content( "2009" )
           expect(page).to have_selector 'span', text: '1'
         end
       end
