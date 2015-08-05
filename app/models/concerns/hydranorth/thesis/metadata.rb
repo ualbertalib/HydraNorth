@@ -1,11 +1,12 @@
 require "./lib/rdf_vocabularies/ualterms"
 
 module Hydranorth 
-  module Etd
+  module Thesis
     module Metadata
       extend ActiveSupport::Concern
 
       vivo = RDF::Vocabulary.new("http://vivoweb.org/ontology/core#")
+      bibo = RDF::Vocabulary.new("http://purl.org/ontology/bibo/")
       included do
 
         property :degree_grantor, predicate: ::RDF::Vocab::MARCRelators.dgg, multiple: false do |index|
@@ -41,6 +42,13 @@ module Hydranorth
         property :alternative_title, predicate: ::RDF::DC.alternative do |index|
           index.as :stored_searchable
         end
+        property :thesis_name, predicate: bibo.ThesisDegree, multiple: false do |index|
+          index.as :stored_searchable
+        end
+        property :thesis_level, predicate: ::UALTerms.thesislevel, multiple: false do |index|
+          index.as :stored_searchable
+        end
+
         property :proquest, predicate: ::UALTerms.proquest, multiple: false do |index|
           index.as :stored_searchable
         end

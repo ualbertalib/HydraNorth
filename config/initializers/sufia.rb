@@ -91,9 +91,10 @@ Sufia.config do |config|
   # In production it assumes that the collections will be available in the system at the time of deposit
   # config.cstr_collection_id = ""
   # config.ser_collection_id = ""
-  config.special_reports = {
+  config.special_types = {
     "cstr" => "Computing Science Technical Report",
     "ser" => "Structural Engineering Report",
+    "thesis" => "Thesis",
   }
  
   config.permission_levels = {
@@ -105,6 +106,139 @@ Sufia.config do |config|
   config.owner_permission_levels = {
     "Edit" => "edit"
   }
+
+  config.degree_levels = {
+    "Master's" => "Master's",
+    "Doctoral" => "Doctoral"
+  }
+
+  config.degree_names = {
+    "Master of Arts" => "Master of Arts",
+    "Master of Arts/Master of Library and Information Studies" => "Master of Arts/Master of Library and Information Studies",
+    "Master of Business Administration" => "Master of Business Administration",
+    "Master of Education" => "Master of Education",
+    "Master of Laws" => "Master of Laws",
+    "Master of Library and Information Studies" => "Master of Library and Information Studies",
+    "Master of Music" => "Master of Music",
+    "Master of Nursing" => "Master of Nursing",
+    "Master of Science" => "Master of Science",
+    "Doctor of Education" => "Doctor of Education", 
+    "Doctor of Music" => "Doctor of Music",
+    "Doctor of Philosophy" => "Doctor of Philosophy",
+  }
+  
+  config.departments = {
+
+    "Centre for Health Promotion Studies" => "Centre for Health Promotion Studies",
+    "Centre for Neuroscience" => "Centre for Neuroscience",
+    "Comparative Literature" => "Comparative Literature",
+    "Department of Agricultural, Food, and Nutritional Science" => "Department of Agricultural, Food, and Nutritional Science",
+    "Department of Anthropology" => "Department of Anthropology",
+    "Department of Art and Design" => "Department of Art and Design",
+    "Department of Biochemistry" => "Department of Biochemistry",
+    "Department of Biological Sciences" => "Department of Biological Sciences",
+    "Department of Biomedical Engineering" => "Department of Biomedical Engineering",
+    "Department of Cell Biology" => "Department of Cell Biology",
+    "Department of Chemical and Materials Engineering" => "Department of Chemical and Materials Engineering",
+    "Department of Chemistry" => "Department of Chemistry",
+    "Department of Civil and Environmental Engineering" => "Department of Civil and Environmental Engineering",
+    "Department of Communication Sciences and Disorders" => "Department of Communication Sciences and Disorders",
+    "Department of Computing Science" => "Department of Computing Science",
+    "Department of Drama" => "Department of Drama",
+    "Department of Earth and Atmospheric Sciences" => "Department of Earth and Atmospheric Sciences",
+    "Department of East Asian Studies" => "Department of East Asian Studies",
+    "Department of Economics" => "Department of Economics",
+    "Department of Educational Policy Studies" => "Department of Educational Policy Studies",
+    "Department of Educational Psychology" => "Department of Educational Psychology",
+    "Department of Educational Studies" => "Department of Educational Studies",
+    "Department of Electrical and Computer Engineering" => "Department of Electrical and Computer Engineering",
+    "Department of Elementary Education" => "Department of Elementary Education",
+    "Department of English and Film Studies" => "Department of English and Film Studies",
+    "Department of History and Classics" => "Department of History and Classics",
+    "Department of Human Ecology" => "Department of Human Ecology",
+    "Department of Linguistics" => "Department of Linguistics",
+    "Department of Mathematical and Statistical Sciences" => "Department of Mathematical and Statistical Sciences",
+    "Department of Mechanical Engineering" => "Department of Mechanical Engineering",
+    "Department of Medical Microbiology and Immunology" => "Department of Medical Microbiology and Immunology",
+    "Department of Medicine" => "Department of Medicine",
+    "Department of Modern Languages and Cultural Studies" => "Department of Modern Languages and Cultural Studies",
+    "Department of Music" => "Department of Music",
+    "Department of Occupational Therapy" => "Department of Occupational Therapy",
+    "Department of Oncology" => "Department of Oncology",
+    "Department of Pharmacology" => "Department of Pharmacology",
+    "Department of Philosophy" => "Department of Philosophy",
+    "Department of Physical Therapy" => "Department of Physical Therapy",
+    "Department of Physical Therapy" => "Department of Physical Therapy",
+    "Department of Physics" => "Department of Physics",
+    "Department of Physiology" => "Department of Physiology",
+    "Department of Political Science" => "Department of Political Science",
+    "Department of Psychiatry" => "Department of Psychiatry",
+    "Department of Psychology" => "Department of Psychology",
+    "Department of Public Health Sciences" => "Department of Public Health Sciences",
+    "Department of Renewable Resources" => "Department of Renewable Resources",
+    "Department of Resource Economics and Environmental Sociology" => "Department of Resource Economics and Environmental Sociology",
+    "Department of Rural Economy" => "Department of Rural Economy",
+    "Department of Secondary Education" => "Department of Secondary Education",
+    "Department of Sociology" => "Department of Sociology",
+    "Department of Surgery" => "Department of Surgery",
+    "Faculty of Business" => "Faculty of Business",
+    "Faculty of Extension" => "Faculty of Extension",
+    "Faculty of Law" => "Faculty of Law",
+    "Faculty of Native Studies" => "Faculty of Native Studies",
+    "Faculty of Nursing" => "Faculty of Nursing",
+    "Faculty of Pharmacy and Pharmaceutical Sciences" => "Faculty of Pharmacy and Pharmaceutical Sciences",
+    "Faculty of Rehabilitation Medicine" => "Faculty of Rehabilitation Medicine",
+    "Faculté Saint-Jean" => "Faculté Saint-Jean",
+    "Humanities Computing" => "Humanities Computing",
+    "Laboratory Medicine and Pathology" => "Laboratory Medicine and Pathology",
+    "Medical Sciences-Anaesthesia and Pain Medicine" => "Medical Sciences-Anaesthesia and Pain Medicine",
+    "Medical Sciences-Biomedical Engineering" => "Medical Sciences-Biomedical Engineering",
+    "Medical Sciences-Dental Hygiene" => "Medical Sciences-Dental Hygiene",
+    "Medical Sciences-Dentistry" => "Medical Sciences-Dentistry",
+    "Medical Sciences-Laboratory Medicine and Pathology" => "Medical Sciences-Laboratory Medicine and Pathology",
+    "Medical Sciences-Medical Genetics" => "Medical Sciences-Medical Genetics",
+    "Medical Sciences-Obstetrics and Gynecology" => "Medical Sciences-Obstetrics and Gynecology",
+    "Medical Sciences-Ophthalmology" => "Medical Sciences-Ophthalmology",
+    "Medical Sciences-Oral Biology" => "Medical Sciences-Oral Biology",
+    "Medical Sciences-Orthodontics" => "Medical Sciences-Orthodontics",
+    "Medical Sciences-Paediatrics" => "Medical Sciences-Paediatrics",
+    "Medical Sciences-Radiology and Diagnostic Imaging" => "Medical Sciences-Radiology and Diagnostic Imaging",
+    "Medical Sciences-Shantou in Laboratory Medicine and Pathology" => "Medical Sciences-Shantou in Laboratory Medicine and Pathology",
+    "Medical Sciences-Shantou in Medicine" => "Medical Sciences-Shantou in Medicine",
+    "Medical Sciences-Shantou in Physiology" => "Medical Sciences-Shantou in Physiology",
+    "Medical Sciences-Temporomandibular Disorders/Orofacial Pain" => "Medical Sciences-Temporomandibular Disorders/Orofacial Pain",
+    "Physical Education and Recreation" => "Physical Education and Recreation",
+    "Religious Studies" => "Religious Studies",
+    "School of Library and Information Studies" => "School of Library and Information Studies",
+    "School of Public Health" => "School of Public Health"
+  }
+
+  config.graduation_dates = {
+    "Fall 2009 (Aug 22, 2009 12:00 AM - Dec 22, 2009 12:00 AM)" => "Fall 2009 (Aug 22, 2009 12:00 AM - Dec 22, 2009 12:00 AM)",
+    "Spring 2010 (Jan 01, 2010 12:00 AM - May 31, 2010 12:00 AM)" => "Spring 2010 (Jan 01, 2010 12:00 AM - May 31, 2010 12:00 AM)",
+    "Fall 2010 (Dec 22, 2010 12:00 AM - Mar 22, 2011 12:00 AM)" => "Fall 2010 (Dec 22, 2010 12:00 AM - Mar 22, 2011 12:00 AM)",
+    "Spring 2011 (Jan 01, 2011 12:00 AM - May 31, 2011 12:00 AM)" => "Spring 2011 (Jan 01, 2011 12:00 AM - May 31, 2011 12:00 AM)",
+    "Fall 2011 (Jun 01, 2011 12:00 AM - Nov 30, 2011 12:00 AM)" => "Fall 2011 (Jun 01, 2011 12:00 AM - Nov 30, 2011 12:00 AM)",
+    "Spring 2012 (Dec 01, 2011 12:00 AM - Apr 09, 2012 8:59 AM)" => "Spring 2012 (Dec 01, 2011 12:00 AM - Apr 09, 2012 8:59 AM)",
+    "Fall 2012 (Apr 09, 2012 9:00 AM - Aug 28, 2012 4:00 PM)" => "Fall 2012 (Apr 09, 2012 9:00 AM - Aug 28, 2012 4:00 PM)",
+    "Fall 2012 (Aug 31, 2012 9:00 AM - Sep 28, 2012 4:00 PM)" => "Fall 2012 (Aug 31, 2012 9:00 AM - Sep 28, 2012 4:00 PM)",
+    "Spring 2013 (Oct 02, 2012 9:00 AM - Jan 31, 2013 4:00 PM)" => "Spring 2013 (Oct 02, 2012 9:00 AM - Jan 31, 2013 4:00 PM)",
+    "Spring 2013 (Feb 04, 2013 9:00 AM - Apr 02, 2013 4:00 PM)" => "Spring 2013 (Feb 04, 2013 9:00 AM - Apr 02, 2013 4:00 PM)",
+    "Fall 2013 (Apr 05, 2013 9:00 AM - May 09, 2013 4:00 PM)" => "Fall 2013 (Apr 05, 2013 9:00 AM - May 09, 2013 4:00 PM)",
+    "Fall 2013 (May 13, 2013 9:00 AM - Jul 11, 2013 4:00 PM)" => "Fall 2013 (May 13, 2013 9:00 AM - Jul 11, 2013 4:00 PM)",
+    "Fall 2013 (Jul 15, 2013 9:00 AM - Aug 30, 2013 4:00 PM)" => "Fall 2013 (Jul 15, 2013 9:00 AM - Aug 30, 2013 4:00 PM)",
+    "Fall 2013 (Sep 03, 2013 9:00 AM - Sep 30, 2013 4:00 PM)" => "Fall 2013 (Sep 03, 2013 9:00 AM - Sep 30, 2013 4:00 PM)",
+    "Spring 2014 (Oct 02, 2013 9:00 AM - Jan 08, 2014 4:00 PM)" => "Spring 2014 (Oct 02, 2013 9:00 AM - Jan 08, 2014 4:00 PM)",
+    "Spring 2014 (Jan 10, 2014 9:00 AM - Jan 31, 2014 4:00 PM)" => "Spring 2014 (Jan 10, 2014 9:00 AM - Jan 31, 2014 4:00 PM)",
+    "Spring 2014 (Feb 03, 2014 9:00 AM - Apr 02, 2014 4:00 PM)" => "Spring 2014 (Feb 03, 2014 9:00 AM - Apr 02, 2014 4:00 PM)",
+    "Fall 2014 (Apr 08, 2014 9:00 AM - May 08, 2014 4:00 PM)" => "Fall 2014 (Apr 08, 2014 9:00 AM - May 08, 2014 4:00 PM)",
+    "Fall 2014 (May 09, 2014 9:00 AM - Jul 10, 2014 4:00 PM)" => "Fall 2014 (May 09, 2014 9:00 AM - Jul 10, 2014 4:00 PM)",
+    "Fall 2014 (Jul 11, 2014 9:00 AM - Aug 29, 2014 4:00 PM)" => "Fall 2014 (Jul 11, 2014 9:00 AM - Aug 29, 2014 4:00 PM)",
+    "Fall 2014 (Sep 01, 2014 9:00 AM - Sep 29, 2014 4:00 PM)" => "Fall 2014 (Sep 01, 2014 9:00 AM - Sep 29, 2014 4:00 PM)",
+    "Spring 2015 (Oct 02, 2014 9:00 AM - Apr 02, 2015 4:00 PM)" => "Spring 2015 (Oct 02, 2014 9:00 AM - Apr 02, 2015 4:00 PM)",
+    "Fall 2015 (Apr 07, 2015 9:00 AM - Sep 30, 2015 4:00 PM)" =>  "Fall 2015 (Apr 07, 2015 9:00 AM - Sep 30, 2015 4:00 PM)",
+  }
+
 
   config.queue = Sufia::Resque::Queue
 

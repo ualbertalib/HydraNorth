@@ -23,12 +23,14 @@ module Hydranorth
 
     def presenter
      
-      if @generic_file[:resource_type].include? Sufia.config.special_reports['cstr'] 
+      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr'] 
         Hydranorth::CstrPresenter.new(@generic_file)
-      elsif @generic_file[:resource_type].include? Sufia.config.special_reports['ser']
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
         Hydranorth::SerPresenter.new(@generic_file)
       elsif @generic_file[:remote_resource] == "dataverse"
         Hydranorth::DataversePresenter.new(@generic_file)
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
+        Hydranorth::ThesisPresenter.new(@generic_file)
       else
         Hydranorth::GenericFilePresenter.new(@generic_file)
       end
@@ -36,10 +38,12 @@ module Hydranorth
 
     def edit_form
        
-      if @generic_file[:resource_type].include? Sufia.config.special_reports['cstr']
+      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
         Hydranorth::Forms::CstrEditForm.new(@generic_file) 
-      elsif @generic_file[:resource_type].include? Sufia.config.special_reports['ser']
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
         Hydranorth::Forms::SerEditForm.new(@generic_file)
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
+        Hydranorth::Forms::ThesisEditForm.new(@generic_file)
       else
         Hydranorth::Forms::GenericFileEditForm.new(@generic_file)
       end
@@ -72,8 +76,8 @@ module Hydranorth
     end
     def update_resource_type_from_upload_screen
       # Relative path is set by the jquery uploader when uploading a directory
-      @generic_file.resource_type = [Sufia.config.special_reports['cstr']] if params[:resource_type] == Sufia.config.special_reports['cstr'] 
-      @generic_file.resource_type = [Sufia.config.special_reports['ser']] if params[:resource_type] == Sufia.config.special_reports['ser'] 
+      @generic_file.resource_type = [Sufia.config.special_types['cstr']] if params[:resource_type] == Sufia.config.special_types['cstr'] 
+      @generic_file.resource_type = [Sufia.config.special_types['ser']] if params[:resource_type] == Sufia.config.special_types['ser'] 
     end
   end
 
