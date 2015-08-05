@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
-           xmlns:dc="http://purl.org/dc/elements/1.1/"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:dcterms="http://purl.org/dc/terms/">
+<oai_dc:dcterms xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:georss="http://www.georss.org/georss/"
+                xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
    <dcterms:title>Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].</dcterms:title>
    <dcterms:identifier>http://dx.doi.org/10.7939/DVN/10161</dcterms:identifier>
    <dcterms:creator>Laliberte, L.W.</dcterms:creator>
@@ -14,9 +13,9 @@
    <dcterms:subject>Maps</dcterms:subject>
    <dcterms:subject>Topographic</dcterms:subject>
    <dcterms:subject>Western Canada</dcterms:subject>
-   <dcterms:description>This .shp file was derived from a georeferenced scan of the Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955], published by the Department of the Interior February 1, 1917. The original georeferenced scan and world file is included in the study for reference purposes.</dcterms:description>
+   <dcterms:abstract>This .shp file was derived from a georeferenced scan of the Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955], published by the Department of the Interior February 1, 1917. The original georeferenced scan and world file is included in the study for reference purposes.</dcterms:abstract>
    <dcterms:spatial>Canada</dcterms:spatial>
-   <dcterms:spatial>-94.915469 East Longitude,-120.008242 West Longitude, 59.953827 North Latitude, 49.380834 South Latitude </dcterms:spatial>
+   <georss:box>49.380834 -120.008242 59.953827 -94.915469</georss:box>
    <dcterms:description>Geospatial Data</dcterms:description>
    <dcterms:type>Dataset</dcterms:type>
-</oai_dc:dc>
+</oai_dc:dcterms>

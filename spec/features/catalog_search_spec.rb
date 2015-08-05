@@ -102,7 +102,7 @@ describe 'catalog searching', :type => :feature do
   end
 
   def search(query="") 
-    within('#search-form-header') do
+    within('#slide1') do
       fill_in('search-field-header', with: query) 
       click_button("Search ERA")
     end

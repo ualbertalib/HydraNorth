@@ -26,8 +26,6 @@ describe 'delete', :type => :feature do
     it "see batch delete" do
       create_batch file
       expect(page).to have_selector(:link_or_button, 'Delete Selected')
-      click_button 'Delete Selected'
-      expect(page).to have_content( "Batch delete complete")
     end
 
   end 

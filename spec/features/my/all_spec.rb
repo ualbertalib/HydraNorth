@@ -50,8 +50,8 @@ describe 'allfiles', :type => :feature do
 
   end
 
-  describe 'Admin with user filter' do
-
+  describe 'Admin with user filter', js: true do
+  # js: true is needed because the form is created dynamically
     before do
       sign_in admin 
       visit "/dashboard/all"

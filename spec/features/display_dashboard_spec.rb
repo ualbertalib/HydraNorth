@@ -10,8 +10,8 @@ describe "The Dashboard", type: :feature do
 
   context "upon sign-in" do
     it "shows the user's information" do
-      click_link "my dashboard"
-      expect(page).to have_content "My Dashboard"
+      first(:link, 'my dashboard').click
+      expect(page).to have_content "my dashboard"
     end
 
     it "lets the user view files" do

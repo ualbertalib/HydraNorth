@@ -6,25 +6,25 @@ gem 'activerecord-session_store'
 # Avoid cannot load such file -- google/api_client
 gem 'google-api-client', '~> 0.7.1'
 
-gem 'sufia', '~> 6.0.0' 
+gem 'sufia', '~> 6.2.0' 
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.11'
+gem 'rails', '4.2.3'
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '< 5.0'
+gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.4.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -40,7 +40,7 @@ gem 'jbuilder', '~> 2.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+  gem 'sdoc', '~> 0.4.0', require: false
 end
 
 # Use ActiveModel has_secure_password
@@ -62,6 +62,7 @@ gem "devise-guests", "~> 0.3"
 gem "clamav"
 
 group :development, :test do
+  gem "byebug"
   gem "rspec-rails"
   gem "rspec-its"
   gem "selenium-webdriver"

@@ -4,11 +4,11 @@
     <div class="col-sm-8">
       <h3>Applies to individual files uploaded</h3>
       <%= content_tag :p, t('sufia.batch.help.title'), class: "help-block" %>
-      <% @batch.generic_files.sort! { |a,b| a.label.downcase <=> b.label.downcase }.each_with_index  do |gen_f, index| %>
+      <% @batch.generic_files.sort { |a,b| a.label.downcase <=> b.label.downcase }.each_with_index  do |gen_f, index| %>
         <div class="form-group">
-          <%= f.input_label :title, as: :multi_value_with_help, label: "Title or Caption #{index + 1}" %>
+          <%= f.input_label :title, as: :multi_value, label: "Title or Caption #{index + 1}" %>
           <div id="additional_title_clone">
-            <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: gen_f.label, class: 'form-control', required: true %>
+            <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: '', class: 'form-control', required: true %>
           </div>
           <% if @form[:resource_type].include? Sufia.config.special_reports['cstr'] %>
             <%= f.input_label :trid, as: :single_field_with_help, label: "Computing Science Technical Report ID #{index + 1}" %>
@@ -45,13 +45,27 @@
           input_html: { class: 'form-control', multiple: true, required: true } %>
         <% end %>
       <% end %>
-      <%= f.input :language, as: :select_with_help, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
-      <%= f.input :creator, as: :multi_value_with_help, input_html: { required: true } %>
-      <%= f.input :subject, as: :multi_value_with_help, input_html: {required: true} %>
+      <%= f.input :language, as: :select, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
+
+      <%= f.input_label :creator, label: "Creator" %>
+      <%= content_tag :div, "(Enter only one author per box. Example: Doe, Jane B.)", class: "help-block" %>
+      <%= f.input :creator, as: :multi_value_with_help, label: false, input_html: { required: true, value: '' } %>
+
+      <%= f.input_label :subject, label: "Subject/Keyword" %>
+      <%= content_tag :div, "(Enter only one word or phrase per box.)", class: "help-block" %>
+      <%= f.input :subject, as: :multi_value_with_help, label: false, input_html: {required: true, value: ''} %>
+
       <%= f.input :license, as: :select_with_modal_help, collection: Sufia.config.cc_licenses, 
           input_html: { class: 'form-control', required: false }, include_blank: true %>
 
       <%= f.input :rights, required: false, input_html: { type: 'textarea' } %>
+
+      <%= f.input_label :description, as: :multi_value_with_help, label: "Description or Abstract" %>
+      <%= f.input :description, label: false, input_html: { required: true, value: '', type: 'textarea' } %>
+
+      <%= f.input_label :date_created, label: "Date Created" %>
+      <%= content_tag :div, "(Example: 2009/12/31)", class: "help-block" %>
+      <%= f.input :date_created, value: '', label: false, input_html: { required: true } %>
 
       <%= render "generic_files/license_modal" %>
 
