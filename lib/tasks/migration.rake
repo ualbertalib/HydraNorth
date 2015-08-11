@@ -395,7 +395,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "year_created"=>year_created, "license"=>license, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now

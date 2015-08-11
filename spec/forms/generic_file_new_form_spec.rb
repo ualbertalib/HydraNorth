@@ -37,7 +37,6 @@ describe 'generic file new', :type => :feature do
         click_button('main_upload_start')
       end
       sleep(30)
-      puts page.body
       expect(page).to have_css('input#generic_file_trid')
     end
   end
@@ -55,7 +54,6 @@ describe 'generic file new', :type => :feature do
         click_button('main_upload_start')
       end
       sleep(30)
-      puts page.body
       within("form#new_generic_file") do
         find_field('Description or Abstract').should have_content ''
         find_field('Date Created').should have_content ''
