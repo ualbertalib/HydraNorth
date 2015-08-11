@@ -41,6 +41,26 @@ describe GenericFile, :type => :model do
 
   end
 
+  describe "thesis_metadata" do
+    it "should have thesis metadata" do
+      expect(subject).to respond_to(:degree_grantor)
+      expect(subject).to respond_to(:dissertant)
+      expect(subject).to respond_to(:supervisor)
+      expect(subject).to respond_to(:committee_member)
+      expect(subject).to respond_to(:department)
+      expect(subject).to respond_to(:specialization)
+      expect(subject).to respond_to(:date_submitted)
+      expect(subject).to respond_to(:date_accepted)
+      expect(subject).to respond_to(:graduation_date)
+      expect(subject).to respond_to(:alternative_title)
+      expect(subject).to respond_to(:thesis_name)
+      expect(subject).to respond_to(:thesis_level)
+      expect(subject).to respond_to(:proquest)
+      expect(subject).to respond_to(:abstract)
+
+    end
+  end
+
   describe "to_solr" do
     before do
       allow(subject).to receive(:id).and_return('stubbed_id')

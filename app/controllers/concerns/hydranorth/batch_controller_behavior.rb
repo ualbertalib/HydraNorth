@@ -23,10 +23,10 @@ module Hydranorth
       @batch.status = ["processing"]
       @batch.save
       resource_type = @batch.generic_files.map(&:resource_type).flatten
-      if resource_type.include? Sufia.config.special_reports['cstr']
+      if resource_type.include? Sufia.config.special_types['cstr']
         @collection = Collection.find(Sufia.config.cstr_collection_id)
         add_to_collection
-      elsif resource_type.include? Sufia.config.special_reports['ser']
+      elsif resource_type.include? Sufia.config.special_types['ser']
         @collection = Collection.find(Sufia.config.ser_collection_id)
         add_to_collection
       end
@@ -51,9 +51,9 @@ module Hydranorth
     def edit_form
       generic_file = ::GenericFile.new
       resource_type = @batch.generic_files.map(&:resource_type).flatten
-      if resource_type.include? Sufia.config.special_reports['cstr']
+      if resource_type.include? Sufia.config.special_types['cstr']
         cstr_edit_form_class.new(generic_file)
-      elsif resource_type.include? Sufia.config.special_reports['ser']
+      elsif resource_type.include? Sufia.config.special_types['ser']
         ser_edit_form_class.new(generic_file)
       else
         edit_form_class.new(generic_file)

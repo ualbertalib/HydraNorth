@@ -78,7 +78,7 @@ ser.save!
 config = File.read("config/initializers/sufia.rb", &:read)
 config = config.gsub(/^.*config\.cstr_collection_id.*$/, '')
 config = config.gsub(/^.*config\.ser_collection_id.*$/, '')
-config = config.gsub(/(^.*config\.special_reports.*$)/, '  config.cstr_collection_id = "'+cstr.id+'"'+"\n"+'\1')
-config = config.gsub(/(^.*config\.special_reports.*$)/, '  config.ser_collection_id = "'+ser.id+'"'+"\n"+'\1')
+config = config.gsub(/(^.*config\.special_types.*$)/, '  config.cstr_collection_id = "'+cstr.id+'"'+"\n"+'\1')
+config = config.gsub(/(^.*config\.special_types.*$)/, '  config.ser_collection_id = "'+ser.id+'"'+"\n"+'\1')
 
 File.write("config/initializers/sufia.rb", config)

@@ -6,10 +6,17 @@ module Hydranorth
       extend ActiveSupport::Concern
       included do
 
-        property :license, predicate: ::RDF::DC.license, multiple: false do |index|
-          index.as :stored_searchable
+        # We reserve date_uploaded for the original creation date of the record.
+        # For example, when migrating data from a fedora3 repo to fedora4,
+        # fedora's system created date will reflect the date when the record
+        # was created in fedora4, but the date_uploaded will preserve the
+        # original creation date from the old repository.
+        property :date_uploaded, predicate: ::RDF::DC.dateSubmitted, multiple: false do |index|
+          index.type :date
+          index.as :stored_sortable
         end
-        property :rights, predicate: ::RDF::DC.rights, multiple: false do |index|
+
+        property :license, predicate: ::RDF::DC.license, multiple: false do |index|
           index.as :stored_searchable
         end
         property :trid, predicate: ::UALTerms.trid, multiple: false do |index|
@@ -35,10 +42,6 @@ module Hydranorth
           index.as :stored_searchable
         end
        
-        property :proquest, predicate: ::UALTerms.proquest, multiple: false do |index|
-          index.as :stored_searchable
-        end
-
         property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
           index.as :stored_searchable
         end

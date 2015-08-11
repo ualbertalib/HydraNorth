@@ -1,9 +1,13 @@
 <% if current_user.admin? %>
-   <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.admin_resource_types,
+   <% if (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
+  <% else %>
+
+     <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.admin_resource_types,
     input_html: { class: 'form-control', multiple: true } %>
+  <% end %>
 <% else %>
 
-  <% if (@form[:resource_type].include? Sufia.config.special_reports['cstr']) || (@form[:resource_type].include? Sufia.config.special_reports['ser']) %>
+  <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) || (@form[:resource_type].include? Sufia.config.special_types['ser']) || (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
   <% else %>
 
     <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.resource_types,
