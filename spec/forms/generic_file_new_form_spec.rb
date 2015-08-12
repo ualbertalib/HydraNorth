@@ -36,7 +36,7 @@ describe 'generic file new', :type => :feature do
         attach_file "files[]", [fixture_path + '/world.png']
         click_button('main_upload_start')
       end
-      sleep(15)
+      sleep(30)
       expect(page).to have_css('input#generic_file_trid')
     end
   end
@@ -53,7 +53,7 @@ describe 'generic file new', :type => :feature do
         page.attach_file "files[]", [fixture_path + '/world.png']
         click_button('main_upload_start')
       end
-      sleep 15
+      sleep(30)
       within("form#new_generic_file") do
         find_field('Description or Abstract').should have_content ''
         find_field('Date Created').should have_content ''

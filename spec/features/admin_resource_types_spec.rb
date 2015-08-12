@@ -18,7 +18,7 @@ describe 'resource_types_list', :type => :feature do
     GenericFile.new.tap do |f|
       f.title = ['little_file.txt']
       f.creator = ['little_file.txt_creator']
-      f.resource_type = ["stuff" ]
+      f.resource_type = ["stuff"]
       f.read_groups = ['public']
       f.apply_depositor_metadata(admin.user_key)
       f.save!
@@ -38,6 +38,7 @@ describe 'resource_types_list', :type => :feature do
         click_link "Edit File"
       end
     end
+
     it 'has admin resource list' do
       expect(page).to have_select('generic_file_resource_type', :options => ["Book","Book Chapter", "Computing Science Technical Report", "Conference/Workshop Poster","Conference/Workshop Presentation", "Dataset", "Image", "Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review", "Structural Engineering Report", "Thesis"])
     end
