@@ -61,6 +61,9 @@ gem "devise-guests", "~> 0.3"
 # clamav ruby bindings
 gem "clamav"
 
+# for migration reading the license file
+gem "pdf-reader"
+
 group :development, :test do
   gem "byebug"
   gem "rspec-rails"

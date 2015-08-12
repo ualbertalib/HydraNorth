@@ -1,6 +1,6 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
-
+require 'pdf-reader'
 
   NS = {
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", 
@@ -37,7 +37,7 @@ require './lib/tasks/migration/migration_logger'
   
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://admin:eraR00%21z@era.library.ualberta.ca/public/view/item/"
-  
+  DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
@@ -212,7 +212,9 @@ namespace :migration do
       next if duplicated?(uuid)
   
       #get the owner ids
-      owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", NS).map{ |node| node.to_s }
+      owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", NS).map{ |node| node.to_s.gsub(/\s+/,"").split(',')}.flatten
+   
+
       #get the modifiedDate
       date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
       date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
@@ -237,10 +239,12 @@ namespace :migration do
       spatials = dc_version.xpath("dcterms:spatial/text()",NS).map(&:to_s) if dc_version.xpath("dcterms:spatial", NS)
       temporals = dc_version.xpath("dcterms:temporal/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:temporal", NS)
       fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
+      fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", NS).text()
       trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
       ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS) 
-      # download files
+      
       # get the content datastream DS
+      
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
       case 
       when ds_datastreams.length > 0
@@ -249,7 +253,8 @@ namespace :migration do
         original_deposit_time=""
         ds_datastreams.each do |ds|
           ds_num = ds.attribute('ID')
-          file_version = ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]", NS)
+          ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
+          file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", NS) 
           #get the metadata for the physical file
 
           original_filename = file_version.attribute('LABEL').to_s
@@ -302,13 +307,57 @@ namespace :migration do
         MigrationLogger.fatal "NO License datastream available - Please check the oddities report"
         File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
       else
-        license = license_node.attribute('LABEL').to_s
-        if challenge license
-          MigrationLogger.warn "#{uuid} license is a file or text is longer than 250 characters"
-          next
+        license = license_node.attribute('LABEL').to_s.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+        if license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
+          file_location = DOWNLOAD_LICENSE_URL + uuid + "/LICENSE"
+          MigrationLogger.info "Download license file for #{uuid}"
+          license_file = "#{TEMP}/#{uuid}/LICENSE"
+          system "curl #{file_location} --create-dirs -o #{license_file}"
+          if license=~/^.*\.(pdf|PDF)$/
+            rights = ""
+            PDF::Reader.open(license_file) do |reader|
+              reader.pages.map do |page|
+	        rights = rights + page.text
+	      end			  
+            end
+          else 
+            rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+          end
+          rights = rights.squeeze(' ').gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ').squeeze(' ')
+          license = "I am required to use/link to a publisher's license"
+        elsif license=~/creative commons|CC/i
+          case license
+          when "CC BY SA"
+            license = "Creative Commons Attribution-ShareAlike 3.0 Unported"
+          when "Creative Commons Attribution 4.0..."
+            license = "Creative Commons Attribution 4.0 International"
+          when "Creative Commons Attribution-NoDerivatives..."
+            license = "Creative Commons Attribution-NoDerivs 4.0 International"
+          when "Creative Commons Attribution-NonCommercial-NoDerivatives..."
+            license = "Creative Commons Attribution-NonCommercial-NoDerivs 4.0 International"
+          when "Creative Commons Attribution-NonCommercial-ShareAlike..."
+            license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+          when "Creative Commons Attribution-ShareAlike..."
+            license = "Creative Commons Attribution-ShareAlike 4.0 International"
+          when "Creative Commons Zero Waiver"
+            license = "CC0 1.0 Universal"
+          when "Creative Commons‐"
+            license = "Creative Commons Attribution-NonCommercial-ShareAlike 2.5 Canada"
+          when "Creative Commons‐Attribution‐Noncommercial‐Share..."
+            license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+          end
+          rights = nil
+        elsif license.length == 0
+          MigrationLogger.fatal "NO License data is available - Please check the oddities report"
+          File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
+          license = nil
+          rights = nil
+        else
+          rights = license
+          license = "I am required to use/link to a publisher's license"
         end
-
       end
+
       #get the relsext metadata
       relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",NS).last
       collections = relsext_version.xpath("memberof:isMemberOfCollection/@rdf:resource", NS).map{ |node| node.value.split("/")[1] }
@@ -323,6 +372,7 @@ namespace :migration do
       system "curl -o #{download_foxml} #{foxml_url}"
       #retrieve the original foxml
       #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+
       # set the depositor
       if submitter
         depositor_id = submitter
@@ -395,7 +445,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>description, "date_created"=>date, "year_created"=>year_created, "license"=>license, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "creator"=>creators, "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
@@ -737,11 +787,5 @@ namespace :migration do
     memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
     return memberof
   end	
-
-  # exclude objects with a license file or text that is longer than 250 characters,  
-  # before we have plan to deal with these items.  
-  def challenge license
-    license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.length > 250
-  end
 	
 end
