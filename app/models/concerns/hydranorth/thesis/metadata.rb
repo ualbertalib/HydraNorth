@@ -22,7 +22,7 @@ module Hydranorth
         property :committee_member, predicate: ::UALTerms.thesiscommitteemember do |index|
           index.as :stored_searchable
         end
-        property :department, predicate: vivo.AcademicDepartment, multiple: false do |index|
+        property :department, predicate: vivo.AcademicDepartment do |index|
           index.as :stored_searchable
         end
         property :specialization, predicate: ::UALTerms.specialization, multiple: false do |index|
