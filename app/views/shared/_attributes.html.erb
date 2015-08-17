@@ -8,8 +8,13 @@
           <td><%= work.creator %></td>
         </tr>
         <tr>
-          <th><span class="attribute-label h4">Description:</span></th>
-          <td><%= iconify_auto_link(work.description) %></th>
+          <% if work.description %>
+            <th><span class="attribute-label h4">Description:</span></th>
+            <td><%= iconify_auto_link(work.description) %></th>
+          <% elsif work.abstract %>
+            <th><span class="attribute-label h4">Abstract:</span></th>
+            <td><%= iconify_auto_link(work.abstract) %></th>
+          <% end %>
         </tr>
         <tr>
           <th><span class="attribute-label h4">Subjects:</span></th>

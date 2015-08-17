@@ -59,7 +59,7 @@ end
   
 theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
-  # c[:fedora3uuid] = "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+  c[:fedora3uuid] = "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
 end
 theses.save!
 

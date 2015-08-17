@@ -13,7 +13,10 @@ require 'pdf-reader'
         "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
         "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
         "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
-        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#"
+        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
+        "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
+        "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
+        "xmlns:bibo"=>"http://purl.org/ontology/bibo/"
     }
 
 
@@ -232,7 +235,6 @@ namespace :migration do
       subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:to_s)
       description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
       date = dc_version.xpath("dcterms:created",NS).text
-      year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank? 
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
       language = dc_version.xpath("dcterms:language",NS).text
@@ -243,6 +245,32 @@ namespace :migration do
       trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
       ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS) 
       
+      #for thesis objects
+      abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
+      date_accepted = dc_version.xpath("dcterms:dateaccepted", NS).text() if dc_version.xpath("dcterms:dateaccepted", NS)
+      date_submitted = dc_version.xpath("dcterms:datesubmitted", NS).text() if dc_version.xpath("dcterms:datesubmitted", NS)
+      is_version_of = dc_version.xpath("dcterms:isversionof", NS).text() if dc_version.xpath("dcterms:isversionof", NS)
+      graduation_date = dc_version.xpath("ualterms:graduationdate", NS).text() if dc_version.xpath("ualterms:graduationdate", NS)
+      specialization = dc_version.xpath("ualterms:specialization", NS).text() if dc_version.xpath("ualterms:specialization", NS)
+      supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:to_s) if dc_version.xpath("marcrel:ths", NS)
+      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", NS).map(&:to_s) if dc_version.xpath("ualterms:thesiscommitteemember/text()", NS)
+      departments = dc_version.xpath("vivo:AcademicDepartment/text()", NS).map(&:to_s) if dc_version.xpath("vivo:AcademicDepartment", NS)
+      thesis_name = dc_version.xpath("bibo:ThesisDegree", NS).text() if dc_version.xpath("bibo:ThesisDegree", NS)
+      thesis_level = dc_version.xpath("ualterms:thesislevel", NS).text() if dc_version.xpath("ualterms:thesislevel", NS)
+      alternative_titles = dc_version.xpath("dcterms:alternative/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:alternative", NS)
+      proquest = dc_version.xpath("ualterms:proquest", NS).text() if dc_version.xpath("ualterms:proquest", NS)
+      unicorn = dc_version.xpath("ualterms:unicorn", NS).text() if dc_version.xpath("ualterms:unicorn", NS)
+      degree_grantor = dc_version.xpath("marcrel:dgg", NS).text() if dc_version.xpath("marcrel:dgg", NS)
+      dissertant = dc_version.xpath("marcrel:dis", NS).text() if dc_version.xpath("marcrel:dis", NS)
+      dissertant = creators.first if type == "Thesis" && (dissertant.nil? || dissertant.blank?)
+
+      #calculated year_created based on date_created or date_accepted 
+      if type == "Thesis"
+        year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
+      else
+        year_created = date[/(\d\d\d\d)/,0]
+      end
+
       # get the content datastream DS
       
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
@@ -347,6 +375,9 @@ namespace :migration do
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
           end
           rights = nil
+        elsif license == "University of Alberta Libraries"
+          license = "I am required to use/link to a publisher's license"
+          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. Where the thesis is converted to, or otherwise made available in digital form, the University of Alberta will advise potential users of the thesis of these terms. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
         elsif license.length == 0
           MigrationLogger.fatal "NO License data is available - Please check the oddities report"
           File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
@@ -445,7 +476,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "ingestbatch" => @ingest_batch_id}
+      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id}
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
