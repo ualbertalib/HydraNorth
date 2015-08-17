@@ -56,6 +56,35 @@ describe "Migration rake tasks" do
   end
 
 
+  describe "migration:eraitem - thesis" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/thesis-metadata')
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+    end
+    subject { GenericFile.last }
+    it "item should have all thesis related metadata field" do
+      expect(subject.year_created).to eq "2015"
+      expect(subject.fedora3uuid).to eq "uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"
+      expect(subject.abstract).to eq "This is a test thesis abstract."
+      expect(subject.graduation_date).to eq "2011-06"
+      expect(subject.supervisor).to match_array ["Bolton, James R. (Civil and Environmental Engineering)", "Gamal El-Din, Mohamed (Civil and Environmental Engineering)"]
+      expect(subject.department).to match_array ["Department of Civil and Environmental Engineering"]
+      expect(subject.committee_member).to match_array ["Goss, Greg (Biological Sciences)"]
+      expect(subject.thesis_name).to eq "Master of Science"
+      expect(subject.resource_type).to match_array ["Thesis"]
+      expect(subject.thesis_level).to eq "Master's"
+      expect(subject.degree_grantor).to eq "University of Alberta"
+      expect(subject.dissertant).to eq "Zapata Peláez, Mario Alberto"
+      expect(subject.content.latest_version.label).to eq "version1"
+      expect(subject.fedora3foxml.latest_version.label).to eq "version1"
+      expect(subject.license).to eq "I am required to use/link to a publisher's license"
+      expect(subject.rights).to eq "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. Where the thesis is converted to, or otherwise made available in digital form, the University of Alberta will advise potential users of the thesis of these terms. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
+    end
+  end
 
   describe "migration:era_collection_community - community" do
     before do
