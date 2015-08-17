@@ -15,6 +15,9 @@ module Hydranorth
     def date_created?
       !self[Solrizer.solr_name("date_created")].nil?
     end
-
+    
+    def abstract
+      Array(self[Solrizer.solr_name('abstract')]).first
+    end
   end
 end
