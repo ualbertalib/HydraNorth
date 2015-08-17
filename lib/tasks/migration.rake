@@ -13,9 +13,9 @@ require 'pdf-reader'
         "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
         "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
         "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
-        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#"
-        "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators"
-        "xmlns:vivo"=>"http://vivoweb.org/ontology/core"
+        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
+        "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
+        "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
         "xmlns:bibo"=>"http://purl.org/ontology/bibo/"
     }
 
@@ -267,7 +267,7 @@ namespace :migration do
       date = date_submitted if type == "Thesis" && (date.nil? || date.blank?)
       #calculated year_created based on date_created or date_submitted. 
       if date.nil? || date.blank? 
-        year_created = date_submitted[/(\d\d\d\d)/,0] unless date_submitted.nil? || date_submitted.blank?
+        year_created = date_accepted[/(\d\d\d\d)/,0] unless date_submitted.nil? || date_submitted.blank?
       else
         year_created = date[/(\d\d\d\d)/,0]
       end
@@ -376,6 +376,10 @@ namespace :migration do
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
           end
           rights = nil
+        elsif license == "University of Alberta Libraries"
+          license = "I am required to use/link to a publisher's license"
+          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. Where the thesis is converted to, or otherwise made available in digital form, the University of Alberta will advise potential users of the thesis of these terms.
+The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
         elsif license.length == 0
           MigrationLogger.fatal "NO License data is available - Please check the oddities report"
           File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
