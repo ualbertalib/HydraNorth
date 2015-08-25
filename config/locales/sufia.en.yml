@@ -7,7 +7,7 @@ en:
     division_homepage_url:   "http://library.ualberta.ca"
     directory:
       suffix:  "@ualberta.ca"
-    deposit_agreement:  "University of Alberta ERA Deposit Agreement"
+    deposit_agreement:  "University of Alberta ERA Deposit and Distribution Agreement"
     document_language:  "en"
     upload_tooltip:     "Please accept Deposit Agreement before you can upload."
     share_button:       "Share Your Work"
@@ -176,6 +176,7 @@ en:
         spatial:          "Is this item about a place?"
         is_version_of:    "Citation for previous publication"
         source:           "Source"
+        rights:           "Publisher's License"
         license_display:  "License information"
         temporal_display: "Time"
         spatial_display:  "Place"
