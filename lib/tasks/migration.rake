@@ -22,6 +22,7 @@ require 'pdf-reader'
 
   LANG = {
       "eng" => "English",
+      "en" => "English",
       "fre" => "French",
       "spa" => "Spanish",
       "chi" => "Chinese",
@@ -412,7 +413,7 @@ namespace :migration do
       else
         depositor_id = owner_ids.first
       end
-	  
+
       # create the depositor
       depositor = User.find_by_username(depositor_id)
 
