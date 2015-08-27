@@ -63,6 +63,7 @@ gem "clamav"
 
 # for migration reading the license file
 gem "pdf-reader"
+gem 'noid', '~> 0.8'
 
 group :development, :test do
   gem "byebug"
