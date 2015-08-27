@@ -161,6 +161,7 @@ GEM
       rspec (>= 2.14, < 4)
     clamav (0.4.1)
     cliver (0.3.2)
+    coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -336,6 +337,7 @@ GEM
       carrierwave (>= 0.5.8)
       foreigner (>= 0.9.1)
       rails (>= 3.2.0)
+    method_source (0.8.2)
     mime-types (1.25.1)
     mimemagic (0.3.0)
     mini_magick (4.2.10)
@@ -384,6 +386,13 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -689,6 +698,8 @@ DEPENDENCIES
   noid (~> 0.8)
   pdf-reader
   poltergeist (~> 1.5)
+  pry
+  pry-remote
   rails (= 4.2.3)
   rsolr (~> 1.0.6)
   rspec-its
