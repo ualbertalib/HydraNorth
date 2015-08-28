@@ -95,13 +95,15 @@ namespace :migration do
   end
 	
   desc "batch migrate generic files from modified ERA FOXML file"
-  task :eraitem, [:dir] => :environment do |t, args|
+  task :eraitem, [:dir, :migrate_datastreams] => :environment do |t, args|
+    args.with_defaults(:migrate_datastreams => "true")
     begin
       MigrationLogger.info "**************START: Migrate ERA objects *******************"
       metadata_dir = args.dir 
-      # Usage: Rake migration:eraitem[<file directory here, path included>] 
+      migrate_datastreams = args.migrate_datastreams == "true"
+      # Usage: Rake migration:eraitem[<file directory here, path included>,<optional: migrate_datastreams: boolean>] 
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        migrate_object(metadata_dir) 
+        migrate_object(metadata_dir, migrate_datastreams) 
       else
 	MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
@@ -189,7 +191,7 @@ namespace :migration do
     end
   end 
 
-  def migrate_object(metadata_dir)
+  def migrate_object(metadata_dir, migrate_datastreams)
     time = Time.now
     metadata_time = 0
     attr_time = 0
@@ -273,62 +275,65 @@ namespace :migration do
       end
 
       # get the content datastream DS
-      
-      ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
-      case 
-      when ds_datastreams.length > 0
-        original_filename =""
-        file_full=""
-        original_deposit_time=""
-        ds_datastreams.each do |ds|
-          ds_num = ds.attribute('ID')
-          ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
-          file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", NS) 
-          #get the metadata for the physical file
+      if migrate_datastreams 
+        MigrationLogger.info("Migrating content datastreams")
+        ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
+        case 
+        when ds_datastreams.length > 0
+          original_filename =""
+          file_full=""
+          original_deposit_time=""
+          ds_datastreams.each do |ds|
+            ds_num = ds.attribute('ID')
+            ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
+            file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", NS) 
+            #get the metadata for the physical file
 
-          original_filename = file_version.attribute('LABEL').to_s
-          original_filename_normalize = original_filename.gsub(/[^0-9A-Za-z.\-]/, '_')
-          original_deposit_time = file_version.attribute('CREATED').to_s
-          md5_node = file_version.xpath("foxml:contentDigest")
-          original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
-          #file location has to use the public download url
-          #file_location = FEDORA_URL + uuid +"/" + ds_num
-          file_location = DOWNLOAD_URL + uuid + "/" + ds_num
-          #download file to temp location
-          MigrationLogger.info "Retrieve File #{original_filename}"
-          #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
-          file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
-          #FileUtils.cp(file_ds, file_full)
-          system "curl #{file_location} --create-dirs -o #{file_full}"
-          # get md5 of the file
-          md5 = Digest::MD5.file(file_full).hexdigest.gsub(/\s/,'')
-          # verify md5 with the MD5 in DS
-          if !md5_node.empty? && original_md5 && md5 != original_md5
-            MigrationLogger.warn "MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
-            File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
+            original_filename = file_version.attribute('LABEL').to_s
+            original_filename_normalize = original_filename.gsub(/[^0-9A-Za-z.\-]/, '_')
+            original_deposit_time = file_version.attribute('CREATED').to_s
+            md5_node = file_version.xpath("foxml:contentDigest")
+            original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
+            #file location has to use the public download url
+            #file_location = FEDORA_URL + uuid +"/" + ds_num
+            file_location = DOWNLOAD_URL + uuid + "/" + ds_num
+            #download file to temp location
+            MigrationLogger.info "Retrieve File #{original_filename}"
+            #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
+            file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
+            #FileUtils.cp(file_ds, file_full)
+            system "curl #{file_location} --create-dirs -o #{file_full}"
+            # get md5 of the file
+            md5 = Digest::MD5.file(file_full).hexdigest.gsub(/\s/,'')
+            # verify md5 with the MD5 in DS
+            if !md5_node.empty? && original_md5 && md5 != original_md5
+              MigrationLogger.warn "MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
+              File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
+            end
           end
+
+          if Dir["#{TEMP}/#{uuid}/*"].count { |file| File.file?(file) } > 1
+            MigrationLogger.info "This object contains more than one DS datastreams"
+            MigrationLogger.info "Creating zip file from all download files."
+            file_full = "#{TEMP}/#{uuid}.zip"
+            system "cd #{TEMP} && zip -r #{uuid}.zip #{uuid}"
+            MigrationLogger.info "Removing downloaded individual files."
+            system "rm -rf #{TEMP}/#{uuid}"
+            original_filename = File.basename(file_full)
+          else
+            MigrationLogger.info "This object contains only one DS datastreams"
+          end
+          # check the MIME TYPE of the file
+          mime_type = MIME::Types.of(file_full).first.to_s
+
+        when ds_datastreams.length == 0
+          MigrationLogger.warn "No DS datastream available - Please check the oddities report"
+          File.open(ODDITIES, 'a'){ |f| f.puts("#{Time.now} NO CONTENT - #{uuid}" ) }
         end
 
-        if Dir["#{TEMP}/#{uuid}/*"].count { |file| File.file?(file) } > 1
-          MigrationLogger.info "This object contains more than one DS datastreams"
-          MigrationLogger.info "Creating zip file from all download files."
-          file_full = "#{TEMP}/#{uuid}.zip"
-          system "cd #{TEMP} && zip -r #{uuid}.zip #{uuid}"
-          MigrationLogger.info "Removing downloaded individual files."
-          system "rm -rf #{TEMP}/#{uuid}"
-          original_filename = File.basename(file_full)
-        else
-          MigrationLogger.info "This object contains only one DS datastreams"
-        end
-        # check the MIME TYPE of the file
-        mime_type = MIME::Types.of(file_full).first.to_s
-
-      when ds_datastreams.length == 0
-        MigrationLogger.warn "No DS datastream available - Please check the oddities report"
-        File.open(ODDITIES, 'a'){ |f| f.puts("#{Time.now} NO CONTENT - #{uuid}" ) }
-
+      else
+        MigrationLogger.info("Not migrating content datastreams")
       end
-
 	  
       # get the license metadata
       license_node = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'LICENSE.')]", NS).last
@@ -470,9 +475,11 @@ namespace :migration do
       end
 
       # add file to generic_file object
-      if ds_datastreams.length > 0
-        content = File.open(file_full)
-	@generic_file.add_file(content, {path: 'content', original_name: original_filename, mime_type: mime_type})
+      if migrate_datastreams
+        if ds_datastreams.length > 0
+          content = File.open(file_full)
+  	@generic_file.add_file(content, {path: 'content', original_name: original_filename, mime_type: mime_type})
+        end
       end
       # add other metadata to the new object
       @generic_file.label ||= original_filename
@@ -564,7 +571,9 @@ namespace :migration do
         #move metadata to success location
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
+      if migrate_datastreams
         FileUtils.rm(file_full) if ds_datastreams.length > 0
+      end
         FileUtils.rm(download_foxml) if File.exist? (download_foxml)
       rescue
         puts "FAILED: Verification of migration #{uuid}!"
