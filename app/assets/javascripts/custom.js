@@ -33,7 +33,6 @@ $(document).ready(function(){
                                 $("#generic_file_rights").val("Enter full text rights");
                                 $('label[for="generic_file_rights"]').show();
     				$("#generic_file_rights").show();
-                                $("#generic_file_license").val("");
                                 $("#generic_file_rights").focus();
   			}
   			else {

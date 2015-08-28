@@ -63,6 +63,7 @@ gem "clamav"
 
 # for migration reading the license file
 gem "pdf-reader"
+gem 'noid', '~> 0.8'
 
 group :development, :test do
   gem "byebug"
@@ -78,4 +79,6 @@ group :development, :test do
   gem "show_me_the_cookies"
   gem "brakeman"
   gem "ci_reporter_rspec"
+  gem 'pry'
+  gem 'pry-remote'
 end
