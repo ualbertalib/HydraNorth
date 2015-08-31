@@ -89,6 +89,12 @@ GEM
     bcp47 (0.3.3)
       i18n
     bcrypt (3.1.10)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     blacklight (5.14.0)
       bootstrap-sass (~> 3.2)
       deprecation
@@ -167,6 +173,7 @@ GEM
     coffee-script-source (1.9.1.1)
     daemons (1.2.3)
     database_cleaner (1.5.0)
+    debug_inspector (0.0.2)
     deprecation (0.2.2)
       activesupport
     devise (3.5.2)
@@ -683,6 +690,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  better_errors
+  binding_of_caller
   bootstrap-sass (~> 3.3.4.1)
   brakeman
   byebug

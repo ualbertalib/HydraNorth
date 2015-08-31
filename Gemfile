@@ -83,4 +83,6 @@ group :development, :test do
   gem "ci_reporter_rspec"
   gem 'pry'
   gem 'pry-remote'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
