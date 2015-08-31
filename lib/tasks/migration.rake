@@ -398,7 +398,7 @@ namespace :migration do
       #get the relsext metadata
       relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",NS).last
       collections = relsext_version.xpath("memberof:isMemberOfCollection/@rdf:resource", NS).map{ |node| node.value.split("/")[1] }
-      community = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
+      communities = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
       user = relsext_version.at_xpath("userns:userId", NS).text() if relsext_version.at_xpath("userns:userId", NS)
       submitter = relsext_version.at_xpath("userns:submitterId", NS).text() if relsext_version.at_xpath("userns:submitterId", NS)
 
@@ -528,14 +528,18 @@ namespace :migration do
 
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
-      MigrationLogger.info "Add file to collection #{collections}and community #{community} if needed"
+      MigrationLogger.info "Add file to collection #{collections} and community #{communities} if needed"
       collection_noids = []
       if !collections.empty?
         collections.each do |c|
-	  collection_noids << add_to_collection(@generic_file, c)
-	end
+      	  collection_noids << add_to_collection(@generic_file, c)
+      	end
       else
-        collection_noids << add_to_collection(@generic_file, community)
+        if !communities.empty?
+          communities.each do |c|
+            collection_noids << add_to_collection(@generic_file, c)
+          end
+        end
       end
       collection_noids.each do |c|
         @generic_file.hasCollection = [Collection.find(c).title]
