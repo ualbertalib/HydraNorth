@@ -49,4 +49,20 @@ describe 'SAML' do
 
     it { expect(page).to have_content('Link CCID credentials to account') }
   end
+
+  describe 'user associated with CCID' do
+    let(:user) {FactoryGirl.create :user, ccid: 'myself@testshib.org'}
+
+    after :each do
+      logout
+    end
+
+    it 'should only be able to sign in with CCID' do
+      visit '/users/sign_in'
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: 'password'
+      click_button 'Log in'
+      expect(page).to have_content(I18n.t('unauthorized.ccid_required'))
+    end
+  end
 end
