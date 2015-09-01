@@ -34,28 +34,26 @@ class User < ActiveRecord::Base
   def admin?
     groups.include? 'admin'
   end
+
   def valid_password?(password)
-    if self.legacy_password.present?
-      if ::Digest::MD5.hexdigest(password) == self.legacy_password
-        if password.length >= 8
-          self.password = password
-          self.legacy_password = nil
-          self.save!
-          true
-        else
-          false
-        end
-      else
-        false
-      end
-    else
-      super
-    end
+    return super unless self.legacy_password.present?
+    return false unless ((::Digest::MD5.hexdigest(password) == self.legacy_password) && 
+                         (password.length >= 8))
+
+    self.password = password
+    self.legacy_password = nil
+    self.save!
+    true
   end
 
   def reset_password!(*args)
     self.legacy_password = nil
     super
   end
-  
+
+  # determines whether or not the user is allowed to authenticate using an ERA
+  # username and password
+  def can_use_legacy_login?
+    !ccid.present?
+  end
 end
