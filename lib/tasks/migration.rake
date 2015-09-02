@@ -342,7 +342,10 @@ namespace :migration do
         File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} NO LICENSE - #{uuid}") }
       else
         license = license_node.attribute('LABEL').to_s.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
-        if license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
+        # deal with special filenames first - may refactor if we discover more
+        if license=="CC_ATT_NC_SA_4.txt"
+            license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
           file_location = DOWNLOAD_LICENSE_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
