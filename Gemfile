@@ -75,7 +75,7 @@ group :development, :test do
   gem "poltergeist", "~> 1.5"
   gem "factory_girl_rails"
   gem "database_cleaner"
-  gem "capybara-select2", github: "goodwill/capybara-select2"
+  gem "capybara-select2"
   gem "show_me_the_cookies"
   gem "brakeman"
   gem "ci_reporter_rspec"
