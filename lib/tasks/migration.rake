@@ -759,7 +759,10 @@ namespace :migration do
   def duplicated?(uuid)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
     numFound = solr_rsp['response']['numFound']
-	return true if numFound > 0
+    if numFound > 0
+      MigrationLogger.info "Duplicate not migrated: #{uuid}"
+      return true
+    end
   end
 
   def find_collection(uuid)
