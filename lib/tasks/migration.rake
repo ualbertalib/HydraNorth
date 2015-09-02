@@ -757,13 +757,13 @@ namespace :migration do
   end
 
   def duplicated?(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
     numFound = solr_rsp['response']['numFound']
 	return true if numFound > 0
   end
 
   def find_collection(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid.to_s}
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
