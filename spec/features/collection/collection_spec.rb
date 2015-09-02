@@ -197,7 +197,7 @@ describe 'collection', :type => :feature do
       fill_in('Title', with: 'TESTTEST')
       find('#collection_license').find(:xpath, 'option[1]').select_option
       click_button("Create Collection")
-      collection_id = Collection.last.id if Collection.last.title.include?('TESTTEST')
+      collection_id = Collection.where(title: 'TESTTEST').first.id
       visit "/collections/#{collection_id}"
       expect(page).to have_content 'Items in this Collection'
       expect(page).to have_content 'TESTTEST'
