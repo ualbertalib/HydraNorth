@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/goodwill/capybara-select2.git
-  revision: 77556eddc1a8ba3547489a40cbd9c8bdda00f3c0
-  specs:
-    capybara-select2 (1.0.1)
-      capybara
-      rspec
-
-GIT
   remote: git://github.com/jcoyne/kaminari.git
   revision: 7f7108e12bdd64eb5a76177633768feb14df5453
   branch: sufia
@@ -147,6 +139,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-select2 (1.0.1)
+      capybara
+      rspec
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -681,7 +676,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
-  capybara-select2!
+  capybara-select2
   ci_reporter_rspec
   clamav
   coffee-rails (~> 4.1.0)
