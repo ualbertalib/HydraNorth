@@ -14,13 +14,13 @@ Hydranorth::Application.configure do
   config.action_controller.perform_caching = false
 
   #devise config
-  config.action_mailer.default_url_options = { :host => 'hydranorthdev.library.ualberta.ca' }
+  config.action_mailer.default_url_options = { :host => 'localhost' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 25 }
-  ActionMailer::Base.default :from => 'dittest@ualberta.ca'
+  ActionMailer::Base.default :from => 'hydranorth@mailinator.com'
 
   #contact for config 
-  config.contact_email = 'dittest@ualberta.ca'
+  config.contact_email = 'hydranorth@mailinator.com'
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

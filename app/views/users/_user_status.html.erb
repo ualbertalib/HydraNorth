@@ -2,7 +2,7 @@
   <% if @user.provider %>
     <p>CCID credentials are linked to account</p>
   <% else %>
-    <%= link_to "Link CCID credentials to account", 'users/auth/shibboleth' %>
+    <%= link_to "Link CCID credentials to account", user_omniauth_authorize_path(provider: 'shibboleth') %>
   <% end %>
   <% if current_user.admin? %>
     <% if @user.access_locked? %>

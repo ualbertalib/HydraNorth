@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation if Rails::VERSION::MAJOR < 4
 
-  before_update :postpone_ccid_change_until_confirmation, if: :ccid_changed?
-
 # Connects this user object to Blacklights Bookmarks. 
   include Blacklight::User
   # Include default devise modules. Others available are:
@@ -17,19 +15,17 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable,
          :omniauthable, :omniauth_providers => [:shibboleth]
 
-  def self.from_omniauth(auth)
-    user = User.find_by_email(auth.uid) || User.find_by(ccid: auth.uid)
-    if user and user.confirmed?
-      user.provider = auth.provider
-      user.ccid = auth.uid if (user.ccid != auth.uid)
-      return user
-    end
-    where(provider: auth.provider, email: auth.uid).first_or_create do |user|
-      user.skip_confirmation!
-      user.email = auth.uid
-      user.password = Devise.friendly_token[0,20]
-    end
+  scope :from_omniauth, ->(auth){ where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)', 
+                                         auth.uid, auth.uid, auth.uid, auth.provider).limit(1) }
 
+  def self.create_from_omniauth(auth)
+    User.create(
+      email: auth.uid,
+      password:Devise.friendly_token[0,20],
+      should_force_link: true,
+      confirmed_at: Time.now.utc,
+      provider: auth.provider
+    )
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
@@ -65,11 +61,30 @@ class User < ActiveRecord::Base
     !ccid.present?
   end
 
-  def postpone_ccid_change_until_confirmation
-    @reconfirmation_required = true
-    self.unconfirmed_ccid = self.ccid
-    self.ccid = self.ccid_was
-    self.confirmed_at = nil
+  def link_pending?
+    self.should_force_link
+  end
+
+  def link!(other_account)
+    self.ccid = other_account.email
+    confirm_ccid! unless self == other_account
+    self.provider = other_account.provider
+    self.should_force_link = false
+    save!
+    return pending_ccid_confirmation?
+  end
+
+  def confirm_ccid!
+      @reconfirmation_required = true
+      self.unconfirmed_ccid = self.ccid
+      self.ccid = self.ccid_was
+      self.confirmed_at = nil
+  end
+
+  def associate_auth(auth)
+    self.ccid = auth.uid
+    self.provider = auth.provider
+    save!
   end
 
   def pending_ccid_confirmation?
@@ -95,6 +110,7 @@ class User < ActiveRecord::Base
     if self.unconfirmed_ccid.present?
       self.ccid = self.unconfirmed_ccid
       self.unconfirmed_ccid = nil
+      save!
     end
   end
 

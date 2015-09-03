@@ -82,8 +82,8 @@ group :development, :test do
   gem "show_me_the_cookies"
   gem "brakeman"
   gem "ci_reporter_rspec"
-  gem 'pry'
-  gem 'pry-remote'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  gem "pry"
+  gem "pry-remote"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
