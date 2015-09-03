@@ -4,7 +4,8 @@ module Hydranorth
     class GenericFileEditForm < GenericFilePresenter
       include HydraEditor::Form
       include HydraEditor::Form::Permissions
-      self.required_fields = [:title, :resource_type, :language, :creator, :subject ]
+      self.required_fields = [:title, :resource_type, :language, :creator, :subject, :license ]
+      
 
       # This is required so that fields_for will draw a nested form.
       # See ActionView::Helpers#nested_attributes_association?

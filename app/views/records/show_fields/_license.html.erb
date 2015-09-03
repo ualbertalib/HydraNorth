@@ -1,6 +1,6 @@
 <% unless record.license.nil? %>
 <% if Sufia.config.cc_licenses.has_key?(record.license) %>
-  <%=link_to_field('license',record.license, Sufia.config.cc_licenses_reverse[record.license])%> <%= iconify_auto_link(record.license,false) %><br />
+  <%=link_to_field('license',record.license, Sufia.config.cc_licenses_reverse[record.license])%> <%= iconify_auto_link(record.license,false) if linkable?(record.license)%><br />
 <% else %>
   <%=link_to_field('license',record.license, record.license)%><br />
 <% end %>
