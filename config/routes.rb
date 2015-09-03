@@ -20,6 +20,9 @@ Hydranorth::Application.routes.draw do
   get 'users/:id/lock_access' => 'users#lock_access', as: 'lock_access_user'
   get 'users/:id/unlock_access' => 'users#unlock_access', as: 'unlock_access_user'
 
+  get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
+  get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
+
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'

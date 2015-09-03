@@ -23,6 +23,7 @@ describe 'SAML' do
     it 'should use SAML to create acount' do
       visit '/users/sign_in'
       expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      new_account
       expect(page).to have_content "Successfully authenticated from Shibboleth account."
       expect(current_path).to eq('/dashboard')
     end
@@ -30,6 +31,7 @@ describe 'SAML' do
     it 'should redirect to protected target' do
       visit '/files/new'
       expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      new_account
       expect(page).to have_content "Successfully authenticated from Shibboleth account."
       expect(current_path).to eq('/files/new')
     end
@@ -37,17 +39,48 @@ describe 'SAML' do
 
   describe 'should be able to link SAML credentials to existing account' do
     let(:user) { FactoryGirl.create :user }
-    after :all do
+    after :each do
       cleanup_jetty
     end
+    before(:each) { ActionMailer::Base.deliveries.clear }
 
-    before do
-      sign_in user
-      visit '/dashboard'
-      click_link "Edit Profile"
+    it 'should send email confirmation to link existing account' do
+      visit '/users/sign_in'
+      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      expect(page).to have_content "Do you have an existing account?"
+      choose 'Yes'
+      fill_in('user_email', :with => user.email)
+      expect { click_button 'Continue' }.to_not raise_error
+      expect(page).to have_content "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address in a few minutes."
+      expect( ActionMailer::Base.deliveries ).to_not be_empty
+      message = ActionMailer::Base.deliveries.last
+      expect(message.subject).to eq("Confirmation instructions")
+      expect(message.to).to include(user.email)
+      link = message.body.raw_source.match(%r[href="http://localhost(?<url>.+?)">])[:url]
+      visit link
+      expect(page).to have_content "Your email address has been successfully confirmed."
     end
 
-    it { expect(page).to have_content('Link CCID credentials to account') }
+  end
+
+  describe 'existing users' do
+    let!(:user) { FactoryGirl.create :user, email: 'myself@testshib.org', ccid: 'myself@testshib.org' }
+    after :each do
+      cleanup_jetty
+    end
+    it 'should not be prompted to link account' do
+      visit '/users/sign_in'
+      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      expect(page).to_not have_content "Do you have an existing account?"
+      expect(page).to have_content "Successfully authenticated from Shibboleth account."
+      expect(current_path).to eq('/dashboard')
+    end
+  end
+
+  def new_account
+      expect(page).to have_content "Do you have an existing account?"
+      choose 'No'
+      expect { click_button 'Continue' }.to_not raise_error 
   end
 
   describe 'user associated with CCID' do

@@ -535,6 +535,7 @@ GEM
       json
       multipart-post
       oauth2
+    ruby-debug-passenger (0.2.0)
     ruby-rc4 (0.1.5)
     ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
@@ -720,6 +721,7 @@ DEPENDENCIES
   rsolr (~> 1.0.6)
   rspec-its
   rspec-rails
+  ruby-debug-passenger
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver

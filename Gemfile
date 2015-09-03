@@ -71,6 +71,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "rspec-its"
   gem "byebug"
+  gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"
   gem "capybara"
