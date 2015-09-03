@@ -91,4 +91,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def after_confirmation
+    if self.unconfirmed_ccid.present?
+      self.ccid = self.unconfirmed_ccid
+      self.unconfirmed_ccid = nil
+    end
+  end
+
 end

@@ -42,8 +42,11 @@ describe User do
   context "ccid user" do
     subject { FactoryGirl.create(:new_user) }
     it "need to confirm adding a ccid" do
-      subject.update_attribute(:ccid, 'myself@testshib.org')
-      expect { subject.send_reconfirmation_instructions }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { subject.update_attribute(:ccid, 'myself@testshib.org') }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(subject.confirmed?).to be_falsey
+      subject.confirm!
+      expect(subject.ccid).to eq 'myself@testshib.org'
+      expect(subject.confirmed?).to be_truthy
     end
     
   end
