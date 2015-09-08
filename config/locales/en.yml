@@ -21,7 +21,11 @@
 
 en:
   hello: "Hello world"
-  # for cancan from https://github.com/ryanb/cancan/wiki/exception-handling
+  error:
+    ccid_link:
+      invalid_email: 'The email account specified does not exist'
   unauthorized:
+    ccid_required: "Please sign in using your CCID"
+    # for cancan from https://github.com/ryanb/cancan/wiki/exception-handling
     manage:
       all: "Not authorized to %{action} %{subject}. Contact administrator for assistance."

@@ -57,6 +57,7 @@ end
 
 gem "devise"
 gem "devise-guests", "~> 0.3"
+gem "omniauth-shibboleth"
 
 # clamav ruby bindings
 gem "clamav"
@@ -69,6 +70,8 @@ group :development, :test do
   gem "byebug"
   gem "rspec-rails"
   gem "rspec-its"
+  gem "byebug"
+  gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"
   gem "capybara"
@@ -79,6 +82,8 @@ group :development, :test do
   gem "show_me_the_cookies"
   gem "brakeman"
   gem "ci_reporter_rspec"
-  gem 'pry'
-  gem 'pry-remote'
+  gem "pry"
+  gem "pry-remote"
+  gem "better_errors"
+  gem "binding_of_caller"
 end

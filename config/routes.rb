@@ -1,7 +1,7 @@
 Hydranorth::Application.routes.draw do
   
   blacklight_for :catalog
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => 'users/sessions',:omniauth_callbacks => "users/omniauth_callbacks" }
 
   Hydra::BatchEdit.add_routes(self)
 
@@ -19,6 +19,9 @@ Hydranorth::Application.routes.draw do
 
   get 'users/:id/lock_access' => 'users#lock_access', as: 'lock_access_user'
   get 'users/:id/unlock_access' => 'users#unlock_access', as: 'unlock_access_user'
+
+  get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
+  get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
 
   scope :dashboard do
 

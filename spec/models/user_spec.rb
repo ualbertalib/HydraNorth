@@ -3,6 +3,8 @@ require 'spec_helper'
 
 describe User do
 
+  before { ActionMailer::Base.deliveries = [] }
+
   context "standard new user" do
     subject { FactoryGirl.create(:new_user) }
     it { should be_valid}
@@ -35,6 +37,18 @@ describe User do
 
     expect(user.confirmed?).to be_truthy
 
+  end
+
+  context "ccid user" do
+    subject { FactoryGirl.create(:new_user) }
+    it "need to confirm adding a ccid" do
+      expect { subject.update_attribute(:ccid, 'myself@testshib.org') }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(subject.confirmed?).to be_falsey
+      subject.confirm!
+      expect(subject.ccid).to eq 'myself@testshib.org'
+      expect(subject.confirmed?).to be_truthy
+    end
+    
   end
 
   let(:user) { FactoryGirl.create(:user) }

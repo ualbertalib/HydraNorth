@@ -1,0 +1,9 @@
+<%= form_tag("/users/#{@user.to_param}/set_saml", method: "get") do %>
+  <%= label_tag(:email, 'Do you have an existing account?') %>
+  <%= radio_button_tag(:has_account, "no", checked = true) %>
+  <%= label_tag(:has_account_no, "No") %>
+  <%= radio_button_tag(:has_account, "yes") %>
+  <%= label_tag(:has_account_yes, "Yes") %>
+  <%= text_field(:user, :email, value: '') %> 
+  <%= submit_tag 'Continue' %>
+<% end %>
