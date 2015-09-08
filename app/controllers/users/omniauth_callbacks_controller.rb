@@ -3,6 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     auth = request.env['omniauth.auth']
     unless @current_user.present?
       @user = User.from_omniauth(auth).first
+      @user.associate_auth(auth) if @user && @user.ccid.nil?
       @user ||= User.create_from_omniauth(auth)
     else
       @user = @current_user

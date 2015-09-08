@@ -44,6 +44,22 @@ describe 'SAML' do
     end
     before(:each) { ActionMailer::Base.deliveries.clear }
 
+    context 'whose CCID and legacy address are identical' do
+      let(:user) { FactoryGirl.create :testshib }
+
+      it 'should automatically be associated with their CCID when logging in using it' do
+        sign_in_with_legacy_credentials(user)
+        visit sufia.edit_profile_path(user)
+        expect(page).to have_link('Link CCID credentials to account')
+        sign_out
+        sign_in_with_saml
+        visit sufia.edit_profile_path(user)
+        expect(page).not_to have_link('Link CCID credentials to account')
+        expect(page).to have_content('CCID credentials are linked to account')
+      end
+    end
+
+
     context 'logging in via SAML for the first time' do
 
       it 'should receive an email confirmation to link to their existing account' do
@@ -150,5 +166,9 @@ describe 'SAML' do
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
       click_button 'Log in'
+  end
+
+  def sign_out
+    click_link 'log out', match: :first
   end
 end
