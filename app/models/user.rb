@@ -6,8 +6,7 @@ class User < ActiveRecord::Base
 
 
   attr_accessible :email, :password, :password_confirmation if Rails::VERSION::MAJOR < 4
-
-# Connects this user object to Blacklights Bookmarks. 
+  # Connects this user object to Blacklights Bookmarks. 
   include Blacklight::User
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable,
@@ -19,7 +18,7 @@ class User < ActiveRecord::Base
                                          auth.uid, auth.uid, auth.uid, auth.provider).limit(1) }
 
   def self.create_from_omniauth(auth)
-    User.create(
+    create(
       email: auth.uid,
       password:Devise.friendly_token[0,20],
       should_force_link: true,
