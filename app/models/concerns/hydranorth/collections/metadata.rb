@@ -15,6 +15,9 @@ module Hydranorth::Collections
         index.as :stored_searchable
       end
 
+      property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
+        index.as :stored_searchable
+      end
 
     end
   end

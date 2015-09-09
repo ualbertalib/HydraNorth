@@ -37,6 +37,7 @@ describe GenericFile, :type => :model do
       expect(subject).to respond_to(:temporal)
       expect(subject).to respond_to(:spatial)
       expect(subject).to respond_to(:is_version_of)
+      expect(subject).to respond_to(:belongsToCommunity)
     end
 
   end
@@ -62,6 +63,7 @@ describe GenericFile, :type => :model do
   end
 
   describe "to_solr" do
+    let(:community) {FactoryGirl.create :collection}
     before do
       allow(subject).to receive(:id).and_return('stubbed_id')
       subject.part_of = ["Arabiana"]
@@ -85,6 +87,7 @@ describe GenericFile, :type => :model do
       subject.temporal = ["1200"]
       subject.fedora3uuid = "uuid:f18e0d92-9474-478d-b0e5-0b50c866dea3"
       subject.fedora3handle = "http://hdl.handle.net/10402/era.23258"
+      subject.belongsToCommunity = [community.id]
     end
 
     it "supports to_solr" do
@@ -112,6 +115,7 @@ describe GenericFile, :type => :model do
       expect(local[Solrizer.solr_name("temporal")]).to eq ["1200"]
       expect(local[Solrizer.solr_name("mime_type")]).to eq ["image/jpeg"]
       expect(local['all_text_timv']).to eq('abcxyz')
+      expect(local[Solrizer.solr_name('belongsToCommunity')]).to eq [community.id]
     end
   end
 

@@ -16,4 +16,5 @@ class UALTerms < RDF::Vocabulary("http://terms.library.library.ca/identifiers/")
   term :specialization
   term :graduationdate
   term :thesislevel
+  term :belongsToCommunity
 end

@@ -58,6 +58,11 @@ module Hydranorth
           index.as :symbol, :stored_searchable
         end
 
+      property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
+        index.as :stored_searchable
+      end
+
+
         begin
           LocalAuthority.register_vocabulary(self, "spatial", "geonames_cities")
         rescue
