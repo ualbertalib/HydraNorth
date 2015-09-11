@@ -27,8 +27,8 @@ Sufia.config do |config|
   config.resource_types = {
     "Book" => "Book",
     "Book Chapter" => "Book Chapter",
-    "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
-    "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
+    "Conference\/workshop Poster" => "Conference\/workshop Poster",
+    "Conference\/workshop Presentation" => "Conference\/workshop Presentation",
     "Dataset" => "Dataset", 
     "Image" => "Image",
     "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
@@ -42,8 +42,8 @@ Sufia.config do |config|
   config.resource_types_to_schema = {
     "Book" => "http://schema.org/Book",
     "Book Chapter" => "http://schema.org/Book",
-    "Conference\/Workshop Poster" => "http://schema.org/CreativeWork",
-    "Conference\/Workshop Presentation" => "http://schema.org/CreativeWork",
+    "Conference\/workshop Poster" => "http://schema.org/CreativeWork",
+    "Conference\/workshop Presentation" => "http://schema.org/CreativeWork",
     "Dataset" => "http://schema.org/Dataset",
     "Image" => "http://schema.org/ImageObject",
     "Journal Article (Draft-Submitted)" => "http://schema.org/Article",
@@ -58,8 +58,8 @@ Sufia.config do |config|
     "Book" => "Book",
     "Book Chapter" => "Book Chapter",
     "Computing Science Technical Report" => "Computing Science Technical Report",
-    "Conference\/Workshop Poster" => "Conference\/Workshop Poster",
-    "Conference\/Workshop Presentation" => "Conference\/Workshop Presentation",
+    "Conference\/workshop Poster" => "Conference\/workshop Poster",
+    "Conference\/workshop Presentation" => "Conference\/workshop Presentation",
     "Dataset" => "Dataset",
     "Image" => "Image",
     "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
@@ -89,8 +89,10 @@ Sufia.config do |config|
   # please run rake db:seed to create the collections and restart httpd. 
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
-  # config.cstr_collection_id = ""
-  # config.ser_collection_id = ""
+
+
+  config.cstr_collection_id = "q237hr920"
+  config.ser_collection_id = "8s45q876k"
   config.special_types = {
     "cstr" => "Computing Science Technical Report",
     "ser" => "Structural Engineering Report",

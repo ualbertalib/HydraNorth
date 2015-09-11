@@ -40,7 +40,7 @@ describe 'resource_types_list', :type => :feature do
     end
 
     it 'has admin resource list' do
-      expect(page).to have_select('generic_file_resource_type', :options => ["Book","Book Chapter", "Computing Science Technical Report", "Conference/Workshop Poster","Conference/Workshop Presentation", "Dataset", "Image", "Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review", "Structural Engineering Report", "Thesis"])
+      expect(page).to have_select('generic_file_resource_type', :options => ["Book","Book Chapter", "Computing Science Technical Report", "Conference/workshop Poster","Conference/workshop Presentation", "Dataset", "Image", "Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review", "Structural Engineering Report", "Thesis"])
     end
 
   end
@@ -55,7 +55,7 @@ describe 'resource_types_list', :type => :feature do
       end
     end
     it 'has regular resource list' do
-      expect(page).to have_select('generic_file_resource_type', :options => ["Book", "Book Chapter", "Conference/Workshop Poster", "Conference/Workshop Presentation", "Dataset", "Image","Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review"])
+      expect(page).to have_select('generic_file_resource_type', :options => ["Book", "Book Chapter", "Conference/workshop Poster", "Conference/workshop Presentation", "Dataset", "Image","Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review"])
 
     end
 

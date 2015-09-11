@@ -37,12 +37,12 @@
       <h3>Applies to all files just uploaded</h3>
       <% if current_user.admin? %>
          <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.admin_resource_types,
-          input_html: { class: 'form-control', multiple: true, required: true } %>
+          input_html: { class: 'form-control', required: true } %>
       <% else %>
         <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) || (@form[:resource_type].include? Sufia.config.special_types['ser']) %>
         <% else %>
           <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.resource_types,
-          input_html: { class: 'form-control', multiple: true, required: true } %>
+          input_html: { class: 'form-control', required: true } %>
         <% end %>
       <% end %>
       <%= f.input :language, as: :select, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
