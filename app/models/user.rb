@@ -1,20 +1,20 @@
 class User < ActiveRecord::Base
- # Connects this user object to Hydra behaviors. 
+ # Connects this user object to Hydra behaviors.
  include Hydra::User
  include Sufia::User
  include Sufia::UserUsageStats
 
 
   attr_accessible :email, :password, :password_confirmation if Rails::VERSION::MAJOR < 4
-  # Connects this user object to Blacklights Bookmarks. 
+  # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
   # Include default devise modules. Others available are:
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, 
+         :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable,
          :omniauthable, :omniauth_providers => [:shibboleth]
 
-  scope :from_omniauth, ->(auth){ where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)', 
+  scope :from_omniauth, ->(auth){ where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)',
                                          auth.uid, auth.uid, auth.uid, auth.provider).limit(1) }
 
   def self.create_from_omniauth(auth)
@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
 
   def valid_password?(password)
     return super unless self.legacy_password.present?
-    return false unless ((::Digest::MD5.hexdigest(password) == self.legacy_password) && 
-                         (password.length >= 8))
+    return false unless (legacy_password_is?(password) &&
+                        (password.length >= 8))
 
     self.password = password
     self.legacy_password = nil
@@ -78,6 +78,7 @@ class User < ActiveRecord::Base
       self.unconfirmed_ccid = self.ccid
       self.ccid = self.ccid_was
       self.confirmed_at = nil
+      send_confirmation_instructions
   end
 
   def associate_auth(auth)
@@ -96,11 +97,10 @@ class User < ActiveRecord::Base
       generate_confirmation_token!
     end
 
-    if pending_ccid_confirmation? 
+    if pending_ccid_confirmation?
       opts = { to: email }
       send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-    end
-    if @reconfirmation_required
+    elsif @reconfirmation_required
       super
     end
   end
@@ -111,6 +111,14 @@ class User < ActiveRecord::Base
       self.unconfirmed_ccid = nil
       save!
     end
+  end
+
+  private
+
+  def legacy_password_is?(str)
+    # the brcrypt engine overrides == to bcrypt the MD5 of the test str with
+    # the correct salt
+    BCrypt::Password.new(self.legacy_password) == ::Digest::MD5.hexdigest(str)
   end
 
 end

@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
@@ -20,7 +22,7 @@ FactoryGirl.define do
       email 'archivist1@example.com'
     end
 
-    factory :admin do 
+    factory :admin do
       email 'admin@example.com'
       group_list 'admin'
     end
@@ -52,7 +54,7 @@ FactoryGirl.define do
       email 'curator1@example.com'
     end
 
-    
+
     factory :new_user do
       email            'new_user@example.com'
       password         "123456789"
@@ -60,8 +62,8 @@ FactoryGirl.define do
 
     factory :legacy_user, :class => 'User' do
       email             'legacy_user@example.com'
-      password          Digest::MD5.hexdigest("123456789")
-      legacy_password   Digest::MD5.hexdigest("123456789")   
+      password          BCrypt::Password.create(Digest::MD5.hexdigest("123456789"))
+      legacy_password   BCrypt::Password.create(Digest::MD5.hexdigest("123456789"))
     end
 
   end

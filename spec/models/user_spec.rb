@@ -8,12 +8,27 @@ describe User do
   context "standard new user" do
     subject { FactoryGirl.create(:new_user) }
     it { should be_valid}
+
+    it 'should reject invalid passwords' do
+      expect(subject.valid_password?('asdfkaslfjasldkjf')).to be(false)
+    end
+
+    it 'should accept valid passwords' do
+      expect(subject.valid_password?('123456789')).to be(true)
+    end
   end
+
+
   context "legacy user" do
     subject { FactoryGirl.create(:legacy_user) }
     it { should be_valid}
     its(:legacy_password) { should_not be_nil }
     describe "#valid_password?" do
+
+      it 'should reject invalid legacy passwords' do
+        subject.valid_password?('12345678')
+      end
+
       it "converts legacy password" do
         old_password = subject.legacy_password
         old_encrypted_password = subject.encrypted_password
@@ -30,7 +45,7 @@ describe User do
       :password => "devisetest",
       :password_confirmation => "devisetest",
     })
-      
+
     expect(user.confirmed?).to be_falsey
 
     user.confirm!
@@ -41,14 +56,15 @@ describe User do
 
   context "ccid user" do
     subject { FactoryGirl.create(:new_user) }
-    it "need to confirm adding a ccid" do
-      expect { subject.update_attribute(:ccid, 'myself@testshib.org') }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    it "should need to confirm adding a ccid" do
+      subject.ccid = 'myself@testshib.org'
+      expect { subject.confirm_ccid! }.to change { ActionMailer::Base.deliveries.count }.by(1)
       expect(subject.confirmed?).to be_falsey
       subject.confirm!
       expect(subject.ccid).to eq 'myself@testshib.org'
       expect(subject.confirmed?).to be_truthy
     end
-    
+
   end
 
   let(:user) { FactoryGirl.create(:user) }
@@ -58,4 +74,4 @@ describe User do
     user.unlock_access!
     expect(user.access_locked?).to be_falsey
   end
-end 
+end
