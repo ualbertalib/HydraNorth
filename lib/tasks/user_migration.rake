@@ -3,7 +3,7 @@ require './lib/tasks/migration/migration_logger'
 namespace :migration do
   desc "migrate users from era to hydranorth"
   task :user_migration, [:user_file] => :environment do |t, args|
-    begin 
+    begin
       MigrationLogger.info "***************START: User Migration ***************"
       user_mysql_file = args.user_file
       if File.exists?(user_mysql_file) && File.file?(user_mysql_file)
@@ -40,12 +40,14 @@ namespace :migration do
           MigrationLogger.info "Migrate user #{id}: #{username}"
           if !User.find_by_user_key(email)
 
+            hashed_legacy_password = BCrypt::Password.create(password)
+
             user=User.new({
               :first_name => first_name,
               :last_name => last_name,
               :username => username,
-              :password => password,
-              :password_confirmation => password,
+              :password => hashed_legacy_password,
+              :password_confirmation => hashed_legacy_password,
               :display_name => display_name,
               :email => email,
               :ccid => ccid,
@@ -55,14 +57,14 @@ namespace :migration do
               :telephone => telephone,
               :fax => fax,
               :website => website,
-              :legacy_password => password,
+              :legacy_password => hashed_legacy_password,
               :confirmed_at => Time.now
-              }) 
+              })
             MigrationLogger.info "User #{username} migrated successfully"
-            user.skip_confirmation! 
+            user.skip_confirmation!
             user.save!
           end
-          if User.find_by_user_key(email) 
+          if User.find_by_user_key(email)
             MigrationLogger.info "User #{id} #{username} is migrated successfully"
           else
             MigrationLogger.info "FAILED: User #{id} #{username} has not migrated."
@@ -75,7 +77,7 @@ namespace :migration do
           puts e.backtrace.inspect
           MigrationLogger.error "#{$!}, #{$@}"
           next
-        end  
+        end
       end
     end
   end
