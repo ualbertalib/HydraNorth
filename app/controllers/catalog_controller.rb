@@ -101,6 +101,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("trid", :stored_searchable), label: "CS Technical Report ID"
     config.add_show_field solr_name("ser", :stored_searchable), label: "Structural Engineering Report ID"
     config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
+    config.add_show_field solr_name("fedora3uuid", :stored_searchable), label: "UUID"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
