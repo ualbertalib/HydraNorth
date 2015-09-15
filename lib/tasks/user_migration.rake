@@ -46,8 +46,11 @@ namespace :migration do
               :first_name => first_name,
               :last_name => last_name,
               :username => username,
-              :password => hashed_legacy_password,
-              :password_confirmation => hashed_legacy_password,
+              # HACK save the hash as a password (which, itself, gets rehashed)
+              # just to give them some kind of regular devise password until
+              # the user has gone through the legacy upgrade process
+              :password => hashed_legacy_password.to_s,
+              :password_confirmation => hashed_legacy_password.to_s,
               :display_name => display_name,
               :email => email,
               :ccid => ccid,
