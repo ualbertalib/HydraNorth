@@ -312,11 +312,11 @@ namespace :migration do
             end
           end
 
-          if Dir["#{TEMP}/#{uuid}/*"].count { |file| File.file?(file) } > 1
+          if Dir["#{TEMP}/#{uuid}/*"].reject{ |license| license["#{TEMP}/#{uuid}/LICENSE"]}.count { |file| File.file?(file) } > 1
             MigrationLogger.info "This object contains more than one DS datastreams"
             MigrationLogger.info "Creating zip file from all download files."
             file_full = "#{TEMP}/#{uuid}.zip"
-            system "cd #{TEMP} && zip -r #{uuid}.zip #{uuid}"
+            system "cd #{TEMP} && zip -r #{uuid}.zip #{uuid} -x #{uuid}/LICENSE"
             MigrationLogger.info "Removing downloaded individual files."
             system "rm -rf #{TEMP}/#{uuid}"
             original_filename = File.basename(file_full)
