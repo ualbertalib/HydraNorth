@@ -18,6 +18,12 @@ FactoryGirl.define do
       email 'dit.application.test@ualberta.ca'
     end
 
+    factory :ccid do
+      email 'ccid.having.person@example.com'
+      ccid 'ccid'
+      provider 'shibboleth'
+    end
+
     factory :testshib do
       email 'myself@testshib.org'
     end

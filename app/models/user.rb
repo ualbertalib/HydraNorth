@@ -113,6 +113,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def institutionally_authenticated?
+    self.provider.present? && self.ccid.present?
+  end
+
+  def authenticating_institution
+    # TODO this logic should be more generic and robust
+    # but for now, assume user authenticated via the institution in their provider
+    # field, if present. (this will be strictly true for UofA users as we force
+    # them to CCID authenticate once they are associated)
+    institutionally_authenticated? ? Hydranorth::AccessControls::InstitutionalVisibility::INSTITUTIONAL_PROVIDER_MAPPING[self.provider] : nil
+  end
+
   private
 
   def legacy_password_is?(str)

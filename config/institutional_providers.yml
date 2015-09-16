@@ -1,0 +1,4 @@
+# maps provider value on user to logical institutional group name
+
+---
+  shibboleth: 'university_of_alberta'

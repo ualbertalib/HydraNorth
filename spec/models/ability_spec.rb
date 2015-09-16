@@ -4,14 +4,36 @@ require 'cancan/matchers'
 
 describe Ability, :type => :model do
   let(:user) { FactoryGirl.find_or_create(:jill) }
-  let (:file) {GenericFile.new.tap do |gf|
-                  gf.apply_depositor_metadata(user)
-                  gf.save!
-               end}
-  let (:collection) { Collection.new( title: "test collection").tap do |c|
-                        c.apply_depositor_metadata(user)
-                        c.save!
-                      end }
+  let(:user2) { FactoryGirl.find_or_create(:dit)}
+  let (:file) do
+    GenericFile.new.tap do |gf|
+      gf.apply_depositor_metadata(user)
+      gf.save!
+    end
+  end
+  let (:collection) do
+    Collection.new( title: "test collection").tap do |c|
+      c.apply_depositor_metadata(user)
+      c.save!
+    end
+  end
+
+  let (:restricted_file) do
+    GenericFile.new.tap do |gf|
+      gf.apply_depositor_metadata(user2)
+      gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
+      gf.save!
+    end
+  end
+
+  let (:institutionally_restricted_file) do
+    GenericFile.new.tap do |gf|
+      gf.apply_depositor_metadata(user2)
+      gf.visibility = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
+      gf.save!
+    end
+  end
+
   after do
     cleanup_jetty
   end
@@ -32,6 +54,9 @@ describe Ability, :type => :model do
 
     it { is_expected.not_to be_able_to(:create, TinymceAsset) }
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
+
+    it {is_expected.not_to be_able_to(:download, restricted_file) }
+    it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
   end
 
   describe "a registered user" do
@@ -48,6 +73,17 @@ describe Ability, :type => :model do
 
     it { is_expected.not_to be_able_to(:create, TinymceAsset) }
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
+
+    it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
+  end
+
+  describe 'a CCID authenticated user' do
+    let(:ccid_user) { FactoryGirl.find_or_create(:ccid) }
+    subject { Ability.new(ccid_user) }
+
+    it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
   end
 
   describe "a user in the admin group" do
@@ -71,5 +107,10 @@ describe Ability, :type => :model do
 
     it { is_expected.to be_able_to(:create, TinymceAsset) }
     it { is_expected.to be_able_to(:update, ContentBlock) }
+
+    it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
+
   end
+
 end

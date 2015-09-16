@@ -119,4 +119,11 @@ describe GenericFile, :type => :model do
     end
   end
 
+
+  describe 'visibility' do
+    it 'should include institutional visibility' do
+      expect(GenericFile.included_modules.include? Hydranorth::AccessControls::InstitutionalVisibility).to be true
+    end
+  end
+
 end
