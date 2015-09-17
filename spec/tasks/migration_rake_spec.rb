@@ -52,6 +52,7 @@ describe "Migration rake tasks" do
     it "item should have the license file content as rights statement" do
       expect(subject.license).to eq "I am required to use/link to a publisher's license"
       expect(subject.rights).to eq "This material is provided under educational reproduction permissions included in Alberta Agriculture and Rural Development’s Copyright and Disclosure Statement; see terms at agriculture.alberta.ca/copyright. This Statement requires the following identification: The source of the materials is Alberta Agriculture and Rural Development, www.agriculture.alberta.ca. The use of these materials by the end user is done without any affiliation with or endorsement by the Government of Alberta. Reliance upon the end user's use of these materials is at the risk of the end user."
+      expect(subject.label).to_not eq "uuid:488e5517-ace7-4cda-8196-f29f853711c8.zip"
     end
   end
 
