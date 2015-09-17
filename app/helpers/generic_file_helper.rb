@@ -11,14 +11,18 @@ module GenericFileHelper
 
   def render_download_icon title = nil
     if title.nil?
-      link_to download_image_tag, sufia.download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
+      link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
     else
-      link_to (download_image_tag(title) + title), sufia.download_path(@generic_file), { target: "_blank", title: title, id: "file_download", data: { label: @generic_file.id } }
+      link_to (download_image_tag(title) + title), download_path(@generic_file), { target: "_blank", title: title, id: "file_download", data: { label: @generic_file.id } }
     end
   end
 
   def render_download_link text = nil
-    link_to (text || "Download"), sufia.download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
+    link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
+  end
+
+  def download_path gf
+    GenericFile.find(gf.id).doi_url || sufia.download_path(gf.id)
   end
 
   def render_collection_list gf
@@ -37,7 +41,7 @@ module GenericFileHelper
     if title.nil?
       image_tag "default.png", { alt: "No preview available", class: "img-responsive" }
     else
-      image_tag sufia.download_path(@generic_file, file: 'thumbnail'), { class: "img-responsive", alt: "#{title} of #{@generic_file.title.first}" }
+      image_tag download_path(@generic_file, file: 'thumbnail'), { class: "img-responsive", alt: "#{title} of #{@generic_file.title.first}" }
     end
   end
 
