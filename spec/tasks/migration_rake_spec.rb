@@ -86,6 +86,21 @@ describe "Migration rake tasks" do
     end
   end
 
+  describe "migration:eraitem - dark item" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/darkitem-metadata')
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+    end
+    subject { GenericFile.last }
+    it "item should have private visibility" do
+      expect(subject.visibility).to eq "restricted"
+    end
+  end
+
   describe "migration:era_collection_community - community" do
     before do
       Rake::Task.define_task(:environment)

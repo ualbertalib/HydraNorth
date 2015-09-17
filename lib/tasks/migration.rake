@@ -404,6 +404,7 @@ namespace :migration do
       communities = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
       user = relsext_version.at_xpath("userns:userId", NS).text() if relsext_version.at_xpath("userns:userId", NS)
       submitter = relsext_version.at_xpath("userns:submitterId", NS).text() if relsext_version.at_xpath("userns:submitterId", NS)
+      is_part_of = relsext_version.xpath("memberof:isPartOf/@rdf:resource", NS).text() if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", NS)
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
@@ -429,7 +430,7 @@ namespace :migration do
         MigrationLogger.warn "Depositor for this item was not migrated successfully"
         depositor = User.new({
                :username => depositor_id,
-               :email => depositor_id + "@hydranorth.ca",
+               :email => depositor_id + "@ualberta.ca",
                :password => "reset_password",
                :password_confirmation => "reset_password",
                :group_list => "regular",
@@ -491,7 +492,11 @@ namespace :migration do
       puts file_attributes 
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
-      @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+      if (is_part_of == "info:fedora/ir:DARK_REPOSITORY")
+        @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      else
+        @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+      end
       if !permissions_attributes.blank?
         @generic_file.permissions_attributes = permissions_attributes
       end
