@@ -430,7 +430,7 @@ namespace :migration do
         MigrationLogger.warn "Depositor for this item was not migrated successfully"
         depositor = User.new({
                :username => depositor_id,
-               :email => depositor_id + "@ualberta.ca",
+               :email => depositor_id + "@hydranorth.ca",
                :password => "reset_password",
                :password_confirmation => "reset_password",
                :group_list => "regular",
