@@ -1,7 +1,5 @@
-require 'linkable'
-
 module ApplicationHelper
-  include Linkable
+  include ::LinkUtils
 
   def visibility_options(variant)
       options = [
