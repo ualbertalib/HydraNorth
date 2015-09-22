@@ -6,5 +6,6 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::Thesis::Metadata
   include Hydranorth::GenericFile::Export
   include Hydranorth::GenericFile::Fedora3Foxml
+  include Hydranorth::GenericFile::DOI
 
 end

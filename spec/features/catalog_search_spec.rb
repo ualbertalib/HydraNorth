@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'search_helper'
 
 describe 'catalog searching', :type => :feature do
+  include SearchHelper
 
   before(:all) do
     @gfP = GenericFile.new.tap do |f|
@@ -99,13 +101,6 @@ describe 'catalog searching', :type => :feature do
     expect(page).to_not have_content(@gfQ.title.first)
     expect(page).to have_content(@gfR.title.first)
     expect(page).to_not have_content(@gfS.title.first) 
-  end
-
-  def search(query="") 
-    within('#slide1') do
-      fill_in('search-field-header', with: query) 
-      click_button("Search ERA")
-    end
   end
 
 end
