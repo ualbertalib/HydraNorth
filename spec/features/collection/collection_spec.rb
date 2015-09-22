@@ -18,6 +18,43 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
 
+  describe 'total item count for a collection with 1 public item and 1 private item' do
+    let(:alice) { FactoryGirl.create(:alice) }
+
+    let!(:public_file) do
+      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
+        g.apply_depositor_metadata(jill.user_key)
+      end
+    end
+    let!(:private_file) do
+      GenericFile.create( title: ['Test Item 2'], read_groups: [] ) do |g|
+        g.apply_depositor_metadata(jill.user_key)
+      end
+    end
+    let!(:mixed_visibility_collection) do
+      Collection.create( title: 'Test Collection', members: [public_file, private_file] ) do |c|
+        c.apply_depositor_metadata(jill.user_key)
+      end
+    end
+
+    it "should be 2 when viewed by Jill, who owns the private item" do
+      sign_in jill
+      visit "/collections/#{mixed_visibility_collection.id}"
+      item_count_node = page.find(:xpath, "//span[@itemprop='total_items']")
+      expect(item_count_node).not_to be nil
+      expect(item_count_node.text).to eq "2"
+    end
+
+    it "should be 1 when viewed by Alice, who doesn't own the private item" do
+      sign_in alice
+      visit "/collections/#{mixed_visibility_collection.id}"
+      item_count_node = page.find(:xpath, "//span[@itemprop='total_items']")
+      expect(item_count_node).not_to be nil
+      expect(item_count_node.text).to eq "1"
+    end
+
+  end
+
   describe 'delete collection' do
     let!(:collection_delete) do
       Collection.create( title: 'Test Collection') do |c|
@@ -83,7 +120,7 @@ describe 'collection', :type => :feature do
     it "should not show a theses collection" do
       expect(page).to_not have_content("Theses")
     end
-  end	
+  end
 
   it { expect { visit "/collections/#{collection.id}" }.to_not raise_error }
 
@@ -106,7 +143,7 @@ describe 'collection', :type => :feature do
       expect(page).to have_content("Title 0")
       expect(current_path).to eq '/dashboard/collections'
       click_link('Next')
-      expect(page.status_code).to be 200    
+      expect(page.status_code).to be 200
       expect(page).to have_content("My Collections")
       expect(page).to have_content("Title 11")
       expect(current_path).to eq '/dashboard/collections/page/2'
@@ -116,7 +153,7 @@ describe 'collection', :type => :feature do
       expect(current_path).to eq '/dashboard/collections'
     end
   end
- 
+
   describe 'delete items from collection', :js => true do
     let!(:collection_modify) do
       Collection.create( title: 'Test Collection') do |c|
@@ -145,7 +182,7 @@ describe 'collection', :type => :feature do
       click_button('Remove from Collection')
       expect(page).not_to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
     end
- 
+
   end
 
   describe 'check collection for drop down menu options' do
@@ -166,7 +203,7 @@ describe 'collection', :type => :feature do
 
     it "should not see edit and delete options" do
       click_button("Select an action")
-      
+
       expect(page).to have_content("Test Item")
       expect(page).to have_content("Download File")
       expect(page).not_to have_content("Edit File")
@@ -182,7 +219,7 @@ describe 'collection', :type => :feature do
     end
 
     it "should have the collection creation page" do
-      expect(page).to have_content 'Create New Collection' 
+      expect(page).to have_content 'Create New Collection'
     end
 
     it "should have a multivalue creator field" do

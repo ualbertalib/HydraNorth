@@ -10,6 +10,10 @@ FactoryGirl.define do
       email 'jilluser@example.com'
     end
 
+    factory :alice do
+      email 'aliceuser@example.com'
+    end
+
     factory :dit do
       email 'dit.application.test@ualberta.ca'
     end

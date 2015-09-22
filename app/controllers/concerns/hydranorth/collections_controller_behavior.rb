@@ -7,12 +7,21 @@ module Hydranorth
       if current_user && current_user.admin?
         self.search_params_logic -= [:add_access_controls_to_solr_params]
       end
-    
+
       super
       presenter
     end
 
     protected
+
+    # override Sufia::CollectionsControllerBehavior#presenter to establish
+    # a link between the presenter and the view context in which it will
+    # present
+    def presenter
+      @presenter ||= presenter_class.new(@collection).tap do |p|
+        p.render_context = view_context
+      end
+    end
 
     def presenter_class
       Hydranorth::CollectionPresenter
@@ -22,7 +31,6 @@ module Hydranorth
       params.require(:collection).permit(:title, :description, :license, :members, part_of: [],
         creator: [], date_created: [], subject: [],
         rights: [], resource_type: [], identifier: [])
-       
     end
 
     def form_class

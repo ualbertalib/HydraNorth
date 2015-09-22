@@ -83,7 +83,7 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    autoprefixer-rails (6.0.0)
+    autoprefixer-rails (6.0.3)
       execjs
       json
     bcp47 (0.3.3)
@@ -138,7 +138,8 @@ GEM
       sass-rails
       skydrive
     builder (3.2.2)
-    byebug (6.0.2)
+    byebug (5.0.0)
+      columnize (= 0.9.0)
     cancancan (1.12.0)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -171,6 +172,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    columnize (0.9.0)
     daemons (1.2.3)
     database_cleaner (1.5.0)
     debug_inspector (0.0.2)
@@ -231,7 +233,7 @@ GEM
       tilt
     hashery (2.1.1)
     hashie (3.4.2)
-    highline (1.7.3)
+    highline (1.7.6)
     htmlentities (4.3.4)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -344,7 +346,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mimemagic (0.3.0)
-    mini_magick (4.3.1)
+    mini_magick (4.3.3)
     mini_portile (0.6.2)
     minitest (5.8.0)
     mono_logger (1.1.0)
@@ -399,6 +401,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.2.0)
+      byebug (~> 5.0)
+      pry (~> 0.10)
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
@@ -604,7 +609,7 @@ GEM
       rdf (~> 1.1)
     sprockets (3.3.4)
       rack (~> 1.0)
-    sprockets-rails (2.3.2)
+    sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -656,7 +661,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    tinymce-rails (4.2.4)
+    tinymce-rails (4.2.5)
       railties (>= 3.1.1)
     tinymce-rails-imageupload (4.0.16.beta)
       railties (>= 3.2, < 5)
@@ -710,12 +715,13 @@ DEPENDENCIES
   jettywrapper
   jquery-rails
   kaminari!
-  mysql2
+  mysql2 (~> 0.3.2)
   noid (~> 0.8)
   omniauth-shibboleth
   pdf-reader
   poltergeist (~> 1.5)
   pry
+  pry-byebug
   pry-remote
   rails (= 4.2.3)
   rsolr (~> 1.0.6)
