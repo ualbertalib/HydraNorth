@@ -6,7 +6,7 @@ gem 'activerecord-session_store'
 # Avoid cannot load such file -- google/api_client
 gem 'google-api-client', '~> 0.7.1'
 
-gem 'sufia', '~> 6.2.0' 
+gem 'sufia', '~> 6.2.0'
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 
@@ -14,7 +14,7 @@ gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 gem 'rails', '4.2.3'
 
 # Use mysql as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -70,7 +70,6 @@ group :development, :test do
   gem "byebug"
   gem "rspec-rails"
   gem "rspec-its"
-  gem "byebug"
   gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"
@@ -84,6 +83,7 @@ group :development, :test do
   gem "ci_reporter_rspec"
   gem "pry"
   gem "pry-remote"
+  gem 'pry-byebug'
   gem "better_errors"
   gem "binding_of_caller"
 end

@@ -22,7 +22,6 @@ module Hydranorth
       end
 
       def create_metadata_with_resource_type(batch_id, resource_type)
-
         if resource_type
           generic_file.resource_type = [resource_type]
         else

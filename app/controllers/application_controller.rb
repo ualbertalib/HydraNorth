@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :force_account_link, 
                 if: -> { @current_user && @current_user.link_pending? }
 
+
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || sufia.dashboard_index_path || root_path
   end
