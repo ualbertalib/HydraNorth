@@ -1,14 +1,7 @@
-<div class="controls">
-  <div style="float: left; margin-right: 1em;">
-<%= label_tag :resource_type, 'Are you uploading a Computing Science Technical Report? yes' %>
-  <%= radio_button_tag :resource_type, 'Computing Science Technical Report' %>
-<%= button_tag "Clear", class: 'btn cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
-<br/>
-  <%= label_tag :resource_type, 'Are you uploading a Structural Engineering Report? yes' %>
-  <%= radio_button_tag :resource_type, 'Structural Engineering Report' %>
-<%= button_tag "Clear", class: 'btn cancel reset-special-reports', id: 'reset-special-reports', name: "reset-special-reports", onclick: "confirmation_needed = false;", type: :reset %>  
-  </div>
-<div>
-</div>
 
-</div>
+<h4>Special File Types</h4>
+  	<p><%= radio_button_tag :resource_type, 'null', :checked=>'checked' %> I <strong>am not</strong> uploading a <em>Computing Science Technical Report</em> or a <em>Structural Engineering Report</em>. </p>
+  	<p><%= radio_button_tag :resource_type, 'Computing Science Technical Report' %> I <strong>am</strong> uploading a <em>Computing Science Technical Report</em></p>
+  	<p><%= radio_button_tag :resource_type, 'Structural Engineering Report' %> I <strong>am</strong> uploading a <em>Structural Engineering Report</em></p>
+
+

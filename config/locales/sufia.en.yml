@@ -61,11 +61,14 @@ en:
       no_public:            'No public work has been contributed.'
     dashboard:
       title:                    "My Dashboard"
+      dashboard_home:           "Dashboard Home"
       greeting:                 "Hello, "
       upload:                   "Upload"
       create_collection:        "Create Collection"
       my_collections:           "My Collections"
       my_files:                 "My Files"
+      my_files_&_collections:   "My Files & Collections"
+      my_profile:               "My Profile"
       view_collections:         "View Collections"
       view_files:               "View Files"
       user_activity:            "User Activity"
@@ -78,6 +81,7 @@ en:
       transfer_files_link:      "Select files to transfer"
       no_transfer_requests:     "You haven't received any file transfer requests"
       no_transfers:             "You haven't transferred any files"
+      upload_files:             "Upload Files"
       stats:
         heading:            "Your Statistics"
         files:              "Files you've deposited"

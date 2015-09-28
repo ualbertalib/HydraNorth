@@ -78,7 +78,7 @@ describe 'SAML' do
 
         sign_in_with_saml
         expect(page).to have_content I18n.t('devise.failure.unconfirmed')
-        expect(page).to have_content "Login"
+        expect(page).to have_content I18n.t('sufia.sign_in') 
 
         link = message.body.raw_source.match(%r[href="http://localhost(?<url>.+?)">])[:url]
         visit link
@@ -165,7 +165,7 @@ describe 'SAML' do
       visit '/users/sign_in'
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button 'Log in'
+      click_button I18n.t('sufia.sign_in') 
   end
 
   def sign_out

@@ -1,7 +1,8 @@
 <div class="row">
-Please read and agree to the <a href='/agreement/' target="_blank"><%= t('sufia.deposit_agreement') %></a> before you begin.
+  <h3 class="step">Step One - Read and Accept Deposit Agreement</h3>
+
 </div>
-<div class="well">
+<div class="well agree">
 <div class="agreement-text" id="agreement-text-<%= tab %>">
 <h3 style="margin-top: 0">University of Alberta ERA Deposit and Distribution Agreement</h3>
 <%= render partial: "static/agreement" %>
@@ -14,7 +15,7 @@ $("#unfold-agreement-<%= tab %>").click(function() {
     var agr = $("#agreement-text-<%= tab %>");
     var btn = $("#unfold-agreement-<%= tab %>");
     if (agr.hasClass('unfolded')) {
-      agr.removeClass('unfolded').height("100px");
+      agr.removeClass('unfolded').height("180px");
       btn.html("Read more");
     }
     else {

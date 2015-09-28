@@ -9,6 +9,7 @@ gem 'google-api-client', '~> 0.7.1'
 gem 'sufia', '~> 6.2.0'
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
+gem 'rdf-turtle', '1.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

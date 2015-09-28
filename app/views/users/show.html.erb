@@ -1,0 +1,22 @@
+<%= javascript_tag do %>
+<% end %>
+<%= content_for :heading do %>
+    
+    <%= render partial: "dashboard/_index_partials/heading_greetings", locals: { title: "My Profile" } %>
+
+    <%= render partial: "dashboard/_index_partials/heading_actions" %>
+
+<% end %>
+ <%= yield :heading %>
+<div class="col-xs-12 profile">
+  <div class="pull-right">
+    <%= render 'profile_actions' %>
+  </div>
+  <span class="col-xs-3">
+    <%= render 'left_sidebar' %>
+  </span>
+  <!-- right col -->
+  <span class="col-xs-9">
+    <%= render 'profile_tabs' %>
+  </span>
+</div>
