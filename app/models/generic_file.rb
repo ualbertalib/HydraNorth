@@ -1,7 +1,6 @@
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
-  include Hydra::AccessControls::Embargoable
-  include Hydra::AccessControls::WithAccessRight
+  include Hydranorth::AccessControls::InstitutionalVisibility
   include Hydranorth::GenericFile::Metadata
   include Hydranorth::Thesis::Metadata
   include Hydranorth::GenericFile::Export

@@ -29,7 +29,7 @@ Sufia.config do |config|
     "Book Chapter" => "Book Chapter",
     "Conference\/workshop Poster" => "Conference\/workshop Poster",
     "Conference\/workshop Presentation" => "Conference\/workshop Presentation",
-    "Dataset" => "Dataset", 
+    "Dataset" => "Dataset",
     "Image" => "Image",
     "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
     "Journal Article (Published)" => "Journal Article (Published)",
@@ -86,7 +86,7 @@ Sufia.config do |config|
     "Other" => "other",
   }
 
-  # please run rake db:seed to create the collections and restart httpd. 
+  # please run rake db:seed to create the collections and restart httpd.
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
   # config.cstr_collection_id = ""
@@ -96,7 +96,7 @@ Sufia.config do |config|
     "ser" => "Structural Engineering Report",
     "thesis" => "Thesis",
   }
- 
+
   config.permission_levels = {
     "Choose Access"=>"none",
     "View/Download" => "read",
@@ -122,11 +122,11 @@ Sufia.config do |config|
     "Master of Music" => "Master of Music",
     "Master of Nursing" => "Master of Nursing",
     "Master of Science" => "Master of Science",
-    "Doctor of Education" => "Doctor of Education", 
+    "Doctor of Education" => "Doctor of Education",
     "Doctor of Music" => "Doctor of Music",
     "Doctor of Philosophy" => "Doctor of Philosophy",
   }
-  
+
   config.departments = {
 
     "Centre for Health Promotion Studies" => "Centre for Health Promotion Studies",
@@ -259,7 +259,7 @@ Sufia.config do |config|
 
   # Specify a different template for your repository's NOID IDs
   # config.noid_template = ".reeddeeddk"
-  
+
   # Specify the path to the minter-state file
   config.minter_statefile = "tmp/minter-state"
 
@@ -300,3 +300,31 @@ Sufia.config do |config|
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
+
+# Gross, but for the time being we need to monkeypatch a few parts of Sufia to stop it from making very specific assumptions
+# about all registered access being institutional. Ideally we can make this more modular and pull it back  -- MB
+module SufiaHelper
+  def render_visibility_label(document)
+    if document.respond_to?(:institutional_access?) && document.institutional_access?
+      content_tag :span, t('sufia.institution_name'), class: "label label-info", title: t('sufia.institution_name')
+    elsif document.registered?
+      content_tag :span, t('sufia.visibility.registered'), class: "label label-info", title: 'Authenticated Access'
+    elsif document.public?
+      content_tag :span, t('sufia.visibility.open'), class: "label label-success", title: t('sufia.visibility.open_title_attr')
+    else
+      content_tag :span, t('sufia.visibility.private'), class: "label label-danger", title: t('sufia.visibility.private_title_attr')
+    end
+  end
+end
+
+# monkeypatch an institutional_visibility predicate onto the low-level permissions predicates
+# that Sufia adds to SolrDocuments
+module Sufia
+  module Permissions
+    module Readable
+      def institutional_access?
+        (read_groups & Hydranorth::AccessControls::InstitutionalVisibility::INSTITUTIONAL_PROVIDERS).present?
+      end
+    end
+  end
+end

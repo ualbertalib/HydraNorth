@@ -28,7 +28,7 @@
   <td class="text-center">
     <a href="<%= sufia.generic_file_path(document) %>/edit/?tab=permissions" id="permission_<%= id %>" class="visibility-link">
       <% if document.registered? %>
-        <span class="label label-info" title="<%= t('sufia.institution_name') %>"><%= t('sufia.institution_name') %></span>
+        <span class='label label-info'>Authenticated Access</span>
       <% elsif document.public? %>
         <span class="label label-success" title="Open Access">Open Access</span>
       <% else %>

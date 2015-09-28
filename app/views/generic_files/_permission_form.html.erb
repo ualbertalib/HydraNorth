@@ -28,7 +28,10 @@
   </li>
   <li>
     <label>
-      <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if gf.authenticated_only_access? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible to all <%=t('sufia.institution_name') %> users.
+      <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if gf.authenticated_only_access? %> checked="true"<% end %> /><span class="label label-info">Authenticated Access</span> Visible to all registered users.
+    </label><br>
+    <label>
+      <input type="radio" id="visibility_uofa" name="visibility" value="<%=Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA %>" <% if gf.institutional_access? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible to all <%=t('sufia.institution_name') %> users.
     </label>
   </li>
   <li class="embargo">
@@ -42,8 +45,8 @@
         <label for="visibility_after_embargo"> then </label>
         <%= select_tag "visibility_after_embargo", options_for_select(visibility_options(:loosen), selected: gf.visibility_after_embargo) %>
        </div>
-  </label>
-   </li>
+    </label>
+  </li>
   <li>
     <label>
       <input type="radio" id="visibility_restricted" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>"<% if gf.private_access? %> checked="true"<% end %> /> <span class="label label-danger">Private</span> Visible to users specified below, if any.
