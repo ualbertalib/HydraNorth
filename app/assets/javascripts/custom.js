@@ -124,4 +124,10 @@ $(document).ready(function(){
       window.location.reload(true);
   }
 
+  $( ".btn-noccid" ).click(function() {
+    $( "#era-login" ).slideToggle( "slow", function() {
+    // Animation complete.
+  });
+});
+
 });

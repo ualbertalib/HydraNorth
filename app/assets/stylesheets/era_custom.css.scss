@@ -141,6 +141,23 @@ body.home h4{
 .login_button {
   margin: 0 0 0 0;
 }
+.main a.btn-ccid, .main a.btn-noccid{
+	color: #fff;
+	font-size: 26px;
+	font-weight: bold;
+	display: block;
+	margin-top: 30px;
+}
+.main a.btn-ccid:active, .main a.btn-noccid:active, .main a.btn-ccid:focus, .main a.btn-noccid:focus{
+	color: #333;
+}
+.main a.btn-noccid{
+	font-size: 22px;
+}
+#era-login{
+	display: none;
+	background-color: #efefef;
+}
 .user-util{
 	text-align: right;
 	padding-left: 0px;
