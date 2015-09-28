@@ -36,7 +36,7 @@ $(document).ready(function(){
                                 $("#generic_file_rights").focus();
   			}
   			else {
-                                $('label[for="generic_file_rights"]').hide();
+            $('label[for="generic_file_rights"]').hide();
     				$("#generic_file_rights").hide();
     				$("#generic_file_rights").val("");
   			}
@@ -103,4 +103,25 @@ $(document).ready(function(){
       		this.href = this.href.replace('browse', 'catalog');
    		});
    	}
+
+ $('#terms_of_service').on('change',function(e) {
+    if ($(this).prop('checked')) {
+        $('#step-one').removeClass('progtrckr-todo');
+        $('#step-two').removeClass('progtrckr-todo');
+        $('#step-two').addClass('progtrckr-current');
+        $('#step-one').addClass('progtrckr-done');
+    } else {
+        $('#step-one').removeClass('progtrckr-done');
+        $('#step-two').removeClass('progtrckr-current');
+        $('#step-two').addClass('progtrckr-todo');
+        $('#step-one').addClass('progtrckr-todo');
+    };
+});
+
+
+   if ($("#documents .glyphicon-time").length) {
+      $(".lightbox").show(); 
+      window.location.reload(true);
+  }
+
 });

@@ -1,0 +1,17 @@
+<h2>Login to ERA</h2>
+<p>login with your ERA Account, if you don't have one, <%= link_to "sign up now", new_registration_path(resource_name) %>.</p>
+<div class="login">
+	<div class="col-sm-4">
+		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => 'form-inline' }) do |f| %>
+		<%= f.input :email, required: false, autofocus: true %>
+    	<%= f.input :password, required: false %>
+    	<%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  		<div class="form-actions">
+    		<%= f.button :submit, "Login", :class => "btn-primary" %>
+  		</div>
+		<% end %>
+	</div>
+	<div class="col-sm-4">
+		<%= render "devise/shared/links" %>
+	</div>
+</div>

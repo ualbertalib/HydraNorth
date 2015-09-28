@@ -11,7 +11,6 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'factory_girl_rails'
 require File.join(Sufia::Engine.root, 'spec/factories/generic_files')
-require File.join(Sufia::Engine.root, 'spec/support/features/session_helpers')
 require File.join(Sufia::Engine.root, 'spec/support/features')
 #
 # Given that it is always loaded, you are encouraged to keep this file as
@@ -138,5 +137,19 @@ module FactoryGirl
   def self.find_or_create(handle, by=:email)
     tmpl = FactoryGirl.build(handle)
     tmpl.class.send("find_by_#{by}".to_sym, tmpl.send(by)) || FactoryGirl.create(handle)
+  end
+end
+# spec/support/features/session_helpers.rb
+module Features
+  module SessionHelpers
+    def sign_in(who = :user)
+      logout
+      user = who.is_a?(User) ? who : FactoryGirl.build(:user).tap(&:save!)
+      visit new_user_session_path
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_button I18n.t('sufia.sign_in') 
+      expect(page).not_to have_text 'Invalid email or password.'
+    end
   end
 end

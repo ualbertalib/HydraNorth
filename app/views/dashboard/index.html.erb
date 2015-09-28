@@ -1,0 +1,17 @@
+<%= content_for :heading do %>
+
+    <%= render partial: "dashboard/_index_partials/heading_greetings", locals: { title: "Dashboard Home" } %>
+
+    <%= render partial: "dashboard/_index_partials/heading_actions" %>
+
+<% end %>
+
+<%= content_for :sidebar do %>
+
+    <%= render partial: "dashboard/_index_partials/stats" %>
+
+    <%= render partial: "dashboard/_index_partials/user_info" %>
+
+<% end %>
+
+<%= render partial: "dashboard/_index_partials/contents" %>

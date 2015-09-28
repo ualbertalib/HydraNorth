@@ -30,14 +30,12 @@ describe 'generic file new', :type => :feature do
     it "should have CSTR field" do
       sign_in user
       visit '/files/new'
-      within ("#local #fileupload") do
-        choose('resource_type_Computing_Science_Technical_Report')
-        check('terms_of_service')
-        attach_file "files[]", [fixture_path + '/world.png']
-        click_button('main_upload_start')
-      end
+      choose('resource_type_Computing_Science_Technical_Report')
+      check('terms_of_service')
+      attach_file "files[]", [fixture_path + '/world.png']
+      click_button('main_upload_start')
       sleep(30)
-      expect(page).to have_css('input#generic_file_trid')
+      expect(page).to have_field('generic_file_trid')
     end
   end
 
@@ -55,10 +53,11 @@ describe 'generic file new', :type => :feature do
       end
       sleep(30)
       within("form#new_generic_file") do
-        find_field('Description or Abstract').should have_content ''
-        find_field('Date Created').should have_content ''
-        find_field('Title or Caption 1').should have_content '' 
-        find_field('Creator').should have_content ''
+        expect(find_field('Description or Abstract')).to have_content ''
+        expect(find_field('Date Created')).to have_content ''
+        expect(find_field('generic_file_title')).to have_content '' 
+        expect(page).to have_content 'world.png'
+        expect(find_field('Creator')).to have_content ''
       end
     end
   end

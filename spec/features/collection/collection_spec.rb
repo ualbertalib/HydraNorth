@@ -215,6 +215,7 @@ describe 'collection', :type => :feature do
     before do
       sign_in admin
       visit '/dashboard'
+      click_link I18n.t('sufia.dashboard.my_files_&_collections')
       first('#hydra-collection-add').click
     end
 

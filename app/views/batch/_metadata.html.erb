@@ -1,14 +1,14 @@
-<h2>Individual Titles  </h2>
-<div id="" class="well">
-  <div class="row">
-    <div class="col-sm-8">
-      <h3>Applies to individual files uploaded</h3>
-      <%= content_tag :p, t('sufia.batch.help.title'), class: "help-block" %>
+
+     
       <% @batch.generic_files.sort { |a,b| a.label.downcase <=> b.label.downcase }.each_with_index  do |gen_f, index| %>
         <div class="form-group">
-          <%= f.input_label :title, as: :multi_value, label: "Title or Caption #{index + 1}" %>
-          <div id="additional_title_clone">
-            <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: '', class: 'form-control', required: true %>
+          <div class="row">
+            <div class="col-xs-6"><%= f.input_label :title, as: :multi_value, label: "Title or Caption (file #{index + 1})" %>
+              <div id="additional_title_clone">
+                <%= f.text_field :title, name: "title[#{gen_f.id}][]", value: '', placeholder: "", class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="col-xs-5"> <p class="help-block">Add a descriptive title or caption for <em><%= gen_f %></em></p></div>
           </div>
           <% if @form[:resource_type].include? Sufia.config.special_types['cstr'] %>
             <%= f.input_label :trid, as: :single_field_with_help, label: "Computing Science Technical Report ID #{index + 1}" %>
@@ -20,61 +20,92 @@
           <% end %>
         </div>
       <% end %>
-    </div>
-
-    <div class="col-sm-4">
-      <!-- put metadata about file being edited here -->
-    </div>
-  </div>
+      <div class="row">
+  <div class="batch-warn col-xs-12"><p>The remaining descriptions apply to <strong><em>ALL THE FILES</em></strong> that you just uploaded. </p><p class="small">You can change individual file descriptions in your dashboard once the upload process is complete</p>
+</div>
 </div>
 
 <%= hidden_field_tag(:extra_description_count, "1") %>
-<div id="descriptions_display">
-  <h2>Bulk Descriptions</h2>
-  <div class="well">
-    <div class="row">
-      <div class="col-sm-6">
-      <h3>Applies to all files just uploaded</h3>
+
+<div class="row">
+    <div class="col-xs-6">
       <% if current_user.admin? %>
-         <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.admin_resource_types,
+         <%= f.input :resource_type, collection: Sufia.config.admin_resource_types,
           input_html: { class: 'form-control', required: true } %>
       <% else %>
         <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) || (@form[:resource_type].include? Sufia.config.special_types['ser']) %>
         <% else %>
-          <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.resource_types,
+          <%= f.input :resource_type, collection: Sufia.config.resource_types,
           input_html: { class: 'form-control', required: true } %>
         <% end %>
       <% end %>
+    </div>
+    <div class="col-xs-5">
+     <p class="help-block extra2">If you do not see an appropriate item type, please contact <a href='erahelp@ualberta.ca'>erahelp@ualberta.ca</a></p>
+   </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
       <%= f.input :language, as: :select, collection: Sufia.config.languages, input_html: { class: 'form-control', required: true} %>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
       <%= f.input_label :creator, label: "Creator" %>
-      <%= content_tag :div, "(Enter only one author per box. Example: Doe, Jane B.)", class: "help-block" %>
       <%= f.input :creator, as: :multi_value_with_help, label: false, input_html: { required: true, value: '' } %>
+    </div>
+    <div class="col-xs-5">
+      <%= content_tag :div, "Enter one author per box, click on the +Add button for additional boxes. Example: Doe, Jane B.", class: "help-block" %>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-xs-6">
       <%= f.input_label :subject, label: "Subject/Keyword" %>
-      <%= content_tag :div, "(Enter only one word or phrase per box.)", class: "help-block" %>
       <%= f.input :subject, as: :multi_value_with_help, label: false, input_html: {required: true, value: ''} %>
-
-      <%= f.input :license, as: :select_with_modal_help, collection: Sufia.config.cc_licenses, 
-          input_html: { class: 'form-control', required: false }, include_blank: true %>
-
+    </div>
+    <div class="col-xs-5">
+      <%= content_tag :div, "Enter one word or phrase per box, click on the +Add button for additional boxes. ", class: "help-block" %>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.input :license, collection: Sufia.config.cc_licenses, 
+          input_html: { class: 'form-control', required: true }, include_blank: true %>
+    </div>
+      <div class="col-xs-5">
+     <p class="help-block">Please select one of the Creative Commons licenses described <a id="generic_file_license_help_modal" rel="button" data-toggle="modal" aria-label="Usage information for license" href="#licenseModal"><strong>HERE</strong></a>.</p>
+   </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
       <%= f.input :rights, required: false, input_html: { type: 'textarea' } %>
-
-      <%= f.input_label :description, as: :multi_value_with_help, label: "Description or Abstract" %>
-      <%= f.input :description, label: false, input_html: { required: true, value: '', type: 'textarea' } %>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.input_label :description, label: "Description or Abstract" %>
+      <%= f.input :description, as: :text, label: false, input_html: {value: '', type: 'textarea', :rows => 7 } %>
+ </div>
+  <div class="col-xs-5">
+     <p class="help-block extra">Free-text notes about the file itself. If your item has an abstract put it here.</p>
+   </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
       <%= f.input_label :date_created, label: "Date Created" %>
-      <%= content_tag :div, "(Example: 2009/12/31)", class: "help-block" %>
-      <%= f.input :date_created, value: '', label: false, input_html: { required: true } %>
+      <%= f.input :date_created, value: '', label: false %>
+    </div>
+    <div class="col-xs-5 one-line">
+      <%= content_tag :div, "(Example: 2009/12/31 or 2010)", class: "help-block" %>
+      </div>
+  </div> 
 
       <%= render "generic_files/license_modal" %>
 
-      <button id="show_addl_descriptions" class="btn btn-default" aria-label="reveal additional metadata description fields">Show Additional Fields</button>
+      <button id="show_addl_descriptions" class="btn btn-default" aria-label="reveal additional metadata description fields"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show Additional Descriptive Fields</button>
       <!-- hidden on initial load -->
 
       <%= render 'more_metadata', f: f %>
 
-      </div> <!-- /col-sm-8 -->
-    </div> <!-- /row -->
-  </div><!-- /well -->
-</div> <!-- /row -->
+    

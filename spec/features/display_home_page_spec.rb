@@ -12,7 +12,7 @@ describe "Home Page", type: :feature do
     it "shows my dashboard in drop down" do
       find("a.btn.btn-default.dropdown-toggle").click 
       click_link "my dashboard"
-      expect(page).to have_content "My Dashboard"
+      expect(page).to have_content I18n.t('sufia.dashboard.dashboard_home') 
     end
   end
 end

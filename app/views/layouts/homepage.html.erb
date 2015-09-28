@@ -4,8 +4,8 @@
     <%= render partial: "layouts/head_tag_content"%>
   </head>
 
-  <body>
-    <%= render partial: '/flash_msg' %>
+  <body class="home">
+  
     <div class="dn-wrap hidden-xs">
       <div class="triangle"></div>
       <div class="dn"><a href="#profiles"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
@@ -16,7 +16,7 @@
         <div class="col-xs-8 lib-logo " id="home-logo">
           <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
         </div>
-         <div class="col-xs-4 user-util">
+         <div class="col-xs-4 user-util-home">
          <%= render partial: "/user_util_links"%>
         </div>
         </div>
@@ -31,23 +31,27 @@
        <%= render partial: "/front_search_form"%>
       </div>
       <div class="col-sm-6 slides hidden-xs" id="slide2">
-        <a href="/files/new" class="call-to-action">Share Your Research</a>
+        <a href="/files/new" class="call-to-action">Upload Your Research</a>
         <div class="row">
           <div class="col-sm-12 more-info">
            <h4><span class="hidden-sm">Get <a href="#info">more information</a> about this service or</span> <a href="https://docs.google.com/a/ualberta.ca/forms/d/1ZXZ2-TUVtsX06m3Ffw1K0Lv0kgLw6bghWqTHx8D1-q4/viewform">contact us</a></h4>
           </div>
         </div>
+
       </div>
+
       <div class="col-xs-12 visible-xs mobile-search">
         <%= render partial: "/front_search_form"%>
       </div>
      
     </div>
+
      <div class="tan visible-xs pane">
         <p class="mobile-message">This is the mobile version of ERA. You can search and browse. However to deposit please visit this site on a desktop or tablet computer.</p>
       </div>
-
-
+    <div class="front-alert">
+      <%= render partial: '/flash_msg' %>
+    </div>
 
     <div class="container-fluid grid hidden-xs">
      <div class="boxes"><a name="profiles"></a>

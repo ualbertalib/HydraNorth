@@ -5,7 +5,7 @@
       <%= hidden_field_tag "file_coming_from", "local" %>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
-            <div class="col-md-7">
+            <div class="col-md-4">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-primary fileinput-button">
                     <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
@@ -26,12 +26,9 @@
                     <span>Start upload</span>
                 </button>
                 </div>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                </button>
+             
             </div>
-            <div class="col-md-5 fileupload-progress">
+            <div class="col-md-8 fileupload-progress">
                 <!-- The global progress bar -->
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                     <div class="progress-bar progress-bar-success" style="width:0%;"></div>

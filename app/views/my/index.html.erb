@@ -1,3 +1,21 @@
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <a href="javascript:void(0)" onclick="document.getElementById('lightbox').style.display='none';" class="textright"><span class="glyphicon glyphicon-remove my-close"></span></a>
+    <div class="col-sm-12">
+  <ol class="progtrckr" data-progtrckr-steps="4">
+    <li class="progtrckr-done first" id="step-one">1. Read &amp; Accept Deposit Agreement</li><!--
+ --><li class="progtrckr-done" id="step-two">2. Choose &amp; Upload Files</li><!--
+ --><li class="progtrckr-done" id="step-three">3. Describe your Items</li><!--
+ --><li class="progtrckr-current last" id="step-five">4. Save and Deposit</li>
+  </ol>
+</div>
+      <h2>Thank you for adding your research to ERA!</h2>
+      <p> We are currently processing your item(s). This may take awhile.</p>
+      <p> <strong>If you would like to continue using ERA while we process, you can <a href="javascript:void(0)" onclick="document.getElementById('lightbox').style.display='none';" class="close-button">close</a> this window at any time. </strong></p>
+      <%= image_tag("progress.gif") %>
+      <p>When your files are processed this window will close automatically.</p>
+  </div>
+  </div>
 <% current_tab = @selected_tab.to_s %>
 
 <%= javascript_tag do %>
@@ -6,6 +24,13 @@
 
 <% @page_title = "#{current_tab.capitalize} listing" %>
 
+<%= content_for :heading do %>
+
+    <%= render partial: "dashboard/_index_partials/heading_greetings", locals: { title: "My Files & Collections" } %>
+
+    <%= render partial: "dashboard/_index_partials/heading_actions" %>
+
+<% end %>
 
 <ul class="nav nav-tabs" id="my_nav">
   <h1 class="sr-only">Listing Navigation Bar</h1>

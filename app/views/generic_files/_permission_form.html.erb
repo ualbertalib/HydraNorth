@@ -5,9 +5,7 @@
 <% public_perm = true if params[:controller] == 'batch' %>
 <% registered_perm = f.object.permissions.map { |perm| perm.access if perm.agent_name == "registered"}.compact.first %>
 
-<h2><% if params[:controller] == 'batch' %>Bulk <% end %>Permissions <% if params[:controller] == 'batch' %>
-      <small>(applied to all files just uploaded)</small><% end %>
-</h2>
+
 
 <div class="alert alert-info hidden" id="save_perm_note">Permissions are <strong>not</strong> saved until the &quot;Save&quot; button is pressed at the bottom of the page.</div>
 <div class="alert alert-warning hidden" id="permissions_error">
@@ -17,45 +15,64 @@
   </a>
 <span id="permissions_error_text"></span></div>
 
-<div class="well">
-  <h3>Visibility - <small>who should have the ability to read and download</small>
-    <span id="visibility_tooltip" class="h5"><%= visibility_help %></span>
-  </h3>
-  <div class="radio">
+  <label>Visibility
+    
+  </label>
+  <div class="row">
+<div class="col-xs-6">
+  <ul class="radio">
+    <li>
     <label>
       <input type="radio" id="visibility_open" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>" <% if gf.open_access? %> checked="true"<% end %>/> <span class="label label-success">Open Access</span> Visible to the world.
-
     </label>
-    <br/>
+  </li>
+  <li>
     <label>
       <input type="radio" id="visibility_psu" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>" <% if gf.authenticated_only_access? %> checked="true"<% end %> /><span class="label label-info"><%=t('sufia.institution_name') %></span> Visible to all <%=t('sufia.institution_name') %> users.
     </label>
-
+  </li>
+  <li class="embargo">
     <label>
       <input type="radio" id="visibility_embargo" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO %>" <% if gf.under_embargo? %> checked="true"<% end %>/>
       <div class="form-inline">
         <span class="label label-warning">Embargo</span>
         <label for="visibility_during_embargo">Restricted to </label>
         <%= select_tag "visibility_during_embargo", options_for_select(visibility_options(:restrict), selected: gf.visibility_during_embargo ) %>
-        <label for="embargo_release_date"> until </label><input type="text" name='embargo_release_date' value="<%=gf.embargo_release_date %>"/> (yyyy-mm-dd)
+        <label for="embargo_release_date"> until </label> <input type="text" name='embargo_release_date' value="<%=gf.embargo_release_date %>"/> (yyyy-mm-dd)
         <label for="visibility_after_embargo"> then </label>
         <%= select_tag "visibility_after_embargo", options_for_select(visibility_options(:loosen), selected: gf.visibility_after_embargo) %>
        </div>
   </label>
- 
+   </li>
+  <li>
     <label>
       <input type="radio" id="visibility_restricted" name="visibility" value="<%=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>"<% if gf.private_access? %> checked="true"<% end %> /> <span class="label label-danger">Private</span> Visible to users specified below, if any.
     </label>
-  </div>
+  </li>
+  </ul>
+</div>
+<div class="col-xs-5">
+  <p class="help-block">Who should have the ability to read and download your items? Go <a rel="popover" data-content="<p>
 
+<span class='label label-success'>Open Access</span> will allow your content to be discovered in Google and viewed by anyone.
+</p>
+<span class='label label-warning'>Embargo</span> will restrict access to your file for a period of time before allowing it to be viewed by anyone or viewed by University of Alberta users.
+</p>
+<p>
+  <span class='label label-info'>University of Alberta</span> will only allow
+  users with a University of Alberta CCID and password to view the content.
+</p>
+<p>
+<span class='label label-danger'>Private</span> will only allow users and/or groups to whom you give access in the &quot;Share With&quot; section to view the content.
+</p>" data-original-title="Visibility" aria-label="Useage information for visibility" href="#" aria-describedby="popover988286"><strong>HERE</strong></a> for more information on each option.</p>
+</div>
+</div>
   <!-- Share With -->
-  <div class="row">
-    <h3 class="col-sm-12">Share With <small>(optional)</small>
-      <span id="share_with_tooltip" class="h5"><%= share_with_help %></span>
-    </h3>
-  </div>
+  <div class="row top-margin">
+    <div class="col-xs-6">
+    <label>Share With <small>(optional)</small></label>
 
-  <div class="form-group row">
+  <div class="form-group">
     <div id="new-user">
       <p class="col-sm-12">Enter <%=t('sufia.account_label') %> (one at a time)</p>
       <p class="sr-only">Use the add button to give access to one <%=t('sufia.account_label') %> at a time (it will be added to the list below).  Select the user, by name or <%=t('sufia.account_label') %>. Then select the access level you wish to grant and click on Add this <%= t('sufia.account_label') %> to complete adding the permission.</p>
@@ -76,10 +93,9 @@
       </div>
     </div>
   </div>
-
-</div><!-- /.well -->
-
-<table class="table table-bordered">
+<div class="row squished">
+<p class="top-margin">Current access settings for these files</p>
+<table class="table table-bordered current-access">
   <tr>
     <th width="60%">Person</th>
     <th width="40%">Access Level</th>
@@ -110,3 +126,10 @@
     </tr>
   <% end %>
 </table>
+</div>
+</div>
+<div class="col-xs-5">
+  <p class="help-block">Do you want other ERA user to be able to edit your items? You may grant <strong>"View/Download"</strong> or <strong>"Edit"</strong> access for specific users and/or groups to files. Enter a valid ERA / CCID account ID, one at a time, select the access level for that user and click + Add.</p>
+</div>
+</div>
+
