@@ -69,4 +69,8 @@ describe Collection do
     expect(subject.fedora3foxml).to be_kind_of Fedora3FoxmlDatastream
   end
 
+  it "should allow any registered user to edit" do
+    expect(subject.edit_groups) to include 'registered'
+  end
+
 end

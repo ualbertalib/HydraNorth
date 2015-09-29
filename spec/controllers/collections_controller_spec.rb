@@ -7,6 +7,23 @@ describe CollectionsController do
   end
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:dit)  { FactoryGirl.create(:dit) }
+
+  describe "#edit" do
+    
+    let(:collection) do
+      Collection.create(title: "Collection that can be edited") do |c|
+        c.apply_depositor_metadata(user)
+        c.save
+      end
+    end
+
+    before { sign_in dit}
+    it "can edit other people's collection" do
+      get :edit, id: collection
+      expect(flash[:notice]).to be_nil
+    end
+  end
 
   describe "#update" do
     before { sign_in user }
