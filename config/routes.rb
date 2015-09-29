@@ -41,7 +41,7 @@ Hydranorth::Application.routes.draw do
 
   get '/browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
-
+  get '/communities', controller: 'communities', action: :index
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
