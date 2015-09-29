@@ -8,6 +8,7 @@ describe Collection do
     GenericFile.create do |f|
       f.add_file(File.open(fixture_path + '/world.png'), path: 'content', original_name: 'world.png')
       f.apply_depositor_metadata(user.user_key)
+      f.save
     end
   end
   let(:another_collection) { FactoryGirl.create(:collection) }
@@ -15,6 +16,7 @@ describe Collection do
   before do
     subject.title = 'A title'
     subject.apply_depositor_metadata(user.user_key)
+    subject.save
   end
 
   it 'can be part of a collection' do
@@ -24,6 +26,7 @@ describe Collection do
   it 'can contain another collection' do
     another_collection = FactoryGirl.create(:collection)
     subject.members << another_collection
+    subject.save
     expect(subject.members).to eq [another_collection]
   end
 
@@ -46,17 +49,20 @@ describe Collection do
 
   it 'returns 0 bytes for member collection' do
     subject.members << another_collection
+    subject.save
     expect(subject.bytes).to eq 0 
   end
 
   it 'returns bytes for member file' do
     subject.members << file
+    subject.save
     expect(subject.bytes).to eq 4218 
   end
 
   it 'returns bytes for collections and files' do
     subject.members << another_collection
     subject.members << file
+    subject.save
     expect(subject.bytes).to eq 4218 
   end
 
@@ -66,11 +72,22 @@ describe Collection do
   
   it "should have a fedora3 foxml datastream" do
     subject.add_file(File.open(fixture_path + '/foxml.xml'), path: 'fedora3foxml', original_name: 'foxml.xml')
+    subject.save
     expect(subject.fedora3foxml).to be_kind_of Fedora3FoxmlDatastream
   end
 
-  it "should allow any registered user to edit" do
-    expect(subject.edit_groups) to include 'registered'
+  it "should allow any registered user to edit an official collection" do
+    subject.is_official = true
+    subject.save
+    expect(subject.edit_groups).to include 'registered'
   end
+
+  it "should not allow registered user to edit an official collection that is admin set" do
+    subject.is_official = true
+    subject.is_admin_set = true
+    subject.save
+    expect(subject.edit_groups).not_to include 'registered'
+  end
+
 
 end

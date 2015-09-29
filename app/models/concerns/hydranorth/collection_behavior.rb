@@ -15,7 +15,17 @@ module Hydranorth
 
     def update_permissions
       self.visibility = "open"
-      self.edit_groups = self.edit_groups + ['registered']
+      self.edit_groups = self.edit_groups + ['registered'] unless self.is_admin_set? || !self.is_official?
+    end
+
+    def is_admin_set?
+      self.is_admin_set ||= false
+    end
+    def is_official?
+      self.is_official ||= false
+    end
+    def is_community?
+      self.is_official ||= false
     end
 
     def can_be_member_of_collection?(collection)

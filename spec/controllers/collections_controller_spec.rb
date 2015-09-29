@@ -12,17 +12,44 @@ describe CollectionsController do
   describe "#edit" do
     
     let(:collection) do
-      Collection.create(title: "Collection that can be edited") do |c|
+      Collection.create(title: "Personal Collection") do |c|
         c.apply_depositor_metadata(user)
         c.save
       end
     end
 
-    before { sign_in dit}
-    it "can edit other people's collection" do
-      get :edit, id: collection
-      expect(flash[:notice]).to be_nil
+    let(:official_collection) do
+      Collection.create(title: "Official Collection that can be edited") do |c|
+        c.apply_depositor_metadata(user)
+        c.is_official = true
+        c.save
+      end
     end
+
+    let(:admin_collection) do
+      Collection.create(title: "Official Collection -Admin set") do |c|
+        c.apply_depositor_metadata(user)
+        c.is_official = true
+        c.is_admin_set = true
+        c.save
+      end
+    end
+
+
+    before { sign_in dit}
+    it "cannot edit other people's personal collection" do
+      get :edit, id: collection
+      expect(flash[:alert]).to eq "You do not have sufficient privileges to edit this document"
+    end
+    it "can edit official collection" do
+      get :edit, id: official_collection
+      expect(flash[:alert]).to be_nil
+    end 
+    it "cannot edit admin collection" do
+      get :edit, id: admin_collection
+      expect(flash[:alert]).to eq "You do not have sufficient privileges to edit this document"
+    end
+
   end
 
   describe "#update" do

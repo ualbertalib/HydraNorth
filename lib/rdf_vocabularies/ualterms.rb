@@ -18,4 +18,6 @@ class UALTerms < RDF::Vocabulary("http://terms.library.library.ca/identifiers/")
   term :thesislevel
   term :belongsToCommunity
   term :is_community
+  term :is_admin_set
+  term :is_official
 end
