@@ -1,5 +1,6 @@
 <h2>Login to ERA</h2>
-<h3>Do you have a University of Alberta CCID?</h3>
+<h3>Do you have a University of Alberta CCID (Campus Computing ID)?</h3>
+<p>ERA is now a CCID enabled service. If you have a CCID please use it to log in to ERA. If you have an existing ERA account, it will be linked to your CCID the first time you log in.</p>
 
 <div class="col-sm-8 col-sm-offset-2">
 <%- if devise_mapping.omniauthable? %>
@@ -12,8 +13,7 @@
 <a href="#" class="btn btn-primary btn-noccid">NO, I do not have a CCID</a>
 
 <div id="era-login">
-	<p>login with your ERA Account, if you don't have one, <%= link_to "sign up now", new_registration_path(resource_name) %>.</p>
-	<div class="col-sm-12">
+<p>Login with your ERA account</p>
 		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => 'form-inline' }) do |f| %>
 		<%= f.input :email, required: false, autofocus: true %>
     	<%= f.input :password, required: false %>
@@ -22,9 +22,8 @@
     		<%= f.button :submit, "Login", :class => "btn btn-primary" %>
   		</div>
 		<% end %>
-	</div>
-	<div class="col-sm-12">
+
 		<%= render "devise/shared/links" %>
-	</div>
+	
 </div>
 </div>

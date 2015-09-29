@@ -138,26 +138,6 @@ body.home h4{
 #home-logo a.logo{
 	margin-top: 10px;
 }
-.login_button {
-  margin: 0 0 0 0;
-}
-.main a.btn-ccid, .main a.btn-noccid{
-	color: #fff;
-	font-size: 26px;
-	font-weight: bold;
-	display: block;
-	margin-top: 30px;
-}
-.main a.btn-ccid:active, .main a.btn-noccid:active, .main a.btn-ccid:focus, .main a.btn-noccid:focus{
-	color: #333;
-}
-.main a.btn-noccid{
-	font-size: 22px;
-}
-#era-login{
-	display: none;
-	background-color: #efefef;
-}
 .user-util{
 	text-align: right;
 	padding-left: 0px;
@@ -575,6 +555,78 @@ body.home h4{
 	font-size: 14px;
 }
 
+
+/*login styles*/
+.login_button {
+  margin: 0 0 0 0;
+}
+.main a.btn-ccid, .main a.btn-noccid{
+	color: #fff;
+	font-size: 26px;
+	font-weight: bold;
+	display: block;
+	margin-top: 30px;
+}
+.main a.btn-ccid:active, .main a.btn-noccid:active, .main a.btn-ccid:focus, .main a.btn-noccid:focus{
+	color: #333;
+}
+.main a.btn-noccid{
+	font-size: 22px;
+}
+#era-login{
+	display: none;
+	background-color: #fbfbef;
+	padding: 20px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border: 1px solid #67ADA9;
+	border-width:0px 1px 1px 1px;
+}
+#era-login .form-inline .form-group{
+	width: 100%;
+	padding:10px 0px 5px 0px;
+}
+#era-login .control-label{
+	width:100px;
+	text-align: right;
+	margin-right: 10px;
+	font-size:120%;
+	font-weight: normal;
+}
+#era-login .checkbox{
+	margin-left:110px;
+}
+#era-login .checkbox .boolean{
+	margin-right: 10px;
+}
+#era-login .btn-primary{
+	font-size: 110%;
+	margin-left: 110px;
+	margin-top: 10px;
+	background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.login-links{
+	padding:0px;
+}
+.login-links li{
+	list-style: none;
+}
+.login-links li a{
+	display: block;
+	padding:4px 8px;
+	font-size:13px;
+	
+}
+.login-links li.notice a{
+	font-weight: bold;
+	font-size: 15px;
+}
+.login-links li.notice p{
+	font-size: 13px;
+	margin-left: 10px;
+}
+
 /*user message styles*/
 .alert{
 	color: #000;
@@ -592,117 +644,6 @@ body.home h4{
 	margin:0px 200px;
 }
 
-
-
-/*login styles*/
-.login{
-	margin-top: 30px;
-}
-.login .form-inline .form-group{
-	width: 100%;
-	padding:10px 0px 5px 0px;
-}
-.login .control-label{
-	width:150px;
-	text-align: right;
-	margin-right: 10px;
-	font-size:120%;
-	font-weight: normal;
-}
-.login .checkbox{
-	margin-left:160px;
-}
-.login .checkbox .boolean{
-	margin-right: 10px;
-}
-.login .btn-primary{
-	font-size: 130%;
-	margin-left: 190px;
-	margin-top: 10px;
-	background-color: #337ab7;
-    border-color: #2e6da4;
-}
-.login-links{
-	padding:0px;
-}
-.login-links li{
-	list-style: none;
-}
-.login-links li a{
-	display: block;
-	padding:4px 8px;
-	font-size:15px;
-	margin-bottom: 5px;
-}
-.login-links li.notice a{
-	font-weight: bold;
-	font-size: 18px;
-}
-
-/*user message styles*/
-.alert{
-	color: #000;
-	font-weight: bold;
-	border:2px solid #333;
-	font-size: 18px;
-}
-.alert-success{
-	background-color: #b5fd99;
-}
-.alert-warning{
-	background-color: #fbf8ae;
-}
-.front-alert{
-	margin:0px 200px;
-}
-
-
-
-/*login styles*/
-.login{
-	margin-top: 30px;
-}
-.login .form-inline .form-group{
-	width: 100%;
-	padding:10px 0px 5px 0px;
-}
-.login .control-label{
-	width:150px;
-	text-align: right;
-	margin-right: 10px;
-	font-size:120%;
-	font-weight: normal;
-}
-.login .checkbox{
-	margin-left:160px;
-}
-.login .checkbox .boolean{
-	margin-right: 10px;
-}
-.login .btn-primary{
-	font-size: 130%;
-	margin-left: 190px;
-	margin-top: 10px;
-	background-color: #337ab7;
-    border-color: #2e6da4;
-}
-.login-links{
-	padding:0px;
-}
-.login-links li{
-	list-style: none;
-}
-.login-links li a{
-	display: block;
-	padding:4px 8px;
-	font-size:15px;
-	margin-bottom: 5px;
-	color: #2d353d;
-}
-.login-links li.notice a{
-	font-weight: bold;
-	font-size: 18px;
-}
 
 
 /*dashboard styles*/
