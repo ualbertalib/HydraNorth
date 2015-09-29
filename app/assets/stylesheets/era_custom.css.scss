@@ -560,15 +560,21 @@ body.home h4{
 .login_button {
   margin: 0 0 0 0;
 }
+.login-instruct{
+	margin-right: 300px;
+}
 .main a.btn-ccid, .main a.btn-noccid{
 	color: #fff;
 	font-size: 26px;
-	font-weight: bold;
+	background-color: #2d353d;
 	display: block;
 	margin-top: 30px;
+	border:none;
+	text-decoration: none;
 }
-.main a.btn-ccid:active, .main a.btn-noccid:active, .main a.btn-ccid:focus, .main a.btn-noccid:focus{
-	color: #333;
+.main a.btn-ccid:hover, .main a.btn-ccid:active, .main a.btn-noccid:hover, .main a.btn-noccid:active, .main a.btn-ccid:focus, .main a.btn-noccid:focus{
+	color: #efefef;
+	background-color: #233c55;
 }
 .main a.btn-noccid{
 	font-size: 22px;
@@ -579,7 +585,7 @@ body.home h4{
 	padding: 20px;
 	border-bottom-right-radius: 4px;
 	border-bottom-left-radius: 4px;
-	border: 1px solid #67ADA9;
+	border: 1px solid #2d353d;
 	border-width:0px 1px 1px 1px;
 }
 #era-login .form-inline .form-group{

@@ -1,16 +1,17 @@
 <h2>Login to ERA</h2>
+<p class="login-instruct">ERA is now a <a href="https://ist.ualberta.ca/services/ccid-passwords/campus-computing-id">CCID</a> (Campus Computing ID) enabled service. If you have a CCID please use it to log in to ERA. If you have an existing ERA account, it will be linked to your CCID the first time you log in.</p>
 <h3>Do you have a University of Alberta CCID (Campus Computing ID)?</h3>
-<p>ERA is now a CCID enabled service. If you have a CCID please use it to log in to ERA. If you have an existing ERA account, it will be linked to your CCID the first time you log in.</p>
+
 
 <div class="col-sm-8 col-sm-offset-2">
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "YES, I have a CCID", (omniauth_authorize_path(resource_name, provider)), :class => "btn btn-primary btn-ccid" %>
+    <%= link_to "YES, I have a CCID", (omniauth_authorize_path(resource_name, provider)), :class => "btn btn-ccid" %>
   <% end -%>
 <% end -%>
 </div>
 <div class="col-sm-4 col-sm-offset-4">
-<a href="#" class="btn btn-primary btn-noccid">NO, I do not have a CCID</a>
+<a href="#" class="btn btn-noccid">NO, I do not have a CCID</a>
 
 <div id="era-login">
 <p>Login with your ERA account</p>
