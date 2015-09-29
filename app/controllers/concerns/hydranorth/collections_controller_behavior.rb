@@ -51,6 +51,9 @@ module Hydranorth
           hasCollection = member.hasCollection
           hasCollection.push collection.title
           member.hasCollection = hasCollection
+          hasCollectionId = member.hasCollectionId
+          hasCollectionId.push collection.id
+          member.hasCollectionId = hasCollectionId
           member.save!
         end
       end
@@ -67,6 +70,9 @@ module Hydranorth
           hasCollection = member.hasCollection
           hasCollection.delete collection.title
           member.hasCollection = hasCollection
+          hasCollectionId = member.hasCollectionId
+          hasCollectionId.push collection.id
+          member.hasCollectionId = hasCollectionId
           member.save!
         end
       end
