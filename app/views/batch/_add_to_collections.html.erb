@@ -1,0 +1,40 @@
+<% depositor = f.object.depositor || batch.generic_files.first.depositor %>
+<% gf = f.object if defined?(f.object) %>
+<% gf = batch.generic_files.first if defined?(batch.generic_files.first)%>
+<% public_perm = f.object.permissions.map { |perm| perm.access if perm.agent_name == "public"}.compact.first %>
+<% public_perm = true if params[:controller] == 'batch' %>
+<% registered_perm = f.object.permissions.map { |perm| perm.access if perm.agent_name == "registered"}.compact.first %>
+
+<h2><% if params[:controller] == 'batch' %>Bulk <% end %>Communities and Collections <% if params[:controller] == 'batch' %>
+      <small>(applied to all files just uploaded)</small><% end %>
+</h2>
+
+<div class="alert alert-info hidden" id="save_coll_note">Communities and collections are <strong>not</strong> saved until the &quot;Save&quot; button is pressed at the bottom of the page.</div>
+<div class="alert alert-warning hidden" id="collections_error">
+  <a class="close" data-dismiss="alert" href="#">
+    <span class="sr-only">Close this alert</span>
+    <span aria-hidden="true">×</span>
+  </a>
+<span id="collections_error_text"></span></div>
+
+<div class="well">
+  <h3>Add to Communities and Collections - <small>Communities and collections are <strong>not</strong> saved until the &quot;Save&quot; button is pressed at the bottom of the page.</small>
+  </h3>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="container-community-group">
+         <div class="community-group-1"> 
+      <%= f.input_label :belongsToCommunity, as: :multi_value, label: "Community" %>
+      <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) && (@form[:resource_type].include? Sufia.config.special_types['ser']) %>
+        <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1' } %>
+      <% else %>
+        <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1', :required => true} %>
+      <% end %>
+      <%= f.input_label :hasCollectionId, as: :multi_value, label: "Collection" %>
+      <%= f.collection_select :hasCollectionId, @user_collections, :id, :title, {:include_blank => true}, {:name => "generic_file[hasCollectionId][]", :class => 'form-control collection-select community-group-1' } %>
+      </div>
+     </div>
+      <button type="button" class="btn btn-success add_collection_group"><i class="icon-white glyphicon-plus"></i><span>Add to More Communities/Collections</span></button>
+    </div>
+  </div>
+</div>

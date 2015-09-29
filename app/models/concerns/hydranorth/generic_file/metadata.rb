@@ -58,9 +58,14 @@ module Hydranorth
           index.as :symbol, :stored_searchable
         end
 
-      property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
-        index.as :stored_searchable
-      end
+        property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
+          index.as :stored_searchable
+        end
+
+        property :hasCollectionId, predicate: ::UALTerms.hasCollectionId do |index|
+          index.as :symbol, :stored_searchable
+        end
+
 
 
         begin
