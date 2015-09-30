@@ -50,6 +50,17 @@ class BatchUpdateJob
     date_created = file_attributes[:date_created]
     year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
     gf.year_created = year_created
+    collections = file_attributes["hasCollectionId"]
+    has_collection = []
+    if !collections.empty?
+      collections.each do |id|
+        c = Collection.find(id)
+        c.add_members [gf.id]
+        c.save
+        has_collection << c.title
+      end
+    end
+    gf.hasCollection = has_collection
     if (trid.present? && trid[gf.id])
       gf.trid = trid[gf.id]
     elsif (ser.present? && ser[gf.id])

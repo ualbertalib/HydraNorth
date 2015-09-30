@@ -1,16 +1,15 @@
 <% if current_user.admin? %>
-   <% if (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
-  <% else %>
-
+   <% unless (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
+    <% # HACK we override SimpleForm's name generation here, and below, because resource_type is actually a multivalued property
+       # in Sufia -- we are merely presenting it the user as a scalar property
+     %>
      <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.admin_resource_types,
-    input_html: { class: 'form-control', multiple: true } %>
+    input_html: { class: 'form-control', name: f.object.model.class.to_s.underscore + '[resource_type][]' } %>
   <% end %>
 <% else %>
 
-  <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) || (@form[:resource_type].include? Sufia.config.special_types['ser']) || (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
-  <% else %>
-
+  <% unless (@form[:resource_type].include? Sufia.config.special_types['cstr']) || (@form[:resource_type].include? Sufia.config.special_types['ser']) || (@form[:resource_type].include? Sufia.config.special_types['thesis']) %>
     <%= f.input :resource_type, as: :select_with_help, collection: Sufia.config.resource_types,
-    input_html: { class: 'form-control', multiple: true } %>
+    input_html: { class: 'form-control', name: f.object.model.class.to_s.underscore + '[resource_type][]' } %>
   <% end %>
 <% end %>

@@ -109,6 +109,10 @@ en:
       collections_list:
         heading:   "This file is in the following collections:"
         empty:     "This file is not currently in any collections."
+      communities_list:
+        heading:   "This file is in the following communities:"
+        empty:     "This file is not currently in any communities."
+
     messages:
       success:
         single: "has been saved."
