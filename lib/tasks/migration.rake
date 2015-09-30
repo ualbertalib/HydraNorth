@@ -40,12 +40,17 @@ require 'pdf-reader'
   #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
   
   #Use the ERA public interface to download original file and foxml
-  DOWNLOAD_URL = "https://admin:eraR00%21z@era.library.ualberta.ca/public/view/item/"
+  DOWNLOAD_URL = "https://admin:eraR00!z@era.library.ualberta.ca/public/view/item/"
   DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
   FILE_STORE = "lib/tasks/migration/files"
+  if (Rails.env.test?)
+    CORRECTED_FOXML = "spec/fixtures/migration/corrected_foxml"
+  else
+    CORRECTED_FOXML = "lib/tasks/migration/corrected_foxml"
+  end
   FileUtils::mkdir_p TEMP
   FileUtils::mkdir_p TEMP_FOXML
   #report directory
@@ -185,9 +190,15 @@ namespace :migration do
         end
       end
       MigrationLogger.info "Download the original foxml #{uuid}"
-      foxml_url = "#{DOWNLOAD_URL}#{uuid}/fo.xml"
-      download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      system "curl -o #{download_foxml} #{foxml_url}" 
+      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
+      if File.exist?(corrected_foxml)
+        MigrationLogger.info "Use the corrected foxml #{uuid}"
+        download_foxml = corrected_foxml
+      else
+        foxml_url = "#{DOWNLOAD_URL}#{uuid}/fo.xml"
+        download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+        system "curl -o #{download_foxml} #{foxml_url}" 
+      end
     end
   end 
 
@@ -407,11 +418,18 @@ namespace :migration do
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
-      foxml_url = DOWNLOAD_URL + uuid +"/fo.xml"
-      download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
-      system "curl -o #{download_foxml} #{foxml_url}"
-      #retrieve the original foxml
-      #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+      byebug
+      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
+      if File.exist?(corrected_foxml)
+        MigrationLogger.info "Use the corrected foxml #{uuid}"
+        download_foxml = corrected_foxml
+      else
+        foxml_url = DOWNLOAD_URL + uuid +"/fo.xml"
+        download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
+        system "curl -o #{download_foxml} #{foxml_url}"
+        #retrieve the original foxml
+        #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+      end
 
       # set the depositor
       if submitter
