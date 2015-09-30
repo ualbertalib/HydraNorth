@@ -1,6 +1,7 @@
 module Hydranorth::Collections::SelectsCollections
   extend ActiveSupport::Concern
   include Hydra::Collections::SelectsCollections
+  include Hydranorth::Permissions
   
   def access_levels
     { read: [:read, :edit], edit: [:edit] }

@@ -82,6 +82,10 @@ module Hydranorth
         property :remote_resource, predicate: ::UALTerms.remote_resource, multiple:false
 
       end
+   
+      def belongsToCommunity?
+        !self.belongsToCommunity.empty?
+      end
 
     end
   end

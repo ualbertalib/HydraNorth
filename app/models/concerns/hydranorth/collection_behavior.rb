@@ -27,6 +27,9 @@ module Hydranorth
     def is_community?
       self.is_official ||= false
     end
+    def belongsToCommunity?
+      !self.belongsToCommunity.empty?
+    end
 
     def can_be_member_of_collection?(collection)
       collection == self ? false : true

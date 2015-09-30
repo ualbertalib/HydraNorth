@@ -89,5 +89,10 @@ describe Collection do
     expect(subject.edit_groups).not_to include 'registered'
   end
 
+  it "#belongsToCommunity? should check if collection belongs to any community" do
+    subject.belongsToCommunity = ["adsfsfsd"]
+    subject.save
+    expect(subject.belongsToCommunity?).to be true
+  end
 
 end

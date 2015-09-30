@@ -16,7 +16,7 @@ class Ability
           can? :read, obj
         end
       end
-
+      can :create, ::Collection if user_groups.include? 'registered'
       can :manage, :all if admin?
     end
 
