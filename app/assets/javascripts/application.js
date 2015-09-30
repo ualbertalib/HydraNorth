@@ -24,3 +24,5 @@
 //
 //= require custom
 //= require hydranorth_fileupload
+//= require hydranorth_update_collections
+//= require hydranorth_add_to_collection

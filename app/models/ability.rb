@@ -16,7 +16,13 @@ class Ability
           can? :read, obj
         end
       end
-
+      can :create, ::Collection if user_groups.include? 'registered'
+      cannot :destroy, ::Collection do |obj|
+        obj.is_official?
+      end unless admin?
+      cannot :manage, ::Collection do |obj|
+        obj.is_admin_set?
+      end unless admin? 
       can :manage, :all if admin?
     end
 

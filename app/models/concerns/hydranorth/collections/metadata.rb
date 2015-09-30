@@ -19,6 +19,21 @@ module Hydranorth::Collections
         index.as :stored_searchable
       end
 
+      property :is_community, predicate: ::UALTerms.is_community, multiple: false do |index|
+        index.type :boolean
+        index.as :stored_searchable
+      end
+
+      property :is_official, predicate: ::UALTerms.is_official, multiple: false do |index|
+        index.type :boolean
+        index.as :stored_searchable
+      end
+
+      property :is_admin_set, predicate: ::UALTerms.is_admin_set, multiple: false do |index|
+        index.type :boolean
+        index.as :stored_searchable
+      end
+
     end
   end
 end

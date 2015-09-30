@@ -2,8 +2,14 @@ module Hydranorth
   module BatchControllerBehavior
     extend ActiveSupport::Concern
     include Sufia::BatchControllerBehavior
+    include Hydra::Catalog
+    include Hydranorth::Collections::SelectsCollections
 
     included do 
+      before_action only: [:edit] do
+        find_communities_with_edit_access
+        find_collections_with_edit_access
+      end
       class_attribute :edit_form_class, :cstr_edit_form_class, :ser_edit_form_class
       self.edit_form_class = Hydranorth::Forms::BatchEditForm
       self.cstr_edit_form_class = Hydranorth::Forms::CstrBatchEditForm
@@ -37,6 +43,13 @@ module Hydranorth
         redirect_to sufia.dashboard_shares_path
       else
         redirect_to sufia.dashboard_files_path
+      end
+    end
+    def update_collections
+      @filtered_collections = Collection.where(belongsToCommunity: params[:community_id])
+      @index = params[:index]
+      respond_to do |format|
+        format.js {}
       end
     end
 

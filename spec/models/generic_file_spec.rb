@@ -40,6 +40,12 @@ describe GenericFile, :type => :model do
       expect(subject).to respond_to(:belongsToCommunity)
     end
 
+    it "#belongsToCommunity? should check if object belongs to any community" do
+      subject.belongsToCommunity = ["abcsdfs"]
+      subject.save
+      expect(subject.belongsToCommunity?).to be true
+    end
+
   end
 
   describe "thesis_metadata" do
