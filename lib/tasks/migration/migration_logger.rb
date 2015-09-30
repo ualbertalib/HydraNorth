@@ -14,7 +14,11 @@ class MigrationLogger < Logger
   end
 
   def initialize
-    super(Rails.root.join('log/migration.log'))
+    if Rails.env.test?
+      super(Rails.root.join('log/migration-spec.log'))
+    else
+      super(Rails.root.join('log/migration.log'))
+    end
     self.formatter = Formatter.new
     self
   end

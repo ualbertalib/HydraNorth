@@ -56,6 +56,20 @@ describe "Migration rake tasks" do
     end
   end
 
+  describe "migration:eraitem - item corrected foxml" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/correctedfoxml-metadata')
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+      File.delete("log/migration-spec.log")
+    end
+    it "item should corrected foxml and not use foxml from URL" do
+      expect(File.read("log/migration-spec.log")).to include("Use the corrected foxml uuid:07185c11-20f1-445e-990f-db5cfdc71f47")	
+    end
+  end
 
   describe "migration:eraitem - thesis" do
     before do
