@@ -418,7 +418,7 @@ namespace :migration do
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
-      byebug
+      #byebug
       corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
       if File.exist?(corrected_foxml)
         MigrationLogger.info "Use the corrected foxml #{uuid}"
