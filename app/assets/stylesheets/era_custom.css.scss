@@ -663,11 +663,24 @@ body.home h4{
 	font-size: 20px;
 	color: #2d353d;
 }
+.dashboard h3.panel-title{
+	color: #fff;
+	letter-spacing: 1px;
+}
 .dashboard .heading-row h3{
 	font-size: 25px;
 }
 .dashboard .panel-default > .dashboard-panel {
   background-color: #2d353d;
+}
+.stats span{
+	background-color: #efefef;
+	font-weight: bold;
+	font-size: 110%;
+	padding: 0px 3px;
+}
+.stats ul{
+	margin-left: 20px;
 }
 .chart{
 	width: 95%;
