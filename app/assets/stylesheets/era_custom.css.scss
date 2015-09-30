@@ -905,6 +905,39 @@ i.glyphicon{
 	color: #fff;
 }
 
+/* Communities */
+.communities{
+	padding: 0;
+}
+.communities li{
+	position:relative;
+
+	list-style: none;
+}
+.communities li:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.communities li a{
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: block;
+	color: #fff;
+	font-size: 25px;
+	padding: 20px;
+	text-decoration: none;
+	background-color: #2d353d;
+	border-radius: 4px;
+}
+.communities li a:hover{
+	color: #efefef;
+	background-color: #000;
+}
+
 /* Upload form */
 .agreement-text {
 	height: 180px; 
