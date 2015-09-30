@@ -53,6 +53,8 @@ dataverse_not_exists = Collection.find_with_conditions('depositor' => 'dit.appli
 if dataverse_not_exists
   official = Collection.new(title: "Dataverse Datasets")
   official.apply_depositor_metadata("dit.application.test@ualberta.ca")
+  official.is_admin_set = true
+  official.is_official = true
   official.save!
 end
 
@@ -60,6 +62,8 @@ end
 theses = Collection.find_or_create_with_type("Thesis").tap do |c|
   c.apply_depositor_metadata("dittest@ualberta.ca")
   c[:fedora3uuid] = "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+  c.is_admin_set = true
+  c.is_official = true
 end
 theses.save!
 
