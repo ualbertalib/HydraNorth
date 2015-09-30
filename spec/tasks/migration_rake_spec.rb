@@ -11,8 +11,8 @@ describe "Migration rake tasks" do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
     end
-    after do 
-      Rake::Task["migration:eraitem"].reenable 
+    after do
+      Rake::Task["migration:eraitem"].reenable
       GenericFile.last.delete
     end
     subject { GenericFile.last }
@@ -21,7 +21,8 @@ describe "Migration rake tasks" do
       expect(subject.fedora3uuid).to eq "uuid:394266f0-0e4a-42e6-a199-158165226426"
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
-    end 
+      expect(subject.institutional_visibility?).to be false
+    end
   end
 
   describe "migration:eraitem - multifile item" do
@@ -36,6 +37,7 @@ describe "Migration rake tasks" do
     subject { GenericFile.last }
     it "multifile item should have a zip file" do
       expect(subject.label).to eq "uuid:846f544d-94db-41b4-9f4a-654e1457ed8c.zip"
+      expect(subject.institutional_visibility?).to be false
     end
   end
 
@@ -53,6 +55,7 @@ describe "Migration rake tasks" do
       expect(subject.license).to eq "I am required to use/link to a publisher's license"
       expect(subject.rights).to eq "This material is provided under educational reproduction permissions included in Alberta Agriculture and Rural Development’s Copyright and Disclosure Statement; see terms at agriculture.alberta.ca/copyright. This Statement requires the following identification: The source of the materials is Alberta Agriculture and Rural Development, www.agriculture.alberta.ca. The use of these materials by the end user is done without any affiliation with or endorsement by the Government of Alberta. Reliance upon the end user's use of these materials is at the risk of the end user."
       expect(subject.label).to_not eq "uuid:488e5517-ace7-4cda-8196-f29f853711c8.zip"
+      expect(subject.institutional_visibility?).to be false
     end
   end
 
@@ -82,6 +85,7 @@ describe "Migration rake tasks" do
     end
     subject { GenericFile.last }
     it "item should have all thesis related metadata field" do
+      expect(subject.institutional_visibility?).to be false
       expect(subject.year_created).to eq "2015"
       expect(subject.fedora3uuid).to eq "uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"
       expect(subject.abstract).to eq "This is a test thesis abstract."
@@ -113,6 +117,27 @@ describe "Migration rake tasks" do
     subject { GenericFile.last }
     it "item should have private visibility" do
       expect(subject.visibility).to eq "restricted"
+      expect(subject.institutional_visibility?).to be false
+    end
+  end
+
+  describe 'migration:eraitem - ccid item' do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/ccid-protected-metadata')
+    end
+
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+    end
+
+    subject { GenericFile.last }
+
+    it "item should have institutional visibility" do
+      expect(subject.institutional_visibility?).to be true
+      expect(subject.read_groups).to include Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
+      expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
     end
   end
 

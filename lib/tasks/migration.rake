@@ -3,11 +3,11 @@ require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
 
   NS = {
-        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", 
-        "xmlns:foxml"=>"info:fedora/fedora-system:def/foxml#", 
-        "xmlns:audit"=>"info:fedora/fedora-system:def/audit#", 
-        "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
-        "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
+        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
+        "xmlns:foxml"=>"info:fedora/fedora-system:def/foxml#",
+        "xmlns:audit"=>"info:fedora/fedora-system:def/audit#",
+        "xmlns:dc"=>"http://purl.org/dc/elements/1.1/",
+        "xmlns:dcterms"=>"http://purl.org/dc/terms/",
         "xmlns:georss"=>"http://www.georss.org/georss/",
         "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
         "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
@@ -39,7 +39,7 @@ require 'pdf-reader'
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
   #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
-  
+
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://admin:eraR00!z@era.library.ualberta.ca/public/view/item/"
   DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
@@ -64,9 +64,9 @@ require 'pdf-reader'
   ITEM_LIST = REPORTS + "item_list.txt"
   #collection list
   COLLECTION_LIST = REPORTS + "collection_list.txt"
-  FileUtils::mkdir_p REPORTS 
+  FileUtils::mkdir_p REPORTS
   #successful_path
-  COMPLETED_DIR = "lib/tasks/migration/completed" 
+  COMPLETED_DIR = "lib/tasks/migration/completed"
   FileUtils::mkdir_p COMPLETED_DIR
 
 namespace :migration do
@@ -99,17 +99,17 @@ namespace :migration do
     end
 
   end
-	
+
   desc "batch migrate generic files from modified ERA FOXML file"
   task :eraitem, [:dir, :migrate_datastreams] => :environment do |t, args|
     args.with_defaults(:migrate_datastreams => "true")
     begin
       MigrationLogger.info "**************START: Migrate ERA objects *******************"
-      metadata_dir = args.dir 
+      metadata_dir = args.dir
       migrate_datastreams = args.migrate_datastreams == "true"
-      # Usage: Rake migration:eraitem[<file directory here, path included>,<optional: migrate_datastreams: boolean>] 
+      # Usage: Rake migration:eraitem[<file directory here, path included>,<optional: migrate_datastreams: boolean>]
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        migrate_object(metadata_dir, migrate_datastreams) 
+        migrate_object(metadata_dir, migrate_datastreams)
       else
 	MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
@@ -123,7 +123,7 @@ namespace :migration do
   task :era_collection_community, [:dir] => :environment do |t, args|
     begin
       MigrationLogger.info "**************START: Migrate collections ********************"
-      metadata_dir = args.dir 
+      metadata_dir = args.dir
       # Usage: Rake migration:eracollection['<file directory here, path included>']
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
         migrate_collection_community(metadata_dir)
@@ -177,7 +177,7 @@ namespace :migration do
 
       #get the uuid of the object
       uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
-  
+
       # get the content datastream DS
       ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
       if ds_datastreams.length > 0
@@ -201,7 +201,7 @@ namespace :migration do
         system "curl -o #{download_foxml} #{foxml_url}" 
       end
     end
-  end 
+  end
 
   def migrate_object(metadata_dir, migrate_datastreams)
     time = Time.now
@@ -213,7 +213,7 @@ namespace :migration do
     MigrationLogger.info " +++++++ START: object ingest #{metadata_dir} +++++++ "
     # create a ingest batch
     #@ingest_batch_id = ActiveFedora::Noid::Service.new.mint (will use in latest version of sufia)
-    @ingest_batch_id = ActiveFedora::Noid::Service.new.mint 
+    @ingest_batch_id = ActiveFedora::Noid::Service.new.mint
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
@@ -228,21 +228,21 @@ namespace :migration do
       uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
       # check duplication in the system
       next if duplicated?(uuid)
-  
+
       #get the owner ids
       owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", NS).map{ |node| node.to_s.gsub(/\s+/,"").split(',')}.flatten
-   
+
 
       #get the modifiedDate
       date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
       date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
- 
+
       MigrationLogger.info "Get the current version of DCQ"
       dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", NS).last
       #get metadata from the lastest version of DCQ
       if !dc_version
         MigrationLogger.fatal "No DCQ datastream available"
-	next
+	      next
       end
       title = dc_version.xpath("dcterms:title", NS).text
       creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:creator", NS)
@@ -258,8 +258,8 @@ namespace :migration do
       fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
       fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", NS).text()
       trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
-      ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS) 
-      
+      ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS)
+
       #for thesis objects
       abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
       date_accepted = dc_version.xpath("dcterms:dateaccepted", NS).text() if dc_version.xpath("dcterms:dateaccepted", NS)
@@ -279,7 +279,7 @@ namespace :migration do
       dissertant = dc_version.xpath("marcrel:dis", NS).text() if dc_version.xpath("marcrel:dis", NS)
       dissertant = creators.first if type == "Thesis" && (dissertant.nil? || dissertant.blank?)
 
-      #calculated year_created based on date_created or date_accepted 
+      #calculated year_created based on date_created or date_accepted
       if type == "Thesis"
         year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
       else
@@ -287,10 +287,10 @@ namespace :migration do
       end
 
       # get the content datastream DS
-      if migrate_datastreams 
+      if migrate_datastreams
         MigrationLogger.info("Migrating content datastreams")
         ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
-        case 
+        case
         when ds_datastreams.length > 0
           original_filename =""
           file_full=""
@@ -298,7 +298,7 @@ namespace :migration do
           ds_datastreams.each do |ds|
             ds_num = ds.attribute('ID')
             ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
-            file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", NS) 
+            file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", NS)
             #get the metadata for the physical file
 
             original_filename = file_version.attribute('LABEL').to_s
@@ -346,7 +346,7 @@ namespace :migration do
       else
         MigrationLogger.info("Not migrating content datastreams")
       end
-	  
+
       # get the license metadata
       license_node = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'LICENSE.')]", NS).last
       if license_node.nil?
@@ -367,9 +367,9 @@ namespace :migration do
             PDF::Reader.open(license_file) do |reader|
               reader.pages.map do |page|
 	        rights = rights + page.text
-	      end			  
+	      end
             end
-          else 
+          else
             rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
           end
           rights = rights.squeeze(' ').gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ').squeeze(' ')
@@ -491,23 +491,23 @@ namespace :migration do
       end
       metadata_t = Time.now
       metadata_time = metadata_time + (metadata_t - start_time)
-      puts "Retrieve metadata used #{(metadata_t - start_time)}"	  
+      puts "Retrieve metadata used #{(metadata_t - start_time)}"
       # set the time
       time_in_utc = DateTime.now
 
       # create the batch for the file upload
-      @batch_id = ActiveFedora::Noid::Service.new.mint 
+      @batch_id = ActiveFedora::Noid::Service.new.mint
       @batch = Batch.find_or_create(@batch_id)
       # create the generic file
       @generic_file = GenericFile.new
-	  
+
       # create metadata for the new object in Hydranorth
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
-	  
+
       @generic_file.apply_depositor_metadata(depositor.user_key)
-      @generic_file.date_uploaded = DateTime.strptime(original_deposit_time, '%Y-%m-%dT%H:%M:%S.%N%Z') unless original_deposit_time.nil? 
+      @generic_file.date_uploaded = DateTime.strptime(original_deposit_time, '%Y-%m-%dT%H:%M:%S.%N%Z') unless original_deposit_time.nil?
       @generic_file.date_modified = date_modified
-	 
+
       if @batch_id
         @generic_file.batch_id = @batch_id
       else
@@ -526,19 +526,24 @@ namespace :migration do
       @generic_file.title = [title]
       file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
       @generic_file.attributes = file_attributes
-      # OPEN ACCESS for all items ingested for now
-      if (is_part_of == "info:fedora/ir:DARK_REPOSITORY")
-        @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+      @generic_file.visibility = case is_part_of
+      when 'info:fedora/ir:DARK_REPOSITORY'
+        Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      when 'info:fedora/ir:CCID_AUTH'
+        Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
       else
-        @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+        Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       end
+
       if !permissions_attributes.blank?
         @generic_file.permissions_attributes = permissions_attributes
       end
+
       # add foxml to the datastream
       MigrationLogger.info "Add original FOXML to the datastream"
       foxml_file = File.open(download_foxml)
-      @generic_file.add_file(foxml_file, {path: 'fedora3foxml', original_name: File.basename(file), mime_type: "text/xml"})	  
+      @generic_file.add_file(foxml_file, {path: 'fedora3foxml', original_name: File.basename(file), mime_type: "text/xml"})
       attr_t = Time.now
       attr_time = attr_time + (attr_t - metadata_t)
       puts "Set attributes for the file used #{attr_t - metadata_t}"
@@ -564,12 +569,12 @@ namespace :migration do
       @generic_file.creator = creators
       @generic_file.save
 
-      save_t = Time.now 
+      save_t = Time.now
       save_time = save_time + (save_t - attr_t)
       puts "Save file used #{save_t - attr_t}"
       #Sufia.queue.push(CharacterizeJob.new(@generic_file.id))
 
-      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
+      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections} and community #{communities} if needed"
       puts communities_noid
@@ -601,8 +606,8 @@ namespace :migration do
         puts e.backtrace.inspect
         MigrationLogger.error "#{$!}, #{$@}"
         next
-      end 
-      begin 
+      end
+      begin
       MigrationLogger.info "START: verify if migration is successful"
       # verify file is migrated
       migrated = GenericFile.find(@generic_file.id)
@@ -706,9 +711,9 @@ namespace :migration do
       end
       if migrated && incommunity
         MigrationLogger.info "Collection/Community migrated successfully"
-        #move metadata to completed dir 
+        #move metadata to completed dir
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
-      end    
+      end
     end
     MigrationLogger.info " +++++++ Finish: collection ingest #{metadata_dir} +++++++ "
 
@@ -741,7 +746,7 @@ namespace :migration do
         MigrationLogger.info "One and only one record #{id} has been found in the system"
         if !collections.empty?
           collections.each do |c|
-            this_id = find_collection(c) 
+            this_id = find_collection(c)
             this_collection = Collection.find(this_id)
             if this_collection.member_ids.include? id
               MigrationLogger.info "Item #{uuid} / #{id} is in collection #{this_collection.id}"
@@ -798,7 +803,7 @@ namespace :migration do
         retry
       end
 
-    
+
   end
 
   def duplicated?(uuid)
@@ -820,7 +825,7 @@ namespace :migration do
     end
     return id
   end
-  
+
   def collection_dcq(metadata)
     #get the current version of DCQ
     dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", NS).last
@@ -828,7 +833,7 @@ namespace :migration do
     collection_attributes[:title] = dc_version.xpath("dcterms:title", NS).text
     collection_attributes[:creator] = dc_version.xpath("dcterms:creator", NS).text
     collection_attributes[:description] = dc_version.xpath("dcterms:description",NS).text
-    era_identifiers = dc_version.xpath("dcterms:identifier/text()", NS).map(&:to_s) 
+    era_identifiers = dc_version.xpath("dcterms:identifier/text()", NS).map(&:to_s)
     era_identifiers.each {|id| collection_attributes[:fedora3handle] = id if id.match(/handle/)} unless era_identifiers.nil?
 
     return collection_attributes
@@ -847,18 +852,18 @@ namespace :migration do
         })
       end
 
-     MigrationLogger.info "Use Admin User for collection creation." 
+     MigrationLogger.info "Use Admin User for collection creation."
      #create the collection if not exists, and update collection if it's been seeded previously.
-     
+
      if duplicated?(collection_attributes[:fedora3uuid])
        collection = Collection.find(find_collection(collection_attributes[:fedora3uuid]))
      else
        collection = Collection.new
      end
      MigrationLogger.info "Collection #{collection.id} is created or found."
- 
+
      collection.apply_depositor_metadata(current_user.user_key)
-     collection.title = collection_attributes[:title] 
+     collection.title = collection_attributes[:title]
      collection.description = collection_attributes[:description]
      collection.creator = [current_user.user_key]
      collection.fedora3uuid = collection_attributes[:fedora3uuid]
@@ -882,7 +887,7 @@ namespace :migration do
 
      collection.save
      MigrationLogger.info "Collection #{collection.id} is saved successfully."
-     return collection.id 
+     return collection.id
   end
 
 end

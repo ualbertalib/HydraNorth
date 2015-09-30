@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading dashboard-panel">
+    <h3 class="panel-title"><%= t("sufia.dashboard.stats.heading") %></h3></div>
+
+  <table class="table table-condensed stats">
+    <tr>
+      <td>You have deposited <span><%= number_of_files %> files</span> which have been:
+
+        <ul class="views-downloads-dashboard">
+          <li>- viewed <span><%= @user.total_file_views %></span> times</li>
+          <li>- downloaded <span><%= @user.total_file_downloads %></span> times</li>
+        </ul>
+     
+    </tr>
+
+    <tr>
+      <td>You have created <span><%= number_of_collections %> collections</span></td>
+    </tr>
+    <tr>
+      <td>You are following <span><%= @user.all_following.count %> users</span></td>
+    </tr>
+    <tr>
+      <td>You have <span><%= @user.followers.count %> followers</span></td>
+    </tr>
+  </table>
+</div>

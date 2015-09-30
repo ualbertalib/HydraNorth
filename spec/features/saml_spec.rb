@@ -29,7 +29,7 @@ describe 'SAML' do
 
     it 'should be redirected to their protected target after creating an account' do
       visit '/files/new'
-      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      expect { click_link 'YES, I have a CCID' }.to_not raise_error
       select_new_account
       expect(page).to have_content I18n.t('devise.omniauth_callbacks.success', kind: 'Shibboleth')
       expect(current_path).to eq('/files/new')
@@ -65,7 +65,7 @@ describe 'SAML' do
       it 'should receive an email confirmation to link to their existing account' do
         sign_in_with_saml
 
-        expect(page).to have_content "Do you have an existing account?"
+        expect(page).to have_content "Do you have an existing ERA account?"
         choose 'Yes'
         fill_in('user_email', :with => user.email)
         expect { click_button 'Continue' }.to_not raise_error
@@ -78,7 +78,7 @@ describe 'SAML' do
 
         sign_in_with_saml
         expect(page).to have_content I18n.t('devise.failure.unconfirmed')
-        expect(page).to have_content I18n.t('sufia.sign_in') 
+        expect(page).to have_content I18n.t('sufia.sign_in')
 
         link = message.body.raw_source.match(%r[href="http://localhost(?<url>.+?)">])[:url]
         visit link
@@ -90,7 +90,7 @@ describe 'SAML' do
 
       it 'should not be able to step out of the linking workflow' do
         sign_in_with_saml
-        expect(page).to have_content "Do you have an existing account?"
+        expect(page).to have_content "Do you have an existing ERA account?"
         visit '/browse'
         expect(current_path).not_to eq('/browse')
         uid = OmniAuth.config.mock_auth[:shibboleth][:uid].gsub(/\./, '-dot-')
@@ -99,7 +99,7 @@ describe 'SAML' do
 
       it 'should not be able to enumerate user accounts via the linking workflow' do
         sign_in_with_saml
-        expect(page).to have_content "Do you have an existing account?"
+        expect(page).to have_content "Do you have an existing ERA account?"
         choose 'Yes'
         fill_in('user_email', :with => 'asdfjkl;')
         expect { click_button 'Continue' }.to_not raise_error
@@ -138,8 +138,8 @@ describe 'SAML' do
 
     it 'should not be prompted to link account' do
       visit '/users/sign_in'
-      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
-      expect(page).to_not have_content "Do you have an existing account?"
+      expect { click_link 'YES, I have a CCID' }.to_not raise_error
+      expect(page).to_not have_content "Do you have an existing ERA account?"
       expect(page).to have_content I18n.t('devise.omniauth_callbacks.success', kind: 'Shibboleth')
       expect(current_path).to eq('/dashboard')
     end
@@ -151,21 +151,21 @@ describe 'SAML' do
   end
 
   def select_new_account
-      expect(page).to have_content "Do you have an existing account?"
+      expect(page).to have_content "Do you have an existing ERA account?"
       choose 'No'
-      expect { click_button 'Continue' }.to_not raise_error 
+      expect { click_button 'Continue' }.to_not raise_error
   end
 
   def sign_in_with_saml
       visit '/users/sign_in'
-      expect { click_link "Sign in with Shibboleth" }.to_not raise_error
+      expect { click_link 'YES, I have a CCID' }.to_not raise_error
   end
 
   def sign_in_with_legacy_credentials(user)
       visit '/users/sign_in'
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
-      click_button I18n.t('sufia.sign_in') 
+      click_button I18n.t('sufia.sign_in')
   end
 
   def sign_out
