@@ -1,17 +1,30 @@
 <h2>Login to ERA</h2>
-<p>login with your ERA Account, if you don't have one, <%= link_to "sign up now", new_registration_path(resource_name) %>.</p>
-<div class="login">
-	<div class="col-sm-4">
+<p class="login-instruct">ERA is now a <a href="https://ist.ualberta.ca/services/ccid-passwords/campus-computing-id">CCID</a> (Campus Computing ID) enabled service. If you have a CCID please use it to log in to ERA. If you have an existing ERA account, it will be linked to your CCID the first time you log in.</p>
+<h3>Do you have a University of Alberta CCID (Campus Computing ID)?</h3>
+
+
+<div class="col-sm-8 col-sm-offset-2">
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= link_to "YES, I have a CCID", (omniauth_authorize_path(resource_name, provider)), :class => "btn btn-ccid" %>
+  <% end -%>
+<% end -%>
+</div>
+<div class="col-sm-4 col-sm-offset-4">
+<a href="#" class="btn btn-noccid">NO, I do not have a CCID</a>
+
+<div id="era-login">
+<p>Login with your ERA account</p>
 		<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => 'form-inline' }) do |f| %>
 		<%= f.input :email, required: false, autofocus: true %>
     	<%= f.input :password, required: false %>
     	<%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
   		<div class="form-actions">
-    		<%= f.button :submit, "Login", :class => "btn-primary" %>
+    		<%= f.button :submit, "Login", :class => "btn btn-primary" %>
   		</div>
 		<% end %>
-	</div>
-	<div class="col-sm-4">
+
 		<%= render "devise/shared/links" %>
-	</div>
+	
+</div>
 </div>
