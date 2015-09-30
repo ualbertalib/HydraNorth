@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'resource_types_list', :type => :feature do
+describe 'Edit resource form', :type => :feature do
 
   let(:user) { FactoryGirl.create :user_with_fixtures }
   let(:admin) { FactoryGirl.create :admin }
@@ -8,7 +8,7 @@ describe 'resource_types_list', :type => :feature do
     GenericFile.new.tap do |f|
       f.title = ['little_file.txt']
       f.creator = ['little_file.txt_creator']
-      f.resource_type = ["stuff" ]
+      f.resource_type = ["Book"]
       f.read_groups = ['public']
       f.apply_depositor_metadata(user.user_key)
       f.save!
@@ -18,7 +18,7 @@ describe 'resource_types_list', :type => :feature do
     GenericFile.new.tap do |f|
       f.title = ['little_file.txt']
       f.creator = ['little_file.txt_creator']
-      f.resource_type = ["stuff"]
+      f.resource_type = ["Book"]
       f.read_groups = ['public']
       f.apply_depositor_metadata(admin.user_key)
       f.save!
@@ -29,8 +29,8 @@ describe 'resource_types_list', :type => :feature do
     cleanup_jetty
   end
 
-  context 'admin form should have admin resource types' do
-    before do 
+  context 'admin users' do
+    before do
       sign_in admin
       visit "/dashboard/files"
       within("#document_#{file2.id}") do
@@ -39,13 +39,13 @@ describe 'resource_types_list', :type => :feature do
       end
     end
 
-    it 'has admin resource list' do
-      expect(page).to have_select('generic_file_resource_type', :options => ["Book","Book Chapter", "Computing Science Technical Report", "Conference/workshop Poster","Conference/workshop Presentation", "Dataset", "Image", "Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review", "Structural Engineering Report", "Thesis"])
+    it 'should see the admin resource list' do
+      expect(page).to have_select('generic_file_resource_type', options: [""] + Sufia.config.admin_resource_types.keys)
     end
 
   end
 
-   context 'regular user form should have regular resource types' do
+   context 'regular users' do
     before do
       sign_in user
       visit "/dashboard/files"
@@ -54,9 +54,8 @@ describe 'resource_types_list', :type => :feature do
         click_link "Edit File"
       end
     end
-    it 'has regular resource list' do
-      expect(page).to have_select('generic_file_resource_type', :options => ["Book", "Book Chapter", "Conference/workshop Poster", "Conference/workshop Presentation", "Dataset", "Image","Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material", "Review"])
-
+    it 'should see the regular resource list' do
+      expect(page).to have_select('generic_file_resource_type', options: [""] + Sufia.config.resource_types.keys)
     end
 
   end

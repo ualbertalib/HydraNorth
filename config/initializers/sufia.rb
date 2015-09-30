@@ -24,20 +24,15 @@ Sufia.config do |config|
 
   config.cc_licenses_reverse = Hash[*config.cc_licenses.to_a.flatten.reverse]
 
-  config.resource_types = {
-    "Book" => "Book",
-    "Book Chapter" => "Book Chapter",
-    "Conference\/workshop Poster" => "Conference\/workshop Poster",
-    "Conference\/workshop Presentation" => "Conference\/workshop Presentation",
-    "Dataset" => "Dataset",
-    "Image" => "Image",
-    "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
-    "Journal Article (Published)" => "Journal Article (Published)",
-    "Learning Object" => "Learning Object",
-    "Report" => "Report",
-    "Research Material" => "Research Material",
-    "Review" => "Review",
-  }
+  RESOURCE_TYPES = ["Book", "Book Chapter", "Conference\/workshop Poster", "Conference\/workshop Presentation", "Dataset", "Image",
+                           "Journal Article (Draft-Submitted)", "Journal Article (Published)", "Learning Object", "Report", "Research Material",
+                           "Review"]
+
+  ADMIN_RESOURCE_TYPES = (RESOURCE_TYPES + ["Computing Science Technical Report", "Structural Engineering Report", "Thesis"]).sort
+
+  # Sufia wants key->value maps for the types, so we build a hash from our type constants
+  config.resource_types = Hash[RESOURCE_TYPES.map {|val| [val, val]}]
+  config.admin_resource_types = Hash[ADMIN_RESOURCE_TYPES.map {|val| [val, val]}]
 
   config.resource_types_to_schema = {
     "Book" => "http://schema.org/Book",
@@ -52,24 +47,6 @@ Sufia.config do |config|
     "Report" => "http://schema.org/CreativeWork",
     "Research Material" => "http://schema.org/CreativeWork",
     "Review" => "http://schema.org/Review",
-  }
-
-   config.admin_resource_types = {
-    "Book" => "Book",
-    "Book Chapter" => "Book Chapter",
-    "Computing Science Technical Report" => "Computing Science Technical Report",
-    "Conference\/workshop Poster" => "Conference\/workshop Poster",
-    "Conference\/workshop Presentation" => "Conference\/workshop Presentation",
-    "Dataset" => "Dataset",
-    "Image" => "Image",
-    "Journal Article (Draft-Submitted)" => "Journal Article (Draft-Submitted)",
-    "Journal Article (Published)" => "Journal Article (Published)",
-    "Learning Object" => "Learning Object",
-    "Report" => "Report",
-    "Research Material" => "Research Material",
-    "Review" => "Review",
-    "Structural Engineering Report" => "Structural Engineering Report",
-    "Thesis" => "Thesis",
   }
 
   config.languages = {

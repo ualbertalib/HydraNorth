@@ -21,8 +21,17 @@ module GenericFileHelper
     link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
   end
 
-  def download_path gf
-    GenericFile.find(gf.id).doi_url || sufia.download_path(gf.id)
+  # sufia.download path is from Sufia::Engine.routes.url_helpers
+  # download_path is currently called in the following ways in Sufia and HydraNorth
+  # download_path(@generic_file)
+  # download_path(id)
+  # download_path(@generic_file, file: 'webm')
+  # download_path(id: @asset)
+  # download_path document, file: 'thumbnail'
+  def download_path(*args)
+    gf = args.first if args.first.is_a? GenericFile
+    gf ||= GenericFile.find(args.first.id) if args.first.is_a? SolrDocument
+    gf && gf.doi_url.present? ? gf.doi_url : sufia.download_path(*args)
   end
 
   def render_collection_list gf

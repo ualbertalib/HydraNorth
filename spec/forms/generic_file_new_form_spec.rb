@@ -23,6 +23,23 @@ describe 'generic file new', :type => :feature do
     end
   end
 
+  describe 'new item fields', js: true do
+    before do
+      visit '/'
+    end
+    it "should not allow multiple resource_type selections, but assign to an array" do
+      sign_in user
+      visit '/files/new'
+      within ("#local #fileupload") do
+        check('terms_of_service')
+        attach_file "files[]", [fixture_path + '/world.png']
+        click_button('main_upload_start')
+      end
+      sleep(30)
+      expect(page).to have_xpath('//select[@name="generic_file[resource_type][]" and not(@multiple)]')
+    end
+  end
+
   describe 'request CSTR item', js: true do
     before do
       visit '/'
@@ -43,7 +60,7 @@ describe 'generic file new', :type => :feature do
     before do
       visit '/'
     end
-    it "Title and creator is blank" do      
+    it "Title and creator is blank" do
       sign_in user
       visit '/files/new'
       within ("#local") do
@@ -55,11 +72,10 @@ describe 'generic file new', :type => :feature do
       within("form#new_generic_file") do
         expect(find_field('Description or Abstract')).to have_content ''
         expect(find_field('Date Created')).to have_content ''
-        expect(find_field('generic_file_title')).to have_content '' 
+        expect(find_field('generic_file_title')).to have_content ''
         expect(page).to have_content 'world.png'
         expect(find_field('Creator')).to have_content ''
       end
     end
   end
 end
-
