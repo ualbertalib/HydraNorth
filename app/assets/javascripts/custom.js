@@ -20,10 +20,10 @@ $(document).ready(function(){
 			$(this).find(".show-info").fadeOut(250);
 			$(this).find("span").show();
 	});
-	var images = ['s1', 's5', 's6', 's8'];
+	var images = ['s1', 's5', 's6'];
 	var randomSlide1 = images[Math.floor(Math.random() * images.length)];
  	$('#slide1').addClass(randomSlide1);
- 	var images2 = ['s2', 's3', 's4', 's7'];
+ 	var images2 = ['s2', 's3', 's4'];
  	var randomSlide2 = images2[Math.floor(Math.random() * images.length)];
  	$('#slide2').addClass(randomSlide2);
 
