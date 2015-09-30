@@ -124,7 +124,7 @@ body.home h4{
 	background-position: 0px 0px;
 	display: inline-block;
 	height: 30px;
-	width: 250px;
+	width: 100px;
 }
 .lib-logo .btn{
 	float: right;
@@ -511,7 +511,7 @@ body.home h4{
 }
 .mast-branding ul>li>a{
 	padding: 5px 26px;
-	font-size: 19px;
+	font-size: 15px;
 	display: inline-block;
 	border: 1px solid #fff;
 	border-width: 0px 1px;
@@ -705,7 +705,7 @@ body.home h4{
 	margin-top: 5px;
 }
 .heading-tile a{
-	font-size: 20px;
+	font-size: 17px;
 	text-decoration: none;
 	color: #333;
 }
@@ -897,7 +897,7 @@ ol.progtrckr {
     margin: 0;
     padding: 20px 0px 0px 0px;
 	height: 100px;
-	font-size: 16px;
+	font-size: 12px;
 	text-align: center;	
 }
 ol.progtrckr li {
@@ -1261,14 +1261,14 @@ ul.radio li.embargo{
 		padding-top: 8px;
 		background-image: asset_url('lib-logo.png');
 		background-repeat: no-repeat;
-		background-size: 234px;
+		background-size: 200px;
 		background-position: 0px 0px;
 		display: inline-block;
-		height: 40px;
-		width: 250px;
+		height: 30px;
+		width: 200px;
 	}
 	.lib-logo a.logo:hover{
-		background-position: 0px -46px;
+		background-position: 0px -39px;
 	}
 	.front-images{
 		margin: 0px 7%;
@@ -1298,19 +1298,27 @@ ul.radio li.embargo{
 	.copyright{
 		padding: 40px 0 0 0;
 	}
-
-        .dl-horizontal dt {
-                width: 160px;
-                float: left;
-                clear: left;
-                text-align: right;
-                white-space: normal;
-                overflow: visible;
-        }
+	.dl-horizontal dt {
+        width: 160px;
+        float: left;
+        clear: left;
+        text-align: right;
+        white-space: normal;
+        overflow: visible;
+    }
 }
 @media (min-width: 992px){
+	ol.progtrckr {
+		font-size: 16px;
+	}
+	.heading-tile a{
+		font-size: 20px;
+	}
 	.branding{
 		top:80px;
+	}
+	.mast-branding ul>li>a{
+		font-size: 19px;
 	}
 	.chart h3{
   		font-size: 24px;
@@ -1330,6 +1338,21 @@ ul.radio li.embargo{
 		padding: 5px 11px;
 		font-size: 23px;
 		letter-spacing: 1px;
+	}
+	.lib-logo a.logo{
+		margin-top: 20px;
+		padding-bottom: 6px;
+		padding-top: 8px;
+		background-image: asset_url('lib-logo.png');
+		background-repeat: no-repeat;
+		background-size: 234px;
+		background-position: 0px 0px;
+		display: inline-block;
+		height: 40px;
+		width: 250px;
+	}
+	.lib-logo a.logo:hover{
+		background-position: 0px -46px;
 	}
 	#slide1 .form-group{
 		margin-top: 55%;
