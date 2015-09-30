@@ -5,7 +5,6 @@
   });
   $(document).on("click", ".remove_collection_group", function(){
   var current = $(this).parent()
-  console.log(current)
   removeCurrentGroup(current);
   });
   function addNewGroup(current){
