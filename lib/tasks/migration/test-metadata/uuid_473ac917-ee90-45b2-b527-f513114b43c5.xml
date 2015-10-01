@@ -2,7 +2,7 @@
   <foxml:objectProperties>
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Adelie penguins -- photograph"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="weiweis"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="lseale"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2011-05-20T17:18:31.731Z"/>
     <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T19:24:10.785Z"/>
   </foxml:objectProperties>
@@ -249,7 +249,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.23253</ualterms:fedora3handle>
           <dcterms:title>Adelie penguins -- photograph</dcterms:title>
           <dcterms:creator>Seale, Linda N.</dcterms:creator>

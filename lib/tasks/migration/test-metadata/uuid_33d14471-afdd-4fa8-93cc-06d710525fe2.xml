@@ -2,7 +2,7 @@
   <foxml:objectProperties>
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Mining the Temporal Evolution of the Android Bug Reporting Community via Sliding Windows"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="mmcdonald"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="ualbertacs"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2013-09-30T17:22:41.935Z"/>
     <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-04-29T17:49:18.059Z"/>
     <foxml:extproperty NAME="http://era.library.ualberta.ca/schema/definitions.xsd#version" VALUE="1.3.13"/>
@@ -224,7 +224,7 @@
   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion CREATED="2013-09-30T17:22:54.357Z" ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
       <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca">
+        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca">
           <dcterms:creator>Hindle, Abram</dcterms:creator>
           <dcterms:creator>Jiang, Feng</dcterms:creator>
           <dcterms:creator>Wang, Jiemin</dcterms:creator>
