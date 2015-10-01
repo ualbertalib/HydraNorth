@@ -461,7 +461,6 @@ namespace :migration do
      communities.each do |cuuid|
        communities_noid << find_collection(cuuid)
      end
-
      collections_noid = []
      collections.each do |cuuid|
        collections_noid << find_collection(cuuid)
@@ -577,11 +576,8 @@ namespace :migration do
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections} and community #{communities} if needed"
-      puts communities_noid
-      puts collections_noid
       if !collections_noid.empty?
         collections_noid.each do |c|
-          puts c
       	  add_to_collection(@generic_file, c)
       	end
       else
@@ -636,11 +632,11 @@ namespace :migration do
       verify_time = verify_time + (verify_t - collection_t)
       puts "Verification used #{verify_t - collection_t}"
     end
-      puts "Summary: Metadata time: #{metadata_time}"
-      puts "Summary: Attribute time: #{attr_time}"
-      puts "Summary: Save file time: #{save_time}"
-      puts "Summary: Add to Collection time: #{collection_time}"
-      puts "Summary: Verification time: #{verify_time}"
+      #puts "Summary: Metadata time: #{metadata_time}"
+      #puts "Summary: Attribute time: #{attr_time}"
+      #puts "Summary: Save file time: #{save_time}"
+      #puts "Summary: Add to Collection time: #{collection_time}"
+      #puts "Summary: Verification time: #{verify_time}"
 
   end
 
@@ -673,10 +669,9 @@ namespace :migration do
             communities << find_collection(uuid)
           end
         end
-        puts communities
         id = create_save_collection(collection_attributes, model, communities)
 
-        if model == "info:fedora/ir:COLLECTION"
+        if model == "info:fedora/ir:COLLECTION" && !communities.blank?
           MigrationLogger.info "This #{id} is a collection, need to update its belongsToCommunity"
           communities.each do |cid|
             community = Collection.find(cid)
@@ -738,7 +733,6 @@ namespace :migration do
 
       #if uuid has already been migrated
       solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
-      puts solr_rsp
       numFound = solr_rsp['response']['numFound']
       case
       when numFound == 1
@@ -786,6 +780,11 @@ namespace :migration do
        collection.member_ids = collection.member_ids.push(file.id)
        collection.save
     else
+       collection = Collection.new(title:"failed items").tap do |c|
+         c.apply_depositor_metadata("eraadmi@ualberta.ca")
+         c.visibility=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+         c.save
+       end
        MigrationLogger.error "FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
     end
   end
@@ -807,7 +806,7 @@ namespace :migration do
   end
 
   def duplicated?(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
     numFound = solr_rsp['response']['numFound']
     if numFound > 0
       MigrationLogger.info "Duplicate not migrated: #{uuid}"
@@ -816,7 +815,9 @@ namespace :migration do
   end
 
   def find_collection(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+    puts solr_rsp
+    puts uuid
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
@@ -872,7 +873,9 @@ namespace :migration do
      if model =="info:fedora/ir:COMMUNITY"
        collection.is_community = true
      elsif model == "info:fedora/ir:COLLECTION"
-       collection.belongsToCommunity = communities
+       if communities  
+         collection.belongsToCommunity = communities
+       end
      end
      #download the original foxml
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
