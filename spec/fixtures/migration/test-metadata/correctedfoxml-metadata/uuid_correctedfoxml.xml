@@ -1,228 +1,160 @@
-<?xml version="1.0" encoding="UTF-8"?><foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PID="uuid:07185c11-20f1-445e-990f-db5cfdc71f47" VERSION="1.1" xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
-  <foxml:objectProperties>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Above ground utilities in Yakutsk, Russia"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="jmcgill"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2014-12-04T03:58:53.101Z"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2014-12-04T03:58:59.175Z"/>
-    <foxml:extproperty NAME="http://era.library.ualberta.ca/schema/definitions.xsd#version" VALUE="1.3.19"/>
-    <foxml:extproperty NAME="http://era.library.ualberta.ca/schema/definitions.xsd#developerId" VALUE="piyapong.charoenwattana@ualberta.ca"/>
-  </foxml:objectProperties>
-  <foxml:datastream CONTROL_GROUP="X" ID="AUDIT" STATE="A" VERSIONABLE="false">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.101Z" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml">
-      <foxml:xmlContent>
-        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
-          <audit:record ID="AUDREC1">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>ingest</audit:action>
-            <audit:componentID/>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:53.101Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-          <audit:record ID="AUDREC2">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>addDatastream</audit:action>
-            <audit:componentID>RELS-EXT</audit:componentID>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:53.525Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-          <audit:record ID="AUDREC3">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>addDatastream</audit:action>
-            <audit:componentID>DS1</audit:componentID>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:54.536Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-          <audit:record ID="AUDREC4">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>addDatastream</audit:action>
-            <audit:componentID>DCQ</audit:componentID>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:54.904Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-          <audit:record ID="AUDREC5">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>addDatastream</audit:action>
-            <audit:componentID>LICENSE</audit:componentID>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:55.934Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-          <audit:record ID="AUDREC6">
-            <audit:process type="Fedora API-M"/>
-            <audit:action>addDatastream</audit:action>
-            <audit:componentID>THUMBNAIL</audit:componentID>
-            <audit:responsibility>fedoraAdmin</audit:responsibility>
-            <audit:date>2014-12-04T03:58:59.175Z</audit:date>
-            <audit:justification>ERA: Action[/action/submit] Username[scampbel] WorkflowState[Submit] - Submit</audit:justification>
-          </audit:record>
-        </audit:auditTrail>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.101Z" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml">
-      <foxml:xmlContent>
-        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
-          <dc:title>Above ground utilities in Yakutsk, Russia</dc:title>
-          <dc:identifier>uuid:07185c11-20f1-445e-990f-db5cfdc71f47</dc:identifier>
-        </oai_dc:dc>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:53.525Z" ID="RELS-EXT.0" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="244">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rel="info:fedora/fedora-system:def/relations-external#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47"/>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.192Z" ID="RELS-EXT.1" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="337">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.574Z" ID="RELS-EXT.2" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="511">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.362Z" ID="RELS-EXT.3" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="626">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.653Z" ID="RELS-EXT.4" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="719">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:56.963Z" ID="RELS-EXT.5" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="819">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
-            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.252Z" ID="RELS-EXT.6" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="994">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
-            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
-            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.562Z" ID="RELS-EXT.7" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="1097">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
-            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">scampbel</submitterId>
-            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
-            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:57.912Z" ID="RELS-EXT.8" LABEL="Object Relationships" MIMETYPE="text/xml" SIZE="1230">
-      <foxml:xmlContent>
-        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-          <rdf:Description rdf:about="info:fedora/uuid:07185c11-20f1-445e-990f-db5cfdc71f47">
-            <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:d04b3b74-211d-4939-9660-c390958fa2ee"/>
-            <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"/>
-            <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ir:ResearchMaterial"/>
-            <isPartOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/ir:DARK_REPOSITORY"/>
-            <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">default</formName>
-            <submitterId xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">admin</submitterId>
-            <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-12-04T03:58:52.967Z</workflowDate>
-            <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
-            <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:07185c11-20f1-445e-990f-db5cfdc71f47</itemID>
-          </rdf:Description>
-        </rdf:RDF>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="M" ID="DS1" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:54.536Z" ID="DS1.0" LABEL="IMG_1446.3.jpg" MIMETYPE="image/jpeg">
-      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:07185c11-20f1-445e-990f-db5cfdc71f47/DS1/2014-12-04T03:58:54.536Z" TYPE="INTERNAL_ID"/>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
-<foxml:datastreamVersion CREATED="2014-12-04T03:58:54.904Z" ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
-      <foxml:xmlContent>
-        <dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca">
-          <dcterms:creator>Campbell, Sandy</dcterms:creator>
-          <dcterms:description>Because Yakutsk is on permafrost, utilities must be above ground.  The city is heated by hot water boilers in several sectors.  Hot water is carried through pipes like these to heat the city.</dcterms:description>
-          <dcterms:format xsi:type="dcterms:IMT">image/jpeg</dcterms:format>
-          <dcterms:language xsi:type="dcterms:ISO639-3">eng</dcterms:language>
-          <dcterms:subject>Photographs</dcterms:subject>
-          <dcterms:subject>Permafrost Engineering - Yakutsk Russia</dcterms:subject>
-          <dcterms:subject>Utilities - above ground</dcterms:subject>
-          <dcterms:subject>Large scale hot water heating</dcterms:subject>
-          <dcterms:title>Above ground utilities in Yakutsk, Russia</dcterms:title>
-          <dcterms:type>Image</dcterms:type>
-          <dcterms:created>2014/11/25</dcterms:created>
-          <dcterms:dateaccepted xsi:type="dcterms:W3CDTF">2014-12-03T20:58:52Z</dcterms:dateaccepted>
-          <dcterms:datesubmitted xsi:type="dcterms:W3CDTF">2014-12-03T20:58:52Z</dcterms:datesubmitted>
-          <dcterms:extent>379260 bytes</dcterms:extent>
-          <ualterms:fedora3uuid xsi:type="string">uuid:07185c11-20f1-445e-990f-db5cfdc71f47</ualterms:fedora3uuid>
-          <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.40158</ualterms:fedora3handle>
-          <dcterms:spatial>Russia, Yakutsk</dcterms:spatial>
-          <dcterms:temporal>2014</dcterms:temporal>
-        </dc>
-      </foxml:xmlContent>
-    </foxml:datastreamVersion>
-</foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="E" ID="LICENSE" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:55.934Z" ID="LICENSE.0" LABEL="Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported" MIMETYPE="text/plain">
-      <foxml:contentLocation REF="http://local.fedora.server/fedora/get/era-license:CreativeCommons-NC-ND-3.0/LICENSE" TYPE="URL"/>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
-  <foxml:datastream CONTROL_GROUP="M" ID="THUMBNAIL" STATE="A" VERSIONABLE="true">
-    <foxml:datastreamVersion CREATED="2014-12-04T03:58:59.175Z" ID="THUMBNAIL.0" LABEL="Item Thumbnail" MIMETYPE="image/gif">
-      <foxml:contentLocation REF="http://era.library.ualberta.ca:8180/fedora/get/uuid:07185c11-20f1-445e-990f-db5cfdc71f47/THUMBNAIL/2014-12-04T03:58:59.175Z" TYPE="INTERNAL_ID"/>
-    </foxml:datastreamVersion>
-  </foxml:datastream>
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     VERSION="1.1"
+                     PID="uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd"
+                     xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+   <foxml:objectProperties>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#label"
+                      VALUE="Bodies and texts, spaces and borders: women re-envision breast cancer"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId"
+                      VALUE="era-administrator"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate"
+                      VALUE="2012-03-09T20:47:11.286Z"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate"
+                      VALUE="2012-03-09T20:47:11.286Z"/>
+   </foxml:objectProperties>
+   <foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+      <foxml:datastreamVersion ID="AUDIT.0"
+                               LABEL="Audit Trail for this object"
+                               CREATED="2012-03-09T20:47:11.286Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+         <foxml:xmlContent>
+            <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+               <audit:record ID="AUDREC1">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>ingest</audit:action>
+                  <audit:componentID/>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2012-03-09T20:47:11.286Z</audit:date>
+                  <audit:justification>Ingest Objects</audit:justification>
+               </audit:record>
+            </audit:auditTrail>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="DCQ" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="DCQ.0"
+                               LABEL="Dublin Core Record for this object"
+                               CREATED="2012-03-09T20:47:11.462Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+         <foxml:xmlContent>
+            <dc xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:ualterms="http://terms.library.ualberta.ca"
+                xmlns:vivo="http://vivoweb.org/ontology/core"
+                xmlns:marcrel="http://id.loc.gov/vocabulary/relators"
+                xmlns:bibo="http://purl.org/ontology/bibo/">
+               <marcrel:ths>Bracken, Christopher (English and Film Studies)</marcrel:ths>
+               <dcterms:creator>Woodman, Dorothy</dcterms:creator>
+               <ualterms:thesiscommitteemember>Chisholm, Dianne (English and Film Studies)</ualterms:thesiscommitteemember>
+               <ualterms:thesiscommitteemember>Zwicker, Heather (English and Film Studies)</ualterms:thesiscommitteemember>
+               <ualterms:thesiscommitteemember>Ball, Karyn (English and Film Studies</ualterms:thesiscommitteemember>
+               <ualterms:thesiscommitteemember>Taylor, Chloë (Women's Studies Program and Philosophy)</ualterms:thesiscommitteemember>
+               <ualterms:thesiscommitteemember>Keränen, Lisa (Department of Communication), University of Colorado Denver</ualterms:thesiscommitteemember>
+               <dcterms:dateaccepted xsi:type="dcterms:W3CDTF">2011-12-19T17:38:29Z</dcterms:dateaccepted>
+               <ualterms:graduationdate xsi:type="gYearMonth">2012-06</ualterms:graduationdate>
+               <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10048/2485</ualterms:fedora3handle>
+               <dcterms:abstract>This dissertation explores breast cancer experiences by predominately contemporary American women that are creative interventions into, and re-visions of, experiences in medical and therapeutic environs as well as culturally produced post-surgical bodies. During diagnoses, surgeries and treatments, and self-reflexive considerations of their altered bodies, writers and artists locate ruptures, fragments and polysemy within apparently bounded, controlled and determined spaces, relationships and cultural discourses. They pursue the implications of such states by deploying postmodernist techniques, feminist language and metaphors, and non-western literary influences. The microcosm of a single autopathography is thereby entangled in a macrocosm of cultural engagements, movements across bodies, and material and discursive transformations. The critique and re-visioning of breast cancer in a patient narrative envisions corporeal subjectivity as mutually transforming; breast cancer discourse as a commons of shared language, narratives and practices; and breast cancer itself as an ecology of human and non-human materialities, environments and texts. 
+I focus on four texts and four visual collections by women with breast cancer, covering a period of approximately twenty years that begins in the early nineteen-eighties. Kathy Acker and Eve Kosofsky Sedgwick are avant-garde literary figures and critics for whom the material of breast cancer, together with rhetorical strategies, produces postmodern conceptions of medical experiences. Jo Spence (who is British), Matuschka, Hollis Sigler and contributors to Art.Rage.Us. create, through their unconventional images and techniques, strikingly political interventions in conventions that shape illness and aesthetics, the reception of altered bodies, the “pink campaign” ubiquitous in popular culture and private medical experiences. Janet Gilsdorf uses her medical expertise as a doctor and literary acumen to depict breast cancer as a politics of citizenship. By re-circuiting psychotherapeutic processes, “Sally” and Sedgwick each create an intimate commons of engagements with therapists, histories, relationships and texts. By using tactics and strategies, rather than developing policies and programs, the women in this dissertation produce a postmodern intervention into cultural issues saturating contemporary breast cancer that excavates and engages with an always already diverse nature of what seems to be monolithic and unassailable.</dcterms:abstract>
+               <dcterms:datesubmitted xsi:type="dcterms:W3CDTF">Submitted by Dorothy Woodman (dwoodman@ualberta.ca) on 2011-12-09T18:42:24Z
+No. of bitstreams: 1
+Woodman_Dorothy_Spring 2012.pdf: 10397040 bytes, checksum: 10ef9903d0c6db8e4ff041ffdbdbb54f (MD5)</dcterms:datesubmitted>
+               <dcterms:provenance>Rejected by Sintra Lewis(sintra.lewis@ualberta.ca), reason: Good Afternoon,
+We are unable to approve your e-thesis at this time due to the following formatting issues:
+
+1) You have indicated that Dr Karyn Ball was on your examining Committee but on the Doctoral Final Oral Exam form I do not see her name listed.  Please contact your department to see if they had a Revised Final Oral Exam form that was not forwarded to FGSR after October 11, 2011 that had Dr Ball’s name listed.
+
+Please re-submit your e-thesis after updating information.
+
+Thank you so much,
+Graduate Student Services
+ on 2011-12-09T23:11:02Z (GMT)</dcterms:provenance>
+               <dcterms:datesubmitted xsi:type="dcterms:W3CDTF">Submitted by Dorothy Woodman (dwoodman@ualberta.ca) on 2011-12-16T17:24:46Z
+No. of bitstreams: 1
+Woodman_Dorothy_Spring 2012.pdf: 18230984 bytes, checksum: e28bb9c845d9f9572bd97102d4b99bd1 (MD5)</dcterms:datesubmitted>
+               <dcterms:provenance>Approved for entry into archive by Sintra Lewis(sintra.lewis@ualberta.ca) on 2011-12-19T17:38:23Z (GMT) No. of bitstreams: 1
+Woodman_Dorothy_Spring 2012.pdf: 18230984 bytes, checksum: e28bb9c845d9f9572bd97102d4b99bd1 (MD5)</dcterms:provenance>
+               <dcterms:provenance>Made available in DSpace on 2011-12-19T17:38:29Z (GMT). No. of bitstreams: 1
+Woodman_Dorothy_Spring 2012.pdf: 18230984 bytes, checksum: e28bb9c845d9f9572bd97102d4b99bd1 (MD5)</dcterms:provenance>
+               <dcterms:extent>18230984 bytes</dcterms:extent>
+               <dcterms:format xsi:type="dcterms:IMT">application/pdf</dcterms:format>
+               <dcterms:language xsi:type="dcterms:ISO639-3">en</dcterms:language>
+               <dcterms:subject>breast cancer</dcterms:subject>
+               <dcterms:subject>patient narratives</dcterms:subject>
+               <dcterms:subject>medicine and literature</dcterms:subject>
+               <dcterms:subject>breast cancer art</dcterms:subject>
+               <dcterms:title>Bodies and texts, spaces and borders: women re-envision breast cancer</dcterms:title>
+               <dcterms:type>Thesis</dcterms:type>
+               <vivo:AcademicDepartment>Department of English and Film Studies</vivo:AcademicDepartment>
+               <marcrel:dgg>University of Alberta</marcrel:dgg>
+               <ualterms:thesislevel>Doctoral</ualterms:thesislevel>
+               <bibo:ThesisDegree>Doctor of Philosophy</bibo:ThesisDegree>
+            </dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="LICENSE" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="LICENSE.0"
+                               LABEL="license.txt"
+                               CREATED="2012-03-09T20:47:11.462Z"
+                               MIMETYPE="text/xml">
+         <foxml:contentLocation TYPE="INTERNAL_ID"
+                                REF="uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd+LICENSE+LICENSE.0"/>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="DS1" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="DS1.0"
+                               LABEL="Woodman_Dorothy_Spring 2012.pdf"
+                               CREATED="2012-03-09T20:47:11.462Z"
+                               MIMETYPE="application/pdf">
+         <foxml:contentLocation TYPE="INTERNAL_ID"
+                                REF="uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd+DS1+DS1.0"/>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="RELS-EXT.0"
+                               LABEL="Item Relationships"
+                               CREATED="2012-03-09T20:47:11.463Z"
+                               MIMETYPE="text/xml"
+                               SIZE="1263">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rel="info:fedora/fedora-system:def/relations-external#"
+                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+               <rdf:Description rdf:about="info:fedora/uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd">
+                  <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:Thesis"/>
+                  <isMemberOfCollection xmlns="info:fedora/fedora-system:def/relations-external#"
+                                        rdf:resource="info:fedora/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"/>
+                  <isMemberOf xmlns="info:fedora/fedora-system:def/relations-external#"
+                              rdf:resource="info:fedora/uuid:39331f1f-769d-4c2a-a103-416c285d01fc"/>
+                  <formName xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">thesis</formName>
+                  <workflowState xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">Archive</workflowState>
+                  <workflowDate xmlns="http://era.library.ualberta.ca/schema/definitions.xsd#">2012-03-09T13:47:250Z</workflowDate>
+                  <itemID xmlns="http://www.openarchives.org/OAI/2.0/">oai:era.library.ualberta.ca:uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd</itemID>
+               </rdf:Description>
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="DC1.0"
+                               LABEL="Dublin Core Record for this object"
+                               CREATED="2012-03-09T20:47:11.286Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+         <foxml:xmlContent>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:title>Bodies and texts, spaces and borders: women re-envision breast cancer</dc:title>
+               <dc:identifier>uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd</dc:identifier>
+            </oai_dc:dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
 </foxml:digitalObject>
+

@@ -9,10 +9,11 @@ require 'pdf-reader'
         "xmlns:dc"=>"http://purl.org/dc/elements/1.1/",
         "xmlns:dcterms"=>"http://purl.org/dc/terms/",
         "xmlns:georss"=>"http://www.georss.org/georss/",
-        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/",
-        "xmlns:ualterms"=>"http://terms.library.ualberta.ca",
-        "memberof"=>"info:fedora/fedora-system:def/relations-external#",
-        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
+        "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
+        "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
+        "hasmodel"=>"info:fedora/fedora-system:def/model#",
+        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
         "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
         "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
         "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
@@ -40,17 +41,12 @@ require 'pdf-reader'
   #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
 
   #Use the ERA public interface to download original file and foxml
-  DOWNLOAD_URL = "https://admin:eraR00!z@era.library.ualberta.ca/public/view/item/"
+  DOWNLOAD_URL = "https://era.library.ualberta.ca/public/view/"
   DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
   FILE_STORE = "lib/tasks/migration/files"
-  if (Rails.env.test?)
-    CORRECTED_FOXML = "spec/fixtures/migration/corrected_foxml"
-  else
-    CORRECTED_FOXML = "lib/tasks/migration/corrected_foxml"
-  end
   FileUtils::mkdir_p TEMP
   FileUtils::mkdir_p TEMP_FOXML
   #report directory
@@ -182,7 +178,7 @@ namespace :migration do
       if ds_datastreams.length > 0
         ds_datastreams.each do |ds|
           ds_num = ds.attribute('ID')
-          file_location = DOWNLOAD_URL + uuid + "/" + ds_num
+          file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
           #download file to temp location
           MigrationLogger.info "Download DS Datastream#{ds_num} for #{uuid}"
           #file_full = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -190,15 +186,9 @@ namespace :migration do
         end
       end
       MigrationLogger.info "Download the original foxml #{uuid}"
-      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
-      if File.exist?(corrected_foxml)
-        MigrationLogger.info "Use the corrected foxml #{uuid}"
-        download_foxml = corrected_foxml
-      else
-        foxml_url = "#{DOWNLOAD_URL}#{uuid}/fo.xml"
-        download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-        system "curl -o #{download_foxml} #{foxml_url}" 
-      end
+      foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
+      download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+      system "curl -o #{download_foxml} #{foxml_url}" 
     end
   end
 
@@ -307,7 +297,7 @@ namespace :migration do
             original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
             #file location has to use the public download url
             #file_location = FEDORA_URL + uuid +"/" + ds_num
-            file_location = DOWNLOAD_URL + uuid + "/" + ds_num
+            file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
             #download file to temp location
             MigrationLogger.info "Retrieve File #{original_filename}"
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -419,18 +409,10 @@ namespace :migration do
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
-      #byebug
-      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
-      if File.exist?(corrected_foxml)
-        MigrationLogger.info "Use the corrected foxml #{uuid}"
-        download_foxml = corrected_foxml
-      else
-        foxml_url = DOWNLOAD_URL + uuid +"/fo.xml"
-        download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
-        system "curl -o #{download_foxml} #{foxml_url}"
-        #retrieve the original foxml
-        #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      end
+      foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
+      download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
+      system "curl -o #{download_foxml} #{foxml_url}"
+      puts download_foxml
 
       # set the depositor
       if submitter
@@ -454,6 +436,22 @@ namespace :migration do
                :group_list => "regular",
                })
       end
+
+     # find communities and collections information based on UUID
+     communities_noid = []
+     communities.each do |cuuid|
+       communities_noid << find_collection(cuuid)
+     end
+     collections_noid = []
+     collections.each do |cuuid|
+       collections_noid << find_collection(cuuid)
+     end
+
+     collections_title = []
+     collections_noid.each do |cid|
+       collections_title << Collection.find(cid).title
+     end
+
 
      # create the permission array for other coowners of the object
      permissions_attributes = []
@@ -506,8 +504,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id}
-      puts file_attributes
+      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
       @generic_file.attributes = file_attributes
 
       @generic_file.visibility = case is_part_of
@@ -560,21 +557,18 @@ namespace :migration do
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to collection #{collections} and community #{communities} if needed"
-      collection_noids = []
-      if !collections.empty?
-        collections.each do |c|
-      	  collection_noids << add_to_collection(@generic_file, c)
+      if !collections_noid.empty?
+        collections_noid.each do |c|
+      	  add_to_collection(@generic_file, c)
       	end
       else
-        if !communities.empty?
-          communities.each do |c|
-            collection_noids << add_to_collection(@generic_file, c)
+        if !communities_noid.empty?
+          communities_noid.each do |c|
+            add_to_collection(@generic_file, c)
           end
+        else
+          MigrationLogger.error "File doesn't belong to any collection or community!"
         end
-      end
-      collection_noids.each do |c|
-        @generic_file.hasCollection = [Collection.find(c).title]
-        @generic_file.save
       end
 
       collection_t = Time.now
@@ -595,8 +589,8 @@ namespace :migration do
       # verify file is migrated
       migrated = GenericFile.find(@generic_file.id)
       # verify file is added to the collection
-      incollections = if !collection_noids.empty?
-        collection_noids.each do |c|
+      incollections = if !collections_noid.empty?
+        collections_noid.each do |c|
           return false if !Collection.find(c).member_ids.include? @generic_file.id
         end
       end
@@ -619,11 +613,11 @@ namespace :migration do
       verify_time = verify_time + (verify_t - collection_t)
       puts "Verification used #{verify_t - collection_t}"
     end
-      puts "Summary: Metadata time: #{metadata_time}"
-      puts "Summary: Attribute time: #{attr_time}"
-      puts "Summary: Save file time: #{save_time}"
-      puts "Summary: Add to Collection time: #{collection_time}"
-      puts "Summary: Verification time: #{verify_time}"
+      #puts "Summary: Metadata time: #{metadata_time}"
+      #puts "Summary: Attribute time: #{attr_time}"
+      #puts "Summary: Save file time: #{save_time}"
+      #puts "Summary: Add to Collection time: #{collection_time}"
+      #puts "Summary: Verification time: #{verify_time}"
 
   end
 
@@ -631,35 +625,44 @@ namespace :migration do
     MigrationLogger.info " +++++++ START: collection ingest #{metadata_dir} +++++++ "
     Dir[metadata_dir+"/*"].each do |file|
       begin
-      MigrationLogger.info "Processing the file #{file}"
+        MigrationLogger.info "Processing the file #{file}"
+ 
+        #reading metadata file
+        metadata = Nokogiri::XML(File.open(file))
 
-      #reading metadata file
-      metadata = Nokogiri::XML(File.open(file))
+        #get the uuid of the object
+        uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
+        MigrationLogger.info "UUID of the collection #{uuid}"
 
-      #get the uuid of the object
-      uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
-      MigrationLogger.info "UUID of the collection #{uuid}"
+        #get the metadata from DCQ
+        collection_attributes = collection_dcq(metadata)
+        collection_attributes[:fedora3uuid] = uuid
+        #get the relsext info from the data stream
 
-      #get the metadata from DCQ
-      collection_attributes = collection_dcq(metadata)
-      collection_attributes[:fedora3uuid] = uuid
+        relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT')]//foxml:xmlContent//rdf:Description", NS).last
 
-      id = create_save_collection(collection_attributes)
-      puts id
-      #get the relsext info from the data stream
-      memberof = collection_relsext(metadata)
-      if !memberof.blank?
-        MigrationLogger.info "This collection is a member of #{memberof}"
-        cid = find_collection(memberof.first)
-        @community = Collection.find(cid)
-        @community.member_ids = @community.member_ids.push(id)
-        MigrationLogger.info "Added collection #{id} to #{@community.id}"
-        MigrationLogger.info "#{@community.member_ids}"
-        @community.save
-      end
-      ActiveFedora::SolrService.instance.conn.commit
+        #get metadata from the latest version of Relsext
+        model = relsext_version.xpath("hasmodel:hasModel/@rdf:resource", NS).text
+        memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
+        communities =[]
+        if model == "info:fedora/ir:COLLECTION"
+          memberof.each do |uuid|
+            communities << find_collection(uuid)
+          end
+        end
+        id = create_save_collection(collection_attributes, model, communities)
 
-      File.open(COLLECTION_LIST, 'a'){ |f| f.puts("#{uuid} | #{id}") }
+        if model == "info:fedora/ir:COLLECTION" && !communities.blank?
+          MigrationLogger.info "This #{id} is a collection, need to update its belongsToCommunity"
+          communities.each do |cid|
+            community = Collection.find(cid)
+            community.member_ids = community.member_ids.push(id)
+            MigrationLogger.info "Added collection #{id} to #{community.id}"
+            MigrationLogger.info "#{community.member_ids}"
+            community.save 
+          end
+        end
+        File.open(COLLECTION_LIST, 'a'){ |f| f.puts("#{uuid} | #{id}") }
       rescue Exception => e
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
@@ -675,14 +678,12 @@ namespace :migration do
       migrated = Collection.find(id)
       MigrationLogger.info "Collection #{id} migration status: #{migrated}"
       # verify this collection is added to the community
-      if !memberof.blank?
-        community_members = Collection.find(@community.id).member_ids
-        MigrationLogger.info "Community member_ids #{community_members} include #{id} ?"
-        incommunity = community_members.include? id
-        MigrationLogger.info "Collection #{id} in Community #{@community.id} status: #{incommunity}"
-
-      else
-        incommunity = true
+      incommunity = true
+      if model == "info:fedora/ir:COLLECTION"
+        communities.each do |community|
+          MigrationLogger.info "Check if community member_ids #{community} include #{id} ?"
+          incommunity = false if !Collection.find(community).member_ids.include? id
+        end
       end
       if migrated && incommunity
         MigrationLogger.info "Collection/Community migrated successfully"
@@ -713,7 +714,6 @@ namespace :migration do
 
       #if uuid has already been migrated
       solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'fedora3uuid_tesim:'+uuid}
-      puts solr_rsp
       numFound = solr_rsp['response']['numFound']
       case
       when numFound == 1
@@ -755,17 +755,19 @@ namespace :migration do
 
   private
 
-  def add_to_collection(file, collection_uuid)
-    collection_id = find_collection(collection_uuid)
+  def add_to_collection(file, collection_id)
     if collection_id
-      collection = Collection.find(collection_id)
-      collection.member_ids = collection.member_ids.push(file.id)
-      collection.save
+       collection = Collection.find(collection_id)
+       collection.member_ids = collection.member_ids.push(file.id)
+       collection.save
     else
-      collection = Collection.new
-      collection.save
+       collection = Collection.new(title:"failed items").tap do |c|
+         c.apply_depositor_metadata("eraadmi@ualberta.ca")
+         c.visibility=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+         c.save
+       end
+       MigrationLogger.error "FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
     end
-    return collection.id
   end
   def save_file(file)
     save_tries = 0
@@ -785,7 +787,7 @@ namespace :migration do
   end
 
   def duplicated?(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
     numFound = solr_rsp['response']['numFound']
     if numFound > 0
       MigrationLogger.info "Duplicate not migrated: #{uuid}"
@@ -794,7 +796,7 @@ namespace :migration do
   end
 
   def find_collection(uuid)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
@@ -817,8 +819,7 @@ namespace :migration do
     return collection_attributes
   end
 
-  def create_save_collection(collection_attributes)
-
+  def create_save_collection(collection_attributes, model, communities)
      current_user = User.find_by_username('admin')
 
       if !current_user
@@ -847,9 +848,18 @@ namespace :migration do
      collection.creator = [current_user.user_key]
      collection.fedora3uuid = collection_attributes[:fedora3uuid]
      collection.fedora3handle = collection_attributes[:fedora3handle]
+     collection.is_official = true
+     if model =="info:fedora/ir:COMMUNITY"
+       collection.is_community = true
+     elsif model == "info:fedora/ir:COLLECTION"
+       if communities  
+         collection.belongsToCommunity = communities
+       end
+     end
      #download the original foxml
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
-     foxml_url = "#{DOWNLOAD_URL}#{collection_attributes[:fedora3uuid]}/fo.xml"
+     foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
+     puts foxml_url
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
      system "curl #{foxml_url} --create-dirs -o #{download_foxml}"
 
@@ -861,15 +871,6 @@ namespace :migration do
      collection.save
      MigrationLogger.info "Collection #{collection.id} is saved successfully."
      return collection.id
-  end
-
-  def collection_relsext(metadata)
-    #get the current version of Relsext
-    relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT')]//foxml:xmlContent//rdf:Description", NS).last
-
-    #get metadata from the latest version of Relsext
-    memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
-    return memberof
   end
 
 end

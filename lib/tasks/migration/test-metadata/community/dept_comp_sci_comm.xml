@@ -143,7 +143,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:78cb4c52-d943-4879-96f7-bdc4424620a8</ualterms:fedora3uuid>
   <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.26343</ualterms:fedora3handle>
   <dcterms:title>Department of Computing Science</dcterms:title>
