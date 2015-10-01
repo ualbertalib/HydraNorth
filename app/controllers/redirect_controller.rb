@@ -3,15 +3,9 @@ class RedirectController < ActionController::Base
   end
 
   def item
-    begin
-      if !is_uuid
-        raise "It's not UUID!"
-      end
-      file = find_item
-      redirect_to "/files/#{file.id}"
-    rescue
-      render_404
-    end
+    render_404 ActiveRecord::RecordNotFound unless is_uuid
+    file = find_item
+    redirect_to "/files/#{file.id}", status: :moved_permanently
   end
 
   def datastream
@@ -78,6 +72,7 @@ class RedirectController < ActionController::Base
   end
 
   def render_404
-    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    render template: '/error/404', layout: "error", formats: [:html], status: :gone
+    #render file: "#{Rails.root}/public/404.html", layout: false, status: 404
   end
 end
