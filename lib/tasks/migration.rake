@@ -216,10 +216,15 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/uuid_*.xml").sort.each do |file|
+    allfiles = Dir.glob(metadata_dir+"/uuid_*.xml")
+    filecount = allfiles.select { |file| File.file?(file) }.count
+    MigrationLogger.info "Files to process: " + filecount.to_s
+    thisfile = 1
+    allfiles.sort.each do |file|
     begin
       start_time = Time.now
-      MigrationLogger.info "Processing the file #{file}"
+      MigrationLogger.info "Processing the file #{file} (#{thisfile} of #{filecount})"
+      thisfile = thisfile + 1
       #reading the metadata file
       metadata = Nokogiri::XML(File.open(file))
 
