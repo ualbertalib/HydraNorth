@@ -30,6 +30,10 @@ describe RedirectController, type: :controller do
       get :item, uuid: "xxx"
       expect(response).to have_http_status(404)
     end
+    it "returns a 404 status code" do
+      get :item, uuid: "uuid:xxx"
+      expect(response).to have_http_status(404)
+    end
   end
 
   describe "#datastream" do
@@ -58,7 +62,7 @@ describe RedirectController, type: :controller do
       expect(response).to have_http_status(404)
     end
     it "returns a 404 status code" do
-      get :datastream, uuid: "xxx", ds: "xx", file: "xxx.xxx"
+      get :datastream, uuid: "uuid:xxx", ds: "xx", file: "xxx.xxx"
       expect(response).to have_http_status(404)
     end
   end
@@ -84,6 +88,10 @@ describe RedirectController, type: :controller do
       get :collection, uuid: "xxx"
       expect(response).to have_http_status(404)
     end
+    it "returns a 404 status code" do
+      get :collection, uuid: "uuid:xxx"
+      expect(response).to have_http_status(404)
+    end
   end
 
   describe "#collection" do
@@ -105,6 +113,10 @@ describe RedirectController, type: :controller do
     end
     it "returns a 404 status code" do
       get :collection, uuid: "xxx"
+      expect(response).to have_http_status(404)
+    end
+    it "returns a 404 status code" do
+      get :collection, uuid: "uuid:xxx"
       expect(response).to have_http_status(404)
     end
   end
