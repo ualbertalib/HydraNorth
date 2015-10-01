@@ -5,16 +5,16 @@ require 'fileutils'
 describe RedirectController, type: :controller do
   routes { Rails.application.class.routes }
 
-  before do
+  before :all do
     load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
   end
 
   describe "#item" do
-    before do
+    before :all do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
     end
-    after do
+    after :all do
       Rake::Task["migration:eraitem"].reenable
       GenericFile.last.delete
     end
@@ -33,11 +33,11 @@ describe RedirectController, type: :controller do
   end
 
   describe "#datastream" do
-    before do
+    before :all do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
     end
-    after do
+    after :all do
       Rake::Task["migration:eraitem"].reenable
       GenericFile.last.delete
     end
@@ -64,11 +64,11 @@ describe RedirectController, type: :controller do
   end
 
   describe "#collection" do
-    before do
+    before :all do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/collection')
     end
-    after do
+    after :all do
       Rake::Task["migration:era_collection_community"].reenable
       Collection.last.delete
     end
@@ -87,11 +87,11 @@ describe RedirectController, type: :controller do
   end
 
   describe "#collection" do
-    before do
+    before :all do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/community')
     end
-    after do
+    after :all do
       Rake::Task["migration:era_collection_community"].reenable
       Collection.last.delete
     end
