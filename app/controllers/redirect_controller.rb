@@ -41,6 +41,17 @@ class RedirectController < ActionController::Base
   def author
     render_404
   end
+  
+  def thesis
+    begin
+      if !is_uuid
+        raise "It's not UUID"
+      end
+      redirect_to "https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+    rescue
+      render_404
+    end
+  end
 
   private
 
