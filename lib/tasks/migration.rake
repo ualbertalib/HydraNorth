@@ -816,8 +816,6 @@ namespace :migration do
 
   def find_collection(uuid)
     solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
-    puts solr_rsp
-    puts uuid
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
