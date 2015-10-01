@@ -206,10 +206,13 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/uuid_*.xml") do |file|
+    allfiles = Dir.glob(metadata_dir+"/uuid_*.xml")
+    filecount = allfiles.select { |file| File.file?(file) }.count
+    MigrationLogger.info "Files to process: " + filecount.to_s
+    allfiles.sort.each_with_index do |file, thisfile|
     begin
       start_time = Time.now
-      MigrationLogger.info "Processing the file #{file}"
+      MigrationLogger.info "Processing the file #{file} (#{thisfile + 1} of #{filecount})"
       #reading the metadata file
       metadata = Nokogiri::XML(File.open(file))
 
@@ -596,7 +599,7 @@ namespace :migration do
       end
       # remove the file from temp location
       if migrated && incollections
-        MigrationLogger.info "file migrated successfully"
+        MigrationLogger.info "COMPLETED #{uuid} from #{file} as #{@generic_file.id} in collections #{collections} and communities #{communities}"
         #move metadata to success location
         #FileUtils.mv(file, "#{COMPLETED_DIR}/#{File.basename(file)}")
       end
