@@ -1,0 +1,119 @@
+require 'spec_helper'
+require 'rake'
+require 'fileutils'
+
+describe RedirectController, type: :controller do
+  routes { Rails.application.class.routes }
+
+  before do
+    load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
+  end
+
+  describe "#item" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+    end
+    subject { GenericFile.last }
+    it "Item should be migrated" do
+      expect(subject.fedora3uuid).to eq "uuid:394266f0-0e4a-42e6-a199-158165226426"
+    end
+    it "redirects to item page" do
+      get :item, uuid: "uuid:394266f0-0e4a-42e6-a199-158165226426"
+      expect(response).to redirect_to "http://test.host/files/#{GenericFile.last.id}"
+    end
+    it "returns a 404 status code" do
+      get :item, uuid: "xxx"
+      expect(response).to have_http_status(404)
+    end
+  end
+
+  describe "#datastream" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      GenericFile.last.delete
+    end
+    subject { GenericFile.last }
+    it "Item should be migrated" do
+      expect(subject.fedora3uuid).to eq "uuid:394266f0-0e4a-42e6-a199-158165226426"
+    end
+    it "redirects to datastream download" do
+      get :datastream, uuid: "uuid:394266f0-0e4a-42e6-a199-158165226426", ds: "DS1"
+      expect(response).to redirect_to "http://test.host/downloads/#{GenericFile.last.id}"
+    end
+    it "redirects to datastream download" do
+      get :datastream, uuid: "uuid:394266f0-0e4a-42e6-a199-158165226426", ds: "DS1", file: "test.pdf"
+      expect(response).to redirect_to "http://test.host/downloads/#{GenericFile.last.id}"
+    end
+    it "returns a 404 status code" do
+      get :datastream, uuid: "xxx", ds: "xx"
+      expect(response).to have_http_status(404)
+    end
+    it "returns a 404 status code" do
+      get :datastream, uuid: "xxx", ds: "xx", file: "xxx.xxx"
+      expect(response).to have_http_status(404)
+    end
+  end
+
+  describe "#collection" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/collection')
+    end
+    after do
+      Rake::Task["migration:era_collection_community"].reenable
+      Collection.last.delete
+    end
+    subject { Collection.last }
+    it "Collection should be migrated" do
+      expect(subject.fedora3uuid).to eq "uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"
+    end
+    it "redirects to collection page" do
+      get :collection, uuid: "uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"
+      expect(response).to redirect_to "http://test.host/collections/#{Collection.last.id}"
+    end
+    it "returns a 404 status code" do
+      get :collection, uuid: "xxx"
+      expect(response).to have_http_status(404)
+    end
+  end
+
+  describe "#collection" do
+    before do
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/community')
+    end
+    after do
+      Rake::Task["migration:era_collection_community"].reenable
+      Collection.last.delete
+    end
+    subject { Collection.last }
+    it "Community should be migrated" do
+      expect(subject.fedora3uuid).to eq "uuid:d04b3b74-211d-4939-9660-c390958fa2ee"
+    end
+    it "redirects to community page" do
+      get :collection, uuid: "uuid:d04b3b74-211d-4939-9660-c390958fa2ee"
+      expect(response).to redirect_to "http://test.host/collections/#{Collection.last.id}"
+    end
+    it "returns a 404 status code" do
+      get :collection, uuid: "xxx"
+      expect(response).to have_http_status(404)
+    end
+  end
+
+  describe "#author" do
+    it "returns a 404 status code" do
+      get :author, username: "pcharoen"
+      expect(response).to have_http_status(404)
+    end
+  end
+
+end

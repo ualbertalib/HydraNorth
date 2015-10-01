@@ -27,7 +27,10 @@ Hydranorth::Application.routes.draw do
   get '/public/view/item/:uuid' => 'redirect#item'
   get '/public/view/item/:uuid/:ds' => 'redirect#datastream'
   get '/public/view/item/:uuid/:ds/:file' => 'redirect#datastream'
-  
+  get '/public/view/collection/:uuid' => 'redirect#collection'
+  get '/public/view/community/:uuid' => 'redirect#collection'
+  get '/public/view/author/:username' => 'redirect#author'
+
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'

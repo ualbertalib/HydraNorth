@@ -24,3 +24,4 @@ lib/tasks/migration/collection
 lib/tasks/migration/community
 /.buildpath
 /.project
+/.idea/

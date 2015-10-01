@@ -1,37 +1,71 @@
 class RedirectController < ActionController::Base
-  include Blacklight::SolrHelper
-  
-  attr_reader :id 
-  
-  def item
-    
-    # search item by uuid (fedora3uuid_tesim)
-    @id = find_item_id
-    logger.debug "logger id: #{@id} "
-    
-    # redirect to hydranorth item
-    redirect_to "/files/9880vq965"
-    
+  def index
   end
-  
-  def datastream
 
-    # construct hydranorth datastream url 
-    
-    
-    # redirect to the url
-    redirect_to "/downloads/9880vq965"
-    
+  def item
+    begin
+      if !is_uuid
+        raise "It's not UUID"
+      end
+      file = find_item
+      redirect_to "/files/#{file.id}"
+    rescue
+      render_404
+    end
   end
-  
+
+  def datastream
+    begin
+      if !is_uuid || !is_datastream
+        raise "It's not UUID or DS"
+      end
+      file = find_item
+      redirect_to "/downloads/#{file.id}"
+    rescue
+      render_404
+    end
+  end
+
+  def collection
+    begin
+      if !is_uuid
+        raise "It's not UUID"
+      end
+      file = find_collection
+      redirect_to "/collections/#{file.id}"
+    rescue
+      render_404
+    end
+  end
+
+  def author
+    render_404
+  end
+
   private
-  
-  def find_item_id
-    uuid = params[:uuid]
-    logger.debug "uuid: #{uuid}"
-    solr_params = "q=fedora3uuid:" + uuid
-    (@response, @member_docs) = get_search_results(solr_params)
-    @id = "9880vq965"
+
+  def is_uuid
+    return (/^uuid:.+/ =~ params[:uuid]) != nil
   end
-  
+
+  def is_datastream
+    return (/^DS\d+/ =~ params[:ds]) != nil
+  end
+
+  def find_item
+    uuid = params[:uuid].split(":")[1]
+    file = GenericFile.find(fedora3uuid: uuid).first
+  end
+
+  def find_collection
+    if !params[:uuid].start_with?("uuid:")
+      return nil
+    end
+    uuid = params[:uuid].split(":")[1]
+    file = Collection.find(fedora3uuid: uuid).first
+  end
+
+  def render_404
+    render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+  end
 end
