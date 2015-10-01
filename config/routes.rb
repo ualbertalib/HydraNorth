@@ -30,9 +30,7 @@ Hydranorth::Application.routes.draw do
   get '/public/view/collection/:uuid' => 'redirect#collection'
   get '/public/view/community/:uuid' => 'redirect#collection'
   get '/public/view/author/:username' => 'redirect#author'
-#  get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
-  get '/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269' => 
-    redirect('https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269')
+  get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
 
   scope :dashboard do
 

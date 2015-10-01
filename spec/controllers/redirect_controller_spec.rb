@@ -115,5 +115,16 @@ describe RedirectController, type: :controller do
       expect(response).to have_http_status(404)
     end
   end
+  
+  describe "#thesis" do
+    it "redirects to thesisdeposit page" do
+      get :thesis, uuid: "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+      expect(response).to redirect_to "https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+    end
+    it "returns a 404 status code" do
+      get :thesis, uuid: "xxx"
+      expect(response).to have_http_status(404)
+    end
+  end
 
 end

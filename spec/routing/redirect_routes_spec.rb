@@ -26,11 +26,7 @@ describe 'redirect', :type => :routing do
     controller: "redirect", action: "author", username: "pcharoen") }
 
   # thesisdeposit route
-  #it { expect(get("/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269")).to redirect_to(
-  #  "https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269") }
+  it { expect(get("/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269")).to route_to(
+    controller: "redirect", action: "thesis", uuid: "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269") }
 
-#  it "redircts to thesisdeposit" do
-#    get '/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
-#    expect(page.current_path).to eq 'https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
-#  end
 end
