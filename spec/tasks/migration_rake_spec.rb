@@ -146,7 +146,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/correctedfoxml-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:07185c11-20f1-445e-990f-db5cfdc71f47"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -160,8 +160,9 @@ describe "Migration rake tasks" do
     subject { @file } 
     it "item should corrected foxml and not use foxml from URL" do
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
-      expect(subject.fedora3foxml.content).to include "xmlns:dcterms"
-      expect(subject.fedora3foxml.content).to include "xmlns:thesis" 
+      expect(subject.fedora3foxml.content).to include "dc xmlns:dcterms"
+      expect(subject.fedora3foxml.content).not_to include "dc xmlns:thesis" 
+
     end
   end
 
