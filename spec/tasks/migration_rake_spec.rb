@@ -50,6 +50,7 @@ describe "Migration rake tasks" do
   end
   describe "migration:eraitem - multifile item" do
     before do
+      Collection.delete_all
       @community = Collection.new(title: 'test community').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -87,6 +88,7 @@ describe "Migration rake tasks" do
   end
   describe "migration:eraitem - item with a license file" do
     before do
+      Collection.delete_all
       @community = Collection.new(title:'test community').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -128,6 +130,7 @@ describe "Migration rake tasks" do
 
   describe "migration:eraitem - item corrected foxml" do
     before do
+      Collection.delete_all
       @community = Collection.new(title:'test community').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -153,15 +156,18 @@ describe "Migration rake tasks" do
       @file.delete
       @community.delete
       @collection.delete
-      File.delete("log/migration-spec.log")
     end
+    subject { @file } 
     it "item should corrected foxml and not use foxml from URL" do
-      expect(File.read("log/migration-spec.log")).to include("Use the corrected foxml uuid:07185c11-20f1-445e-990f-db5cfdc71f47")	
+      expect(subject.fedora3foxml.latest_version.label).to eq "version1"
+      expect(subject.fedora3foxml.content).to include "xmlns:dcterms"
+      expect(subject.fedora3foxml.content).to include "xmlns:thesis" 
     end
   end
 
   describe "migration:eraitem - thesis" do
     before do
+      Collection.delete_all
       @community = Collection.new(title:'FGSR').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -216,6 +222,7 @@ describe "Migration rake tasks" do
 
   describe "migration:eraitem - dark item" do
     before do
+      Collection.delete_all
       @community = Collection.new(title:'test community').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -252,6 +259,7 @@ describe "Migration rake tasks" do
 
   describe 'migration:eraitem - ccid item' do
     before do
+      Collection.delete_all
       @community = Collection.new(title:'test community').tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true

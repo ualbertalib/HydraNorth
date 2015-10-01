@@ -41,7 +41,7 @@ require 'pdf-reader'
   #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
 
   #Use the ERA public interface to download original file and foxml
-  DOWNLOAD_URL = "https://admin:eraR00!z@era.library.ualberta.ca/public/view/item/"
+  DOWNLOAD_URL = "https://era.library.ualberta.ca/public/view/"
   DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
@@ -183,7 +183,7 @@ namespace :migration do
       if ds_datastreams.length > 0
         ds_datastreams.each do |ds|
           ds_num = ds.attribute('ID')
-          file_location = DOWNLOAD_URL + uuid + "/" + ds_num
+          file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
           #download file to temp location
           MigrationLogger.info "Download DS Datastream#{ds_num} for #{uuid}"
           #file_full = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -196,7 +196,7 @@ namespace :migration do
         MigrationLogger.info "Use the corrected foxml #{uuid}"
         download_foxml = corrected_foxml
       else
-        foxml_url = "#{DOWNLOAD_URL}#{uuid}/fo.xml"
+        foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
         download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
         system "curl -o #{download_foxml} #{foxml_url}" 
       end
@@ -308,7 +308,7 @@ namespace :migration do
             original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
             #file location has to use the public download url
             #file_location = FEDORA_URL + uuid +"/" + ds_num
-            file_location = DOWNLOAD_URL + uuid + "/" + ds_num
+            file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
             #download file to temp location
             MigrationLogger.info "Retrieve File #{original_filename}"
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -426,9 +426,10 @@ namespace :migration do
         MigrationLogger.info "Use the corrected foxml #{uuid}"
         download_foxml = corrected_foxml
       else
-        foxml_url = DOWNLOAD_URL + uuid +"/fo.xml"
+        foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
         download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
         system "curl -o #{download_foxml} #{foxml_url}"
+        puts download_foxml
         #retrieve the original foxml
         #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
       end
@@ -877,7 +878,8 @@ namespace :migration do
      end
      #download the original foxml
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
-     foxml_url = "#{DOWNLOAD_URL}#{collection_attributes[:fedora3uuid]}/fo.xml"
+     foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
+     puts foxml_url
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
      system "curl #{foxml_url} --create-dirs -o #{download_foxml}"
 
