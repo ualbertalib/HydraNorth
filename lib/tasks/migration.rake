@@ -47,11 +47,6 @@ require 'pdf-reader'
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
   FILE_STORE = "lib/tasks/migration/files"
-  if (Rails.env.test?)
-    CORRECTED_FOXML = "spec/fixtures/migration/corrected_foxml"
-  else
-    CORRECTED_FOXML = "lib/tasks/migration/corrected_foxml"
-  end
   FileUtils::mkdir_p TEMP
   FileUtils::mkdir_p TEMP_FOXML
   #report directory
@@ -191,15 +186,9 @@ namespace :migration do
         end
       end
       MigrationLogger.info "Download the original foxml #{uuid}"
-      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
-      if File.exist?(corrected_foxml)
-        MigrationLogger.info "Use the corrected foxml #{uuid}"
-        download_foxml = corrected_foxml
-      else
-        foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
-        download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-        system "curl -o #{download_foxml} #{foxml_url}" 
-      end
+      foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
+      download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
+      system "curl -o #{download_foxml} #{foxml_url}" 
     end
   end
 
@@ -420,19 +409,10 @@ namespace :migration do
 
       #download the original foxml
       MigrationLogger.info "Download the original foxml #{uuid}"
-      #byebug
-      corrected_foxml = "#{CORRECTED_FOXML}/#{uuid}.xml"
-      if File.exist?(corrected_foxml)
-        MigrationLogger.info "Use the corrected foxml #{uuid}"
-        download_foxml = corrected_foxml
-      else
-        foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
-        download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
-        system "curl -o #{download_foxml} #{foxml_url}"
-        puts download_foxml
-        #retrieve the original foxml
-        #download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      end
+      foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
+      download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
+      system "curl -o #{download_foxml} #{foxml_url}"
+      puts download_foxml
 
       # set the depositor
       if submitter

@@ -128,44 +128,6 @@ describe "Migration rake tasks" do
     end
   end
 
-  describe "migration:eraitem - item corrected foxml" do
-    before do
-      Collection.delete_all
-      @community = Collection.new(title:'test community').tap do |c|
-        c.apply_depositor_metadata('dittest@ualberta.ca')
-        c.is_community = true
-        c.is_official = true
-        c.fedora3uuid = 'uuid:d04b3b74-211d-4939-9660-c390958fa2ee'
-        c.save
-      end
-      @collection = Collection.new(title:'test collection').tap do |c|
-        c.apply_depositor_metadata('dittest@ualberta.ca')
-        c.is_official = true
-        c.fedora3uuid = 'uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7'
-        c.save
-      end
-      Rake::Task.define_task(:environment)
-      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/correctedfoxml-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0934b04d-1238-44b8-b5f8-7fe97d81badd"]}
-      doc = result["response"]["docs"].first
-      id = doc["id"]
-      @file = GenericFile.find(id)
-    end
-    after do
-      Rake::Task["migration:eraitem"].reenable
-      @file.delete
-      @community.delete
-      @collection.delete
-    end
-    subject { @file } 
-    it "item should corrected foxml and not use foxml from URL" do
-      expect(subject.fedora3foxml.latest_version.label).to eq "version1"
-      expect(subject.fedora3foxml.content).to include "dc xmlns:dcterms"
-      expect(subject.fedora3foxml.content).not_to include "dc xmlns:thesis" 
-
-    end
-  end
-
   describe "migration:eraitem - thesis" do
     before do
       Collection.delete_all
