@@ -18,7 +18,7 @@ module Hydranorth
       def update_metadata(attributes, visibility)
         date_created = attributes[:date_created]
         generic_file.year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
-        if !attributes['hasCollectionId'].empty?
+        if attributes['hasCollectionId'] && !attributes['hasCollectionId'].empty?
           attributes['hasCollectionId'].each do |id| 
             collection = Collection.find(id)
             collection.member_ids << [generic_file.id] 
