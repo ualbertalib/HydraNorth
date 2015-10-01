@@ -4,7 +4,6 @@ class SelectsCollectionsController < ApplicationController
   include Blacklight::Catalog
   include Hydranorth::Collections::SelectsCollections
   include Hydra::Controller::ControllerBehavior
-  include Hydranorth::Permissions
 end
 
 describe SelectsCollectionsController, :type => :controller do

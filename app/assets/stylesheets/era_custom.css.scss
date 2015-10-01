@@ -884,6 +884,39 @@ i.glyphicon{
 	color: #fff;
 }
 
+/* Communities */
+.communities{
+	padding: 0;
+}
+.communities li{
+	position:relative;
+	margin-right: 10px;
+	list-style: none;
+}
+.communities li:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.communities li a{
+	position:  absolute;
+	top: 2px;
+	left: 0;
+	bottom: 2px;
+	right: 0;
+	display: block;
+	color: #fff;
+	font-size: 18px;
+	padding: 20px;
+	text-decoration: none;
+	background-color: #2d353d;
+	border-radius: 4px;
+}
+.communities li a:hover{
+	color: #efefef;
+	background-color: #000;
+}
+
 /* Upload form */
 .agreement-text {
 	height: 180px; 

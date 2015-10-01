@@ -1,12 +1,10 @@
-<h1>Communities</h1>
-<ul>
-<% @user_communities.each do |c| %>
-<li>
-    <div class="col-sm-3">
-      <%= link_to [collections, c] do %>
-          <%= image_tag "site_images/collection-icon.svg", class: "collection-icon-search" %>
-      <% end %>
-    </div>
-<h3><%= link_to c.title, collections.collection_path(c) %></h3>
-</li>
-<% end %>
+<h2>Communities</h2>
+
+	<ul class="communities">
+		<% @user_communities.each do |c| %>
+			<li class="col-sm-2">
+				<%= link_to c.title, collections.collection_path(c) %>
+			</li>
+		<% end %>
+	</ul>
+
