@@ -219,12 +219,10 @@ namespace :migration do
     allfiles = Dir.glob(metadata_dir+"/uuid_*.xml")
     filecount = allfiles.select { |file| File.file?(file) }.count
     MigrationLogger.info "Files to process: " + filecount.to_s
-    thisfile = 1
-    allfiles.sort.each do |file|
+    allfiles.sort.each_with_index do |file, thisfile|
     begin
       start_time = Time.now
-      MigrationLogger.info "Processing the file #{file} (#{thisfile} of #{filecount})"
-      thisfile = thisfile + 1
+      MigrationLogger.info "Processing the file #{file} (#{thisfile + 1} of #{filecount})"
       #reading the metadata file
       metadata = Nokogiri::XML(File.open(file))
 
