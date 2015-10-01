@@ -1,51 +1,29 @@
-class RedirectController < ActionController::Base
-  def index
-  end
-
+class RedirectController < ApplicationController
   def item
-    render_404 ActiveRecord::RecordNotFound unless is_uuid
+    return render_404 ActiveRecord::RecordNotFound unless is_uuid
     file = find_item
     redirect_to "/files/#{file.id}", status: :moved_permanently
   end
 
   def datastream
-    begin
-      if !is_uuid || !is_datastream
-        raise "It's not UUID or DS!"
-      end
-      file = find_item
-      redirect_to "/downloads/#{file.id}"
-    rescue
-      render_404
-    end
+    return render_404 ActiveRecord::RecordNotFound unless is_uuid && is_datastream
+    file = find_item
+    redirect_to "/downloads/#{file.id}", status: :moved_permanently
   end
 
   def collection
-    begin
-      if !is_uuid
-        raise "It's not UUID!"
-      end
-      file = find_collection
-      redirect_to "/collections/#{file.id}"
-    rescue
-      render_404
-    end
+    return render_404 ActiveRecord::RecordNotFound unless is_uuid
+    file = find_collection
+    redirect_to "/collections/#{file.id}", status: :moved_permanently
   end
 
   def author
-    render_404
+    render_410
   end
 
   def thesis
-    begin
-      if params[:uuid] == "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
-        redirect_to "https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
-      else
-        raise "It's not correct URL!"
-      end
-    rescue
-      render_404
-    end
+    return render_404 ActiveRecord::RecordNotFound unless params[:uuid] == "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
+    redirect_to "https://thesisdeposit.library.ualberta.ca/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269"
   end
 
   private
@@ -71,8 +49,8 @@ class RedirectController < ActionController::Base
     file = Collection.find(fedora3uuid: uuid).first
   end
 
-  def render_404
+  def render_410
     render template: '/error/404', layout: "error", formats: [:html], status: :gone
-    #render file: "#{Rails.root}/public/404.html", layout: false, status: 404
   end
+
 end

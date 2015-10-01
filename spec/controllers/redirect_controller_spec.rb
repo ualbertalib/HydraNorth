@@ -110,9 +110,9 @@ describe RedirectController, type: :controller do
   end
 
   describe "#author" do
-    it "returns a 404 status code" do
+    it "returns a 410 status code" do
       get :author, username: "pcharoen"
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(410)
     end
   end
   
