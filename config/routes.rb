@@ -23,6 +23,15 @@ Hydranorth::Application.routes.draw do
   get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
   get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
 
+  # redirect old item url to hydranorth
+  get '/public/view/item/:uuid' => 'redirect#item'
+  get '/public/view/item/:uuid/:ds' => 'redirect#datastream'
+  get '/public/view/item/:uuid/:ds/:file' => 'redirect#datastream'
+  get '/public/view/collection/:uuid' => 'redirect#collection'
+  get '/public/view/community/:uuid' => 'redirect#collection'
+  get '/public/view/author/:username' => 'redirect#author'
+  get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
+
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'

@@ -22,3 +22,7 @@ lib/tasks/migration/tmp
 lib/tasks/migration/completed
 lib/tasks/migration/collection
 lib/tasks/migration/community
+/.buildpath
+/.project
+/.idea/
+**/.DS_Store
