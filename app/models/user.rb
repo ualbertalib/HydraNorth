@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
     if pending_ccid_confirmation?
       opts = { to: email }
       send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-    elsif @reconfirmation_required
+    elsif self.confirmation_required? || @reconfirmation_required
       super
     end
   end
@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   private
 
   def legacy_password_is?(str)
-    # the brcrypt engine overrides == to bcrypt the MD5 of the test str with
+    # the brcrypt engine overrides == to bcraypt the MD5 of the test str with
     # the correct salt
     BCrypt::Password.new(self.legacy_password) == ::Digest::MD5.hexdigest(str)
   end
