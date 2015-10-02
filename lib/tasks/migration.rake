@@ -24,6 +24,7 @@ require 'pdf-reader'
   LANG = {
       "eng" => "English",
       "en" => "English",
+      "en_US" => "English",
       "fre" => "French",
       "spa" => "Spanish",
       "chi" => "Chinese",
