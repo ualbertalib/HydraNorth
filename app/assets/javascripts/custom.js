@@ -119,7 +119,7 @@ $(document).ready(function(){
 });
 
 
-   if ($("#documents .glyphicon-time").length) {
+   if ($("#documents .progress").length) {
       $(".lightbox").show(); 
       window.location.reload(true);
   }
