@@ -502,6 +502,7 @@ namespace :migration do
         if ds_datastreams.length > 0
           content = File.open(file_full)
   	@generic_file.add_file(content, {path: 'content', original_name: original_filename, mime_type: mime_type})
+          MigrationLogger.info "ADDDS #{original_filename} to #{uuid} with md5 #{md5}: OK=#{!md5_node.empty? && original_md5 && md5 == original_md5}"
         end
       end
       # add other metadata to the new object
