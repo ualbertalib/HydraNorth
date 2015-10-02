@@ -129,5 +129,11 @@ $(document).ready(function(){
     // Animation complete.
   });
 });
+  function addURL(element)
+{
+    $(element).attr('href', function() {
+        return this.href + '&closed=true';
+    });
+}
 
 });
