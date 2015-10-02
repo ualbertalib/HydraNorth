@@ -42,7 +42,8 @@ require 'pdf-reader'
 
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://era.library.ualberta.ca/public/view/"
-  DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
+  FEDORA_URL = "http://era.library.ualberta.ca:8180/fedora/get/"
+  #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
@@ -178,7 +179,7 @@ namespace :migration do
       if ds_datastreams.length > 0
         ds_datastreams.each do |ds|
           ds_num = ds.attribute('ID')
-          file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
+          file_location = FEDORA_URL + uuid + "/" + ds_num
           #download file to temp location
           MigrationLogger.info "Download DS Datastream#{ds_num} for #{uuid}"
           #file_full = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -277,7 +278,6 @@ namespace :migration do
       else
         year_created = date[/(\d\d\d\d)/,0]
       end
-
       # get the content datastream DS
       if migrate_datastreams
         MigrationLogger.info("Migrating content datastreams")
@@ -287,6 +287,8 @@ namespace :migration do
           original_filename =""
           file_full=""
           original_deposit_time=""
+          original_md5s ={}
+          md5s = {}
           ds_datastreams.each do |ds|
             ds_num = ds.attribute('ID')
             ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
@@ -299,8 +301,8 @@ namespace :migration do
             md5_node = file_version.xpath("foxml:contentDigest")
             original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
             #file location has to use the public download url
-            #file_location = FEDORA_URL + uuid +"/" + ds_num
-            file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
+            file_location = FEDORA_URL + uuid +"/" + ds_num
+            #file_location = DOWNLOAD_URL + "item/" + uuid + "/" + ds_num
             #download file to temp location
             MigrationLogger.info "Retrieve File #{original_filename}"
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
@@ -314,6 +316,8 @@ namespace :migration do
               MigrationLogger.warn "MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
               File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
             end
+            original_md5s[file_full] = original_md5 
+            md5s[file_full] = md5
           end
 
           if Dir["#{TEMP}/#{uuid}/*"].reject{ |license| license["#{TEMP}/#{uuid}/LICENSE"]}.count { |file| File.file?(file) } > 1
@@ -350,7 +354,7 @@ namespace :migration do
         if license=="CC_ATT_NC_SA_4.txt"
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
         elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
-          file_location = DOWNLOAD_LICENSE_URL + uuid + "/LICENSE"
+          file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
           system "curl #{file_location} --create-dirs -o #{license_file}"
@@ -501,8 +505,11 @@ namespace :migration do
       if migrate_datastreams
         if ds_datastreams.length > 0
           content = File.open(file_full)
-  	@generic_file.add_file(content, {path: 'content', original_name: original_filename, mime_type: mime_type})
-          MigrationLogger.info "ADDDS #{original_filename} to #{uuid} with md5 #{md5}: OK=#{!md5_node.empty? && original_md5 && md5 == original_md5}"
+  	  @generic_file.add_file(content, {path: 'content', original_name: original_filename, mime_type: mime_type})
+          original_md5 = original_md5s[file_full]
+          md5 = md5s[file_full]
+          file_md5_ok = original_md5 && md5 == original_md5
+          MigrationLogger.info "ADDDS #{original_filename} to #{uuid} with md5 #{md5}, size: #{File::size(file_full)}: OK=#{file_md5_ok}"
         end
       end
       # add other metadata to the new object
@@ -863,7 +870,6 @@ namespace :migration do
      #download the original foxml
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
      foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
-     puts foxml_url
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
      system "curl #{foxml_url} --create-dirs -o #{download_foxml}"
 
