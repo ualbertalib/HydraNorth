@@ -239,16 +239,16 @@ namespace :migration do
 	      next
       end
       title = dc_version.xpath("dcterms:title", NS).text
-      creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:creator", NS)
-      contributors = dc_version.xpath("dcterms:contributor/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:contributor",NS)
-      subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:to_s)
+      creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:text) if dc_version.xpath("dcterms:creator", NS)
+      contributors = dc_version.xpath("dcterms:contributor/text()", NS).map(&:text) if dc_version.xpath("dcterms:contributor",NS)
+      subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:text)
       description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
       date = dc_version.xpath("dcterms:created",NS).text
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
       language = dc_version.xpath("dcterms:language",NS).text
-      spatials = dc_version.xpath("dcterms:spatial/text()",NS).map(&:to_s) if dc_version.xpath("dcterms:spatial", NS)
-      temporals = dc_version.xpath("dcterms:temporal/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:temporal", NS)
+      spatials = dc_version.xpath("dcterms:spatial/text()",NS).map(&:text) if dc_version.xpath("dcterms:spatial", NS)
+      temporals = dc_version.xpath("dcterms:temporal/text()", NS).map(&:text) if dc_version.xpath("dcterms:temporal", NS)
       fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
       fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", NS).text()
       trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
@@ -261,12 +261,12 @@ namespace :migration do
       is_version_of = dc_version.xpath("dcterms:isversionof", NS).text() if dc_version.xpath("dcterms:isversionof", NS)
       graduation_date = dc_version.xpath("ualterms:graduationdate", NS).text() if dc_version.xpath("ualterms:graduationdate", NS)
       specialization = dc_version.xpath("ualterms:specialization", NS).text() if dc_version.xpath("ualterms:specialization", NS)
-      supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:to_s) if dc_version.xpath("marcrel:ths", NS)
-      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", NS).map(&:to_s) if dc_version.xpath("ualterms:thesiscommitteemember/text()", NS)
-      departments = dc_version.xpath("vivo:AcademicDepartment/text()", NS).map(&:to_s) if dc_version.xpath("vivo:AcademicDepartment", NS)
+      supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:text) if dc_version.xpath("marcrel:ths", NS)
+      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", NS).map(&:text) if dc_version.xpath("ualterms:thesiscommitteemember/text()", NS)
+      departments = dc_version.xpath("vivo:AcademicDepartment/text()", NS).map(&:text) if dc_version.xpath("vivo:AcademicDepartment", NS)
       thesis_name = dc_version.xpath("bibo:ThesisDegree", NS).text() if dc_version.xpath("bibo:ThesisDegree", NS)
       thesis_level = dc_version.xpath("ualterms:thesislevel", NS).text() if dc_version.xpath("ualterms:thesislevel", NS)
-      alternative_titles = dc_version.xpath("dcterms:alternative/text()", NS).map(&:to_s) if dc_version.xpath("dcterms:alternative", NS)
+      alternative_titles = dc_version.xpath("dcterms:alternative/text()", NS).map(&:text) if dc_version.xpath("dcterms:alternative", NS)
       proquest = dc_version.xpath("ualterms:proquest", NS).text() if dc_version.xpath("ualterms:proquest", NS)
       unicorn = dc_version.xpath("ualterms:unicorn", NS).text() if dc_version.xpath("ualterms:unicorn", NS)
       degree_grantor = dc_version.xpath("marcrel:dgg", NS).text() if dc_version.xpath("marcrel:dgg", NS)
@@ -825,7 +825,7 @@ namespace :migration do
     collection_attributes[:title] = dc_version.xpath("dcterms:title", NS).text
     collection_attributes[:creator] = dc_version.xpath("dcterms:creator", NS).text
     collection_attributes[:description] = dc_version.xpath("dcterms:description",NS).text
-    era_identifiers = dc_version.xpath("dcterms:identifier/text()", NS).map(&:to_s)
+    era_identifiers = dc_version.xpath("dcterms:identifier/text()", NS).map(&:text)
     era_identifiers.each {|id| collection_attributes[:fedora3handle] = id if id.match(/handle/)} unless era_identifiers.nil?
 
     return collection_attributes
