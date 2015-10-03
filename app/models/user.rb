@@ -15,11 +15,15 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:shibboleth]
 
   scope :from_omniauth, ->(auth){ where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)',
-                                         auth.uid, auth.uid, auth.uid, auth.provider).limit(1) }
+                                         User.uid_to_ccid(auth.uid), auth.uid, auth.uid, auth.provider).limit(1) }
 
   def self.create_from_omniauth(auth)
+    raise(ArgumentError, 'UID is blank in Shibboleth authorization') unless auth.uid.present?
+
+    ccid_email = uid_to_ccid(auth.uid)
+
     create(
-      email: auth.uid,
+      email: ccid_email,
       password:Devise.friendly_token[0,20],
       should_force_link: true,
       confirmed_at: Time.now.utc,
@@ -126,6 +130,14 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def self.uid_to_ccid(uid)
+    unless (uid.end_with?('@ualberta.ca') || uid =~ /@/)
+      return uid + '@ualberta.ca'
+    else # at least it's something?
+      return uid
+    end
+  end
 
   def legacy_password_is?(str)
     # the brcrypt engine overrides == to bcrypt the MD5 of the test str with
