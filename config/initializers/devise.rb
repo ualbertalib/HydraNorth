@@ -234,7 +234,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :shibboleth, {
-    :uid => "eppn"
+    :uid_field => 'uid',
+    :info_fields => {:name => 'givenName', :last_name => 'sn'}
   }
 
   # ==> Warden configuration
