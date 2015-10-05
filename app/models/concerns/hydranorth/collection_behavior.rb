@@ -6,30 +6,11 @@ module Hydranorth
     include Hydranorth::Collections::Fedora3Foxml
     include Hydra::Collections::Collectible
     include Hydra::Collection
-
+    
     included do
       before_save :remove_self_from_members, :update_permissions
       validates :title, presence: true
       has_and_belongs_to_many :members, predicate:  ActiveFedora::RDF::Fcrepo::RelsExt.hasCollectionMember, class_name: "ActiveFedora::Base"
-    end
-
-    class_methods do
-      def find_or_create_with_type(resource_type)
-        cols = []
-        Collection.all.each do |c|
-          cols << c if c[:resource_type].include? resource_type
-        end
-        begin
-          case cols.length.to_s
-          when "1"
-            cols.first
-          when "0"
-            Collection.new(title: resource_type + " Collection", resource_type: [resource_type])
-          else
-            raise "More than one #{resource_type} collection exists."
-          end
-        end
-      end
     end
 
     def update_permissions
@@ -68,6 +49,22 @@ module Hydranorth
       false
     end
 
+    def self.find_or_create_with_type(resource_type) 
+      cols = []
+      Collection.all.each do |c| 
+        cols << c if c[:resource_type].include? resource_type 
+      end
+      begin 
+        case cols.length.to_s
+        when "1"
+          cols.first
+        when "0" 
+          Collection.new(title: resource_type + " Collection", resource_type: [resource_type])
+        else
+          raise "More than one #{resource_type} collection exists."
+        end
+      end
+    end
 
         # Compute the sum of each file in the collection using Solr to
     # avoid having to hit Fedora
@@ -108,6 +105,6 @@ module Hydranorth
       def file_model
         ::GenericFile.to_class_uri
       end
-
+ 
   end
 end
