@@ -1,34 +1,26 @@
 <!DOCTYPE html>
-<html lang="<%= t("sufia.document_language") %>">
+<html lang="<%= t("sufia.document_language") %>" prefix="og:http://ogp.me/ns#">
   <head>
-    <meta charset="utf-8" />
-
-    <title><%= h(application_name) %>: System Error</title>
-    <!-- application css -->
-    <%= stylesheet_link_tag 'application' %>
-
-    <!-- application js -->
-    <%= javascript_include_tag 'application' %>
-
-    <%= render partial: '/ga', formats: [:html] %>
+    <%= render partial: 'layouts/head_tag_content' %>
   </head>
-
-<body>
-<div  id="wrapper">
-  <div class="container-fluid">
-    <div id="page-positioner">
-      <%= render partial: '/masthead', formats: [:html] %>
-      <div id="content-wrapper">
-        <div id="content" class="row">
-            <div class="col-sm-8 col-md-8 col-lg-8">
+  <body>
+    <div class="wrap">
+      <div class="container-fluid tan">
+        <%= render partial: '/masthead' %>
+      </div>
+      <div class="container-fluid">
+        <div class="container main">
+          <div id="content" class="row">
+            <%= render partial: '/flash_msg' %>
+            <div class="col-xs-12">
               <%= yield %>
             </div>
-        </div><!-- /#content -->
-      </div><!-- /#content-wrapper -->
-      <%= render partial: '/footer' %>
-    </div><!-- /#page-positioner -->
-  </div><!-- /.container -->
-</div><!-- /#wrapper -->
-</body>
-
+          </div>
+        </div>
+      </div>
+      <div class="push"></div>
+    </div>
+    <%= render partial: '/footer' %>
+    <%= render 'shared/ajax_modal' %>
+  </body>
 </html>
