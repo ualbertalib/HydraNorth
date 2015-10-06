@@ -792,7 +792,7 @@ namespace :migration do
       @collection_hash[collection_id] = current
 
     else
-       MigrationLogger.error "#{uuid}FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
+       MigrationLogger.error "#{uuid} FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
     end
   end
   def save_file(file)
