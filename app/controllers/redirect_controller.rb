@@ -1,23 +1,23 @@
 class RedirectController < ApplicationController
   def item
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
-    file = find_item
+    file = find_item_id
     return render_404 ActiveRecord::RecordNotFound unless file != nil
-    redirect_to "/files/#{file.id}", status: :moved_permanently
+    redirect_to "/files/#{file}", status: :moved_permanently
   end
 
   def datastream
     return render_404 ActiveRecord::RecordNotFound unless is_uuid && is_datastream
-    file = find_item
+    file = find_item_id
     return render_404 ActiveRecord::RecordNotFound unless file != nil
-    redirect_to "/downloads/#{file.id}", status: :moved_permanently
+    redirect_to "/downloads/#{file}", status: :moved_permanently
   end
 
   def collection
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
-    file = find_collection
+    file = find_collection_id
     return render_404 ActiveRecord::RecordNotFound unless file != nil
-    redirect_to "/collections/#{file.id}", status: :moved_permanently
+    redirect_to "/collections/#{file}", status: :moved_permanently
   end
 
   def author
@@ -39,21 +39,28 @@ class RedirectController < ApplicationController
     return (/^DS\d+/ =~ params[:ds]) != nil
   end
 
-  def find_item
+  def find_item_id
     uuid = params[:uuid].split(":")[1]
-    file = GenericFile.find(fedora3uuid: uuid).first
+    id = find_id(uuid)
   end
 
-  def find_collection
-    if !params[:uuid].start_with?("uuid:")
-      return nil
-    end
+  def find_collection_id
     uuid = params[:uuid].split(":")[1]
-    file = Collection.find(fedora3uuid: uuid).first
+    id = find_id(uuid)
   end
 
   def render_410
     render template: '/error/404', layout: "error", formats: [:html], status: :gone
+  end
+
+  def find_id(uuid)
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
+    numFound = solr_rsp['response']['numFound']
+    if numFound > 0
+      return solr_rsp['response']['docs'].first['id']
+    else
+      return nil
+    end
   end
 
 end
