@@ -2,21 +2,21 @@ class RedirectController < ApplicationController
   def item
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
     file = find_item_id
-    return render_404 ActiveRecord::RecordNotFound unless file != nil
+    return render_404 ActiveRecord::RecordNotFound if file.nil?
     redirect_to "/files/#{file}", status: :moved_permanently
   end
 
   def datastream
     return render_404 ActiveRecord::RecordNotFound unless is_uuid && is_datastream
     file = find_item_id
-    return render_404 ActiveRecord::RecordNotFound unless file != nil
+    return render_404 ActiveRecord::RecordNotFound if file.nil?
     redirect_to "/downloads/#{file}", status: :moved_permanently
   end
 
   def collection
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
     file = find_collection_id
-    return render_404 ActiveRecord::RecordNotFound unless file != nil
+    return render_404 ActiveRecord::RecordNotFound if file.nil?
     redirect_to "/collections/#{file}", status: :moved_permanently
   end
 
@@ -40,12 +40,12 @@ class RedirectController < ApplicationController
   end
 
   def find_item_id
-    uuid = params[:uuid].split(":")[1]
+    uuid = params[:uuid]
     id = find_id(uuid)
   end
 
   def find_collection_id
-    uuid = params[:uuid].split(":")[1]
+    uuid = params[:uuid]
     id = find_id(uuid)
   end
 
