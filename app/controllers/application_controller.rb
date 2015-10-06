@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
-  # Adds a few additional behaviors into the application controller 
+  # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
-  # Adds Sufia behaviors into the application controller 
+  # Adds Sufia behaviors into the application controller
   include Sufia::Controller
-  # Please be sure to impelement current_user and user_session. Blacklight depends on 
-  # these methods in order to perform user specific actions. 
+  # Please be sure to impelement current_user and user_session. Blacklight depends on
+  # these methods in order to perform user specific actions.
 
   layout 'sufia-one-column'
 
@@ -12,8 +12,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :force_account_link, 
+  before_filter :force_account_link,
                 if: -> { @current_user && @current_user.link_pending? }
+
+  rescue_from ActiveFedora::ObjectNotFoundError, with: -> { render_404 ActiveFedora::ObjectNotFoundError }
+  rescue_from ActiveRecord::RecordNotFound, with: -> { render_404 ActiveRecord::RecordNotFound }
 
 
   def after_sign_in_path_for(resource)

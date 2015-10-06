@@ -259,4 +259,30 @@ describe "Migration rake tasks" do
       expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
     end
   end
+
+  describe 'migration:delete_by_uuids - delete' do
+    before do
+      Collection.delete_all
+      @community = Collection.new(title:'test community').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:d04b3b74-211d-4939-9660-c390958fa2ee'
+        c.save
+        @id = c.id
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:delete_by_uuid"].invoke('spec/fixtures/migration/uuids-to-delete')
+    end
+
+    after do
+      Rake::Task["migration:delete_by_uuid"].reenable
+    end
+
+    subject { @id }
+
+    it "community should have been deleted" do
+      expect {Collection.find(subject)}.to raise_error(Ldp::Gone)
+    end
+  end
 end
