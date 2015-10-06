@@ -907,6 +907,7 @@ namespace :migration do
             Collection.find(object_id).delete
           elsif object_model == "GenericFile"
             GenericFile.find(object_id).delete
+          end
           puts "Deleted #{uuid}"
         end
       end
