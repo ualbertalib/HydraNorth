@@ -206,6 +206,7 @@ namespace :migration do
     #@ingest_batch_id = ActiveFedora::Noid::Service.new.mint (will use in latest version of sufia)
     @ingest_batch_id = ActiveFedora::Noid::Service.new.mint
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
+    @collection_hash = {}
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
     allfiles = Dir.glob(metadata_dir+"/uuid_*.xml")
@@ -309,12 +310,12 @@ namespace :migration do
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
             file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
             #FileUtils.cp(file_ds, file_full)
-            system "curl #{file_location} --create-dirs -o #{file_full}"
+            system "curl #{file_location} --create-dirs -o #{file_full} --connect-timeout 30 --max-time 30"
             # get md5 of the file
             md5 = Digest::MD5.file(file_full).hexdigest.gsub(/\s/,'')
             # verify md5 with the MD5 in DS
             if !md5_node.empty? && original_md5 && md5 != original_md5
-              MigrationLogger.warn "MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
+              MigrationLogger.error "MD5 HASH ERROR: #{uuid}: MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
               File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
             end
             original_md5s[file_full] = original_md5 
@@ -336,7 +337,7 @@ namespace :migration do
           mime_type = MIME::Types.of(file_full).first.to_s
 
         when ds_datastreams.length == 0
-          MigrationLogger.warn "No DS datastream available - Please check the oddities report"
+          MigrationLogger.error "No DS datastream available: #{uuid} - Please check the oddities report"
           File.open(ODDITIES, 'a'){ |f| f.puts("#{Time.now} NO CONTENT - #{uuid}" ) }
         end
 
@@ -549,7 +550,7 @@ namespace :migration do
         return false unless @generic_file.save
       rescue RSolr::Error::Http => error
         ActiveFedora::Base.logger.warn "Sufia::GenericFile::Actor::save_and_record_committer Caught RSOLR error #{error.inspect}"
-        MigrationLogger.warn "ERROR #{error.inspect} when saving the file"
+        MigrationLogger.warn "ERROR #{error.inspect} when saving the file #{uuid}"
                 save_tries+=1
       # fail for good if the tries is greater than 3
       raise error if save_tries >=3
@@ -579,7 +580,7 @@ namespace :migration do
             add_to_collection(@generic_file, c)
           end
         else
-          MigrationLogger.error "File doesn't belong to any collection or community!"
+          MigrationLogger.error "File #{uuid} doesn't belong to any collection or community!"
         end
       end
 
@@ -593,9 +594,14 @@ namespace :migration do
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
         puts e.backtrace.inspect
+        MigrationLogger.error "FAILED: Item #{uuid} migration!"
+        MigrationLogger.error e.message
+        MigrationLogger.error e.backtrace.inspect
         MigrationLogger.error "#{$!}, #{$@}"
         next
       end
+
+=begin
       begin
       MigrationLogger.info "START: verify if migration is successful"
       # verify file is migrated
@@ -624,12 +630,24 @@ namespace :migration do
       verify_t = Time.now
       verify_time = verify_time + (verify_t - collection_t)
       puts "Verification used #{verify_t - collection_t}"
+=end
     end
-      #puts "Summary: Metadata time: #{metadata_time}"
-      #puts "Summary: Attribute time: #{attr_time}"
-      #puts "Summary: Save file time: #{save_time}"
-      #puts "Summary: Add to Collection time: #{collection_time}"
-      #puts "Summary: Verification time: #{verify_time}"
+      add_to_collection_all_t = Time.now
+      puts @collection_hash
+      @collection_hash.each do |collection_id, additional_members| 
+        c = Collection.find(collection_id)
+        current = c.member_ids
+        c.member_ids = current + additional_members
+        c.save
+      end
+      add_to_collection_all_end_t = Time.now
+      
+      puts "Add to All Collections: #{add_to_collection_all_end_t - add_to_collection_all_t}"
+      puts "Summary: Metadata time: #{metadata_time}"
+      puts "Summary: Attribute time: #{attr_time}"
+      puts "Summary: Save file time: #{save_time}"
+      puts "Summary: Add to Collection time: #{collection_time}"
+      puts "Summary: Verification time: #{verify_time}"
 
   end
 
@@ -769,16 +787,12 @@ namespace :migration do
 
   def add_to_collection(file, collection_id)
     if collection_id
-       collection = Collection.find(collection_id)
-       collection.member_ids = collection.member_ids.push(file.id)
-       collection.save
+      current = @collection_hash[collection_id] || []
+      current = current + [file.id]
+      @collection_hash[collection_id] = current
+
     else
-       collection = Collection.new(title:"failed items").tap do |c|
-         c.apply_depositor_metadata("eraadmi@ualberta.ca")
-         c.visibility=Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
-         c.save
-       end
-       MigrationLogger.error "FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
+       MigrationLogger.error "#{uuid}FAILED TO ADD TO COLLECTION: Collection #{collection_id} not exist"
     end
   end
   def save_file(file)
