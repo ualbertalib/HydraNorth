@@ -898,4 +898,34 @@ namespace :migration do
      return collection.id
   end
 
+ desc "Delete items by uuid in a file. Each line in the file must include a uuid."
+  task "delete_by_uuid", [:file_name] => :environment do |cmd, args|
+    file_name = args[:file_name]
+    abort "Must provide a file name to read the uuids" if file_name == nil
+    puts "Processing file #{file_name}"
+    File.readlines(file_name).each do |line|
+      uuid = line.chomp
+      unless uuid.empty?
+
+        solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
+        numFound = solr_rsp['response']['numFound']
+        if numFound == 0
+          MigrationLogger.info "Item not found by uuid: #{uuid}"
+        elsif numFound > 1
+          MigrationLogger.info "More than one item found by uuid: #{uuid}"
+        else
+          o = solr_rsp['response']['docs'].first
+          object_id = o['id']
+          object_model = o['has_model_ssim'].first
+          if object_model == "Collection"
+            Collection.find(object_id).delete
+          elsif object_model == "GenericFile"
+            GenericFile.find(object_id).delete
+          end
+          puts "Deleted #{uuid}"
+        end
+      end
+    end
+  end
+
 end
