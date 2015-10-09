@@ -2,7 +2,7 @@ module Hydranorth
   module AccessControls
     module InstitutionalVisibility
       extend ActiveSupport::Concern
-      include Hydra::AccessControls::Embargoable
+      include Hydranorth::AccessControls::Embargoable
 
       INSTITUTIONAL_PROVIDER_MAPPING = YAML.load(File.read('config/institutional_providers.yml'))
       INSTITUTIONAL_PROVIDERS = INSTITUTIONAL_PROVIDER_MAPPING.values
@@ -22,7 +22,7 @@ module Hydranorth
         alias :institutional_access? :institutional_visibility?
       end
 
-      def visibility_with_institutions=(value)
+      def visibility_with_institutions=(value) 
         return (self.visibility_without_institutions = value) unless INSTITUTIONAL_PROVIDERS.include? value
         return set_institutional_visibility!(value)
       end

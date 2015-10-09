@@ -107,7 +107,31 @@ describe BatchUpdateJob do
         expect(file2.reload.belongsToCommunity).to include community.id
         expect(file2.reload.belongsToCommunity).to include community2.id
       end
-
     end
   end
+
+  describe "embargo visibility" do 
+    let(:title) { { file.id => ['File One'], file2.id => ['File Two'] }}
+    let(:trid) { { file.id => 'TR-123', file2.id => 'TR-456' }}
+    let(:metadata) do
+      { read_groups_string: '', read_users_string: 'archivist1, archivist2',
+        subject: [''], date_created: '2012/01/01', belongsToCommunity: [community.id, community2.id], 
+        hasCollectionId:[collection.id, collection2.id] }.with_indifferent_access
+    end
+  
+    let(:visibility) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO }
+    let(:ser) { nil }
+    let(:job) { BatchUpdateJob.new(user.user_key, batch.id, title, trid, ser, metadata, visibility, '2112-01-01', Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }
+
+    before do
+      allow(Sufia.queue).to receive(:push)
+    end
+
+    it 'should work' do
+      expect {job.run}.not_to raise_error
+      expect(file.reload.under_embargo?).to be true
+    end
+
+  end
+
 end

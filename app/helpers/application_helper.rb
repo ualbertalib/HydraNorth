@@ -13,7 +13,7 @@ module ApplicationHelper
         options.delete_at(0)
         options.reverse!
       when :loosen
-        options.delete_at(2)
+        options.delete_at(3)
     end
     return options
   end

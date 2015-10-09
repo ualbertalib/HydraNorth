@@ -288,6 +288,8 @@ module SufiaHelper
       content_tag :span, t('sufia.visibility.registered'), class: "label label-info", title: 'Authenticated Access'
     elsif document.public?
       content_tag :span, t('sufia.visibility.open'), class: "label label-success", title: t('sufia.visibility.open_title_attr')
+    elsif document.embargoed?
+      content_tag :span, 'Embargo', class:"label label-warning", title: 'Embargo'
     else
       content_tag :span, t('sufia.visibility.private'), class: "label label-danger", title: t('sufia.visibility.private_title_attr')
     end
@@ -301,6 +303,10 @@ module Sufia
     module Readable
       def institutional_access?
         (read_groups & Hydranorth::AccessControls::InstitutionalVisibility::INSTITUTIONAL_PROVIDERS).present?
+      end
+
+      def embargoed?
+        self.respond_to?(:under_embargo?) && self.under_embargo?
       end
     end
   end
