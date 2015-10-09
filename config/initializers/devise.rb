@@ -236,7 +236,12 @@ Devise.setup do |config|
   config.omniauth :shibboleth, {
     :uid_field => 'uid',
     :info_fields => {:name => 'givenName', :last_name => 'sn'}
-  }
+  } unless Rails.env.development?
+
+  config.omniauth :shibboleth, {
+    :uid_field => ->(request) {request.call('uid') || request.call('eppn').gsub(/@.*/, '')},
+    :info_fields => {:name => 'givenName', :last_name => 'sn'}
+  } if Rails.env.development?
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

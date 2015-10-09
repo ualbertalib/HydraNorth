@@ -11,8 +11,8 @@ describe 'SAML' do
       OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:shibboleth] = OmniAuth::AuthHash.new({
         :provider => 'shibboleth',
-        :eppn => 'myself@testshib.org',
-        :uid => 'myself@testshib.org'
+        :eppn => 'myself',
+        :uid => 'myself'
       })
     end
 
@@ -37,7 +37,7 @@ describe 'SAML' do
   end
 
   describe 'Users with existing legacy accounts' do
-    let(:user) { FactoryGirl.create :user }
+    let!(:user) { FactoryGirl.create :user }
     after :each do
       cleanup_jetty
       User.destroy_all
@@ -93,8 +93,8 @@ describe 'SAML' do
         expect(page).to have_content "Do you have an existing ERA account?"
         visit '/browse'
         expect(current_path).not_to eq('/browse')
-        uid = OmniAuth.config.mock_auth[:shibboleth][:uid].gsub(/\./, '-dot-')
-        expect(current_path).to eq("/users/#{uid}/link_account")
+        email = emailize_uid(OmniAuth.config.mock_auth[:shibboleth][:uid]).gsub(/\./, '-dot-')
+        expect(current_path).to eq("/users/#{email}/link_account")
       end
 
       it 'should not be able to enumerate user accounts via the linking workflow' do
@@ -127,7 +127,7 @@ describe 'SAML' do
   end
 
   describe 'Users with confirmed CCID accounts' do
-    let!(:user) { FactoryGirl.create :user, email: OmniAuth.config.mock_auth[:shibboleth][:uid], ccid: OmniAuth.config.mock_auth[:shibboleth][:uid] }
+    let!(:user) { FactoryGirl.create :user, email: emailize_uid(OmniAuth.config.mock_auth[:shibboleth][:uid]), ccid: OmniAuth.config.mock_auth[:shibboleth][:uid] }
     after :each do
       cleanup_jetty
     end
@@ -163,6 +163,7 @@ describe 'SAML' do
 
   def sign_in_with_legacy_credentials(user)
       visit '/users/sign_in'
+      click_link 'NO, I do not have a CCID'
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'password'
       click_button I18n.t('sufia.sign_in')
@@ -170,5 +171,9 @@ describe 'SAML' do
 
   def sign_out
     click_link 'log out', match: :first
+  end
+
+  def emailize_uid(uid)
+    return uid + '@ualberta.ca'
   end
 end

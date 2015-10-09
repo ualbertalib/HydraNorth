@@ -25,7 +25,7 @@ FactoryGirl.define do
     end
 
     factory :testshib do
-      email 'myself@testshib.org'
+      email 'myself@ualberta.ca'
     end
 
     factory :archivist, aliases: [:user_with_fixtures] do
