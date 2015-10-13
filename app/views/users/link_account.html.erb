@@ -5,6 +5,6 @@
   <%= radio_button_tag(:has_account, "yes") %>
   <%= label_tag(:has_account_yes, "Yes") %><br/>
  If YES, please enter the email you used to register for an ERA Account and follow the instructions emailed to you:
-  <%= text_field(:user, :email, value: '') %> 
-  <%= submit_tag 'Continue' %>
+  <%= text_field(:user, :email, value: '') %> <br />
+  <%= submit_tag 'Continue', :class => "btn btn-primary" %>
 <% end %>

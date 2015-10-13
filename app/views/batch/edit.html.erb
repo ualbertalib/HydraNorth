@@ -23,8 +23,10 @@
       <%= render 'metadata', f: f %>
    
  </div>
-    <div class="well col-sm-12" id="permission-form"> 
+    <div class="well col-sm-12"> 
       <%= render 'add_to_collections', f: f, batch: @batch %>  
+    </div>
+      <div class="well col-sm-12" id="permission-form"> 
       <%= render 'generic_files/permission_form', f: f, batch: @batch %></div>
   </div>
   <div id="permissions_submit">
