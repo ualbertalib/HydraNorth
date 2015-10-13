@@ -260,6 +260,127 @@ describe "Migration rake tasks" do
     end
   end
 
+  describe 'migration:eraitem - inactive item' do
+    before do
+      Collection.delete_all
+      @community = Collection.new(title:'test community').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:5cb782df-9d51-4e56-81c0-8ee4bb3cdc7d'
+        c.save
+      end
+      @collection = Collection.new(title:'test collection').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_official = true
+        c.fedora3uuid = 'uuid:52d7092a-978d-46c0-bfb6-0d33b3597f02'
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/inactive-metadata')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:f0b84406-ad6c-410b-a76a-42af656d1171"]}
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
+    end
+
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
+      @collection.delete
+    end
+
+    subject { @file }
+
+    it "item should have private visibility" do
+      expect(subject.visibility).to eq "restricted"
+      expect(subject.institutional_visibility?).to be false
+    end
+  end
+
+  describe 'migration:eraitem - embargoed item then open access' do
+    before do
+      Collection.delete_all
+      @community = Collection.new(title:'test community').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:d04b3b74-211d-4939-9660-c390958fa2ee'
+        c.save
+      end
+      @collection = Collection.new(title:'test collection').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_official = true
+        c.fedora3uuid = 'uuid:e49c3623-9383-4f7a-ab9c-64f277ce809a'
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/embargo-open-metadata')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:ceaf5095-41bd-473a-bdd9-d485abe39652"]}
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
+    end
+
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
+      @collection.delete
+    end
+
+    subject { @file }
+
+    it "item should have private visibility" do
+      expect(subject.visibility).to eq "restricted"
+      expect(subject.institutional_visibility?).to be false
+      expect(subject.visibility_after_embargo).to eq "open"
+      expect(subject.embargo_release_date).to eq "Tues, 30 Nov 2162 07:00:00 +0000"
+    end
+  end
+
+  describe 'migration:eraitem - embargoed item then ccid protected' do
+    before do
+      Collection.delete_all
+      @community = Collection.new(title:'test community').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:11274e20-0426-4e80-84f4-bef79dbd6633'
+        c.save
+      end
+      @collection = Collection.new(title:'test collection').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_official = true
+        c.fedora3uuid = 'uuid:260bce9a-4e84-421b-b5fc-5c791fa21975'
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/embargo-ccid-metadata')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:08769268-8c3a-4798-b298-ff321dc5c3cc"]}
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
+    end
+
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
+      @collection.delete
+    end
+
+    subject { @file }
+
+    it "item should have private visibility" do
+      expect(subject.visibility).to eq "restricted"
+      expect(subject.institutional_visibility?).to be false
+      expect(subject.visibility_after_embargo).to eq "university_of_alberta"
+      expect(subject.embargo_release_date).to eq "Mon, 01 Jan 2114 07:00:00 +0000"
+    end
+  end
+
   describe 'migration:delete_by_uuids - delete' do
     before do
       Collection.delete_all
