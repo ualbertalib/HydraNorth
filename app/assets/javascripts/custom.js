@@ -134,13 +134,11 @@ $(document).ready(function(){
     };
 })(jQuery);
 
-if ($("#documents .progress").length){
   var closed = $.getQuery('closed');
-  if (($(".progress").length) && (closed == !"yes")) {
+  if (($("#documents .progress").length) && (closed == !"yes")) {
       $(".lightbox").show(); 
       setTimeout('window.location.reload();', 5000);
   }
-}
 
   $( ".btn-noccid" ).click(function() {
     $( "#era-login" ).slideToggle( "fast", function() {
