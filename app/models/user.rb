@@ -14,8 +14,9 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable,
          :omniauthable, :omniauth_providers => [:shibboleth]
 
-  scope :from_omniauth, ->(auth){ where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)',
-                                         User.uid_to_ccid(auth.uid), auth.uid, auth.uid, auth.provider).limit(1) }
+  scope :from_omniauth, ->(auth) { where('(email = ? OR ccid = ? OR unconfirmed_ccid = ?) AND (provider = ? OR provider is null)',
+                                   User.uid_to_ccid(auth.uid), auth.uid, auth.uid, auth.provider).limit(1) }
+
 
   def self.create_from_omniauth(auth)
     raise(ArgumentError, 'UID is blank in Shibboleth authorization') unless auth.uid.present?
@@ -25,9 +26,10 @@ class User < ActiveRecord::Base
     create(
       email: ccid_email,
       password:Devise.friendly_token[0,20],
+      ccid: auth.uid,
+      provider: auth.provider,
       should_force_link: true,
-      confirmed_at: Time.now.utc,
-      provider: auth.provider
+      confirmed_at: Time.now.utc
     )
   end
 
@@ -69,7 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def link!(other_account)
-    self.ccid = other_account.email
+    self.ccid = other_account.ccid
     confirm_ccid! unless self == other_account
     self.provider = other_account.provider
     self.should_force_link = false
@@ -78,7 +80,6 @@ class User < ActiveRecord::Base
   end
 
   def confirm_ccid!
-      @reconfirmation_required = true
       self.unconfirmed_ccid = self.ccid
       self.ccid = self.ccid_was
       self.confirmed_at = nil
@@ -93,20 +94,6 @@ class User < ActiveRecord::Base
 
   def pending_ccid_confirmation?
     self.class.reconfirmable && unconfirmed_ccid.present?
-  end
-
-  # Send confirmation instructions by email
-  def send_confirmation_instructions
-    unless @raw_confirmation_token
-      generate_confirmation_token!
-    end
-
-    if pending_ccid_confirmation?
-      opts = { to: email }
-      send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-    elsif self.confirmation_required? || @reconfirmation_required
-      super
-    end
   end
 
   def after_confirmation
