@@ -3,9 +3,9 @@ class Hydranorth::CollectionPresenter < Hydranorth::Presenter
 
   self.model_class = ::Collection
   # Terms is the list of fields displayed by app/views/collections/_show_descriptions.html.erb
-  #temporarily remove size from the view to reduce loading time
+  #temporarily remove size and total_items from the view to reduce loading time
 
-  self.terms = [:title, :total_items, :description, :creator,
+  self.terms = [:title, :description, :creator,
                 :date_created]
 
   # Depositor and permissions are not displayed in app/views/collections/_show_descriptions.html.erb
