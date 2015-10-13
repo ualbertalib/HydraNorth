@@ -1038,6 +1038,13 @@ ul.radio li.embargo{
 #additional_title_clone {
     padding-top: 0px;
 }
+form .help-icon{
+	display: none;
+}
+
+#descriptions_display .well{
+	padding: 20px 40px;
+}
 .help-block {
 	position: relative;
 	background: #f0f9fa;
@@ -1069,6 +1076,17 @@ ul.radio li.embargo{
 	border-right-color: #67ADA9;
 	border-width: 13px;
 	margin-top: -13px;
+}
+.community-group{
+	background-color: #fff;
+	padding:15px;
+	margin-bottom: 10px;
+}
+.community-group label{
+	margin-top: 10px;
+}
+.remove_collection_group{
+	margin-top: 10px;
 }
 .batch-warn{
 	background-color: #333;

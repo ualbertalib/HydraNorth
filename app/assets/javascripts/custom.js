@@ -118,10 +118,26 @@ $(document).ready(function(){
     };
 });
 
+// Parse URL Queries Method
+(function($){
+    $.getQuery = function( query ) {
+        query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var expr = "[\\?&]"+query+"=([^&#]*)";
+        var regex = new RegExp( expr );
+        var results = regex.exec( window.location.href );
+        if( results !== null ) {
+            return results[1];
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        } else {
+            return false;
+        }
+    };
+})(jQuery);
 
-   if ($("#documents .glyphicon-time").length) {
+  var closed = $.getQuery('closed');
+  if (($("#documents .progress").length) && (closed == !"yes")) {
       $(".lightbox").show(); 
-      window.location.reload(true);
+      setTimeout('window.location.reload();', 5000);
   }
 
   $( ".btn-noccid" ).click(function() {

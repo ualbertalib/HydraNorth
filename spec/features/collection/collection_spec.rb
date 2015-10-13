@@ -38,6 +38,7 @@ describe 'collection', :type => :feature do
     end
 
     it "should be 2 when viewed by Jill, who owns the private item" do
+      pending "reinstating total_items count on page"
       sign_in jill
       visit "/collections/#{mixed_visibility_collection.id}"
       item_count_node = page.find(:xpath, "//span[@itemprop='total_items']")
@@ -46,6 +47,7 @@ describe 'collection', :type => :feature do
     end
 
     it "should be 1 when viewed by Alice, who doesn't own the private item" do
+      pending "reinstating total_items count on page"
       sign_in alice
       visit "/collections/#{mixed_visibility_collection.id}"
       item_count_node = page.find(:xpath, "//span[@itemprop='total_items']")

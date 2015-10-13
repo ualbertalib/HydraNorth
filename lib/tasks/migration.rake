@@ -9,11 +9,11 @@ require 'pdf-reader'
         "xmlns:dc"=>"http://purl.org/dc/elements/1.1/",
         "xmlns:dcterms"=>"http://purl.org/dc/terms/",
         "xmlns:georss"=>"http://www.georss.org/georss/",
-        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
-        "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
-        "memberof"=>"info:fedora/fedora-system:def/relations-external#", 
+        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/",
+        "xmlns:ualterms"=>"http://terms.library.ualberta.ca",
+        "memberof"=>"info:fedora/fedora-system:def/relations-external#",
         "hasmodel"=>"info:fedora/fedora-system:def/model#",
-        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
         "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
         "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
@@ -35,7 +35,7 @@ require 'pdf-reader'
       "jpn" => "Japanese",
       "zxx" => "No linguistic content",
       "other" => "Other",
-      ""    => "No liguistic content",
+      ""    => "No linguistic content",
   }
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
@@ -44,7 +44,7 @@ require 'pdf-reader'
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://era.library.ualberta.ca/public/view/"
   FEDORA_URL = "http://era.library.ualberta.ca:8180/fedora/get/"
-  #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/" 
+  #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/"
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
   TEMP_FOXML = "lib/tasks/migration/tmp/foxml"
@@ -190,7 +190,7 @@ namespace :migration do
       MigrationLogger.info "Download the original foxml #{uuid}"
       foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
       download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      system "curl -o #{download_foxml} #{foxml_url}" 
+      system "curl -o #{download_foxml} #{foxml_url}"
     end
   end
 
@@ -318,7 +318,7 @@ namespace :migration do
               MigrationLogger.error "MD5 HASH ERROR: #{uuid}: MD5 hash '#{md5}' doesn't match with the original file md5 '#{original_md5}'"
               File.open(ODDITIES, 'a') {|f| f.puts("#{Time.now} MD5 not matching: #{uuid}") }
             end
-            original_md5s[file_full] = original_md5 
+            original_md5s[file_full] = original_md5
             md5s[file_full] = md5
           end
 
@@ -414,6 +414,8 @@ namespace :migration do
       communities = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", NS).map {|node| node.value.split("/")[1] }
       user = relsext_version.at_xpath("userns:userId", NS).text() if relsext_version.at_xpath("userns:userId", NS)
       submitter = relsext_version.at_xpath("userns:submitterId", NS).text() if relsext_version.at_xpath("userns:submitterId", NS)
+
+
       is_part_of = relsext_version.xpath("memberof:isPartOf/@rdf:resource", NS).text() if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", NS)
 
       #download the original foxml
@@ -634,14 +636,14 @@ namespace :migration do
     end
       add_to_collection_all_t = Time.now
       puts @collection_hash
-      @collection_hash.each do |collection_id, additional_members| 
+      @collection_hash.each do |collection_id, additional_members|
         c = Collection.find(collection_id)
         current = c.member_ids
         c.member_ids = current + additional_members
         c.save
       end
       add_to_collection_all_end_t = Time.now
-      
+
       puts "Add to All Collections: #{add_to_collection_all_end_t - add_to_collection_all_t}"
       puts "Summary: Metadata time: #{metadata_time}"
       puts "Summary: Attribute time: #{attr_time}"
@@ -656,7 +658,7 @@ namespace :migration do
     Dir[metadata_dir+"/*"].each do |file|
       begin
         MigrationLogger.info "Processing the file #{file}"
- 
+
         #reading metadata file
         metadata = Nokogiri::XML(File.open(file))
 
@@ -689,7 +691,7 @@ namespace :migration do
             community.member_ids = community.member_ids.push(id)
             MigrationLogger.info "Added collection #{id} to #{community.id}"
             MigrationLogger.info "#{community.member_ids}"
-            community.save 
+            community.save
           end
         end
         File.open(COLLECTION_LIST, 'a'){ |f| f.puts("#{uuid} | #{id}") }
@@ -878,7 +880,7 @@ namespace :migration do
      if model =="info:fedora/ir:COMMUNITY"
        collection.is_community = true
      elsif model == "info:fedora/ir:COLLECTION"
-       if communities  
+       if communities
          collection.belongsToCommunity = communities
        end
      end

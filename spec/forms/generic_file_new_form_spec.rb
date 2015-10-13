@@ -75,6 +75,8 @@ describe 'generic file new', :type => :feature do
         expect(find_field('generic_file_title')).to have_content ''
         expect(page).to have_content 'world.png'
         expect(find_field('Creator')).to have_content ''
+        click_button("Show Additional Descriptive Fields")
+        expect(page).not_to have_field('Identifier')
       end
     end
   end

@@ -43,6 +43,24 @@ namespace :hydranorth do
     # for each document in the database call characterize
     idList.each { |o|  Sufia.queue.push(CharacterizeJob.new(o["id"]))}
   end
+  
+  desc "Characterize files that haven't been characterized"
+  task characterize_remaining: :environment do
+    # grab the first increment of document ids from solr
+
+    resp = ActiveFedora::SolrService.instance.conn.get "select",
+              params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile"}
+    #get the totalNumber and the size of the current response
+    totalNum =  resp["response"]["numFound"]
+
+    resp = ActiveFedora::SolrService.instance.conn.get "select",
+              params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile", rows: totalNum }
+    idList = resp["response"]["docs"]
+
+    # for each document in the database call characterize
+    idList.each { |o|  Sufia.queue.push(CharacterizeJob.new(o["id"])) if GenericFile.find(o["id"]).mime_type.nil?}
+  end
+
 
   desc "Re-solrize all objects"
   task resolrize: :environment do
