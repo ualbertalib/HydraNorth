@@ -142,6 +142,32 @@ namespace :hydranorth do
     end
 
   end
+  
+  desc "Create derivatives for select objects (items that don't have thumbnails, and are not mp4 files"
+  task "generate_thumbnail_selected" => :environment do
+
+    solr = ActiveFedora::SolrService.instance.conn.get "select",
+                  params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile"}
+    total_docs = solr["response"]["numFound"]
+
+    solr = ActiveFedora::SolrService.instance.conn.get "select",
+                                  params:{ fl:['id'], fq: "#{ Solrizer.solr_name("has_model", :symbol)}:GenericFile",
+                                  rows: total_docs}
+    docs = solr["response"]["docs"]
+    docs.each do |doc|
+      begin
+        id = doc["id"]
+        f = GenericFile.find(id)
+        if f.thumbnail.size == nil && f.mime_type != "video/mp4"
+          Sufia.queue.push(CreateDerivativesJob.new id)
+        end
+      rescue Exception => e
+        errors += 1
+        logger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"
+      end
+    end
+  end
+
 
   # Start date must be in format 'yyyy/MM/dd'
   desc "Prints to stdout a list of failed jobs in resque"
