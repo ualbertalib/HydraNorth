@@ -80,6 +80,7 @@ describe Ability, :type => :model do
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
 
     it {is_expected.not_to be_able_to(:download, restricted_file) }
+    it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
   end
 
@@ -107,6 +108,7 @@ describe Ability, :type => :model do
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
 
     it {is_expected.to be_able_to(:download, restricted_file) }
+    it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
   end
 
@@ -115,7 +117,9 @@ describe Ability, :type => :model do
     subject { Ability.new(ccid_user) }
 
     it {is_expected.to be_able_to(:download, restricted_file) }
-    it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
+
+    it { is_expected.to be_able_to :read, institutionally_restricted_file}
+    it { is_expected.to be_able_to(:download, institutionally_restricted_file) }
   end
 
   describe "a user in the admin group" do
@@ -153,6 +157,8 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:update, ContentBlock) }
 
     it {is_expected.to be_able_to(:download, restricted_file) }
+    
+    it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
 
   end
