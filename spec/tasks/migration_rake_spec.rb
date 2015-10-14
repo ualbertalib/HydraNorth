@@ -150,6 +150,7 @@ describe "Migration rake tasks" do
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id) 
+
     end
     after do
       Rake::Task["migration:eraitem"].reenable
@@ -181,6 +182,43 @@ describe "Migration rake tasks" do
       expect(subject.belongsToCommunity).to include @community.id
 
     end
+  end
+  describe "migration:eraitem - legacy thesis" do
+    before do
+      Collection.delete_all
+      @community = Collection.new(title:'FGSR').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:39331f1f-769d-4c2a-a103-416c285d01fc'
+        c.save
+      end
+      @collection = Collection.new(title:'Theses and Dissertations to Spring 2009').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_official = true
+        c.fedora3uuid = 'uuid:d7cceac1-cdb6-4f6c-8f99-e46cd28c292b'
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/legacy-thesis-metadata')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:1a045a35-8294-4f8a-ad49-2641852345bb"]}
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
+
+    end
+    after do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
+      @collection.delete
+    end
+    subject { @file }
+    it "item should have all thesis related metadata field" do
+      expect(subject.year_created).to eq "1972"
+      expect(subject.fedora3uuid).to eq "uuid:1a045a35-8294-4f8a-ad49-2641852345bb"
+    end
+
   end
 
   describe "migration:eraitem - dark item" do
