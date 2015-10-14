@@ -257,9 +257,12 @@ namespace :migration do
 
       #for thesis objects
       abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
-      date_accepted = dc_version.xpath("dcterms:dateAccepted", NS).text() if dc_version.xpath("dcterms:dateAccepted", NS)
-      date_submitted = dc_version.xpath("dcterms:dateSubmitted", NS).text() if dc_version.xpath("dcterms:dateSubmitted", NS)
-      is_version_of = dc_version.xpath("dcterms:isVersionOf", NS).text() if dc_version.xpath("dcterms:isVersionOf", NS)
+      date_accepted = dc_version.xpath("dcterms:dateAccepted", NS).text() unless dc_version.xpath("dcterms:dateAccepted", NS).blank?
+      date_accepted ||= dc_version.xpath("dcterms:dateaccepted", NS).text() if dc_version.xpath("dcterms:dateaccepted", NS)
+      date_submitted = dc_version.xpath("dcterms:dateSubmitted", NS).text() unless dc_version.xpath("dcterms:dateSubmitted", NS).blank?
+      date_submitted ||= dc_version.xpath("dcterms:datesubmitted", NS).text() if dc_version.xpath("dcterms:datesubmitted", NS)
+      is_version_of = dc_version.xpath("dcterms:isVersionOf", NS).text() unless dc_version.xpath("dcterms:isVersionOf", NS).blank?
+      is_version_of ||= dc_version.xpath("dcterms:isversionof", NS).text() if dc_version.xpath("dcterms:isversionof", NS)
       graduation_date = dc_version.xpath("ualterms:graduationdate", NS).text() if dc_version.xpath("ualterms:graduationdate", NS)
       specialization = dc_version.xpath("ualterms:specialization", NS).text() if dc_version.xpath("ualterms:specialization", NS)
       supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:text) if dc_version.xpath("marcrel:ths", NS)
