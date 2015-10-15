@@ -20,7 +20,7 @@ describe Hydranorth::AccessControls::InstitutionalVisibility, :type => :model do
     expect { subject.visibility = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA }.not_to raise_error
     expect(subject.institutional_visibility?).to be true
     expect(subject.read_groups).to include Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
-    expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
+    expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC
   end
 
   it 'should not continue to list an institution as a read group when set to open visibility' do

@@ -34,8 +34,8 @@ module Hydranorth
       private
 
       def set_institutional_visibility!(institution)
-        # institutional visibility is a subset of registered visibility
-        registered_visibility!
+        # institutional visibility is a subset of public visibility
+        public_visibility!
         set_read_groups([institution],[])
       end
 
