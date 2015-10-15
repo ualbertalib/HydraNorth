@@ -85,12 +85,12 @@ $(document).ready(function(){
 				indexLabelPlacement: "outside",
 		       type: "doughnut",
 		       dataPoints: [
-		       {  y: 1255, indexLabel: "Reports" },
-		       {  y: 1073, indexLabel: "Journal Articles" },
-		       {  y: 288, indexLabel: "Research Materials" },
-		       {  y: 85, indexLabel: "Reviews" },
-		       {  y: 123, indexLabel: "Other" }
-       			]
+			{indexLabel: "Report", y: 9136},
+			{indexLabel: "Image", y: 5416},
+			{indexLabel: "Thesis", y: 5021 + 12255},
+			{indexLabel: "Journal Article (Published)", y: 1706},
+			{indexLabel: "Other", y: 542 + 350 + 310 + 247 + 206 + 184}
+]
      		}
      	]
    });
