@@ -370,7 +370,7 @@ describe "Migration rake tasks" do
     subject { @file }
 
     it "item should have private visibility" do
-      expect(subject.visibility).to eq "restricted"
+      expect(subject.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO 
       expect(subject.institutional_visibility?).to be false
       expect(subject.visibility_after_embargo).to eq "open"
       expect(subject.embargo_release_date).to eq "Tues, 30 Nov 2162 07:00:00 +0000"
@@ -411,7 +411,7 @@ describe "Migration rake tasks" do
     subject { @file }
 
     it "item should have private visibility" do
-      expect(subject.visibility).to eq "restricted"
+      expect(subject.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO
       expect(subject.institutional_visibility?).to be false
       expect(subject.visibility_after_embargo).to eq "university_of_alberta"
       expect(subject.embargo_release_date).to eq "Mon, 01 Jan 2114 07:00:00 +0000"
