@@ -48,6 +48,10 @@ Hydranorth::Application.routes.draw do
     
   end
 
+#  get ':action' => 'static#:action', constraints: { action: /help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, as: :static
+  get '/policies' => 'pages#policies', id: 'policies_page'
+  get '/technology' => 'pages#technology', id: 'technology_page'
+  get '/deposit' => 'pages#deposit', id: 'deposit_page'
   get '/browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
