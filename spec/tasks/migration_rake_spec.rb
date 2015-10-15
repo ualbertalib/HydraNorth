@@ -5,7 +5,6 @@ describe "Migration rake tasks" do
   before do
     load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
   end
-
   describe "migration:eraitem - standard item" do
     before do
       Collection.delete_all
@@ -294,7 +293,7 @@ describe "Migration rake tasks" do
     it "item should have institutional visibility" do
       expect(subject.institutional_visibility?).to be true
       expect(subject.read_groups).to include Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
-      expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_AUTHENTICATED
+      expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC
     end
   end
 
@@ -444,4 +443,34 @@ describe "Migration rake tasks" do
       expect {Collection.find(subject)}.to raise_error(Ldp::Gone)
     end
   end
+  describe 'migration:update_ccid_visiblity' do
+    before do
+      GenericFile.delete_all
+      @generic_file = GenericFile.new(title:['test generic file']).tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.fedora3uuid = 'uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd'
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:update_ccid_visiblity"].invoke('spec/fixtures/migration/uuids_ccid_visibility')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd"]}
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
+
+    end
+
+    after do
+      Rake::Task["migration:update_ccid_visiblity"].reenable
+    end
+
+    subject { @file }
+
+    it "visibility should have been updated" do
+      expect(subject.institutional_visibility?).to be true
+      expect(subject.read_groups).to include Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
+      expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC
+    end
+  end
+
 end
