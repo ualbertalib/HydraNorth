@@ -640,7 +640,9 @@ namespace :migration do
       collection_t = Time.now
       collection_time = collection_time + (collection_t - save_t)
       puts "Add to Collection used #{collection_t - save_t}"
-      MigrationLogger.info "Finish migrating the file"
+      MigrationLogger.info "Finish migrating the file ${uuid}"
+      MigrationLogger.info "Deleting tmp directory #{TEMP}/#{uuid}"
+      system "rm -rf #{TEMP}/#{uuid}"
 
 
       rescue Exception => e
@@ -651,6 +653,8 @@ namespace :migration do
         MigrationLogger.error e.message
         MigrationLogger.error e.backtrace.inspect
         MigrationLogger.error "#{$!}, #{$@}"
+        MigrationLogger.info "Deleting tmp directory #{TEMP}/#{uuid}"
+        system "rm -rf #{TEMP}/#{uuid}"
         next
       end
 
