@@ -25,9 +25,4 @@ module Hydranorth::Collections::SelectsCollections
     # return the user's collections (or public collections if no access_level is applied)
     @user_communities = response.documents
   end
-
-  protected
-  def collections_search_builder_class
-    Hydranorth::SearchBuilder
-  end
 end
