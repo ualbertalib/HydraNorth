@@ -4,15 +4,22 @@ module Hydranorth
     include Sufia::CollectionsControllerBehavior
 
     def show
-      if current_user && current_user.admin?
-        self.search_params_logic -= [:add_access_controls_to_solr_params]
-      end
-
+      self.search_params_logic -= [:add_access_controls_to_solr_params]
       super
       presenter
     end
 
     protected
+
+    def collection_member_search_builder_class
+        Hydranorth::SearchBuilder
+    end
+
+   # include filters into the query to only include the collection memebers
+    def include_hydranorth_hascollection(solr_parameters)
+      solr_parameters[:q] ||= []
+      solr_parameters[:q] << "collection_tesim:#{collection.id} OR hasCollectionId_tesim:#{collection.id}"
+    end
 
     # override Sufia::CollectionsControllerBehavior#presenter to establish
     # a link between the presenter and the view context in which it will
