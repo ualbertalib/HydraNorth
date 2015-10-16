@@ -23,7 +23,11 @@ module Hydranorth::Collections::SelectsCollections
     query = collections_search_builder(access_level).with({q: 'is_community_bsi:true'}).query
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
-    @user_communities = response.documents
+    # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on 
+    # sort params properly
+    @user_communities = response.documents.sort do |d1, d2|
+      d1.title <=> d2.title
+    end
   end
 
   protected
