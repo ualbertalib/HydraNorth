@@ -188,14 +188,15 @@ describe 'collection', :type => :feature do
   end
 
   describe 'check collection for drop down menu options' do
+    let!(:collection_modify) do
+      Collection.create( title: 'Test Collection') do |c|
+        c.apply_depositor_metadata(admin.user_key)
+      end
+    end
     let!(:generic_file) do
       GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
         g.apply_depositor_metadata(admin.user_key)
-      end
-    end
-    let!(:collection_modify) do
-      Collection.create( title: 'Test Collection', members: [generic_file] ) do |c|
-        c.apply_depositor_metadata(admin.user_key)
+        g.hasCollectionId = [collection_modify.id]
       end
     end
 
@@ -204,6 +205,7 @@ describe 'collection', :type => :feature do
     end
 
     it "should not see edit and delete options" do
+      expect(page).to have_content(generic_file.title.first)
       click_button("Select an action")
 
       expect(page).to have_content("Test Item")
