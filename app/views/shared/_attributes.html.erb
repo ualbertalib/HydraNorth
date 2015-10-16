@@ -4,8 +4,13 @@
           <td><%= work.title %></td>
         </tr>
         <tr>
-          <th><span class="attribute-label h4">Creator:</span></th>
-          <td><%= work.creator %></td>
+          <% if work.creator %>
+            <th><span class="attribute-label h4">Creator:</span></th>
+            <td><%= work.creator %></td>
+          <% elsif work.dissertant %>
+            <th><span class="attribute-label h4">Dissertant:</span></th>
+            <td><%= work.dissertant %></td>
+          <% end %>
         </tr>
         <tr>
           <% if work.description %>

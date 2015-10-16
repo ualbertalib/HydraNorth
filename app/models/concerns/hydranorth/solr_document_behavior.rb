@@ -19,5 +19,10 @@ module Hydranorth
     def abstract
       Array(self[Solrizer.solr_name('abstract')]).first
     end
+
+    def dissertant
+      Array(self[Solrizer.solr_name('dissertant')]).first
+    end
+
   end
 end
