@@ -23,5 +23,13 @@ describe SolrDocument, type: :model do
 
   end
 
+  describe "dissertant" do
+    before do
+      subject['dissertant_tesim'] = 'Test User'
+    end
+    it "should be a string" do
+      expect(subject.dissertant).to eq 'Test User'
+    end
+  end
 
 end

@@ -5,7 +5,11 @@
         </tr>
         <tr>
           <th><span class="attribute-label h4">Creator:</span></th>
-          <td><%= work.creator %></td>
+          <% if work.creator %>
+            <td><%= work.creator %></td>
+          <% elsif work.dissertant %>
+            <td><%= work.dissertant %></td>
+          <% end %>
         </tr>
         <tr>
           <% if work.description %>
