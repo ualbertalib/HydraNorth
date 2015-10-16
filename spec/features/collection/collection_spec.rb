@@ -17,7 +17,6 @@ describe 'collection', :type => :feature do
   after :each do
     cleanup_jetty
   end
-
   describe 'total item count for a collection with 1 public item and 1 private item' do
     let(:alice) { FactoryGirl.create(:alice) }
 
@@ -241,6 +240,67 @@ describe 'collection', :type => :feature do
       visit "/collections/#{collection_id}"
       expect(page).to have_content 'Items in this Collection'
       expect(page).to have_content 'TESTTEST'
+    end
+
+  end
+  describe 'community should show children collections' do
+
+    let!(:community) do
+      Collection.create( title: 'Test Community') do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = true
+        c.is_official = true
+        c.is_admin_set = false 
+      end
+    end
+
+    let!(:collection1) do
+      Collection.create( title: 'Test Collection 1') do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = false
+        c.is_official = true
+        c.is_admin_set = false
+        c.belongsToCommunity = [community.id]
+      end
+    end
+
+    let!(:collection2) do
+      Collection.create( title: 'Test Collection 2') do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = false 
+        c.is_official = true
+        c.is_admin_set = false
+        c.belongsToCommunity = [community.id] 
+      end
+    end
+
+    let!(:generic_file1) do
+      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
+        g.apply_depositor_metadata(jill.user_key)
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [community.id]
+      end
+    end
+    let!(:generic_file2) do
+      GenericFile.create( title: ['Test Item 2'], read_groups: ['public'] ) do |g|
+        g.apply_depositor_metadata(jill.user_key)
+        g.hasCollectionId = [collection1.id]
+        g.belongsToCommunity = [community.id]
+      end
+    end
+
+    it "should list 2 collections and 1 generic files on the community page" do
+      visit "/collections/#{community.id}"
+      expect(page).to have_content(collection1.title)
+      expect(page).to have_content(collection2.title)
+      expect(page).to have_content(generic_file1.title)
+      expect(page).not_to have_content(generic_file2.title) 
+    end
+
+    it "should list 1 generic file on the collection1 page " do
+      visit "/collections/#{collection1.id}"
+      expect(page).not_to have_content(generic_file1.title)
+      expect(page).to have_content(generic_file2.title)
     end
 
   end
