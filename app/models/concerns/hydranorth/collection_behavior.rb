@@ -44,7 +44,7 @@ module Hydranorth
       self.is_official ||= false
     end
     def is_community?
-      self.is_official ||= false
+      self.is_community ||= false
     end
     def belongsToCommunity?
       !self.belongsToCommunity.empty?

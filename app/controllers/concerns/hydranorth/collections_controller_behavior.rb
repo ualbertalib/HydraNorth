@@ -84,7 +84,7 @@ module Hydranorth
     end
     def add_member_to_community(member, community)
       belongsToCommunity = member.belongsToCommunity
-      belongsToCommunity.push collection.id
+      belongsToCommunity.push community.id
       member.belongsToCommunity = belongsToCommunity
       member.save!
     end

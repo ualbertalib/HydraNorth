@@ -11,6 +11,7 @@ describe 'collection', :type => :feature do
   let!(:community) do
     Collection.create( title: 'Community') do |c|
       c.apply_depositor_metadata(admin.user_key)
+      c.is_community = true
     end
   end
 
@@ -275,7 +276,7 @@ describe 'collection', :type => :feature do
     end
 
     let!(:generic_file1) do
-      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
+      GenericFile.create( title: ['Test Item 1'], read_groups: ['public'] ) do |g|
         g.apply_depositor_metadata(jill.user_key)
         g.belongsToCommunity = [community.id]
         g.hasCollectionId = [community.id]
@@ -291,16 +292,16 @@ describe 'collection', :type => :feature do
 
     it "should list 2 collections and 1 generic files on the community page" do
       visit "/collections/#{community.id}"
-      expect(page).to have_content(collection1.title)
-      expect(page).to have_content(collection2.title)
-      expect(page).to have_content(generic_file1.title)
-      expect(page).not_to have_content(generic_file2.title) 
+      expect(page).to have_content(collection1.title.first)
+      expect(page).to have_content(collection2.title.first)
+      expect(page).to have_content(generic_file1.title.first)
+      expect(page).not_to have_content(generic_file2.title.first) 
     end
 
     it "should list 1 generic file on the collection1 page " do
       visit "/collections/#{collection1.id}"
-      expect(page).not_to have_content(generic_file1.title)
-      expect(page).to have_content(generic_file2.title)
+      expect(page).not_to have_content(generic_file1.title.first)
+      expect(page).to have_content(generic_file2.title.first)
     end
 
   end
