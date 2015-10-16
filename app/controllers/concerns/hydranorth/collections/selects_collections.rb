@@ -29,9 +29,4 @@ module Hydranorth::Collections::SelectsCollections
       d1.title <=> d2.title
     end
   end
-
-  protected
-  def collections_search_builder_class
-    Hydranorth::SearchBuilder
-  end
 end
