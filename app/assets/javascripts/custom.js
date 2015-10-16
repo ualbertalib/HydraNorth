@@ -135,10 +135,14 @@ $(document).ready(function(){
 })(jQuery);
 
   var closed = $.getQuery('closed');
-  if (($("#documents .progress").length) && (closed == !"yes")) {
-      $(".lightbox").show(); 
-      setTimeout('window.location.reload();', 5000);
-  }
+  // TODO temporarily disabling this for release. We can reenable afterwards
+  // once we've locked down some of the bugs that are causing it to show up
+  // in unexected places. See issues #765, #770 for details
+  //
+  // if (($("#documents .progress").length) && (closed == !"yes")) {
+  //     $(".lightbox").show(); 
+  //     setTimeout('window.location.reload();', 5000);
+  // }
 
   $( ".btn-noccid" ).click(function() {
     $( "#era-login" ).slideToggle( "fast", function() {
