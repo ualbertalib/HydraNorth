@@ -1016,4 +1016,42 @@ namespace :migration do
     end
   end
 
+  desc "merge theses collections, change all post-2009 theses to be part of pre-2009 collection."
+  task update_theses_collections: :environment do
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Theses and Dissertations Spring 2009 to present" OR hasCollection_tesim: "Theses and Dissertations to Spring 2009"', :fl =>'id' }
+    numFound = solr_rsp['response']['numFound']
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Theses and Dissertations Spring 2009 to present" OR hasCollection_tesim: "Theses and Dissertations to Spring 2009"', :fl =>'id', :rows => numFound }
+    idList = solr_rsp['response']['docs']
+    member_ids_array = []
+    idList.each do |o|
+      id = o['id']
+      begin
+        MigrationLogger.info "Start to change #{id}"
+        f = GenericFile.find(id)
+        f.hasCollection = f.hasCollection+ ["Theses and Dissertations"] - ["Theses and Dissertations to Spring 2009"] - ["Theses and Dissertations Spring 2009 to present"]
+        f.hasCollectionId = f.hasCollectionId + ['44558t416'] - ['44558v536']
+        f.belongsToCommunity = ['44558r66n']
+        f.save
+        puts "updated #{id}"
+        MigrationLogger.info "Now #{id} is part of #{f.hasCollectionId}: #{f.hasCollection}"
+        member_ids_array = member_ids_array + [f.id]
+      rescue Exception => e
+        MigrationLogger.error "This object #{id} has issue to add to collection"
+        puts e.backtrace.inspect
+        MigrationLogger.error e.message
+        MigrationLogger.error e.backtrace.inspect
+        MigrationLogger.error "#{$!}, #{$@}"
+      end
+    end
+    MigrationLogger.info "update the collection"
+    c = Collection.find('44558t416')
+    current = c.member_ids
+    new = member_ids_array - current
+    c.member_ids = current + new
+    c.title = "Theses and Dissertations"
+    c.save
+    MigrationLogger.info "Collection member id #{new}"
+    puts "Collection #{c.title} has #{c.member_ids.count} now, it has #{current.count} items before"
+    MigrationLogger.error "Merging Theses Collections completed. Collection #{c.id}: #{c.title} has #{c.member_ids.count} now, it has #{current.count} object before."
+  end
 end
