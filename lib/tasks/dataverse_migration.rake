@@ -41,6 +41,27 @@ namespace :migration do
     end
   end
 
+  desc "Fix Dataverse items' rights and description fields."
+  task update_dataverse_fields: :environment do
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id' }
+    numFound = solr_rsp['response']['numFound']
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id', :rows => numFound }
+    idList = solr_rsp['response']['docs']
+    idList.each do |o|
+      id = o['id']
+      MigrationLogger.error "Object: " + id
+      file = GenericFile.find(id)
+      file.rights = nil
+      file.hasCollectionId =['wm117p010']
+      file.description ||= [""]
+      new_statement = "This item is a resource in the University of Alberta Libraries' Dataverse Network. Access this item in Dataverse by clicking on the DOI link. | "
+      file.description = ["#{new_statement}#{file.description[0]}"]
+      file.save
+      file = GenericFile.find(id)
+    end
+  end
+
+
   def migrate_dataverse_objects(metadata_dir)
     MigrationLogger.info " +++++++ START: object ingest #{metadata_dir} +++++++ "
     # create a ingest batch
