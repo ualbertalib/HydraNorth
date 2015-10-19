@@ -15,15 +15,27 @@ describe "Migration rake tasks" do
 
   describe "migration:dataverse" do
     before do
+      Collection.delete_all
+      @dataverse_datasets = Collection.new(title: "Dataverse Datasets").tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.save
+      end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:dataverse_objects"].invoke('spec/fixtures/migration/test-metadata/dataverse')
+      c_id = @dataverse_datasets.id
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id' }
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
     end
     after do 
       Rake::Task["migration:dataverse_objects"].reenable 
-      GenericFile.last.delete
-      Collection.last.delete
+      @file.delete
+      @dataverse_datasets.delete
     end
-    subject { GenericFile.last }
+    subject { @file }
     it "dataverse item should be migrated" do
       expect(subject.remote_resource).to eq "dataverse" 
       expect(subject.publisher).to include("University of Alberta Libraries")
