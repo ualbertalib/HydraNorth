@@ -48,14 +48,19 @@ Hydranorth::Application.routes.draw do
     
   end
 
-#  get ':action' => 'static#:action', constraints: { action: /help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, as: :static
-  get '/policies' => 'pages#policies', id: 'policies_page'
-  get '/technology' => 'pages#technology', id: 'technology_page'
-  get '/deposit' => 'pages#deposit', id: 'deposit_page'
-  get '/browse',  controller: 'browse', action: :index
+
+  get 'stats', controller: 'repository_statistics', action: :facet_stats, as: :generic_files_stats
+
+  #get ':action' => 'static#:action', constraints: { action: /help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, as: :static
+  get 'policies' => 'pages#policies', id: 'policies_page'
+  get 'technology' => 'pages#technology', id: 'technology_page'
+  get 'deposit' => 'pages#deposit', id: 'deposit_page'
+  get 'browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
-  get '/communities', controller: 'communities', action: :index
+  get 'communities', controller: 'communities', action: :index
+
+
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
