@@ -42,8 +42,8 @@ require 'pdf-reader'
   #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
 
   #Use the ERA public interface to download original file and foxml
-  DOWNLOAD_URL = "https://era.library.ualberta.ca/public/view/"
-  FEDORA_URL = "http://era.library.ualberta.ca:8180/fedora/get/"
+  DOWNLOAD_URL = "https://thesisdeposit.library.ualberta.ca/public/view/"
+  FEDORA_URL = "http://thesisdeposit.library.ualberta.ca:8180/fedora/get/"
   #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/"
   #temporary location for file download
   TEMP = "lib/tasks/migration/tmp"
@@ -364,17 +364,18 @@ namespace :migration do
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
-          system "curl #{file_location} --create-dirs -o #{license_file}"
-          if license=~/^.*\.(pdf|PDF)$/
-            rights = ""
-            PDF::Reader.open(license_file) do |reader|
-              reader.pages.map do |page|
-	        rights = rights + page.text
-	      end
-            end
-          else
-            rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
-          end
+          #system "curl #{file_location} --create-dirs -o #{license_file}"
+          #if license=~/^.*\.(pdf|PDF)$/
+          #  rights = ""
+          #  PDF::Reader.open(license_file) do |reader|
+          #    reader.pages.map do |page|
+	  #      rights = rights + page.text
+	  #    end
+          #  end
+          #else
+          #  rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+          #end
+          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission." 
           rights = rights.squeeze(' ').gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ').squeeze(' ')
           license = "I am required to use/link to a publisher's license"
         elsif license=~/creative commons|CC/i
@@ -691,12 +692,13 @@ namespace :migration do
     end
       add_to_collection_all_t = Time.now
       puts @collection_hash
-      @collection_hash.each do |collection_id, additional_members|
-        c = Collection.find(collection_id)
-        current = c.member_ids
-        c.member_ids = current + additional_members
-        c.save
-      end
+
+#      @collection_hash.each do |collection_id, additional_members|
+#        c = Collection.find(collection_id)
+#        current = c.member_ids
+#        c.member_ids = current + additional_members
+#        c.save
+#      end
       add_to_collection_all_end_t = Time.now
 
       puts "Add to All Collections: #{add_to_collection_all_end_t - add_to_collection_all_t}"
@@ -879,12 +881,17 @@ namespace :migration do
   end
 
   def find_collection(uuid)
-    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
-    numFound = solr_rsp['response']['numFound']
-    if numFound == 1
-      id = solr_rsp['response']['docs'].first['id']
+    # translate old post-2009 thesis collection
+    if uuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
+      id = '44558t416'
     else
-      MigrationLogger.error "Number of Collection retrieved by #{uuid} is incorrect: #{numFound}"
+      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+      numFound = solr_rsp['response']['numFound']
+      if numFound == 1
+        id = solr_rsp['response']['docs'].first['id']
+      else
+        MigrationLogger.error "Number of Collection retrieved by #{uuid} is incorrect: #{numFound}"
+      end
     end
     return id
   end
@@ -1016,42 +1023,4 @@ namespace :migration do
     end
   end
 
-  desc "merge theses collections, change all post-2009 theses to be part of pre-2009 collection."
-  task update_theses_collections: :environment do
-    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Theses and Dissertations Spring 2009 to present" OR hasCollection_tesim: "Theses and Dissertations to Spring 2009"', :fl =>'id' }
-    numFound = solr_rsp['response']['numFound']
-    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Theses and Dissertations Spring 2009 to present" OR hasCollection_tesim: "Theses and Dissertations to Spring 2009"', :fl =>'id', :rows => numFound }
-    idList = solr_rsp['response']['docs']
-    member_ids_array = []
-    idList.each do |o|
-      id = o['id']
-      begin
-        MigrationLogger.info "Start to change #{id}"
-        f = GenericFile.find(id)
-        f.hasCollection = f.hasCollection+ ["Theses and Dissertations"] - ["Theses and Dissertations to Spring 2009"] - ["Theses and Dissertations Spring 2009 to present"]
-        f.hasCollectionId = f.hasCollectionId + ['44558t416'] - ['44558v536']
-        f.belongsToCommunity = ['44558r66n']
-        f.save
-        puts "updated #{id}"
-        MigrationLogger.info "Now #{id} is part of #{f.hasCollectionId}: #{f.hasCollection}"
-        member_ids_array = member_ids_array + [f.id]
-      rescue Exception => e
-        MigrationLogger.error "This object #{id} has issue to add to collection"
-        puts e.backtrace.inspect
-        MigrationLogger.error e.message
-        MigrationLogger.error e.backtrace.inspect
-        MigrationLogger.error "#{$!}, #{$@}"
-      end
-    end
-    MigrationLogger.info "update the collection"
-    c = Collection.find('44558t416')
-    current = c.member_ids
-    new = member_ids_array - current
-    c.member_ids = current + new
-    c.title = "Theses and Dissertations"
-    c.save
-    MigrationLogger.info "Collection member id #{new}"
-    puts "Collection #{c.title} has #{c.member_ids.count} now, it has #{current.count} items before"
-    MigrationLogger.error "Merging Theses Collections completed. Collection #{c.id}: #{c.title} has #{c.member_ids.count} now, it has #{current.count} object before."
-  end
 end
