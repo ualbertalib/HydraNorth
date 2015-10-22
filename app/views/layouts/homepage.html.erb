@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="<%= t("sufia.document_language") %>">
-  <head>
-    <%= render partial: "layouts/head_tag_content"%>
-  </head>
+<html lang="<%= t("sufia.document_language") %>"  prefix="og:http://ogp.me/ns#">
+  <% content_for :head do %>
+    <%= javascript_include_tag 'homepage' %>
+  <% end %>
+
+  <%= render 'shared/head' %>
+
 
   <body class="home">
   
@@ -65,7 +68,7 @@
         </div>
         <div class="col-sm-5 white second-row">
 
-          <div class="chart"><h3>ERA currently has more than <strong>36,675</strong> items</h3>
+          <div class="chart"><h3>ERA currently has <strong><span id="chart-item-count">36,675</span></strong> items</h3>
          
         <div id="chartContainer">
 

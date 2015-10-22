@@ -75,27 +75,7 @@ $(document).ready(function(){
 		window.location = "/dashboard/all?f[creator_sim][]="+obj.text;
 		return false;
         });
-	if ($("#chartContainer").length){
-		var chart = new CanvasJS.Chart("chartContainer",
-    	{
-      		data: [
-      		{
-		      	indexLabelFontSize: 16,
-				indexLabelFontColor: "darkgrey",
-				indexLabelPlacement: "outside",
-		       type: "doughnut",
-		       dataPoints: [
-			{indexLabel: "Report", y: 9136},
-			{indexLabel: "Image", y: 5416},
-			{indexLabel: "Thesis", y: 5021 + 12255},
-			{indexLabel: "Journal Article (Published)", y: 1706},
-			{indexLabel: "Other", y: 542 + 350 + 310 + 247 + 206 + 184}
-]
-     		}
-     	]
-   });
-    chart.render();
-	}
+
 	
 	if ($(".browse").length){
 		$(".facet_select")
