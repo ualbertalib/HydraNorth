@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe RepositoryStatisticsController, type: :feature do
-  
+
   context '#facet_stats' do
     before do
       visit '/stats.json'
     end
-    
+
     it 'should work' do
       expect(page.status_code).to be 200
     end
@@ -23,9 +23,6 @@ describe RepositoryStatisticsController, type: :feature do
       expect(facets.count).to be 5
 
       facets.each {|facet| expect(facet).to have_key 'indexLabel' }
-
-      facet_names = facets.map {|facet| facet['indexLabel']}
-      expect(facet_names).to match_array ["Other", "Report", "Image", "Thesis", "Journal Article (Published)"]
 
       facets.each {|facet| expect(facet).to have_key 'y' }
       facets.each {|facet| expect(facet['y']).to be_kind_of Numeric }
