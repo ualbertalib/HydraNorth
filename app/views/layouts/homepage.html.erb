@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="<%= t("sufia.document_language") %>"  prefix="og:http://ogp.me/ns#">
   <% content_for :head do %>
-    <%= javascript_include_tag 'homepage' %>
+    <%= javascript_include_tag 'modules/homepage' %>
   <% end %>
 
   <%= render 'shared/head' %>
 
 
   <body class="home">
-  
+
     <div class="dn-wrap hidden-xs">
       <div class="triangle"></div>
       <div class="dn"><a href="#profiles"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></div>
@@ -45,7 +45,7 @@
       <div class="col-xs-12 visible-xs mobile-search">
         <%= render partial: "/front_search_form"%>
       </div>
-     
+
     </div>
 
      <div class="tan visible-xs pane">
@@ -69,7 +69,7 @@
         <div class="col-sm-5 white second-row">
 
           <div class="chart"><h3>ERA currently has <strong><span id="chart-item-count">36,675</span></strong> items</h3>
-         
+
         <div id="chartContainer">
 
 </div>
@@ -81,10 +81,10 @@
         </div>
         <div class="col-sm-4 dark-tan second-row">
           <div id="tweets">
-        
+
           </div>
         </div>
-       
+
     </div>
   </div>
     <div class="container-fluid info-pane pane">
@@ -94,7 +94,7 @@
 <p>ERA (Education and Research Archive) is the name for University of Alberta's Digital Asset Management strategy, being developed and supported by the <a href="https://www.library.ualberta.ca">University of Alberta Libraries</a>. For more on the technology behind ERA see <a href="/about">Technology and Partnerships</a>.</p>
 
 <p>ERA's open access content includes the intellectual output of the University and promotes global opportunities for research discovery as well as for archival preservation. ERA also provides an easy and convenient solution for faculty who must deposit their research in an open access repository to meet funding agency requirements.</p>
-      
+
     </div>
     <%= render partial: "/footer" %>
 <%= render 'shared/ajax_modal' %>
