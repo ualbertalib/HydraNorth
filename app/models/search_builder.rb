@@ -5,6 +5,6 @@ class SearchBuilder < Blacklight::SearchBuilder
 
    def include_collection_ids(solr_parameters)
     solr_parameters[:fq] ||= []
-    solr_parameters[:fq] << "(-hasCollectionId_tesim:[* TO *] AND belongsToCommunity_tesim:#{collection.id}) OR hasCollectionId_ssim:#{collection.id}"
+    solr_parameters[:fq] << "(-hasCollectionId_ssim:[* TO *] AND (belongsToCommunity_ssim:#{collection.id} OR belongsToCommunity_tesim:#{collection.id})) OR hasCollectionId_ssim:#{collection.id}"
   end
 end
