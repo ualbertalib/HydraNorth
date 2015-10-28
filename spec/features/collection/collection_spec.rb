@@ -281,7 +281,6 @@ describe 'collection', :type => :feature do
       GenericFile.create( title: ['Test Item 1'], read_groups: ['public'] ) do |g|
         g.apply_depositor_metadata(jill.user_key)
         g.belongsToCommunity = [community.id]
-        g.hasCollectionId = [community.id]
       end
     end
     let!(:generic_file2) do

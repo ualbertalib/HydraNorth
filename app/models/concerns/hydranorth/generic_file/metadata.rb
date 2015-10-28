@@ -43,11 +43,11 @@ module Hydranorth
         end
        
         property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
-          index.as :stored_searchable
+          index.as :symbol, :stored_searchable
         end
 
         property :fedora3handle, predicate: ::UALTerms.fedora3handle, multiple: false do |index|
-          index.as :stored_searchable
+          index.as :symbol, :stored_searchable
         end
 
         property :ingestbatch, predicate: ::UALTerms.ingestbatch, multiple: false do |index|
@@ -59,7 +59,7 @@ module Hydranorth
         end
 
         property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
-          index.as :stored_searchable
+          index.as :symbol, :stored_searchable
         end
 
         property :hasCollectionId, predicate: ::UALTerms.hasCollectionId do |index|

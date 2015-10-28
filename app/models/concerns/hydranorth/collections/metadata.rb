@@ -8,15 +8,15 @@ module Hydranorth::Collections
         index.as :stored_searchable
       end
       property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
-        index.as :stored_searchable
+        index.as :symbol, :stored_searchable
       end
 
       property :fedora3handle, predicate: ::UALTerms.fedora3handle, multiple: false do |index|
-        index.as :stored_searchable
+        index.as :symbol, :stored_searchable
       end
 
       property :belongsToCommunity, predicate: ::UALTerms.belongsToCommunity, multiple: true do |index|
-        index.as :stored_searchable
+        index.as :symbol, :stored_searchable
       end
 
       property :is_community, predicate: ::UALTerms.is_community, multiple: false do |index|
