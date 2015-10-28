@@ -185,6 +185,8 @@ en:
         is_version_of:    "Citation for previous publication"
         source:           "Source"
         rights:           "Publisher's License"
+        belongsToCommunity:     "Community"
+        hasCollectionId:        "Collection"
         license_display:  "License information"
         temporal_display: "Time"
         spatial_display:  "Place"
