@@ -1,5 +1,6 @@
 class GenericFilesController < ApplicationController
   include Hydranorth::FilesControllerBehavior
+
   warn "[DEPRECATION] `Batch` will change substantially with the introduction of `Hydra::Works`. When this occurs #new can be removed from GenericFilesController"
 
    # TODO This is a temporary override of sufia to fix #
@@ -9,5 +10,4 @@ class GenericFilesController < ApplicationController
    def new
      @batch_id  = Batch.create.id
    end
-   
 end

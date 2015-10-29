@@ -1,1 +1,1 @@
-<%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1', :required => true} %>
+<%= f.input :belongsToCommunity, collection: @user_communities, value_method: :id, label_method: :title, :include_blank => true, input_html: { :name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1' }, :required => true %>
