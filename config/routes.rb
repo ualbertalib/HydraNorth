@@ -26,7 +26,9 @@ Hydranorth::Application.routes.draw do
   # redirect old item url to hydranorth
   get '/public/view/item/:uuid' => 'redirect#item'
   get '/public/view/item/:uuid/:ds' => 'redirect#datastream'
-  get '/public/view/item/:uuid/:ds/:file' => 'redirect#datastream'
+  get '/public/view/item/:uuid/:ds/*file' => 'redirect#datastream', format: false
+  get '/public/datastream/get/:uuid/:ds' => 'redirect#datastream'
+  get '/public/datastream/get/:uuid/:ds/*file' => 'redirect#datastream', format: false
   get '/public/view/collection/:uuid' => 'redirect#collection'
   get '/public/view/community/:uuid' => 'redirect#collection'
   get '/public/view/author/:username' => 'redirect#author'
