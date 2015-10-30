@@ -55,7 +55,8 @@ namespace :migration do
       AuditLogger.info "**************START: Audit ERA objects *******************"
       metadata_dir = args.dir
       audit_file = args.audit_file
-      # Usage: Rake migration:audititem[<file directory here, path included>, '<file here, path included>']
+      # Usage: Rake migration:audit_object['<file directory here, path included>'', '<output file here, path included>']
+      # The directory contains foxml files that are to be audited; the file is the output of expected and found values
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
         audit_object(metadata_dir, audit_file)
       else
@@ -73,7 +74,8 @@ namespace :migration do
       AuditLogger.info "**************START: Audit community and collection ********************"
       metadata_dir = args.dir
       audit_file = args.audit_file
-      # Usage: Rake migration:audit_community_collection['<file directory here, path included>', '<file here, path included>']
+      # Usage: Rake migration:audit_community_collection['<file directory here, path included>', '<output file here, path included>']
+      # The directory contains foxml files that are to be audited; the file is the output of expected and found values
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
         audit_community_collection(metadata_dir, audit_file)
       else
