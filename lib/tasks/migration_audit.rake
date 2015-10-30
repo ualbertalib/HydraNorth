@@ -45,6 +45,8 @@ require 'builder'
   TEMP = "lib/tasks/migration/tmp"
   FILE_STORE = "lib/tasks/migration/files"
   FileUtils::mkdir_p TEMP
+  #set the thesis collection ID
+  THESES_ID = '44558t416'
 
 namespace :migration do
 
@@ -332,7 +334,12 @@ namespace :migration do
      end
      collections_noid = []
      collections.each do |cuuid|
-       collections_noid << find_object(cuuid)
+       # translate old post-2009 thesis collection
+       if cuuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
+         collections_noid << THESES_ID
+       else
+         collections_noid << find_object(cuuid)
+       end
      end
 
      collections_title = []
@@ -373,7 +380,7 @@ namespace :migration do
        AuditLogger.info "missing object: #{uuid}"
        xml.uuid('uuid' => uuid) { 'Missing' }
      else
-       xml.uuid('uuid' => uuid) { 
+       xml.uuid('id' => @generic_file.id, 'uuid' => uuid) { 
           
        # audit metadata for the object in Hydranorth
        AuditLogger.info "Audit Metadata for GenericFile: #{@generic_file.id}"
