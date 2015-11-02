@@ -6,6 +6,15 @@ namespace :hydranorth do
     Rails.logger
   end
 
+  desc "Remove lapsed embargoes"
+  task :remove_lapsed_embargoes => :environment do |t|
+    items = Hydra::EmbargoService.assets_with_expired_embargoes
+    items.each do |item|
+      item.embargo_visibility!
+      item.save!
+    end
+  end
+
   desc "Update Resource Type for selected collections"
   task :update_special_itemtype => :environment do |t, args|
     uuids = {'uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5' => 'Computing Science Technical Report', 'uuid:b1535044-2f60-4e24-89de-c3a400d4255b' => 'Structural Engineering Report'}
