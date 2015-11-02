@@ -910,7 +910,7 @@ namespace :migration do
   private
 
   def find_object(uuid)
-    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':"'+uuid.to_s + '"'}
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
