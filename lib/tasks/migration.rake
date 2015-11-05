@@ -885,12 +885,15 @@ namespace :migration do
       id.slice! ".txt"
      
       begin 
+        byebug
         @generic_file = GenericFile.find(id)
         if @generic_file == nil
           MigrationLogger.info "Generic file not found: #{id}"
         else
-          @generic_file.add_file(File.open(file), path: 'gastats', original_name: file, mime_type: 'texl/xml')
-          @generic_file.save!
+          if @generic_file.era1stats.content == nil
+            @generic_file.add_file(File.open(file), path: 'era1stats', original_name: file, mime_type: 'texl/xml')
+            @generic_file.save!
+          end
         end
 
       rescue Exception => e

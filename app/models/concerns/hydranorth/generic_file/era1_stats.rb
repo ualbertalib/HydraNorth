@@ -1,9 +1,9 @@
 module Hydranorth
   module GenericFile
-    module GaStats 
+    module Era1Stats 
       extend ActiveSupport::Concern
       included do
-        contains "gastats", class_name: 'GaStatsDatastream'
+        contains "era1stats", class_name: 'Era1StatsDatastream'
       end
 
     end

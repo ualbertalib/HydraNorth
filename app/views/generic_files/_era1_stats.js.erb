@@ -13,7 +13,7 @@ $(function() {
   }; 
 
   var stats = <%= @stats.to_flot.to_json.html_safe %>;
-  var old_stats = <%= @generic_file.gastats.content.html_safe %>;
+
   var downloads = 0;
   var start_date = 999999999999999999999;
 
@@ -22,8 +22,11 @@ $(function() {
         downloads += stats[1].data[j][1];
   }
 
-  for(var j=0; j < old_stats[1].data.length; j++)
-  {
+  var old_stats = <%= @generic_file.era1stats.content ? @generic_file.era1stats.content.html_safe : 'false' %>;
+  if ( old_stats != false) {
+
+    for(var j=0; j < old_stats[1].data.length; j++)
+    {  
         if (old_stats[1].data[j][0] < start_date)
         {
             start_date = old_stats[1].data[j][0]; 
@@ -31,9 +34,14 @@ $(function() {
 
        	stats[1].data.push(old_stats[1].data[j]);
         downloads += old_stats[1].data[j][1];
+    }
+
+    start_date = new Date(start_date)
+  }
+  else {
+    start_date = "<%= @stats.created.strftime("%B %-d, %Y") %>"
   }
 
-  start_date = new Date(start_date); 
   $('span#stats-start-date').text(start_date);
   $('span#download-item-count').text(downloads);
 

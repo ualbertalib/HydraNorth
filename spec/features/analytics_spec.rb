@@ -10,7 +10,7 @@ describe 'analytics', :type => :feature, :js => true do
       f.resource_type = ["Thesis" ]
       f.read_groups = ['public']
       f.apply_depositor_metadata(user.user_key)
-      f.add_file(File.open('lib/tasks/migration/stats/ga_stats.txt'), path: 'gastats', original_name: 'ga_stats.txt', mime_type: 'text/xml')
+      f.add_file(File.open('lib/tasks/migration/stats/ga_stats.txt'), path: 'era1stats', original_name: 'ga_stats.txt', mime_type: 'text/xml')
       f.save!
     end
   end
