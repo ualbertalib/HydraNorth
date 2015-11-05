@@ -870,7 +870,7 @@ namespace :migration do
             communities << find_object(uuid)
           end
         end
-        id = check_collection(collection_attributes, model, communities, uuid)
+        id = check_collection(xml, collection_attributes, model, communities, uuid)
 
         collection = Collection.find(id)
         if model == "info:fedora/ir:COLLECTION" && !communities.blank? && collection.title != "Thesis Collection"
@@ -933,9 +933,10 @@ namespace :migration do
     return collection_attributes
   end
 
-  def check_collection(collection_attributes, model, communities, uuid)
+  def check_collection(xml, collection_attributes, model, communities, uuid)
   
      collection_id = find_object(uuid)
+     xml.id collection_id 
      if collection_id == nil
        AuditLogger.info "missing object: #{uuid}"
        xml.uuid('uuid' => uuid) { 'Missing' }
