@@ -40,12 +40,15 @@ module Hydranorth
     def is_admin_set?
       self.is_admin_set ||= false
     end
+
     def is_official?
       self.is_official ||= false
     end
+
     def is_community?
       self.is_community ||= false
     end
+
     def belongsToCommunity?
       !self.belongsToCommunity.empty?
     end
@@ -69,7 +72,7 @@ module Hydranorth
     end
 
 
-        # Compute the sum of each file in the collection using Solr to
+    # Compute the sum of each file in the collection using Solr to
     # avoid having to hit Fedora
     #
     # @return [Fixnum] size of collection in bytes

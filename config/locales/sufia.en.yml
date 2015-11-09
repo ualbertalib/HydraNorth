@@ -201,7 +201,7 @@ en:
         related_url_display:  "Link to related item"
         is_version_of_display: "Citation for previous publication"
         source_display:   "Source"
-        
+
         degree_grantor_display: "Degree grantor"
         dissertant_display: "Author or creator"
         supervisor_display: "Supervisor and department"
@@ -210,11 +210,11 @@ en:
         specialization_display: "Specialization"
         date_accepted_display: "Date accepted"
         graduation_datei_display: "Graduation date"
-        alternative_title_display: "Other title" 
+        alternative_title_display: "Other title"
         thesis_name_display: "Degree"
         thesis_level_display: "Degree level"
         abstract_display: "Abstract"
-        
+
       collection:
         description:      "Description"
         subject:          "Subject/Keyword"
@@ -227,7 +227,7 @@ en:
         resource_type_html: "If you do not see an appropriate item type, please contact erahelp@ualberta.ca."
         title: "A name for the file to aid in identifying it. Defaults to the file name, though a more descriptive title is encouraged. &lt;em&gt;This is a required field&lt;/em&gt;."
         tag: "Words or phrases you select to describe what the file is about. These are used to search for content. &lt;em&gt;This is a required field&lt;/em&gt;."
-        subject: "Enter subjects or keywords that describe the item. These are the words that will be used when someone searches for your item. 
+        subject: "Enter subjects or keywords that describe the item. These are the words that will be used when someone searches for your item.
 "
         creator_html: "The person or group responsible for the file being uploaded. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot; &lt;em&gt;This is a required field&lt;/em&gt;."
         related_url: "A link to a website or other specific content (audio, video, PDF document) related to the file. An example is the URL of a research project from which the file was derived."
@@ -262,7 +262,7 @@ i.'
         rights: "Usage information for rights"
         license: "Usage information for license"
       collection:
-        default: "Usage information for %{title}" 
+        default: "Usage information for %{title}"
         license: "Usage information for license"
 
   hydranorth:
