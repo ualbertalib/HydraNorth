@@ -8,6 +8,12 @@ describe "Home Page", type: :feature do
     visit "/"
   end
 
+  context 'repository info chart' do
+    it 'should have a span containing the current number of items' do
+      expect(page).to have_selector('span#chart-item-count')
+    end
+  end
+
   context "upon sign-in" do
     it "shows my dashboard in drop down" do
       find("a.btn.btn-default.dropdown-toggle").click 

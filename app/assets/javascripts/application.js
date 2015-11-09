@@ -22,6 +22,7 @@
 //= require jquery.canvasjs.min
 //= require twitterFetcher_min
 //
+// note that we should refactor the following to not be included on every page on the site
 //= require custom
 //= require hydranorth_fileupload
 //= require hydranorth_update_collections

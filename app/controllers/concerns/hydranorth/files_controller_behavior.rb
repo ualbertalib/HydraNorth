@@ -16,6 +16,7 @@ module Hydranorth
       self.presenter_class = Hydranorth::GenericFilePresenter
     end
 
+
     protected
 
     def actor
@@ -54,6 +55,7 @@ module Hydranorth
       end
     end
 
+
     def process_file(file)
       Batch.find_or_create(params[:batch_id])
 
@@ -81,7 +83,8 @@ module Hydranorth
       end
     end
 
-    def update_resource_type_from_upload_screen
+
+  def update_resource_type_from_upload_screen
       # Relative path is set by the jquery uploader when uploading a directory
       @generic_file.resource_type = [Sufia.config.special_types['cstr']] if params[:resource_type] == Sufia.config.special_types['cstr']
       @generic_file.resource_type = [Sufia.config.special_types['ser']] if params[:resource_type] == Sufia.config.special_types['ser']

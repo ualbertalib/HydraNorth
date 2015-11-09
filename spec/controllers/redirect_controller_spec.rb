@@ -74,7 +74,7 @@ describe RedirectController, type: :controller do
       expect(response).to redirect_to "http://test.host/downloads/#{id}"
     end
     it "redirects to datastream download" do
-      get :datastream, uuid: "uuid:394266f0-0e4a-42e6-a199-158165226426", ds: "DS1", file: "test.pdf"
+      get :datastream, uuid: "uuid:394266f0-0e4a-42e6-a199-158165226426", ds: "DS1", file: "cjps36.1.pdf"
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
@@ -92,23 +92,25 @@ describe RedirectController, type: :controller do
 
   describe "#collection" do
     before :all do
-      Rake::Task.define_task(:environment)
-      Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/collection')
-    end
-    after :all do
-      Rake::Task["migration:era_collection_community"].reenable
-      Collection.last.delete
-    end
-    subject { Collection.last }
-    it "Collection should be migrated" do
-      expect(subject.fedora3uuid).to eq "uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"
-    end
-    it "redirects to collection page" do
-      get :collection, uuid: "uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"
+      @collection = Collection.new(title: 'test collection').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_official = true
+        c.fedora3uuid = 'uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7'
+        c.save
+      end
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
-      expect(response).to redirect_to "http://test.host/collections/#{id}"
+      @collection = Collection.find(id)
+    end
+    after :all do
+      Rake::Task["migration:era_collection_community"].reenable
+      @collection.delete
+    end
+    subject { @collection }
+    it "collection should be migrated" do
+      expect(subject).not_to be_nil
+      expect(subject.fedora3uuid).to eq 'uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7'
     end
     it "returns a 404 status code" do
       get :collection, uuid: "xxx"
@@ -120,26 +122,28 @@ describe RedirectController, type: :controller do
     end
   end
 
-  describe "#collection" do
+  describe "#collection (community)" do
     before :all do
-      Rake::Task.define_task(:environment)
-      Rake::Task["migration:era_collection_community"].invoke('spec/fixtures/migration/test-metadata/community')
-    end
-    after :all do
-      Rake::Task["migration:era_collection_community"].reenable
-      Collection.last.delete
-    end
-    subject { Collection.last }
-    it "Community should be migrated" do
-      expect(subject.fedora3uuid).to eq "uuid:d04b3b74-211d-4939-9660-c390958fa2ee"
-    end
-    it "redirects to community page" do
-      get :collection, uuid: "uuid:d04b3b74-211d-4939-9660-c390958fa2ee"
+      @community = Collection.new(title: 'test community').tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.fedora3uuid = 'uuid:d04b3b74-211d-4939-9660-c390958fa2ee'
+        c.save
+      end
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:d04b3b74-211d-4939-9660-c390958fa2ee"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
-      expect(response).to redirect_to "http://test.host/collections/#{id}"
+      @community = Collection.find(id)
     end
+    after :all do 
+      @community.delete 
+    end
+    subject { @community }
+    it "community should be migrated" do
+      expect(subject).not_to be_nil
+      expect(subject.fedora3uuid).to eq 'uuid:d04b3b74-211d-4939-9660-c390958fa2ee'
+    end 
     it "returns a 404 status code" do
       get :collection, uuid: "xxx"
       expect(response).to have_http_status(404)
