@@ -3,4 +3,10 @@ default:
   jetty_port: 8983
   java_opts:
     - "-Xmx512m"
-    - "-XX:MaxPermSize=128m"
+    # pc: add options for jdk8 and audit 
+    - "-XX:NewSize=256m"
+    - "-XX:MaxNewSize=256m" 
+    - "-XX:MetaspaceSize=256m"
+    - "-XX:MaxMetaspaceSize=512m"
+    - "-XX:+DisableExplicitGC"
+    - "-Dfcrepo.audit.container=/audit"
