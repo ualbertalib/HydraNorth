@@ -1,42 +1,29 @@
 require 'spec_helper'
-require 'rake'
-require 'fileutils'
+require 'support/shared_contexts/rake'
 
-describe "hydranorth.rake" do
+describe "hydranorth:remove_lapsed_embargoes" do
+  include_context "rake"
+  byebug
   let(:past_date) { 2.days.ago }
   let!(:file) do
-    FactoryGirl.build(:generic_file, title: ["tested embargo"]).tap do |work|
+    FactoryGirl.build(:generic_file, title: ["tested embargo"], embargo_release_date: past_date.to_s, visibility_after_embargo: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC, visibility_during_embargo: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE).tap do |work|
       work.apply_depositor_metadata('dittest@ualberta.ca')
-      work.apply_embargo(past_date.to_s, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC)
-      work.save(validate:false)
+      work.save(validate: false)
     end
   end
+  its(:prerequisites) { should include("environment") }
 
-  before do
-    load File.expand_path("../../../lib/tasks/hydranorth.rake", __FILE__)
+  after do
+    GenericFile.delete_all
   end
 
-  describe "hydranorth:remove_lapsed_embargoes" do
-
-    before do
-      Rake::Task.define_task(:environment)
-      Rake::Task["hydranorth:remove_lapsed_embargoes"].invoke
-    end
-
-    after do
-      Rake::Task["hydranorth:remove_lapsed_embargoes"].reenable
-      file.delete
-    end
-
-
-    subject { GenericFile.find(file.id) }
-
-    it "should clear the expired embargo" do
-      expect(subject).not_to be_nil
-      expect(subject.embargo_release_date).to be_nil
-      expect(subject.embargo_history).not_to be_nil
-      expect(subject.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-    end
+  it "clears the expired embargo" do
+    subject.invoke
+    object = GenericFile.find(file.id)
+    byebug
+    expect(object).not_to be_nil
+    expect(object.embargo_release_date).to be_nil
+    expect(object.embargo_history).not_to be_empty
+    expect(object.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
   end
-
-end 
+end
