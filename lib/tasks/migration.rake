@@ -568,16 +568,16 @@ namespace :migration do
       @generic_file.title = [title]
       file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
       @generic_file.attributes = file_attributes
-
       if item_state == 'Inactive'
         if embargoed
-          @generic_file.embargo_release_date = DateTime.strptime(embargoed_date, '%Y-%m-%dT%H:%M:%S.%N%Z')
-          @generic_file.visibility_during_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+          embargo_release_date = DateTime.strptime(embargoed_date, '%Y-%m-%dT%H:%M:%S.%N%Z')
+          visibility_during_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
           if ccid_protected
-            @generic_file.visibility_after_embargo = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
+            visibility_after_embargo = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
           else
-            @generic_file.visibility_after_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+            visibility_after_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
           end
+          @generic_file.apply_embargo(embargo_release_date, visibility_during_embargo, visibility_after_embargo)
         else
            @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
         end
