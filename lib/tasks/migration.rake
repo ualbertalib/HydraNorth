@@ -604,7 +604,6 @@ namespace :migration do
       attr_t = Time.now
       attr_time = attr_time + (attr_t - metadata_t)
       puts "Set attributes for the file used #{attr_t - metadata_t}"
-
       MigrationLogger.info "Generic File attribute set id:#{@generic_file.id}"
 
       # save the file
@@ -894,10 +893,11 @@ namespace :migration do
 
   def find_collection(uuid)
     # translate old post-2009 thesis collection
-    if uuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
+    if uuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269' and ENV["RAILS_ENV"] == "production"
       id = THESES_ID
     else
-      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+      uuid_id = uuid.split(":")[1]
+      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid_id.to_s}
       numFound = solr_rsp['response']['numFound']
       if numFound == 1
         id = solr_rsp['response']['docs'].first['id']
