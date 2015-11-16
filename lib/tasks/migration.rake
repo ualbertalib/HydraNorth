@@ -1,6 +1,7 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
+require 'open3'
 
   NS = {
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
@@ -39,12 +40,9 @@ require 'pdf-reader'
   }
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
-  #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
-
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://thesisdeposit.library.ualberta.ca/public/view/"
   FEDORA_URL = "http://thesisdeposit.library.ualberta.ca:8180/fedora/get/"
-  #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/"
 
   #set the thesis collection ID
   THESES_ID = '44558t416'
@@ -78,23 +76,6 @@ namespace :migration do
       ingest_batch_id = args.batch_id
       delete_batch(batch_id)
       MigrationLogger.info "**************FINISH: Deleting files from the same migration batch *******************"
-    rescue
-      raise
-    end
-
-  end
-
-  desc "batch fetch the files and original foxml file"
-  task :fetch_files, [:dir] => :environment do |t, args|
-    begin
-      MigrationLogger.info "**************START: Fetching Files for the Collection *******************"
-      metadata_dir = args.dir
-      if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        fetch_files(metadata_dir)
-      else
-        MigrationLogger.fatal "Invalid directory #{metadata_dir}"
-      end
-      MigrationLogger.info "**************FINISH: Fetching Files for the Collection *******************"
     rescue
       raise
     end
@@ -167,34 +148,6 @@ namespace :migration do
       elsif object_model == "GenericFile"
         GenericFile.find(object_id).delete
       end
-    end
-  end
-
-  def fetch_files(metadata_dir)
-    Dir.glob(metadata_dir+"/uuid_*.xml") do |file|
-      MigrationLogger.info "Getting files for #{file}"
-      #reading the metadata file
-      metadata = Nokogiri::XML(File.open(file))
-
-      #get the uuid of the object
-      uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
-
-      # get the content datastream DS
-      ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
-      if ds_datastreams.length > 0
-        ds_datastreams.each do |ds|
-          ds_num = ds.attribute('ID')
-          file_location = FEDORA_URL + uuid + "/" + ds_num
-          #download file to temp location
-          MigrationLogger.info "Download DS Datastream#{ds_num} for #{uuid}"
-          #file_full = "#{FILE_STORE}/#{uuid}/#{ds_num}"
-          system "curl #{file_location} --create-dirs -o #{file_full}"
-        end
-      end
-      MigrationLogger.info "Download the original foxml #{uuid}"
-      foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
-      download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      system "curl -o #{download_foxml} #{foxml_url}"
     end
   end
 
@@ -319,7 +272,9 @@ namespace :migration do
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
             file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
             #FileUtils.cp(file_ds, file_full)
-            system "curl #{file_location} --create-dirs -o #{file_full} --connect-timeout 30 --max-time 30"
+            curl_cmd = "curl #{file_location} --create-dirs -o #{file_full} --connect-timeout 30 --max-time 30"
+            Open3.capture3(curl_cmd)
+
             # get md5 of the file
             md5 = Digest::MD5.file(file_full).hexdigest.gsub(/\s/,'')
             # verify md5 with the MD5 in DS
@@ -371,7 +326,9 @@ namespace :migration do
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
-          system "curl #{file_location} --create-dirs -o #{license_file}"
+          curl_cmd = "curl #{file_location} --create-dirs -o #{license_file}"
+          Open3.capture3(curl_cmd)
+
           if license=~/^.*\.(pdf|PDF)$/
             rights = ""
             begin
@@ -469,7 +426,8 @@ namespace :migration do
       MigrationLogger.info "Download the original foxml #{uuid}"
       foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
       download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
-      system "curl -o #{download_foxml} #{foxml_url}"
+      curl_cmd = "curl -o #{download_foxml} #{foxml_url}"
+      Open3.capture3(curl_cmd)
       puts download_foxml
 
       # set the depositor
@@ -962,8 +920,8 @@ namespace :migration do
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
      foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
-     system "curl #{foxml_url} --create-dirs -o #{download_foxml}"
-
+     curl_cmd "curl #{foxml_url} --create-dirs -o #{download_foxml}"
+     Open3.capture3(curl_cmd)
 
      #add original foxml
      foxml_file = File.open(download_foxml)
