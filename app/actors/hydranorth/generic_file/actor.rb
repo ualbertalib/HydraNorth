@@ -18,6 +18,21 @@ module Hydranorth
         date_created = attributes[:date_created]
         generic_file.year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
 
+        ['hasCollectionId', 'belongsToCommunity'].each do |attr|
+          if attributes[attr].present?
+            # remove from old
+            old_collection = Collection.find(generic_file.send(attr).first)
+            old_collection.remove_member_id generic_file.id
+            old_collection.save
+
+            attributes[attr].each do |id|
+              collection = Collection.find(id)
+              collection.add_members([generic_file])
+              collection.save
+            end
+          end
+        end
+
         super
       end
 

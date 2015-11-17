@@ -34,6 +34,8 @@ module Hydranorth::Collections
         index.as :stored_searchable
       end
 
+      property :hasCollectionMember, predicate: ActiveFedora::RDF::Fcrepo::RelsExt.hasCollectionMember, multiple: true
+
     end
   end
 end
