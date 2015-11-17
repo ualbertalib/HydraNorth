@@ -5,6 +5,7 @@ describe "Migration rake tasks" do
   before do
     load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
   end
+
   describe "migration:eraitem - standard item" do
     before do
       Collection.delete_all
@@ -143,6 +144,7 @@ describe "Migration rake tasks" do
         c.fedora3uuid = 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
         c.save
       end
+      GenericFile.delete_all
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/thesis-metadata')
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"]}
@@ -175,13 +177,14 @@ describe "Migration rake tasks" do
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
       expect(subject.license).to eq "I am required to use/link to a publisher's license"
-      expect(subject.rights).to eq "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. Where the thesis is converted to, or otherwise made available in digital form, the University of Alberta will advise potential users of the thesis of these terms. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
+      expect(subject.rights).to eq "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
       expect(subject.hasCollection).to include 'Theses'
       expect(subject.hasCollectionId).to include @collection.id
       expect(subject.belongsToCommunity).to include @community.id
 
     end
   end
+
   describe "migration:eraitem - legacy thesis" do
     before do
       Collection.delete_all
@@ -472,5 +475,4 @@ describe "Migration rake tasks" do
       expect(subject.read_groups).to include Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC
     end
   end
-
 end
