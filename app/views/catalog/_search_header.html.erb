@@ -1,0 +1,13 @@
+<%= render 'did_you_mean' %>
+
+<%= render 'constraints' %>
+
+<% if current_user.nil? %>
+  <%= render 'sort_and_per_page' %>
+<% else %>
+  <% if current_user.admin? %>
+    <%= render 'catalog_sort_and_per_page' %>
+  <% else %>
+    <%= render 'sort_and_per_page' %>
+  <% end %>
+<% end %>

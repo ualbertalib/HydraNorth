@@ -1,0 +1,5 @@
+<% # container for all documents in index view -%>
+<div class="table-responsive" id="documents">
+  <%= render partial: 'default_group', locals: {docs: @response.docs.map { |x| SolrDocument.new(x) }, facet_value: nil} %>
+
+</div>
