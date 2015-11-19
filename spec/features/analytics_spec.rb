@@ -24,7 +24,7 @@ describe 'analytics', :type => :feature, :js => true do
   end
 
   it "contains the correct number of downloads" do
-    expect(page).to have_content('4 downloads')
+    expect(page).to have_content('downloaded 4 times')
   end
   
 end
