@@ -4,17 +4,16 @@ require 'csv'
 require 'json'
 require 'fastercsv'
 
-BATCH_TEMP = 'batch'
-
 namespace :batch do
   desc "batch ingest from a csv file - used by ERA Admin and ERA Assistants"
-  task :ingest_csv, [:file] => :environment do |t, args|
+  task :ingest_csv, [:file, :tmp_dir] => :environment do |t, args|
     begin
       BatchIngestLogger.info "**************START: Batch ingest started ***************************"
       input_file = args.file
+      files_dir = args.tmp_dir
       if File.exist?(input_file)
         json = convert_csv_json(input_file)
-        ingest(json)
+        ingest(json, files_dir)
       else
         BatchIngestLogger.fatal "Invalid file #{file}"
       end
@@ -33,7 +32,7 @@ namespace :batch do
     return json
   end
 
-  def ingest(json)
+  def ingest(json, files_dir)
     @ingest_batch_id = ActiveFedora::Noid::Service.new.mint
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     @collection_hash = {}
@@ -59,13 +58,11 @@ namespace :batch do
         @gf.permissions_attributes = set_coowners(coowners) if coowners && coowners.count > 0
         puts "retrieve file for the object"
         BatchIngestLogger.info("Retrieve the files for the object") 
-        file_location = BATCH_TEMP + "/"+ file_attributes["file_name"] +".pdf"
-        puts file_location
+        file_location = files_dir + "/"+ file_attributes["file_name"] +".pdf"
         if File.exist?(file_location)
           mime_type = MIME::Types.of(file_location).first.to_s
           content = File.open(file_location)
           puts file_location
-          puts content
           @gf.add_file(content, {path: 'content', original_name: file_attributes["file_name"], mime_type: mime_type})
           BatchIngestLogger.info "Add file #{file_attributes["file_name"]} to object, size: #{File::size(file_location)}"
         end
@@ -175,13 +172,12 @@ namespace :batch do
     return permissions_attributes
   end
   def read_metadata(metadata)
-    puts metadata
     BatchIngestLogger.info "Get the metadata for the object"
     file_name = metadata[:file_name]
     item_type = metadata[:item_type]
     owner_ids = metadata[:owner_id].split("|") if metadata[:owner_id]
     collections = metadata[:coll_noid].split("|") if metadata[:coll_noid]
-    communities = metadata[:comm_noid].spilt("|") if metadata[:comm_noid]
+    communities = metadata[:comm_noid].split("|") if metadata[:comm_noid]
     is_version_of = metadata[:is_version_of]
     title = metadata[:title]
     creators = metadata[:creator].split("|") if metadata[:creator]
@@ -206,9 +202,6 @@ namespace :batch do
       license = "I am required to use/link to a publisher's license"
     end
 
-    puts communities
-    puts collections
-
     collections_title = []
     if collections
       collections.each do |cid|
@@ -222,8 +215,6 @@ namespace :batch do
         end
       end
     end
-
-    puts file_name
 
     file_attributes = {"file_name" => file_name, "owner_id" => owner_ids, "resource_type" => [item_type], "title" => [title],"creator" => creators, "contributor"=>contributors, "description" =>[description], "date_created" => date_created, "year_created"=>year_created, "license"=>license, "rights" => rights, "subject"=>subjects, "spatial" => spatials, "temporal"=> temporals, "language"=>language, "is_version_of" => is_version_of, "belongsToCommunity" => communities, "hasCollectionId" => collections, "hasCollection" => collections_title, "related_url" => related_url, "source" => source, "embargo_release_date" => embargo_date, "visibility" => visibility, "visibility_after_embargo" => visibility_after_embargo }
 
