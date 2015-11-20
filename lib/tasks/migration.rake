@@ -136,6 +136,23 @@ namespace :migration do
 
   end
 
+  desc "batch migrate archived google stats"
+  task :era_migrate_stats, [:dir] => :environment do |t, args|
+    begin
+      MigrationLogger.info "**************START: Migrate google stats *******************"
+      file_dir = args.dir
+      if File.exist?(file_dir) && File.directory?(file_dir)
+        migrate_google_stats(file_dir)
+      else
+        MigrationLogger.fatal "Invalid directory #{file_dir}"
+      end
+      MigrationLogger.info "**************FINISH: Migrate google stats *******************"
+    rescue
+      raise
+    end
+  end
+
+
   def delete_migration_batch(batch_id)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'ingestbatch_tesim:'+batch_id}
     numFound = solr_rsp['response']['numFound']
@@ -811,6 +828,49 @@ namespace :migration do
 
   end
 
+  def migrate_google_stats(file_dir)
+
+    MigrationLogger.info " +++++++ START: migrate google stats #{file_dir} +++++++ "
+    allfiles = Dir.glob(file_dir+"*.txt")
+    filecount = allfiles.select { |file| File.file?(file) }.count
+    MigrationLogger.info "Files to process: " + filecount.to_s
+    allfiles.sort.each_with_index do |file, thisfile|
+      start_time = Time.now
+      MigrationLogger.info "Processing the file #{file} (#{thisfile + 1} of #{filecount})"
+      index = file.rindex('/')
+      id = file[index+1..-1]
+      id.slice! ".txt"
+     
+      begin 
+        byebug
+        @generic_file = GenericFile.find(id)
+        if @generic_file == nil
+          MigrationLogger.info "Generic file not found: #{id}"
+        else
+          if @generic_file.era1stats.content == nil
+            @generic_file.add_file(File.open(file), path: 'era1stats', original_name: file, mime_type: 'texl/xml')
+            @generic_file.save!
+            MigrationLogger.info "Google stats added for generic file: #{id}"
+          end
+        end
+
+      rescue Exception => e
+         puts "FAILED: Item #{file} audit!"
+         puts e.message
+         puts e.backtrace.inspect
+         MigrationLogger.error "FAILED: Item #{file} audit!"
+         MigrationLogger.error e.message
+         MigrationLogger.error e.backtrace.inspect
+         MigrationLogger.error "#{$!}, #{$@}"
+         next
+      end
+    end
+
+    MigrationLogger.info " +++++++ END: migrate google stats #{file_dir} +++++++ "
+
+  end
+
+
   private
 
   def add_to_collection(file, collection_id)
@@ -992,5 +1052,6 @@ namespace :migration do
       end
     end
   end
+
 
 end

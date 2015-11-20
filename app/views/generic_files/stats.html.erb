@@ -1,0 +1,33 @@
+<%= render_breadcrumbs builder: Sufia::BootstrapBreadcrumbsBuilder %>
+
+<!-- Adapted from jquery-flot examples https://github.com/flot/flot/blob/master/examples/visitors/index.html -->
+<!--[if lte IE 8]><%= javascript_include_tag 'excanvas' %><![endif]-->
+<%= javascript_tag do %>
+  <%= render partial: 'generic_files/era1_stats', formats: [:js] %>
+<% end %>
+
+<%= content_tag :h1, @generic_file, class: "lower" %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <%= content_tag :h2, "Analytics" %>
+    <div class="alert alert-info">
+      <i class="glyphicon glyphicon-signal large-icon"></i>
+      This item has been viewed* <strong><span id="view-item-count">0</span></strong> times and downloaded <strong><span id="download-item-count">0</span></strong> times since it was added to ERA on <strong><span id="stats-start-date"></span></strong>
+    </div>
+    <div class="stats-container">
+        <div id="usage-stats" class="stats-placeholder"></div>
+    </div>
+    <div class="stats-container" style="height:150px;">
+        <div id="overview" class="stats-placeholder"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="alert alert-info">
+      *A pageview is counted each time a visitor views an item page in ERA. Pageviews may include multiple views by a single visitor. Pageviews were not collected prior to Sept 2011.<br><br>
+**A download is counted each time a visitor clicks the download link. For more information about ERA analytics, please contact <a href="mailto:erahelp@ualberta.ca">erahelp@ualberta.ca</a>.
+    </div>
+  </div>
+</div>
