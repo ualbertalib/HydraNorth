@@ -893,6 +893,7 @@ namespace :migration do
           if @generic_file.era1stats.content == nil
             @generic_file.add_file(File.open(file), path: 'era1stats', original_name: file, mime_type: 'texl/xml')
             @generic_file.save!
+            MigrationLogger.info "Google stats added for generic file: #{id}"
           end
         end
 
