@@ -718,10 +718,10 @@ namespace :migration do
            end
          else
            if ccid_protected
-             if @generic_file.visibility != Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
-               AuditLogger.info "visibility: #{@generic_file.visibility}^#{Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA}"
-	       	   xml.visibility {
-	           xml.object_ @generic_file.visibility
+             if @generic_file.read_groups != [Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC, Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA]
+               AuditLogger.info "visibility|read_groups: #{@generic_file.read_groups}^#{Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC}^#{Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA}"
+	       	   xml.read_groups {
+	           xml.object_ @generic_file.read_groups
 	           xml.xml_ Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
 	           }
              end
