@@ -20,10 +20,13 @@ module Hydranorth
 
         ['hasCollectionId', 'belongsToCommunity'].each do |attr|
           if attributes[attr].present?
-            # remove from old
-            old_collection = Collection.find(generic_file.send(attr).first)
-            old_collection.remove_member_id generic_file.id
-            old_collection.save
+            # remove from old collections
+
+            generic_file.send(attr).each do |old_collection_id|
+              old_collection = Collection.find(old_collection_id)
+              old_collection.remove_member_id generic_file.id
+              old_collection.save
+            end
 
             attributes[attr].each do |id|
               collection = Collection.find(id)

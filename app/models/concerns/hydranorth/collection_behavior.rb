@@ -174,7 +174,7 @@ module Hydranorth
     end
 
     # from hydra-collections
-
+    # it's questionable if we even need these? -mb
     def update_all_members
       Deprecation.warn(Collection, 'update_all_members is deprecated and will be removed in version 5.0')
       self.materialized_members.collect { |m| update_member(m) }
@@ -183,8 +183,6 @@ module Hydranorth
     # TODO: Use solr atomic updates to accelerate this process
     def update_member(member)
       Deprecation.warn(Collection, 'update_member is deprecated and will be removed in version 5.0')
-      # because the member may have its collections cached, reload that cache so that it indexes the correct fields.
-      member.collections(true) if member.respond_to? :collections
       member.update_index
     end
 

@@ -34,9 +34,9 @@ module GenericFileHelper
     gf && gf.doi_url.present? ? gf.doi_url : sufia.download_path(*args)
   end
 
-  def render_collection_list gf
-    unless gf.collections.empty?
-      ("Is part of: " + gf.collections.map { |c| link_to(c.title, collections.collection_path(c)) }.join(", ")).html_safe
+  def render_collection_list(gf)
+    if gf.respond_to? :hasCollection
+      ("Is part of: " + gf.hasCollection.each_with_index.map { |title, i| link_to(title, collections.collection_path(gf.hasCollectionId[i])) }.join(", ")).html_safe
     end
   end
 
