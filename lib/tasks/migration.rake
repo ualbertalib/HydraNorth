@@ -980,7 +980,7 @@ namespace :migration do
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
      foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
-     curl_cmd "curl #{foxml_url} --create-dirs -o #{download_foxml}"
+     curl_cmd = "curl #{foxml_url} --create-dirs -o #{download_foxml}"
      Open3.capture3(curl_cmd)
 
      #add original foxml
