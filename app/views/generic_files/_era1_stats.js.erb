@@ -1,0 +1,228 @@
+$(function() {
+
+  Array.prototype.unique = function() {
+      var a = this.concat();
+      for(var i=0; i<a.length; ++i) {
+          for(var j=i+1; j<a.length; ++j) {
+              if(a[i] === a[j])
+                  a.splice(j--, 1);
+          }  
+      }  
+
+      return a;
+  }; 
+
+  var stats = <%= @stats.to_flot.to_json.html_safe %>;
+  stats = [{"label":"Pageviews*","data":stats[0].data},{"label":"Downloads**","data":stats[1].data}]; 
+
+  var downloads = 0;
+  var views = 0;
+  var start_date = 999999999999999999999;
+
+  for(var j=0; j < stats[1].data.length; j++)
+  {
+        downloads += stats[1].data[j][1];
+  }
+
+  for(var j=0; j < stats[0].data.length; j++)
+  {
+        views += stats[0].data[j][1];
+  }
+
+  var old_stats = <%= @generic_file.era1stats.content ? @generic_file.era1stats.content.html_safe : 'false' %>;
+  if ( old_stats != false) {
+
+    for(var j=0; j < old_stats[1].data.length; j++)
+    {  
+        if (old_stats[1].data[j][0] < start_date)
+        {
+            start_date = old_stats[1].data[j][0]; 
+        }
+
+       	stats[1].data.push(old_stats[1].data[j]);
+        downloads += old_stats[1].data[j][1];
+    }
+
+    for(var j=0; j < old_stats[0].data.length; j++)
+    {
+        if (old_stats[0].data[j][0] < start_date)
+        {
+            start_date = old_stats[0].data[j][0];
+        }
+
+        stats[0].data.push(old_stats[0].data[j]);
+        views += old_stats[0].data[j][1];
+    }
+
+
+    start_date = new Date(start_date);
+
+    var stats=newDataArray(stats);
+  }
+  else {
+    start_date = "<%= @stats.created.strftime("%B %-d, %Y") %>";
+  }
+
+  $('span#stats-start-date').text(start_date);
+  $('span#download-item-count').text(downloads);
+  $('span#view-item-count').text(views);
+
+
+  function newDataArray(data) {
+
+    var startDay = data[0].data[0][0];
+    var partialData = data[0].data;
+    var newPageviews = [data[0].data[0]];
+
+    for (i = 1; i < partialData.length; i++) {
+      var diff = dateDiff(partialData[i - 1][0], partialData[i][0]);
+      var startDate = new Date(partialData[i - 1][0]);
+      if (diff > 1) {
+        for (j = 0; j < diff - 1; j++) {
+          var fillDate = new Date(startDate).setDate(startDate.getDate() + (j + 1));
+            newPageviews.push([fillDate, 0]);
+        }
+      }
+      newPageviews.push(data[0].data[i]);
+    }
+
+    var startDay = data[1].data[0][0];
+    var partialData = data[1].data;
+    var newDownloads = [data[1].data[0]];
+
+    for (i = 1; i < partialData.length; i++) {
+      var diff = dateDiff(partialData[i - 1][0], partialData[i][0]);
+      var startDate = new Date(partialData[i - 1][0]);
+      if (diff > 1) {
+        for (j = 0; j < diff - 1; j++) {
+          var fillDate = new Date(startDate).setDate(startDate.getDate() + (j + 1));
+            newDownloads.push([fillDate, 0]);
+        }
+      }
+      newDownloads.push(data[1].data[i]);
+    }
+
+    return [{"label":"Pageviews*","data":newPageviews},{"label":"Downloads**","data":newDownloads}];
+  }
+
+  /* helper function to find date differences*/
+  function dateDiff(d1, d2) {
+    return Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+  }
+
+  function weekendAreas(axes) {
+    var markings = [],
+      d = new Date(axes.xaxis.min);
+
+    // go to the first Saturday
+    d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+    d.setUTCSeconds(0);
+    d.setUTCMinutes(0);
+    d.setUTCHours(0);
+
+    var i = d.getTime();
+
+    // when we don't set yaxis, the rectangle automatically
+    // extends to infinity upwards and downwards
+
+    do {
+      markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+      i += 7 * 24 * 60 * 60 * 1000;
+    } while (i < axes.xaxis.max);
+
+    return markings;
+  }
+
+  var options = {
+    xaxis: {
+      mode: "time",
+      tickLength: 5
+    },
+    yaxis: {
+      tickDecimals: 0,
+      min: 0
+    },
+    series: {
+      lines: {
+        show: true,
+        fill: true
+      },
+      points: {
+        show: true,
+        fill: true
+      }
+    },
+    selection: {
+      mode: "x"
+    },
+    grid: {
+      hoverable: true,
+      clickable: true,
+      markings: weekendAreas
+    }
+  };
+
+  var plot = $.plot("#usage-stats", stats, options);
+
+  $("<div id='tooltip'></div>").css({
+    position: "absolute",
+    display: "none",
+    border: "1px solid #bce8f1",
+    padding: "2px",
+    "background-color": "#d9edf7",
+    opacity: 0.80
+  }).appendTo("body");
+
+  $("#usage-stats").bind("plothover", function (event, pos, item) {
+    if (item) {
+      date = new Date(item.datapoint[0]);
+      months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"]
+      $("#tooltip").html("<strong>" + item.series.label + ": " + item.datapoint[1] + "</strong><br/>" + months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear())
+            .css({top: item.pageY+5, left: item.pageX+5})
+            .fadeIn(200);
+    } else {
+      $("#tooltip").fadeOut(100)
+    }
+  });
+
+  var overview = $.plot("#overview", stats, {
+    series: {
+      lines: {
+        show: true,
+        lineWidth: 1
+      },
+      shadowSize: 0
+    },
+    xaxis: {
+      ticks: [],
+      mode: "time",
+      minTickSize: [1, "day"]
+    },
+    yaxis: {
+      ticks: [],
+      min: 0,
+      autoscaleMargin: 0.1
+    },
+    selection: {
+      mode: "x"
+    },
+    legend: {
+      show: false
+    }
+  });
+
+  $("#usage-stats").bind("plotselected", function(event, ranges) {
+    plot = $.plot("#usage-stats", stats, $.extend(true, {}, options, {
+      xaxis: {
+        min: ranges.xaxis.from,
+        max: ranges.xaxis.to
+      }
+    }));
+    overview.setSelection(ranges, true);
+  });
+
+  $("#overview").bind("plotselected", function(event, ranges) {
+    plot.setSelection(ranges);
+  });
+});

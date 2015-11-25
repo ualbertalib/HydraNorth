@@ -6,6 +6,7 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::GenericFile::Export
   include Hydranorth::GenericFile::Fedora3Foxml
   include Hydranorth::GenericFile::DOI
+  include Hydranorth::GenericFile::Era1Stats
 
   # work around for ActiveFedora logic
   # that mapped activetriples to collection names

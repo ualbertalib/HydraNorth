@@ -3,50 +3,7 @@ require './lib/tasks/migration/audit_logger'
 require 'pdf-reader'
 require 'builder'
 
-  NS = {
-        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
-        "xmlns:foxml"=>"info:fedora/fedora-system:def/foxml#",
-        "xmlns:audit"=>"info:fedora/fedora-system:def/audit#",
-        "xmlns:dc"=>"http://purl.org/dc/elements/1.1/",
-        "xmlns:dcterms"=>"http://purl.org/dc/terms/",
-        "xmlns:georss"=>"http://www.georss.org/georss/",
-        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/",
-        "xmlns:ualterms"=>"http://terms.library.ualberta.ca",
-        "memberof"=>"info:fedora/fedora-system:def/relations-external#",
-        "hasmodel"=>"info:fedora/fedora-system:def/model#",
-        "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
-        "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
-        "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
-        "xmlns:bibo"=>"http://purl.org/ontology/bibo/"
-    }
-
-
-  LANG = {
-      "eng" => "English",
-      "en" => "English",
-      "en_US" => "English",
-      "fre" => "French",
-      "spa" => "Spanish",
-      "chi" => "Chinese",
-      "ger" => "German",
-      "ita" => "Italian",
-      "rus" => "Russian",
-      "ukr" => "Ukrainian",
-      "jpn" => "Japanese",
-      "zxx" => "No linguistic content",
-      "other" => "Other",
-      ""    => "No linguistic content",
-  }
-
-  #Use the ERA public interface to download original file and foxml
-  FEDORA_URL = "http://thesisdeposit.library.ualberta.ca:8180/fedora/get/"
-  #temporary location for file download
-  TEMP = "lib/tasks/migration/tmp"
-  FILE_STORE = "lib/tasks/migration/files"
   FileUtils::mkdir_p TEMP
-  #set the thesis collection ID
-  THESES_ID = '44558t416'
 
 namespace :migration do
 
@@ -761,10 +718,10 @@ namespace :migration do
            end
          else
            if ccid_protected
-             if @generic_file.visibility != Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
-               AuditLogger.info "visibility: #{@generic_file.visibility}^#{Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA}"
-	       	   xml.visibility {
-	           xml.object_ @generic_file.visibility
+             if @generic_file.read_groups != [Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC, Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA]
+               AuditLogger.info "visibility|read_groups: #{@generic_file.read_groups}^#{Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC}^#{Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA}"
+	       	   xml.read_groups {
+	           xml.object_ @generic_file.read_groups
 	           xml.xml_ Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
 	           }
              end
