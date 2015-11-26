@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveFedora::ObjectNotFoundError, with: -> { render_404 ActiveFedora::ObjectNotFoundError }
   rescue_from ActiveRecord::RecordNotFound, with: -> { render_404 ActiveRecord::RecordNotFound }
 
-
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || sufia.dashboard_index_path || root_path
   end

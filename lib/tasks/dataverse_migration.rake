@@ -1,27 +1,6 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 
-
-  NS = {
-        "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance", 
-        "xmlns:dc"=>"http://purl.org/dc/elements/1.1/", 
-        "xmlns:dcterms"=>"http://purl.org/dc/terms/", 
-        "xmlns:georss"=>"http://www.georss.org/georss/",
-        "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", 
-        "xmlns:ualterms"=>"http://terms.library.ualberta.ca", 
-    }
-
-
-  #report directory
-  REPORTS = "lib/tasks/migration/reports/"
-  #Oddities report
-  ODDITIES = REPORTS+ "dataverse_oddities.txt"
-  #verification error report
-  VERIFICATION_ERROR = REPORTS + "dataverse_verification_errors.txt"
-  #item migration list
-  ITEM_LIST = REPORTS + "dataverse_item_list.txt"
-  FileUtils::mkdir_p REPORTS 
-
 namespace :migration do
 	
   desc "batch migrate object metadata from Dataverse' OAI-DC"

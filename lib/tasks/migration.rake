@@ -1,6 +1,8 @@
+# coding: utf-8
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
+require 'open3'
 
   NS = {
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
@@ -39,12 +41,9 @@ require 'pdf-reader'
   }
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
-  #FEDORA_URL = "http://fedoradmin:fedorapassword@era.library.ualberta.ca:8180/fedora/get/"
-
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://thesisdeposit.library.ualberta.ca/public/view/"
   FEDORA_URL = "http://thesisdeposit.library.ualberta.ca:8180/fedora/get/"
-  #DOWNLOAD_LICENSE_URL = "https://era.library.ualberta.ca/public/datastream/get/"
 
   #set the thesis collection ID
   THESES_ID = '44558t416'
@@ -84,23 +83,6 @@ namespace :migration do
 
   end
 
-  desc "batch fetch the files and original foxml file"
-  task :fetch_files, [:dir] => :environment do |t, args|
-    begin
-      MigrationLogger.info "**************START: Fetching Files for the Collection *******************"
-      metadata_dir = args.dir
-      if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        fetch_files(metadata_dir)
-      else
-        MigrationLogger.fatal "Invalid directory #{metadata_dir}"
-      end
-      MigrationLogger.info "**************FINISH: Fetching Files for the Collection *******************"
-    rescue
-      raise
-    end
-
-  end
-
   desc "batch migrate generic files from modified ERA FOXML file"
   task :eraitem, [:dir, :migrate_datastreams] => :environment do |t, args|
     args.with_defaults(:migrate_datastreams => "true")
@@ -112,7 +94,7 @@ namespace :migration do
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
         migrate_object(metadata_dir, migrate_datastreams)
       else
-	MigrationLogger.fatal "Invalid directory #{metadata_dir}"
+        MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
       MigrationLogger.info "**************FINISH: Migrate ERA objects *******************"
     rescue
@@ -155,6 +137,23 @@ namespace :migration do
 
   end
 
+  desc "batch migrate archived google stats"
+  task :era_migrate_stats, [:dir] => :environment do |t, args|
+    begin
+      MigrationLogger.info "**************START: Migrate google stats *******************"
+      file_dir = args.dir
+      if File.exist?(file_dir) && File.directory?(file_dir)
+        migrate_google_stats(file_dir)
+      else
+        MigrationLogger.fatal "Invalid directory #{file_dir}"
+      end
+      MigrationLogger.info "**************FINISH: Migrate google stats *******************"
+    rescue
+      raise
+    end
+  end
+
+
   def delete_migration_batch(batch_id)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'ingestbatch_tesim:'+batch_id}
     numFound = solr_rsp['response']['numFound']
@@ -167,34 +166,6 @@ namespace :migration do
       elsif object_model == "GenericFile"
         GenericFile.find(object_id).delete
       end
-    end
-  end
-
-  def fetch_files(metadata_dir)
-    Dir.glob(metadata_dir+"/uuid_*.xml") do |file|
-      MigrationLogger.info "Getting files for #{file}"
-      #reading the metadata file
-      metadata = Nokogiri::XML(File.open(file))
-
-      #get the uuid of the object
-      uuid = metadata.at_xpath("foxml:digitalObject/@PID", NS).value
-
-      # get the content datastream DS
-      ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", NS)
-      if ds_datastreams.length > 0
-        ds_datastreams.each do |ds|
-          ds_num = ds.attribute('ID')
-          file_location = FEDORA_URL + uuid + "/" + ds_num
-          #download file to temp location
-          MigrationLogger.info "Download DS Datastream#{ds_num} for #{uuid}"
-          #file_full = "#{FILE_STORE}/#{uuid}/#{ds_num}"
-          system "curl #{file_location} --create-dirs -o #{file_full}"
-        end
-      end
-      MigrationLogger.info "Download the original foxml #{uuid}"
-      foxml_url = DOWNLOAD_URL + "item/" + uuid + "/fo.xml"
-      download_foxml = "#{FILE_STORE}/#{uuid}/fo.xml"
-      system "curl -o #{download_foxml} #{foxml_url}"
     end
   end
 
@@ -319,7 +290,9 @@ namespace :migration do
             #file_ds = "#{FILE_STORE}/#{uuid}/#{ds_num}"
             file_full = "#{TEMP}/#{uuid}/#{original_filename_normalize}"
             #FileUtils.cp(file_ds, file_full)
-            system "curl #{file_location} --create-dirs -o #{file_full} --connect-timeout 30 --max-time 30"
+            curl_cmd = "curl #{file_location} --create-dirs -o #{file_full} --connect-timeout 30 --max-time 30"
+            Open3.capture3(curl_cmd)
+
             # get md5 of the file
             md5 = Digest::MD5.file(file_full).hexdigest.gsub(/\s/,'')
             # verify md5 with the MD5 in DS
@@ -366,12 +339,14 @@ namespace :migration do
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
         elsif type == "Thesis"
           license = "I am required to use/link to a publisher's license"
-          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission." 
+          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
         elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
-          system "curl #{file_location} --create-dirs -o #{license_file}"
+          curl_cmd = "curl #{file_location} --create-dirs -o #{license_file}"
+          Open3.capture3(curl_cmd)
+
           if license=~/^.*\.(pdf|PDF)$/
             rights = ""
             begin
@@ -381,7 +356,7 @@ namespace :migration do
 	        end
               end
             rescue EOFError
-              MigrationLogger.error "Error to open License PDF for #{uuid}" 
+              MigrationLogger.error "Error to open License PDF for #{uuid}"
             end
           else
             rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
@@ -461,7 +436,7 @@ namespace :migration do
               embargoed = true
           end
         end
-      end     
+      end
 
       embargoed_date = relsext_version.at_xpath("userns:embargoedDate", NS).text() if relsext_version.at_xpath("userns:embargoedDate", NS)
 
@@ -469,7 +444,8 @@ namespace :migration do
       MigrationLogger.info "Download the original foxml #{uuid}"
       foxml_url = DOWNLOAD_URL + "item/" + uuid +"/fo.xml"
       download_foxml = "#{TEMP_FOXML}/#{uuid}.xml"
-      system "curl -o #{download_foxml} #{foxml_url}"
+      curl_cmd = "curl -o #{download_foxml} #{foxml_url}"
+      Open3.capture3(curl_cmd)
       puts download_foxml
 
       # set the depositor
@@ -568,16 +544,16 @@ namespace :migration do
       @generic_file.title = [title]
       file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
       @generic_file.attributes = file_attributes
-
       if item_state == 'Inactive'
         if embargoed
-          @generic_file.embargo_release_date = DateTime.strptime(embargoed_date, '%Y-%m-%dT%H:%M:%S.%N%Z')
-          @generic_file.visibility_during_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+          embargo_release_date = DateTime.strptime(embargoed_date, '%Y-%m-%dT%H:%M:%S.%N%Z')
+          visibility_during_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
           if ccid_protected
-            @generic_file.visibility_after_embargo = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
+            visibility_after_embargo = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
           else
-            @generic_file.visibility_after_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+            visibility_after_embargo = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
           end
+          @generic_file.apply_embargo(embargo_release_date, visibility_during_embargo, visibility_after_embargo)
         else
            @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
         end
@@ -590,7 +566,7 @@ namespace :migration do
           else
             @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
           end
-        end 
+        end
       end
 
       if !permissions_attributes.blank?
@@ -604,7 +580,6 @@ namespace :migration do
       attr_t = Time.now
       attr_time = attr_time + (attr_t - metadata_t)
       puts "Set attributes for the file used #{attr_t - metadata_t}"
-
       MigrationLogger.info "Generic File attribute set id:#{@generic_file.id}"
 
       # save the file
@@ -656,7 +631,7 @@ namespace :migration do
       system "rm -rf #{TEMP}/#{uuid}"
 
 
-      rescue Exception => e
+    rescue Exception => e
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
         puts e.backtrace.inspect
@@ -702,7 +677,7 @@ namespace :migration do
     end
       add_to_collection_all_t = Time.now
       puts @collection_hash
-        
+
       @collection_hash.each do |collection_id, additional_members|
         if collection_id != THESES_ID
           c = Collection.find(collection_id)
@@ -854,6 +829,49 @@ namespace :migration do
 
   end
 
+  def migrate_google_stats(file_dir)
+
+    MigrationLogger.info " +++++++ START: migrate google stats #{file_dir} +++++++ "
+    allfiles = Dir.glob(file_dir+"*.txt")
+    filecount = allfiles.select { |file| File.file?(file) }.count
+    MigrationLogger.info "Files to process: " + filecount.to_s
+    allfiles.sort.each_with_index do |file, thisfile|
+      start_time = Time.now
+      MigrationLogger.info "Processing the file #{file} (#{thisfile + 1} of #{filecount})"
+      index = file.rindex('/')
+      id = file[index+1..-1]
+      id.slice! ".txt"
+     
+      begin 
+        byebug
+        @generic_file = GenericFile.find(id)
+        if @generic_file == nil
+          MigrationLogger.info "Generic file not found: #{id}"
+        else
+          if @generic_file.era1stats.content == nil
+            @generic_file.add_file(File.open(file), path: 'era1stats', original_name: file, mime_type: 'texl/xml')
+            @generic_file.save!
+            MigrationLogger.info "Google stats added for generic file: #{id}"
+          end
+        end
+
+      rescue Exception => e
+         puts "FAILED: Item #{file} audit!"
+         puts e.message
+         puts e.backtrace.inspect
+         MigrationLogger.error "FAILED: Item #{file} audit!"
+         MigrationLogger.error e.message
+         MigrationLogger.error e.backtrace.inspect
+         MigrationLogger.error "#{$!}, #{$@}"
+         next
+      end
+    end
+
+    MigrationLogger.info " +++++++ END: migrate google stats #{file_dir} +++++++ "
+
+  end
+
+
   private
 
   def add_to_collection(file, collection_id)
@@ -894,10 +912,11 @@ namespace :migration do
 
   def find_collection(uuid)
     # translate old post-2009 thesis collection
-    if uuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
+    if uuid == 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269' and ENV["RAILS_ENV"] == "production"
       id = THESES_ID
     else
-      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid.to_s}
+      uuid_id = uuid.split(":")[1]
+      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid_id.to_s}
       numFound = solr_rsp['response']['numFound']
       if numFound == 1
         id = solr_rsp['response']['docs'].first['id']
@@ -962,8 +981,8 @@ namespace :migration do
      MigrationLogger.info "Download the original foxml #{collection_attributes[:fedora3uuid]}"
      foxml_url = DOWNLOAD_URL + "collection/" + collection_attributes[:fedora3uuid] + "/fo.xml"
      download_foxml = "#{TEMP_FOXML}/#{collection_attributes[:fedora3uuid]}/fo.xml"
-     system "curl #{foxml_url} --create-dirs -o #{download_foxml}"
-
+     curl_cmd = "curl #{foxml_url} --create-dirs -o #{download_foxml}"
+     Open3.capture3(curl_cmd)
 
      #add original foxml
      foxml_file = File.open(download_foxml)
@@ -1034,5 +1053,6 @@ namespace :migration do
       end
     end
   end
+
 
 end

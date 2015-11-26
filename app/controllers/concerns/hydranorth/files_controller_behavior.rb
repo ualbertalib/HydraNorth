@@ -6,14 +6,16 @@ module Hydranorth
 
   module FilesControllerBehavior
     extend ActiveSupport::Concern
+    include Hydranorth::Collections::SelectsCollections
     include Sufia::FilesControllerBehavior
     include Hydranorth::Breadcrumbs
+
 
     included do
       self.edit_form_class = Hydranorth::Forms::GenericFileEditForm
       self.presenter_class = Hydranorth::GenericFilePresenter
     end
-    
+
 
     protected
 
@@ -40,7 +42,8 @@ module Hydranorth
     end
 
     def edit_form
-
+      find_collections_with_read_access
+      find_communities_with_read_access
       if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
         Hydranorth::Forms::CstrEditForm.new(@generic_file)
       elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
@@ -81,11 +84,10 @@ module Hydranorth
     end
 
 
-  def update_resource_type_from_upload_screen
+    def update_resource_type_from_upload_screen
       # Relative path is set by the jquery uploader when uploading a directory
       @generic_file.resource_type = [Sufia.config.special_types['cstr']] if params[:resource_type] == Sufia.config.special_types['cstr']
       @generic_file.resource_type = [Sufia.config.special_types['ser']] if params[:resource_type] == Sufia.config.special_types['ser']
     end
-
   end
 end

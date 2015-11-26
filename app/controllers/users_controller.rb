@@ -13,15 +13,15 @@ class UsersController < ApplicationController
   end
 
   def lock_access
-    @user.lock_access! unless ! current_user.admin?
+    @user.lock_access! unless !current_user.admin?
     redirect_to sufia.profile_path(@user.to_param)
   end
 
   def unlock_access
-    @user.unlock_access! unless ! current_user.admin?
+    @user.unlock_access! unless !current_user.admin?
     redirect_to sufia.profile_path(@user.to_param)
   end
- 
+
   def link_account; end
 
   def set_saml

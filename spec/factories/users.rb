@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
     password 'password'
-    after(:create) { |user| user.confirm! }
+    after(:create) { |user| user.confirm }
 
     factory :jill do
       email 'jilluser@example.com'

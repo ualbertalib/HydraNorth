@@ -60,7 +60,7 @@ class BatchUpdateJob
     if !collections.empty?
       collections.each do |id|
         c = Collection.find(id)
-        c.add_members [gf.id]
+        c.add_member_ids [gf.id]
         c.save
         has_collection << c.title
       end

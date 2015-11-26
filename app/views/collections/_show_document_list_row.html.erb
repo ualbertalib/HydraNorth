@@ -1,5 +1,6 @@
 <% id = document.id %>
 <% link = Collection == document.to_model.class ? collections.collection_path(document) : sufia.generic_file_path(document) %>
+
 <tr id="document_<%= id %>" class="<%= cycle("", "zebra") %>">
   <% gf = document.to_model%>
   <td>&nbsp;
