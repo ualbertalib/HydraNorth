@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 require 'rake'
 require 'fileutils'
@@ -22,6 +23,7 @@ describe "Migration rake tasks" do
         c.fedora3uuid = 'uuid:3f5739f8-4344-4ce5-9f85-9bda224b41d7'
         c.save
       end
+
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
@@ -43,6 +45,7 @@ describe "Migration rake tasks" do
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
       expect(subject.institutional_visibility?).to be false
+
       expect(subject.hasCollection).to include 'test collection'
       expect(subject.hasCollectionId).to include @collection.id
       expect(subject.belongsToCommunity).to include @community.id
@@ -107,7 +110,7 @@ describe "Migration rake tasks" do
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:488e5517-ace7-4cda-8196-f29f853711c8"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
-      @file = GenericFile.find(id) 
+      @file = GenericFile.find(id)
     end
     after do
       Rake::Task["migration:eraitem"].reenable
@@ -150,7 +153,7 @@ describe "Migration rake tasks" do
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
-      @file = GenericFile.find(id) 
+      @file = GenericFile.find(id)
 
     end
     after do
@@ -373,7 +376,7 @@ describe "Migration rake tasks" do
     subject { @file }
 
     it "item should have private visibility" do
-      expect(subject.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO 
+      expect(subject.visibility).to eq Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO
       expect(subject.institutional_visibility?).to be false
       expect(subject.visibility_after_embargo).to eq "open"
       expect(subject.embargo_release_date).to eq "Tues, 30 Nov 2162 07:00:00 +0000"

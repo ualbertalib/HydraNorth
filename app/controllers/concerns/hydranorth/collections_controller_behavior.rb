@@ -9,6 +9,7 @@ module Hydranorth
       end
 
       super
+
       presenter
     end
 
@@ -39,6 +40,8 @@ module Hydranorth
 
     protected
 
+    # these methods enhacnce hydra-collection's collections_controller_behaviour
+
     def add_members_to_collection collection = nil
       collection ||= @collection
       collection.member_ids = batch.concat(collection.member_ids)
@@ -53,17 +56,17 @@ module Hydranorth
           add_member_to_community(member, collection)
           if member.instance_of? Collection
             # "member is a collection, make all children inherit belongsToCommunity"
-            member.members.each do |o|
+            member.materialized_members.each do |o|
               add_member_to_community(o, collection)
             end
           end
         end
-        
+
         if member.respond_to? :hasCollection
           # "member is a file, add the target collection id to hasCollection"
           add_file_to_collection(member, collection)
         end
-       
+
         if collection.belongsToCommunity?
           # "if the target collection has community, the children added should inherit its belongsToCommunity"
           belongsToCommunity = collection.belongsToCommunity + member.belongsToCommunity
@@ -82,6 +85,7 @@ module Hydranorth
       file.hasCollectionId = hasCollectionId
       file.save!
     end
+
     def add_member_to_community(member, community)
       belongsToCommunity = member.belongsToCommunity
       belongsToCommunity.push community.id
@@ -118,6 +122,7 @@ module Hydranorth
       member.belongsToCommunity = belongsToCommunity
       member.save!
     end
+
     def remove_file_from_collection(file, collection)
       hasCollection = file.hasCollection
       hasCollection.delete collection.title
@@ -130,7 +135,7 @@ module Hydranorth
       file.belongsToCommunity = belongsToCommunity
       hasCollectionId.delete collection.id
       file.hasCollectionId = hasCollectionId
-      
+
       file.save!
     end
 

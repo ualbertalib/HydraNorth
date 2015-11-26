@@ -10,7 +10,7 @@ describe CollectionsController do
   let(:dit)  { FactoryGirl.create(:dit) }
 
   describe "#edit" do
-    
+
     let(:collection) do
       Collection.create(title: "Personal Collection") do |c|
         c.apply_depositor_metadata(user)
@@ -44,7 +44,7 @@ describe CollectionsController do
     it "can edit official collection" do
       get :edit, id: official_collection
       expect(flash[:alert]).to be_nil
-    end 
+    end
     it "cannot edit admin collection" do
       get :edit, id: admin_collection
       expect(flash[:alert]).to eq "You do not have sufficient privileges to edit this document"
@@ -93,7 +93,7 @@ describe CollectionsController do
       it "should set collection on members" do
         put :update, id: collection, collection: {members:"add"}, batch_document_ids: [@asset3.id, @asset1.id, @asset2.id]
         expect(response).to redirect_to routes.url_helpers.collection_path(collection)
-        expect(assigns[:collection].members).to match_array [@asset2, @asset3, @asset1]
+        expect(assigns[:collection].materialized_members).to match_array [@asset2, @asset3, @asset1]
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@asset2.id}\""],fl:['id',Solrizer.solr_name(:collection)]}
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first
@@ -125,7 +125,7 @@ describe CollectionsController do
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first
         expect(doc["belongsToCommunity_tesim"]).to_not eq [community.id]
-       
+
       end
     end
 
@@ -135,7 +135,7 @@ describe CollectionsController do
           f.apply_depositor_metadata(user.user_key)
           f.save
         end
-        
+
         @file2 = GenericFile.new(title: ["File belongs to collection"]).tap do |f|
           f.apply_depositor_metadata(user.user_key)
           f.save
@@ -152,13 +152,13 @@ describe CollectionsController do
         @file2.save
         @child_collection.member_ids = [@file2.id]
         @child_collection.save
-         
+
       end
 
       it "should set belongsToCommunity on member file" do
         put :update, id: community, collection: { members: "add" }, batch_document_ids: [@file.id]
         expect(response).to redirect_to routes.url_helpers.collection_path(community)
-        expect(assigns[:collection].members).to match_array [@file]
+        expect(assigns[:collection].members.map(&:id)).to match_array [@file.id]
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@file.id}\""],fl:['belongsToCommunity_tesim']}
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first
@@ -169,7 +169,7 @@ describe CollectionsController do
       it "should set belongsToCommunity on member collection and their children files" do
         put :update, id: community, collection: { members: "add" }, batch_document_ids: [@child_collection.id]
         expect(response).to redirect_to routes.url_helpers.collection_path(community)
-        expect(assigns[:collection].members).to match_array [@child_collection]
+        expect(assigns[:collection].materialized_members).to match_array [@child_collection]
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@child_collection.id}\""],fl:['belongsToCommunity_tesim']}
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first

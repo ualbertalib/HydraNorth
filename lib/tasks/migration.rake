@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
@@ -93,7 +94,7 @@ namespace :migration do
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
         migrate_object(metadata_dir, migrate_datastreams)
       else
-	MigrationLogger.fatal "Invalid directory #{metadata_dir}"
+        MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
       MigrationLogger.info "**************FINISH: Migrate ERA objects *******************"
     rescue
@@ -338,7 +339,7 @@ namespace :migration do
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
         elsif type == "Thesis"
           license = "I am required to use/link to a publisher's license"
-          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission." 
+          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
         elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
@@ -355,7 +356,7 @@ namespace :migration do
 	        end
               end
             rescue EOFError
-              MigrationLogger.error "Error to open License PDF for #{uuid}" 
+              MigrationLogger.error "Error to open License PDF for #{uuid}"
             end
           else
             rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
@@ -435,7 +436,7 @@ namespace :migration do
               embargoed = true
           end
         end
-      end     
+      end
 
       embargoed_date = relsext_version.at_xpath("userns:embargoedDate", NS).text() if relsext_version.at_xpath("userns:embargoedDate", NS)
 
@@ -565,7 +566,7 @@ namespace :migration do
           else
             @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
           end
-        end 
+        end
       end
 
       if !permissions_attributes.blank?
@@ -630,7 +631,7 @@ namespace :migration do
       system "rm -rf #{TEMP}/#{uuid}"
 
 
-      rescue Exception => e
+    rescue Exception => e
         puts "FAILED: Item #{uuid} migration!"
         puts e.message
         puts e.backtrace.inspect
@@ -676,7 +677,7 @@ namespace :migration do
     end
       add_to_collection_all_t = Time.now
       puts @collection_hash
-        
+
       @collection_hash.each do |collection_id, additional_members|
         if collection_id != THESES_ID
           c = Collection.find(collection_id)

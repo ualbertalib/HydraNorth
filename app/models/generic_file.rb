@@ -8,4 +8,19 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::GenericFile::DOI
   include Hydranorth::GenericFile::Era1Stats
 
+  # work around for ActiveFedora logic
+  # that mapped activetriples to collection names
+  # on persisted collection relationships
+  alias_method :original_has_collection, :hasCollection
+
+  def hasCollection
+    return original_has_collection.map do |member_activetriple|
+      if member_activetriple.is_a? String
+        member_activetriple
+      else
+        ActiveFedora::Base.from_uri(member_activetriple.id, nil).title
+      end
+    end
+  end
+
 end

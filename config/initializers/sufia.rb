@@ -1,3 +1,4 @@
+# coding: utf-8
 # Returns an array containing the vhost 'CoSign service' value and URL
 Sufia.config do |config|
 
@@ -66,8 +67,8 @@ Sufia.config do |config|
   # please run rake db:seed to create the collections and restart httpd.
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
-  # config.cstr_collection_id = ""
-  # config.ser_collection_id = ""
+
+
   config.special_types = {
     "cstr" => "Computing Science Technical Report",
     "ser" => "Structural Engineering Report",
@@ -261,7 +262,7 @@ Sufia.config do |config|
   # Method of converting ids into URIs for storage in Fedora
   # config.translate_uri_to_id = lambda { |uri| uri.to_s.split('/')[-1] }
   # config.translate_id_to_uri = lambda { |id|
-  #      "#{ActiveFedora.fedora.host}#{ActiveFedora.fedora.base_path}/#{Sufia::Noid.treeify(id)}" }
+  #      "#{ActiveFedora.fedora.host}#{ActiveFedora.fedora.base_path}/#{Sufia::Noid.treeify(id)}"
 
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
   begin

@@ -25,51 +25,45 @@ describe Collection do
 
   it 'can contain another collection' do
     another_collection = FactoryGirl.create(:collection)
-    subject.members << another_collection
+    subject.add_members [another_collection]
     subject.save
-    expect(subject.members).to eq [another_collection]
-  end
 
-  it 'updates solr with ids of its parent collections' do
-    another_collection = FactoryGirl.create(:collection)
-    another_collection.members << subject
-    another_collection.save
-    expect(subject.reload.to_solr[Solrizer.solr_name(:collection)]).to eq [another_collection.id]
+    expect(subject.materialized_members).to eq [another_collection]
   end
 
   it 'cannot contain itself' do
-    subject.members << subject
+    subject.add_member subject
     subject.save
     expect(reloaded_subject.members).to eq []
   end
 
   it 'returns 0 bytes for empty collection' do
-    expect(subject.bytes).to eq 0 
+    expect(subject.bytes).to eq 0
   end
 
   it 'returns 0 bytes for member collection' do
-    subject.members << another_collection
+    subject.add_member another_collection
     subject.save
-    expect(subject.bytes).to eq 0 
+    expect(subject.bytes).to eq 0
   end
 
   it 'returns bytes for member file' do
-    subject.members << file
+    subject.add_member file
     subject.save
-    expect(subject.bytes).to eq 4218 
+
+    expect(subject.bytes).to eq 4218
   end
 
   it 'returns bytes for collections and files' do
-    subject.members << another_collection
-    subject.members << file
+    subject.add_members [file, another_collection]
     subject.save
-    expect(subject.bytes).to eq 4218 
+    expect(subject.bytes).to eq 4218
   end
 
   it 'returns false for processing?' do
     expect(subject.processing?).to be_falsey
   end
-  
+
   it "should have a fedora3 foxml datastream" do
     subject.add_file(File.open(fixture_path + '/foxml.xml'), path: 'fedora3foxml', original_name: 'foxml.xml')
     subject.save

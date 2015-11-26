@@ -1,18 +1,18 @@
-    <h2 class="non lower">Communities</h2>
-    <% if @generic_file.belongsToCommunity.blank? %>
-        <p><%= t('sufia.file.communities_list.empty') %></p>
-    <% else %>
-        <p><%= t('sufia.file.communities_list.heading') %></p>
-      <table class="table table-striped">
+<h2 class="non lower">Communities</h2>
+<% if @generic_file.belongsToCommunity.blank? %>
+    <p><%= t('sufia.file.communities_list.empty') %></p>
+<% else %>
+    <p><%= t('sufia.file.communities_list.heading') %></p>
+    <table class="table table-striped">
         <tbody>
-        <% @generic_file.belongsToCommunity.each do |c| %>
-        <tr class="collection attributes">
-          <%= content_tag :td, class: 'attribute title', data: { id: c } do %>
-            <% community = Collection.find(c) %>
-            <%= link_to community.title, collections.collection_path(community) %>
-          <% end %>
-        </tr>
-      <% end %>
-      </tbody>
-      </table>
-    <% end %>
+            <% @generic_file.belongsToCommunity.each do |c| %>
+                <tr class="collection attributes">
+                    <%= content_tag :td, class: 'attribute title', data: { id: c } do %>
+                        <% community = Collection.find(c) %>
+                        <%= link_to community.title, collections.collection_path(community) %>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
