@@ -1,0 +1,22 @@
+<div id="sidebar" class="col-md-3 col-sm-4">
+  <%= render 'search_sidebar' %>
+</div>
+
+<% if current_user.nil? %>
+  <div id="content" class="col-md-9 col-sm-8">
+    <%= render 'search_results' %>
+  </div>
+<% else %>
+  <div id="content" class="col-md-9 col-sm-8">
+  <% if current_user.admin? %>
+    <%= render 'search_header' %>
+
+    <%= render partial: 'catalog_document_list' %>
+    <%= render 'results_pagination' %>
+  <% else %>
+    <div id="content" class="col-md-9 col-sm-8">
+      <%= render 'search_results' %>
+    </div>
+  <% end %>
+  </div>
+<% end %>
