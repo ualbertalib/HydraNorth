@@ -27,6 +27,12 @@ describe GenericFile do
         click_link "Edit File"
       end
     end
+   
+    it "should have save button" do
+      within('#descriptions_display') do 
+        expect(page).to have_selector(:link_or_button, 'Update')
+      end
+    end
     
     it "should have a 'no linguistic content' option for language" do 
       expect(page).to have_select('generic_file_language', with_options: ['No linguistic content']) 
