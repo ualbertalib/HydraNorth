@@ -3,6 +3,14 @@ require 'spec_helper'
 
 describe User do
 
+  describe "#name" do
+    subject { FactoryGirl.build_stubbed(:new_user)}
+    it "should not tamper with the user's display name" do
+      subject.display_name = "Raymond luxury-Yacht"
+      expect(subject.name).to eq "Raymond luxury-Yacht"
+    end
+  end
+
   before { ActionMailer::Base.deliveries = [] }
 
   context "standard new user" do
