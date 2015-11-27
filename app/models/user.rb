@@ -33,6 +33,15 @@ class User < ActiveRecord::Base
     )
   end
 
+  # for some reason, Sufia::User#name titleize's the user's display name.
+  # (https://github.com/projecthydra/sufia/blob/master/sufia-models/app/models/concerns/sufia/user.rb#L96)
+  # Shadow the method to undo this, so that "Raymond Luxury-Yacht" isn't
+  # transformed into "Raymond Luxury Yacht", etc
+  def name
+    display_name || user_key
+  end
+
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account.
