@@ -25,6 +25,21 @@ describe 'admin_tasks', :type => :feature do
     end
   end
 
+  describe "find facets", :js => true do
+    before do
+      sign_in admin
+      visit "/advanced"
+      click_button("Search")
+    end
+
+    it "can find" do
+      within("#facets") do
+        expect(page).to have_content( "Depositor" )
+        expect(page).to have_content( "Status" )
+      end
+    end
+  end
+
   describe "search by user" do
     before do
       sign_in admin
@@ -33,12 +48,7 @@ describe 'admin_tasks', :type => :feature do
     end
 
     it "can find" do
-      expect(page).to have_content( "little_file-1.txt" )
-      within("#facets") do
-        expect(page).to have_content( "Depositor" )
-        expect(page).to have_content( "Status" )
-        expect(page).to have_content( "archivist1@example.com" )
-      end
+      expect(page).to have_content( "archivist1@example.com" )
     end
   end
 
@@ -60,7 +70,6 @@ describe 'admin_tasks', :type => :feature do
       visit "/advanced"
       click_button("Search")
       create_batch file1
-      create_batch file2
       click_button "Delete Selected"
     end
 
@@ -104,7 +113,7 @@ def init_file_2(user)
     f.title = ['little_file-2.txt']
     f.creator = ['little_file-2.txt_creator']
     f.resource_type = ["stuff" ]
-    f.read_groups = ['private']
+    f.read_groups = ['public']
     f.apply_depositor_metadata(user.user_key)
     f.save!
   end
