@@ -51,7 +51,7 @@ class CatalogController < ApplicationController
       if !current_user.nil?
         if current_user.admin?
           config.add_facet_field Solrizer.solr_name("depositor", :symbol), label: "Depositor", limit: 3
-          config.add_facet_field Solrizer.solr_name("read_access_group", :symbol), label: "Status", missing: true, limit: 3
+          config.add_facet_field Solrizer.solr_name("read_access_group", :symbol), query: { public: { label: 'Public', fq: 'read_access_group_ssim:public' }, registered: { label: 'Registered', fq: 'read_access_group_ssim:registered' }, uofa: { label: 'University of Alberta', fq: 'read_access_group_ssim:university_of_alberta' }, restricted: { label: 'Restricted', fq: '-read_access_group_ssim:*' } }, label: "Status", limit: 3
         end
       end
 
