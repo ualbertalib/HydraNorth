@@ -711,6 +711,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
+  fastercsv
   google-api-client (~> 0.7.1)
   jbuilder (~> 2.0)
   jettywrapper
