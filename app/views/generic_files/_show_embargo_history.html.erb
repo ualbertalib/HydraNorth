@@ -1,0 +1,23 @@
+<% if !current_user.nil? %>
+  <% if current_user.admin? %>
+    <% if !@generic_file.embargo.nil? %> 
+      <% if !@generic_file.embargo_history.nil? %>
+        <table id="embargo" class="table table-zebra-striped table-bordered">
+          <caption class="sr-only">Embargo history</caption>
+            <thead>
+              <tr>
+                <th>Embargo History</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @generic_file.embargo_history.each do |history| %>
+                <tr>
+                  <td><%= history.html_safe %></td>
+                </tr>
+              <% end %>
+           </tbody>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
