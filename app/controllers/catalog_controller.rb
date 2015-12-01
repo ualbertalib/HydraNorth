@@ -239,6 +239,8 @@ class CatalogController < ApplicationController
     config.add_sort_field "#{date_created_field} desc", label: "Date (newest first)"
     config.add_sort_field "#{date_created_field} asc", label: "Date (oldest first)"
     config.add_sort_field "#{uploaded_field} desc", label: "New items"
+    config.add_sort_field "#{modified_field} desc", label: "Date modified (newest first)"
+    config.add_sort_field "#{modified_field} asc", label: "Date modified (oldest first)"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.

@@ -47,6 +47,8 @@ describe 'catalog searching', :type => :feature do
     search
     click_button 'Sort by Relevance ▼'
     expect(page).to have_link('Relevance ▼', :href=> "/catalog?q=&sort=score+desc%2C+date_uploaded_dtsi+desc")
+    expect(page).to have_link('Date modified (newest first)', :href=> "/catalog?q=&sort=date_modified_dtsi+desc")
+    expect(page).to have_link('Date modified (oldest first)', :href=> "/catalog?q=&sort=date_modified_dtsi+asc")
   end
 
   it "p finds {P,S}" do
