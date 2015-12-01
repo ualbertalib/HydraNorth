@@ -65,6 +65,10 @@ gem "clamav"
 
 # for migration reading the license file
 gem "pdf-reader"
+
+# for batch-ingest from csv file
+gem "fastercsv"
+
 gem 'noid', '~> 0.8'
 
 group :development, :test do
