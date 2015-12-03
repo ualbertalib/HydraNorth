@@ -68,6 +68,35 @@ describe GenericFile, :type => :model do
     end
   end
 
+  describe '#append_metadata' do
+    
+    before  do
+      @myfile = GenericFile.new(id: SecureRandom.hex)
+      @myfile.add_file(File.open(fixture_path + '/sufia/sufia_test4.pdf', 'rb').read, path: 'content', original_name: 'sufia_test4.pdf', mime_type: 'application/pdf')
+      @myfile.apply_depositor_metadata('mjg36')
+      # characterize method saves
+      @myfile.characterize
+      @myfile.reload
+    end
+
+    context 'with fulltext disabled (by default)' do
+      it 'should not call extract_content' do
+        expect(@myfile).not_to receive(:extract_content) 
+        @myfile.append_metadata
+      end
+    end
+
+    context 'with fulltext enabled' do
+      before { Rails.configuration.enable_fulltext = true }
+      after { Rails.configuration.enable_fulltext = false } 
+      it 'should call extract_content' do
+        expect(@myfile).to receive(:extract_content).once 
+        @myfile.append_metadata
+      end
+    end
+  
+  end
+
   describe "to_solr" do
     let(:community) {FactoryGirl.create :collection}
     before do

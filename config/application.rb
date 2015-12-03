@@ -12,7 +12,9 @@ module Hydranorth
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end
-
+   
+    # by default do not index fulltext
+    config.enable_fulltext = false
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     # Settings in config/environments/* take precedence over those specified here.
