@@ -322,7 +322,7 @@ describe 'collection', :type => :feature do
       visit "/collections/#{community.id}/edit"
     end
 
-    it "should show check boxes" do
+    it "should set Official and Communityi flags" do
       visit "/collections/#{community.id}/edit"
 
       expect(page).to have_content("Official")
@@ -330,12 +330,21 @@ describe 'collection', :type => :feature do
 
       check('Official')
       check('Community')
+      click_button('Update Collection')
 
       visit "/communities"
-      expect(page).to have_content("Test Commmunity")
+      expect(page).to have_content("Test Community")
     end
+    
+    it "should remove Official and Community flags" do
+      visit "/collections/#{community.id}/edit"
 
-    it "should check boxes" do
+      uncheck('Official')
+      uncheck('Community')
+      click_button('Update Collection')
+
+      visit "/communities"
+      expect(page).not_to have_content("Test Community")
     end
   end
 
