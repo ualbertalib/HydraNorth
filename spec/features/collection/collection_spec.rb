@@ -307,4 +307,36 @@ describe 'collection', :type => :feature do
 
   end
 
+  describe 'modify collection and community', :js => true do
+    let!(:community) do
+      Collection.create( title: 'Test Community') do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = false
+        c.is_official = false
+        c.is_admin_set = false
+      end
+    end
+
+    before do
+      sign_in admin
+      visit "/collections/#{community.id}/edit"
+    end
+
+    it "should show check boxes" do
+      visit "/collections/#{community.id}/edit"
+
+      expect(page).to have_content("Official")
+      expect(page).to have_content("Community")
+
+      check('Official')
+      check('Community')
+
+      visit "/communities"
+      expect(page).to have_content("Test Commmunity")
+    end
+
+    it "should check boxes" do
+    end
+  end
+
 end

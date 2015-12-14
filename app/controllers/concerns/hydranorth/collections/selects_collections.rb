@@ -16,12 +16,27 @@ module Hydranorth::Collections::SelectsCollections
     find_communities(:edit)
   end
 
-  def find_communities(access_level = nil)
+ def find_collections(access_level = nil)
     # need to know the user if there is an access level applied otherwise we are just doing public collections
     authenticate_user! unless access_level.blank?
 
     # run the solr query to find the collections
-    query = collections_search_builder(access_level).with({q: 'is_community_bsi:true'}).query
+    query = collections_search_builder(access_level).with({q: '(-is_community_bsi:true AND -is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true)'}).query
+    response = repository.search(query)
+    # return the user's collections (or public collections if no access_level is applied)
+    # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on
+    # sort params properly
+ 
+    # return the user's collections (or public collections if no access_level is applied)
+    @user_collections = response.documents
+ end   
+
+ def find_communities(access_level = nil)
+    # need to know the user if there is an access level applied otherwise we are just doing public collections
+    authenticate_user! unless access_level.blank?
+
+    # run the solr query to find the collections
+    query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) '}).query
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
     # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on
