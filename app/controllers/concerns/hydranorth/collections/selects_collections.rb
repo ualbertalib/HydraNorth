@@ -16,6 +16,7 @@ module Hydranorth::Collections::SelectsCollections
     find_communities(:edit)
   end
 
+ # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed 
  def find_collections(access_level = nil)
     # need to know the user if there is an access level applied otherwise we are just doing public collections
     authenticate_user! unless access_level.blank?
@@ -31,6 +32,7 @@ module Hydranorth::Collections::SelectsCollections
     @user_collections = response.documents
  end   
 
+ # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed
  def find_communities(access_level = nil)
     # need to know the user if there is an access level applied otherwise we are just doing public collections
     authenticate_user! unless access_level.blank?
