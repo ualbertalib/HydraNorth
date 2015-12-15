@@ -8,7 +8,7 @@ end
 
 describe SelectsCollectionsController, :type => :controller do
   describe "Select Communities" do
-    before do
+    before :all do
       Collection.delete_all
       @user = FactoryGirl.find_or_create(:jill)
       @dit = FactoryGirl.find_or_create(:dit)      
@@ -16,17 +16,22 @@ describe SelectsCollectionsController, :type => :controller do
       @community = Collection.new title: "Test Public Community" do |c|
         c.apply_depositor_metadata(@dit)
         c.is_community = true
+        c.is_official = true
         c.edit_users = [@user.user_key, @dit.user_key]
         c.save
       end
       @collection = Collection.new title: "Test Public Collection" do |c|
         c.apply_depositor_metadata(@dit)
         c.edit_users =[@user.user_key, @dit.user_key]
+        c.is_official = true
         c.save
       end
       @no_edit_community = Collection.new title: "Test No Edit Community" do |c|
         c.apply_depositor_metadata(@dit)
+        c.edit_users =[@dit.user_key]
         c.is_community = true
+        c.is_official = true
+        c.is_admin_set = true
         c.save
       end
 
