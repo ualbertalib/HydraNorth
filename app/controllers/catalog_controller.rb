@@ -24,7 +24,7 @@ class CatalogController < ApplicationController
 
   def self.date_created_field
     value = solr_name('date_created', :stored_sortable, type: :string)
-    logger.debug "SOLR_SORT_DATE#{value}" 
+    logger.debug "SOLR_SORT_DATE#{value}"
     return value
   end
 
@@ -59,7 +59,7 @@ class CatalogController < ApplicationController
         all_names = config.show_fields.values.map{|val| val.field}.join(" ")
         title_name = Solrizer.solr_name("title", :stored_searchable)
         field.solr_parameters = {
-         qf: "#{all_names} noid_tsi file_format_tesim all_text_timv",
+         qf: "#{all_names} id file_format_tesim all_text_timv supervisor_tesim department_tesim committee_member_tesim",
           pf: "#{title_name}"
         }
       end
@@ -185,8 +185,8 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("creator", :facetable), label: "Author", limit: 3
     config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 3
     config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 3
-    config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 3 
-    config.add_facet_field solr_name("year_created", :facetable), label: "Year", limit: 3 
+    config.add_facet_field solr_name("hasCollection", :symbol), label: "Collection", limit: 3
+    config.add_facet_field solr_name("year_created", :facetable), label: "Year", limit: 3
     # publisher: has "show: false", but is needed to provide field label in "You searched for" box
     config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", show: false
 
