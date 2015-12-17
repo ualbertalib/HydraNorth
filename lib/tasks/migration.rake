@@ -843,7 +843,6 @@ namespace :migration do
       id.slice! ".txt"
      
       begin 
-        byebug
         @generic_file = GenericFile.find(id)
         if @generic_file == nil
           MigrationLogger.info "Generic file not found: #{id}"
