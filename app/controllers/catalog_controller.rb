@@ -55,24 +55,6 @@ class CatalogController < ApplicationController
         end
       end
 
-      config.add_search_field('all_fields', label: 'Keyword', include_in_advanced_search: true) do |field|
-        all_names = config.show_fields.values.map{|val| val.field}.join(" ")
-        title_name = Solrizer.solr_name("title", :stored_searchable)
-        field.solr_parameters = {
-         qf: "#{all_names} id file_format_tesim all_text_timv supervisor_tesim department_tesim committee_member_tesim",
-          pf: "#{title_name}"
-        }
-      end
-
-      config.add_search_field('author', label: 'Author', include_in_advanced_search: true) do |field|
-        field.solr_parameters = { :"spellcheck.dictionary" => "contributor", :"spellcheck.dictionary" => "creator" }
-        field_included = [Solrizer.solr_name("contributor", :stored_searchable), Solrizer.solr_name("creator", :stored_searchable)].join(" ")
-        field.solr_parameters = {
-          qf: field_included,
-          pf: field_included
-        }
-      end
-
       if !current_user.nil?
         if current_user.admin?
           config.add_search_field('User') do |field|
@@ -88,76 +70,7 @@ class CatalogController < ApplicationController
         end
       end
 
-      config.add_search_field('title') do |field|
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "title"
-        }
-        solr_name = Solrizer.solr_name("title", :stored_searchable)
-        field.solr_local_parameters = {
-          qf: solr_name,
-          pf: solr_name
-        }
-      end
 
-      config.add_search_field('description') do |field|
-        field.label = "Abstract or Summary"
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "description"
-        }
-        solr_name = Solrizer.solr_name("description", :stored_searchable)
-        field.solr_local_parameters = {
-          qf: solr_name,
-          pf: solr_name
-        }
-      end
-
-      config.add_search_field('date_created') do |field|
-        field.label = "Date"
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "date_created"
-        }
-        solr_name = Solrizer.solr_name("created", :stored_searchable)
-        field.solr_local_parameters = {
-          qf: solr_name,
-          pf: solr_name
-        }
-      end
-
-      config.add_search_field('allsubject', label: 'Subject', include_in_advanced_search: true) do |field|
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "subject",
-          :"spellcheck.dictionary" => "temporal",
-          :"spellcheck.dictionary" => "spatial"
-        }
-        field_included = [Solrizer.solr_name("subject", :stored_searchable), Solrizer.solr_name("spatial", :stored_searchable), Solrizer.solr_name("temporal", :stored_searchable)].join(" ")
-        field.solr_local_parameters = {
-          qf: field_included,
-          pf: field_included
-        }
-      end
-
-      config.add_search_field('language') do |field|
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "language"
-        }
-        solr_name = Solrizer.solr_name("language", :stored_searchable)
-        field.solr_local_parameters = {
-          qf: solr_name,
-          pf: solr_name
-        }
-      end
-
-      config.add_search_field('resource_type') do |field|
-        field.label = "Item Type"
-        field.solr_parameters = {
-          :"spellcheck.dictionary" => "resource_type"
-        }
-        solr_name = Solrizer.solr_name("resource_type", :stored_searchable)
-        field.solr_local_parameters = {
-          qf: solr_name,
-          pf: solr_name
-        }
-      end
     end
   end
 
@@ -241,6 +154,95 @@ class CatalogController < ApplicationController
     config.add_sort_field "#{uploaded_field} desc", label: "New items"
     config.add_sort_field "#{modified_field} desc", label: "Date modified (newest first)"
     config.add_sort_field "#{modified_field} asc", label: "Date modified (oldest first)"
+
+    config.add_search_field('all_fields', label: 'Keyword', include_in_advanced_search: true) do |field|
+        all_names = config.show_fields.values.map{|val| val.field}.join(" ")
+        title_name = Solrizer.solr_name("title", :stored_searchable)
+        field.solr_parameters = {
+         qf: "#{all_names} id file_format_tesim all_text_timv supervisor_tesim department_tesim committee_member_tesim",
+          pf: "#{title_name}"
+        }
+      end
+
+      config.add_search_field('author', label: 'Author', include_in_advanced_search: true) do |field|
+        field.solr_parameters = { :"spellcheck.dictionary" => "contributor", :"spellcheck.dictionary" => "creator" }
+        field_included = [Solrizer.solr_name("contributor", :stored_searchable), Solrizer.solr_name("creator", :stored_searchable)].join(" ")
+        field.solr_parameters = {
+          qf: field_included,
+          pf: field_included
+        }
+      end
+
+    config.add_search_field('title') do |field|
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "title"
+        }
+        solr_name = Solrizer.solr_name("title", :stored_searchable)
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
+
+      config.add_search_field('description') do |field|
+        field.label = "Abstract or Summary"
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "description"
+        }
+        solr_name = Solrizer.solr_name("description", :stored_searchable)
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
+
+      config.add_search_field('date_created') do |field|
+        field.label = "Date"
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "date_created"
+        }
+        solr_name = Solrizer.solr_name("created", :stored_searchable)
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
+
+      config.add_search_field('allsubject', label: 'Subject', include_in_advanced_search: true) do |field|
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "subject",
+          :"spellcheck.dictionary" => "temporal",
+          :"spellcheck.dictionary" => "spatial"
+        }
+        field_included = [Solrizer.solr_name("subject", :stored_searchable), Solrizer.solr_name("spatial", :stored_searchable), Solrizer.solr_name("temporal", :stored_searchable)].join(" ")
+        field.solr_local_parameters = {
+          qf: field_included,
+          pf: field_included
+        }
+      end
+
+      config.add_search_field('language') do |field|
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "language"
+        }
+        solr_name = Solrizer.solr_name("language", :stored_searchable)
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
+
+      config.add_search_field('resource_type') do |field|
+        field.label = "Item Type"
+        field.solr_parameters = {
+          :"spellcheck.dictionary" => "resource_type"
+        }
+        solr_name = Solrizer.solr_name("resource_type", :stored_searchable)
+        field.solr_local_parameters = {
+          qf: solr_name,
+          pf: solr_name
+        }
+      end
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.

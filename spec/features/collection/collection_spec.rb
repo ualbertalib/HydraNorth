@@ -187,7 +187,7 @@ describe 'collection', :type => :feature do
 
   end
 
-  describe 'check collection for drop down menu options' do
+  describe 'collection with a member file' do
     let!(:collection_modify) do
       Collection.create( title: 'Test Collection') do |c|
         c.apply_depositor_metadata(admin.user_key)
@@ -204,13 +204,23 @@ describe 'collection', :type => :feature do
       visit "/collections/#{collection_modify.id}"
     end
 
-    it "should not see edit and delete options" do
+    it "should not have edit and delete options" do
       expect(page).to have_content(generic_file.title.first)
       click_button("Select an action")
 
       expect(page).to have_content("Test Item")
       expect(page).to have_content("Download File")
       expect(page).not_to have_content("Edit File")
+    end
+
+    it 'should have a working search field' do
+
+      fill_in 'collection_search', with: 'asdf'
+      click_button 'collection_submit'
+
+      expect(page.status_code).to be 200
+      expect(current_url).to match /q=asdf/
+      expect(page).to have_content 'Search Results within this Collection'
     end
 
   end
@@ -246,14 +256,14 @@ describe 'collection', :type => :feature do
     end
 
   end
-  describe 'community should show children collections' do
 
+  describe 'community should show children collections' do
     let!(:community) do
       Collection.create( title: 'Test Community') do |c|
         c.apply_depositor_metadata(jill.user_key)
         c.is_community = true
         c.is_official = true
-        c.is_admin_set = false 
+        c.is_admin_set = false
       end
     end
 
@@ -270,10 +280,10 @@ describe 'collection', :type => :feature do
     let!(:collection2) do
       Collection.create( title: 'Test Collection 2') do |c|
         c.apply_depositor_metadata(jill.user_key)
-        c.is_community = false 
+        c.is_community = false
         c.is_official = true
         c.is_admin_set = false
-        c.belongsToCommunity = [community.id] 
+        c.belongsToCommunity = [community.id]
       end
     end
 
@@ -296,7 +306,7 @@ describe 'collection', :type => :feature do
       expect(page).to have_content(collection1.title.first)
       expect(page).to have_content(collection2.title.first)
       expect(page).to have_content(generic_file1.title.first)
-      expect(page).not_to have_content(generic_file2.title.first) 
+      expect(page).not_to have_content(generic_file2.title.first)
     end
 
     it "should list 1 generic file on the collection1 page " do
