@@ -1,0 +1,7 @@
+<% if !current_user.nil? %>
+  <% if current_user.admin? %>
+    <%= f.label :is_official do %>Official
+      <%= f.check_box :is_official, {}, "true", "false" %>
+    <% end %>
+  <% end %>
+<% end %>

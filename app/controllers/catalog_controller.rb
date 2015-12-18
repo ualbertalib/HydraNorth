@@ -159,7 +159,7 @@ class CatalogController < ApplicationController
         all_names = config.show_fields.values.map{|val| val.field}.join(" ")
         title_name = Solrizer.solr_name("title", :stored_searchable)
         field.solr_parameters = {
-         qf: "#{all_names} noid_tsi file_format_tesim all_text_timv",
+         qf: "#{all_names} id file_format_tesim all_text_timv supervisor_tesim department_tesim committee_member_tesim",
           pf: "#{title_name}"
         }
       end

@@ -15,6 +15,10 @@ describe GenericFile, :type => :model do
     end
   end
 
+  it "should be indexed by the Hydranorth::GenericFileIndexingService" do
+    expect(GenericFile.indexer).to be Hydranorth::GenericFileIndexingService
+  end
+
   describe "metadata" do
     it "should have descriptive metadata" do
       expect(subject).to respond_to(:relative_path)
@@ -69,7 +73,7 @@ describe GenericFile, :type => :model do
   end
 
   describe '#append_metadata' do
-    
+
     before  do
       @myfile = GenericFile.new(id: SecureRandom.hex)
       @myfile.add_file(File.open(fixture_path + '/sufia/sufia_test4.pdf', 'rb').read, path: 'content', original_name: 'sufia_test4.pdf', mime_type: 'application/pdf')
@@ -81,20 +85,20 @@ describe GenericFile, :type => :model do
 
     context 'with fulltext disabled (by default)' do
       it 'should not call extract_content' do
-        expect(@myfile).not_to receive(:extract_content) 
+        expect(@myfile).not_to receive(:extract_content)
         @myfile.append_metadata
       end
     end
 
     context 'with fulltext enabled' do
       before { Rails.configuration.enable_fulltext = true }
-      after { Rails.configuration.enable_fulltext = false } 
+      after { Rails.configuration.enable_fulltext = false }
       it 'should call extract_content' do
-        expect(@myfile).to receive(:extract_content).once 
+        expect(@myfile).to receive(:extract_content).once
         @myfile.append_metadata
       end
     end
-  
+
   end
 
   describe "to_solr" do
@@ -151,6 +155,53 @@ describe GenericFile, :type => :model do
       expect(local[Solrizer.solr_name("mime_type")]).to eq ["image/jpeg"]
       expect(local['all_text_timv']).to eq('abcxyz')
       expect(local[Solrizer.solr_name('belongsToCommunity')]).to eq [community.id]
+    end
+  end
+
+  describe 'Thesis' do
+    let(:community) {FactoryGirl.create :collection}
+
+    before do
+      allow(subject).to receive(:id).and_return('stubbed_id')
+      subject.part_of = ["Arabiana"]
+      subject.contributor = ["Mohammad"]
+      subject.dissertant = "Allah"
+      subject.title = ["The Work"]
+      subject.trid = "123"
+      subject.abstract = "The work by Allah"
+      subject.date_created = "1200-01-01"
+      subject.date_uploaded = Date.parse("2011-01-01")
+      subject.date_modified = Date.parse("2012-01-01")
+      subject.subject = ["Theology"]
+      subject.language = "Arabic"
+      subject.license = "Creative Commons Attribution-Non-Commercial-No Derivatives 3.0 Unported"
+      subject.resource_type = ["Thesis"]
+      subject.related_url = "http://example.org/TheWork/"
+      subject.mime_type = "image/jpeg"
+      subject.format_label = ["JPEG Image"]
+      subject.full_text.content = 'abcxyz'
+      subject.spatial = ["Medina, Saudi Arabia"]
+      subject.temporal = ["1200"]
+      subject.fedora3uuid = "uuid:f18e0d92-9474-478d-b0e5-0b50c866dea3"
+      subject.fedora3handle = "http://hdl.handle.net/10402/era.23258"
+      subject.belongsToCommunity = [community.id]
+    end
+
+    it 'should be a thesis' do
+      expect(subject.thesis?).to be true
+    end
+
+
+    it 'should index the dissertant as creator' do
+      solr_doc = subject.to_solr
+
+      expect(solr_doc[Solrizer.solr_name('creator')]).to eq subject.dissertant
+    end
+
+    it 'should index the abstract as description' do
+      solr_doc = subject.to_solr
+
+      expect(solr_doc[Solrizer.solr_name('description')]).to eq subject.abstract
     end
   end
 

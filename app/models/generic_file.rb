@@ -8,6 +8,11 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::GenericFile::DOI
   include Hydranorth::GenericFile::Era1Stats
 
+  # override the default indexer from Sufia
+  def self.indexer
+    Hydranorth::GenericFileIndexingService
+  end
+
   # work around for ActiveFedora logic
   # that mapped activetriples to collection names
   # on persisted collection relationships
@@ -21,6 +26,18 @@ class GenericFile < ActiveFedora::Base
         ActiveFedora::Base.from_uri(member_activetriple.id, nil).title
       end
     end
+  end
+
+  def thesis?
+    self.resource_type.include? Sufia.config.special_types['thesis']
+  end
+
+  def ser?
+    self.resource_type.include? Sufia.config.special_types['ser']
+  end
+
+  def cstr?
+    self.resource_type.include? Sufia.config.special_types['cstr']
   end
 
 end

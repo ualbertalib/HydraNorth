@@ -29,7 +29,7 @@ module Hydranorth
     end
 
     def collection_params
-      params.require(:collection).permit(:title, :description, :license, :members, part_of: [],
+      params.require(:collection).permit(:title, :description, :license, :members, :is_official, :is_community, part_of: [],
         creator: [], date_created: [], subject: [],
         rights: [], resource_type: [], identifier: [])
     end

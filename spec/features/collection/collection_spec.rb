@@ -317,4 +317,45 @@ describe 'collection', :type => :feature do
 
   end
 
+  describe 'modify collection and community', :js => true do
+    let!(:community) do
+      Collection.create( title: 'Test Community') do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = false
+        c.is_official = false
+        c.is_admin_set = false
+      end
+    end
+
+    before do
+      sign_in admin
+      visit "/collections/#{community.id}/edit"
+    end
+
+    it "should set Official and Communityi flags" do
+      visit "/collections/#{community.id}/edit"
+
+      expect(page).to have_content("Official")
+      expect(page).to have_content("Community")
+
+      check('Official')
+      check('Community')
+      click_button('Update Collection')
+
+      visit "/communities"
+      expect(page).to have_content("Test Community")
+    end
+    
+    it "should remove Official and Community flags" do
+      visit "/collections/#{community.id}/edit"
+
+      uncheck('Official')
+      uncheck('Community')
+      click_button('Update Collection')
+
+      visit "/communities"
+      expect(page).not_to have_content("Test Community")
+    end
+  end
+
 end
