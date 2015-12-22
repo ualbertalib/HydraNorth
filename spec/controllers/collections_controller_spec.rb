@@ -6,8 +6,8 @@ describe CollectionsController do
     allow_any_instance_of(User).to receive(:groups).and_return([])
   end
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:dit)  { FactoryGirl.create(:dit) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
+  let(:dit)  { FactoryGirl.find_or_create(:dit) }
 
   describe "#edit" do
 

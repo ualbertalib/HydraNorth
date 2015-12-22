@@ -5,7 +5,7 @@ require 'fileutils'
 describe RedirectController, type: :controller do
   routes { Rails.application.class.routes }
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
   let(:fedora3uuid1) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
 
   let!(:gf) do

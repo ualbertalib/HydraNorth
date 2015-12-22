@@ -23,7 +23,7 @@ describe My::AllController, :type => :controller do
 
   let(:shared_file) do
     FactoryGirl.build(:generic_file).tap do |r|
-      r.apply_depositor_metadata FactoryGirl.create(:user)
+      r.apply_depositor_metadata FactoryGirl.find_or_create(:user)
       r.edit_users += [user.user_key]
       r.save!
     end
@@ -34,7 +34,7 @@ describe My::AllController, :type => :controller do
     @my_file = my_file
     @my_collection = my_collection
     @shared_file = shared_file
-    @unrelated_file = FactoryGirl.create(:generic_file, depositor: FactoryGirl.create(:user))
+    @unrelated_file = FactoryGirl.create(:generic_file, depositor: FactoryGirl.find_or_create(:user))
     @wrong_type = Batch.create
   end
 

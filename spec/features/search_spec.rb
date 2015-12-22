@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'search', :type => :feature do
-  let(:admin) { FactoryGirl.create(:admin) }
+  let(:admin) { FactoryGirl.find_or_create(:admin) }
   let!(:generic_file) do
     GenericFile.create( title: ['Test'], read_groups: ["public"] ) do |c|
       c.apply_depositor_metadata(admin.user_key)

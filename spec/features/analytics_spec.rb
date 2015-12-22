@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'analytics', :type => :feature, :js => true do
 
-  let(:user) { FactoryGirl.create :user_with_fixtures }
+  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
   let!(:file1) do
     GenericFile.new.tap do |f|
       f.title = ['little_file-1.txt']

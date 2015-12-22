@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'admin_tasks', :type => :feature do
-  let(:admin) { FactoryGirl.create :admin }
-  let(:user) { FactoryGirl.create :user_with_fixtures }
+  let(:admin) { FactoryGirl.find_or_create :admin }
+  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
   let!(:file1) do
     init_file_1 user
   end

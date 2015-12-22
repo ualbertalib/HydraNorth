@@ -4,7 +4,7 @@ require 'search_helper'
 describe 'download link', :type => :feature do
   include SearchHelper
 
-  let(:user) { FactoryGirl.create :jill }
+  let(:user) { FactoryGirl.find_or_create :jill }
 
   after(:all) do
     GenericFile.destroy_all

@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe UsersController, :type => :controller do 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
   let(:locked_user) { FactoryGirl.create :user, locked_at: Time.now }
 
   it { expect(user.access_locked?).to be_falsey }
   it { expect(locked_user.access_locked?).to be_truthy }
 
   describe "admin" do 
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:admin) { FactoryGirl.find_or_create(:admin) }
     before(:each) do
       sign_in admin 
     end
