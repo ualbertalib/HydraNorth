@@ -15,8 +15,12 @@ class ApplicationController < ActionController::Base
   before_filter :force_account_link,
                 if: -> { @current_user && @current_user.link_pending? }
 
-  rescue_from ActiveFedora::ObjectNotFoundError, with: -> { render_404 ActiveFedora::ObjectNotFoundError }
-  rescue_from ActiveRecord::RecordNotFound, with: -> { render_404 ActiveRecord::RecordNotFound }
+  rescue_from ActiveFedora::ObjectNotFoundError do |exception|
+     render_404 exception
+  end
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+     render_404 exception
+  end
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || sufia.dashboard_index_path || root_path

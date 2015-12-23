@@ -103,6 +103,8 @@ Batch ingest
 - ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
 - ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion. 
   - **note: ```rake hydranorth:characterize_some['filename']``` will push the items in the given list to the characterize resque job. **
+- **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['lib/tasks/batch/ERA_batch_ingest.csv','lib/tasks/batch/files_and_metadata/']```
+  - **note: collections and communities dependencies must exist.**
 
 Populating Local Geonames Authority 
 ---

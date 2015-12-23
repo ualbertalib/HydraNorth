@@ -2,7 +2,6 @@ require './lib/tasks/batch_ingest_logger'
 require 'fileutils'
 require 'csv'
 require 'json'
-require 'fastercsv'
 
 namespace :batch do
   desc "batch ingest from a csv file - used by ERA Admin and ERA Assistants"
@@ -28,7 +27,8 @@ namespace :batch do
 
   def convert_csv_json(file)
     csv = CSV.open(file, :headers => true, :header_converters => :symbol, :converters => :all)
-    json = csv.to_a.map { |row| row.to_hash }
+    json = csv.map{ |x| x.to_h }
+    puts json
     return json
   end
 
