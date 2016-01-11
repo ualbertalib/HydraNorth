@@ -8,7 +8,7 @@ describe 'delete', :type => :feature do
   end
 
   context 'admin' do
-    let(:admin) { FactoryGirl.create :admin }
+    let(:admin) { FactoryGirl.find_or_create :admin }
     let!(:file) do
       init_file admin
     end
@@ -31,7 +31,7 @@ describe 'delete', :type => :feature do
   end 
 
   context 'user' do
-    let(:user) { FactoryGirl.create :user_with_fixtures }
+    let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
     let!(:file) do
       init_file user
     end

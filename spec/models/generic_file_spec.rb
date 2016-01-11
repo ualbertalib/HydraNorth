@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GenericFile, :type => :model do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
 
   before(:each) do
     @file = GenericFile.new

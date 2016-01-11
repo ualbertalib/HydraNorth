@@ -4,7 +4,7 @@ require 'search_helper'
 describe 'download link', :type => :feature do
   include SearchHelper
 
-  let(:user) { FactoryGirl.create :jill }
+  let(:user) { FactoryGirl.find_or_create :jill }
 
   after(:all) do
     GenericFile.destroy_all
@@ -28,7 +28,7 @@ describe 'download link', :type => :feature do
     end
     it 'should be DOI on result page' do
       visit '/'
-      search gf_with_doi.subject
+      search gf_with_doi.subject.first
       expect(page).to have_link('Download', {href: 'http://dx.doi.org'})
     end
     it 'should be DOI in action' do
@@ -57,7 +57,7 @@ describe 'download link', :type => :feature do
     end
     it 'should be download on result page' do
       visit '/'
-      search gf_with_num.subject
+      search gf_with_num.subject.first
       expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_with_num)}')]", count: 1)
     end
     it 'should be download in action' do
@@ -85,7 +85,7 @@ describe 'download link', :type => :feature do
     end
     it 'should be download on result page' do
       visit '/'
-      search gf_no_identifier.subject
+      search gf_no_identifier.subject.first
       expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_no_identifier)}')]", count: 1)
     end
     it 'should be download in action' do

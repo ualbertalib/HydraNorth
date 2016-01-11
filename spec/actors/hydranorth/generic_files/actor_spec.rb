@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Hydranorth::GenericFile::Actor do
   include ActionDispatch::TestProcess
   
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
   let(:generic_file) { FactoryGirl.create(:generic_file) }
   let(:actor) { Hydranorth::GenericFile::Actor.new(generic_file, user, {}) }
   let(:uploaded_file) { fixture_file_upload('/world.png','image/png') }

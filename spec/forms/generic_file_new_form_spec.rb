@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe 'generic file new', :type => :feature do
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.find_or_create :user }
 
   after :all do
     cleanup_jetty

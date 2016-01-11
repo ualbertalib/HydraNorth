@@ -6,7 +6,7 @@ describe CommunitiesController, :type => :controller do
     allow_any_instance_of(User).to receive(:groups).and_return([])
   end
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.find_or_create(:user) }
 
   describe "#index" do
     before do

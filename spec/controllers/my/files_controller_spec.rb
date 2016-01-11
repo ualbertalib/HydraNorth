@@ -8,7 +8,7 @@ describe My::FilesController, :type => :controller do
 
     GenericFile.destroy_all
     Collection.destroy_all
-    @other_user = FactoryGirl.create(:user)
+    @other_user = FactoryGirl.find_or_create(:user)
     @my_file = FactoryGirl.create(:generic_file, depositor: @user)
     @unshared_file = FactoryGirl.create(:generic_file, depositor: @other_user)
     @edit_shared_with_me = FactoryGirl.create(:generic_file).tap do |r|

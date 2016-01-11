@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Embargo History', :type => :feature do
 
-  let(:admin) { FactoryGirl.create :admin }
+  let(:admin) { FactoryGirl.find_or_create :admin }
   let!(:file) do
     GenericFile.new.tap do |f|
       f.title = ['non_standard_file.txt']

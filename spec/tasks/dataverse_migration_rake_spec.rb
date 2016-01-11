@@ -4,7 +4,7 @@ require 'fileutils'
 describe "Migration rake tasks" do
   let(:dataverse_collection) do 
     Collection.create(title: 'Dataverse Datasets') do |c|
-      c.apply_depositor_metadata(FactoryGirl.create(:dit).user_key)
+      c.apply_depositor_metadata(FactoryGirl.find_or_create(:dit).user_key)
       c.save
     end
   end

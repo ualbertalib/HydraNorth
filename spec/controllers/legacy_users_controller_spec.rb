@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController, :type => :controller do
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    user = FactoryGirl.create(:legacy_user)
+    user = FactoryGirl.find_or_create(:legacy_user)
     user.confirm!
     sign_in user
   end

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'collection', :type => :feature do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let(:jill) { FactoryGirl.create(:jill) }
+  let(:admin) { FactoryGirl.find_or_create(:admin) }
+  let(:jill) { FactoryGirl.find_or_create(:jill) }
   let!(:collection) do
     Collection.create( title: 'Theses') do |c|
       c.apply_depositor_metadata(admin.user_key)
@@ -19,7 +19,7 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
   describe 'total item count for a collection with 1 public item and 1 private item' do
-    let(:alice) { FactoryGirl.create(:alice) }
+    let(:alice) { FactoryGirl.find_or_create(:alice) }
 
     let!(:public_file) do
       GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
