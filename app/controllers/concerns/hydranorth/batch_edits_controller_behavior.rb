@@ -11,10 +11,13 @@ module Hydranorth
         redirect_to sufia.dashboard_index_path
       end
     end
+
     protected
+
     def terms
       Hydranorth::Forms::BatchEditForm.terms
     end
+
     def generic_file_params
       Hydranorth::Forms::BatchEditForm.model_attributes(params[:generic_file])
     end

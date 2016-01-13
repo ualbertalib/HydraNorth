@@ -28,6 +28,15 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
+  def hasCollectionId=(arr)
+    # when clearing hasCollectionId, we must also ensure
+    # hasCollection stays in sync
+    if arr.empty?
+      self.hasCollection = []
+    end
+    super(arr)
+  end
+
   def thesis?
     self.resource_type.include? Sufia.config.special_types['thesis']
   end
