@@ -38,6 +38,9 @@ module GenericFileHelper
     if gf.respond_to?(:hasCollection) && gf.hasCollectionId.present?
       ("Is part of: " + gf.hasCollection.each_with_index.map { |title, i| link_to(title, collections.collection_path(gf.hasCollectionId[i])) }.join(", ")).html_safe
     end
+    if gf.respond_to? :belongsToCommunity
+      ("Is part of: " + gf.belongsToCommunity.each_with_index.map { |id, i| link_to(Collection.find(id).title, collections.collection_path(gf.belongsToCommunity[i])) }.join(", ")).html_safe
+    end
   end
 
   def display_multiple value
