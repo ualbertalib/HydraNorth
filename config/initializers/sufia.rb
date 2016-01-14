@@ -67,6 +67,9 @@ Sufia.config do |config|
   # please run rake db:seed to create the collections and restart httpd.
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
+  # DO NOT REMOVE THE NEXT TWO LINES!!! They are used as tokens to replace during application deployment
+  # config.cstr_collection_id = ""
+  # config.ser_collection_id = ""
 
 
   config.special_types = {
