@@ -87,7 +87,7 @@
   <div class="row">
     <div class="col-xs-6">
       <%= f.input_label :description, label: "Description or Abstract" %>
-      <%= f.input :description, as: :text, label: false, input_html: {value: '', type: 'textarea', :rows => 7 } %>
+      <%= f.input :description, as: :text, label: false, input_html: {value: '', type: 'textarea', :rows => 7, name: 'generic_file[description][]' } %>
  </div>
   <div class="col-xs-5">
      <p class="help-block extra">Free-text notes about the file itself. If your item has an abstract put it here.</p>
