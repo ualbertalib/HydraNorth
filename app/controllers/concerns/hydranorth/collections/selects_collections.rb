@@ -4,6 +4,12 @@ module Hydranorth::Collections::SelectsCollections
   include Hydra::Collections::SelectsCollections
   include Hydranorth::Permissions
 
+
+
+  def collections_search_builder_class
+    ::CollectionSearchBuilder
+  end
+
   def access_levels
     { read: [:read, :edit], edit: [:edit] }
   end
@@ -16,7 +22,7 @@ module Hydranorth::Collections::SelectsCollections
     find_communities(:edit)
   end
 
- # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed 
+ # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed
  def find_collections(access_level = nil)
     # need to know the user if there is an access level applied otherwise we are just doing public collections
     authenticate_user! unless access_level.blank?
@@ -25,12 +31,11 @@ module Hydranorth::Collections::SelectsCollections
     query = collections_search_builder(access_level).with({q: '(-is_community_bsi:true AND -is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true)'}).query
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
-    # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on
-    # sort params properly
- 
-    # return the user's collections (or public collections if no access_level is applied)
-    @user_collections = response.documents
- end   
+
+   @user_collections = response.documents.sort do |d1, d2|
+     d1.title <=> d2.title
+   end
+ end
 
  # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed
  def find_communities(access_level = nil)

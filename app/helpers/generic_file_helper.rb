@@ -35,7 +35,7 @@ module GenericFileHelper
   end
 
   def render_collection_list(gf)
-    if gf.respond_to? :hasCollection
+    if gf.respond_to?(:hasCollection) && gf.hasCollectionId.present?
       ("Is part of: " + gf.hasCollection.each_with_index.map { |title, i| link_to(title, collections.collection_path(gf.hasCollectionId[i])) }.join(", ")).html_safe
     end
   end
