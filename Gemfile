@@ -68,10 +68,13 @@ gem "pdf-reader"
 
 gem 'noid', '~> 0.8'
 
-group :development, :test do
-  gem "byebug"
+group :test do
   gem "rspec-rails"
   gem "rspec-its"
+  gem "ci_reporter_rspec"
+end
+group :development, :test do
+  gem "byebug"
   gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"
@@ -82,7 +85,6 @@ group :development, :test do
   gem "capybara-select2"
   gem "show_me_the_cookies"
   gem "brakeman"
-  gem "ci_reporter_rspec"
   gem "pry"
   gem "pry-remote"
   gem 'pry-byebug'
