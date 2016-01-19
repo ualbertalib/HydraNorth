@@ -107,6 +107,19 @@ describe BatchUpdateJob do
         expect(file2.reload.belongsToCommunity).to include community.id
         expect(file2.reload.belongsToCommunity).to include community2.id
       end
+ 
+      it "should have an ark identifier" do
+        expect(file.reload.ark_created).to eq "true"
+        expect(file.reload.ark_id).to eq "ark:/99999/fk4#{file.id}"
+      end
+     
+      it "ark should resolve" do
+        uri = URI"http://n2t.net/ark:/99999/fk4#{file.id}"
+
+        request = Net::HTTP.new uri.host
+        response= request.request_head uri.path
+        expect(response.code.to_i).to eq 302 
+      end
     end
   end
 
