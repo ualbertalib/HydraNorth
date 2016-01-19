@@ -68,6 +68,8 @@ gem "pdf-reader"
 
 gem 'noid', '~> 0.8'
 
+gem 'ezid-client'
+
 group :development, :test do
   gem "byebug"
   gem "rspec-rails"
