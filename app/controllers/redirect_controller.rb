@@ -55,8 +55,7 @@ class RedirectController < ApplicationController
   end
 
   def find_ark_id
-    arkid = "ark:/99999/fk4" + params[:arkid]
-    id = find_ark(arkid)
+    id = find_ark(params[:arkid])
   end
 
   def find_collection_id
