@@ -3,6 +3,11 @@ class RedirectController < ApplicationController
   def era_av
     redirect_to "https://era-av.library.ualberta.ca"
   end
+  def ark
+    file = find_ark_id
+    return render_404 ActiveRecord::RecordNotFound if file.nil?
+    redirect_to "/files/#{file}", status: :moved_permanently
+  end
 
   def item
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
@@ -59,6 +64,10 @@ class RedirectController < ApplicationController
     return (/^uuid:.+/ =~ params[:uuid]) != nil
   end
 
+  def is_ark
+    return (/^fk4.+/ =~ params[:arkid]) != nil
+  end
+
   def is_datastream
     return (/^DS\d+/ =~ params[:ds]) != nil
   end
@@ -66,6 +75,10 @@ class RedirectController < ApplicationController
   def find_item_id
     uuid = params[:uuid]
     id = find_id(uuid)
+  end
+
+  def find_ark_id
+    id = find_ark(params[:arkid])
   end
 
   def find_collection_id
@@ -93,6 +106,15 @@ class RedirectController < ApplicationController
     numFound = solr_rsp['response']['numFound']
     if numFound > 0
       return solr_rsp['response']['docs'].first[Solrizer.solr_name('label')].first
+    else
+      return nil
+    end
+  end  
+  def find_ark(arkid)
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('ark_id')+':'+arkid}
+    numFound = solr_rsp['response']['numFound']
+    if numFound > 0
+      return solr_rsp['response']['docs'].first['id']
     else
       return nil
     end

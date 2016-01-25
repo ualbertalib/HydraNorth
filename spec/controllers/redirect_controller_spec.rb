@@ -15,6 +15,8 @@ describe RedirectController, type: :controller do
       f.apply_depositor_metadata user
       f.save!
     end
+    gf.ark_id = "ark:/99999/fk4#{gf.id}"
+    gf.save!
   end
 
   describe "#item" do
@@ -22,18 +24,15 @@ describe RedirectController, type: :controller do
       get :item, uuid: fedora3uuid1
       expect(response).to redirect_to "http://test.host/files/#{gf.id}"
     end
-    it "ark redirects to item page" do
-      GenericFile.find(file.id) do |gf|
-        gf.ark_id = "ark:/99999/fk4#{file.id}"
-        gf.save!
-      end
 
+    it "ark redirects to item page" do
       get :ark, arkid: "ark:/99999/fk4#{file.id}"
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["ark_id_tesim:ark:/99999/fk4#{file.id}"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       expect(response).to redirect_to "http://test.host/files/#{id}"
     end
+
     it "returns a 404 status code" do
       get :item, uuid: "xxx"
       expect(response).to have_http_status(404)
