@@ -16,4 +16,19 @@ describe Hydranorth::GenericFile::Actor do
       expect(generic_file.year_created).to eq '2012'
     end
   end
+
+  describe "#destroy" do
+    before do
+      identifier = Ezid::Identifier.create(id: "ark:/99999/fk4#{generic_file.id}")
+    end
+
+    it "should delete generic file and change ark status" do
+      actor.destroy
+      expect(GenericFile.exists?(generic_file.id)).to eq false
+
+      identifier = Ezid::Identifier.find("ark:/99999/fk4#{generic_file.id}")
+      expect(identifier.status).to eq 'unavailable'
+    end
+  end
+
 end
