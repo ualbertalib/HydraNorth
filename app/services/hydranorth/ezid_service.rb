@@ -67,12 +67,8 @@ module Hydranorth
     end
 
     def delete(generic_file)
-<<<<<<< HEAD
       ark_identifier = find(Ezid::Client.config.default_shoulder + generic_file.id)
-=======
-      byebug
       ark_identifier = find(generic_file)
->>>>>>> 00d2aa7... Changed ezid service class
       unless ark_identifier.nil?
         ark_identifier.status = "unavailable"
         ark_identifier.save

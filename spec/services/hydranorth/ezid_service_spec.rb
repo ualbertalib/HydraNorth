@@ -16,6 +16,8 @@ describe Hydranorth::EzidService do
 
   after :all do
     cleanup_jetty
+    ark_identifier = Ezid::Identifier.find("ark:/99999/fk4888888888")
+    ark_identifier.delete
   end
 
   describe "create" do
