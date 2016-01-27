@@ -77,6 +77,36 @@ class BatchUpdateJob
     end
     save_tries = 0
     begin
+      ark_identifier = Ezid::Identifier.create(id: Ezid::Client.config.default_shoulder + gf.id)
+      unless ark_identifier.nil?  
+        ark_identifier.target = Rails.application.config.ezid_url + gf.id
+        
+        unless gf.title.nil?
+          ark_identifier.datacite_title = gf.title.join(";")
+        end
+
+        unless gf.creator.nil? 
+          ark_identifier.datacite_creator = gf.creator.join(";")
+        end
+
+        if gf.year_created.nil?
+          ark_identifier.datacite_publicationyear = (:unav)
+        else
+          ark_identifier.datacite_publicationyear = gf.year_created
+        end
+
+        unless gf.resource_type[0].nil?
+          ark_identifier.datacite_resourcetype = Sufia.config.ark_resource_types[gf.resource_type[0]]
+        end
+
+        ark_identifier.save
+
+        gf.ark_created = "true"
+        gf.ark_id = ark_identifier.id
+      else
+        gf.ark_created = "false"
+      end
+
       gf.save!
     rescue RSolr::Error::Http => error
       save_tries += 1
