@@ -44,7 +44,7 @@ describe 'Rights', :type => :feature do
       end
       select("I am required to use/link to a publisher's license", from: "generic_file[license]")
       fill_in 'generic_file_rights', :with => 'Rights'
-      click_button "Update Generic file"
+      click_button "Update"
     end
 
     it { expect(page).to have_field('generic_file_rights', with: 'Rights') }
