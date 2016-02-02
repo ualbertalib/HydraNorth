@@ -23,7 +23,7 @@ describe 'generic file new', :type => :feature do
     end
   end
 
-  describe 'new item fields', js: true do
+  describe 'new item fields', js: true, :integration => true do
     before do
       visit '/'
     end
@@ -40,7 +40,7 @@ describe 'generic file new', :type => :feature do
     end
   end
 
-  describe 'request CSTR item', js: true do
+  describe 'request CSTR item', js: true, :integration => true do
     before do
       visit '/'
     end
@@ -56,7 +56,7 @@ describe 'generic file new', :type => :feature do
     end
   end
 
-  describe 'check form fields', js: true do
+  describe 'check form fields', js: true, :integration => true do
     before do
       visit '/'
     end

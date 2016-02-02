@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'rake'
 require 'fileutils'
-describe "Migration rake tasks" do
+describe "Migration rake tasks", :integration => true do
   before do
     load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
   end

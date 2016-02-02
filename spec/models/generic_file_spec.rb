@@ -72,7 +72,7 @@ describe GenericFile, :type => :model do
     end
   end
 
-  describe '#append_metadata' do
+  describe '#append_metadata', :integration => true do
 
     before  do
       @myfile = GenericFile.new(id: SecureRandom.hex)
