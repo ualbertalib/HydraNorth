@@ -66,6 +66,9 @@ gem "clamav"
 # for migration reading the license file
 gem "pdf-reader"
 
+# to generate sitemap for google scholar et al
+gem 'sitemap'
+
 gem 'noid', '~> 0.8'
 
 group :test do
