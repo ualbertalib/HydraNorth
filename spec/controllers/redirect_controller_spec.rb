@@ -52,9 +52,8 @@ describe RedirectController, type: :controller do
       expect(response).to redirect_to "http://test.host/files/#{id}"
     end
     it "ark redirects to item page" do
-      identifier = Ezid::Identifier.create(id: "ark:/99999/fk4#{file.id}")
       GenericFile.find(file.id) do |gf|
-        gf.ark_id = identifier.id
+        gf.ark_id = "ark:/99999/fk4#{file.id}"
         gf.save!
       end
 
