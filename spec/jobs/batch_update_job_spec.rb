@@ -55,8 +55,17 @@ describe BatchUpdateJob do
     end
   end
 
+  let(:http_response) { double(body: "success: ark:/99999/fk4fn19h88") }
+  let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
 
   describe "#run" do
+    before do
+      ezid = double('ezid')
+      Hydranorth::EzidService.stub(:new) { ezid }
+
+      allow(ezid).to receive(:create).and_return(stub_response)
+    end
+
     let(:title) { { file.id => ['File One'], file2.id => ['File Two'] }}
     let(:trid) { { file.id => 'TR-123', file2.id => 'TR-456' }}
     let(:metadata) do
@@ -73,6 +82,10 @@ describe BatchUpdateJob do
       before do
         allow(Sufia.queue).to receive(:push)
         job.run
+      end
+
+      it "should have an ark id" do
+        expect(file.reload.ark_id).to eq 'ark:/99999/fk4fn19h88'
       end
 
       it "should update the trid" do
@@ -107,23 +120,17 @@ describe BatchUpdateJob do
         expect(file2.reload.belongsToCommunity).to include community.id
         expect(file2.reload.belongsToCommunity).to include community2.id
       end
- 
-      it "should have an ark identifier" do
-        expect(file.reload.ark_created).to eq "true"
-        expect(file.reload.ark_id).to eq "ark:/99999/fk4#{file.id}"
-      end
-     
-      it "ark should resolve" do
-        uri = URI"http://n2t.net/ark:/99999/fk4#{file.id}"
-
-        request = Net::HTTP.new uri.host
-        response= request.request_head uri.path
-        expect(response.code.to_i).to eq 302 
-      end
     end
   end
 
   describe "embargo visibility" do 
+    before do
+      ezid = double('ezid')
+      Hydranorth::EzidService.stub(:new) { ezid }
+
+      allow(ezid).to receive(:create).and_return(stub_response)
+    end
+
     let(:title) { { file.id => ['File One'], file2.id => ['File Two'] }}
     let(:trid) { { file.id => 'TR-123', file2.id => 'TR-456' }}
     let(:metadata) do
