@@ -49,6 +49,11 @@ module Hydranorth
         create_metadata(batch_id)
       end
 
+      def destroy
+        super
+        ezid = Hydranorth::EzidService.new()
+        ezid.delete(generic_file)
+      end
 
     end
   end
