@@ -29,34 +29,8 @@ module Hydranorth
         end
 
       if success
-        ark_identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + @generic_file.id)
-        unless ark_identifier.nil?
-          ark_changed = false
-
-          if ark_identifier.datacite_title != @generic_file.title.join(";")
-            ark_changed = true           
-            ark_identifier.datacite_title = @generic_file.title.join(";")
-          end
-
-          if ark_identifier.datacite_creator != @generic_file.creator.join(";") 
-            ark_changed = true
-            ark_identifier.datacite_creator = @generic_file.creator.join(";")
-          end
-
-          if ark_identifier.datacite_publicationyear != @generic_file.year_created
-            ark_changed = true
-            ark_identifier.datacite_publicationyear = @generic_file.year_created
-          end
-
-          if ark_identifier.datacite_resourcetype != Sufia.config.ark_resource_types[@generic_file.resource_type[0]]
-            ark_changed = true
-            ark_identifier.datacite_resourcetype = Sufia.config.ark_resource_types[@generic_file.resource_type[0]]
-          end
-
-          if ark_changed 
-            ark_identifier.save
-          end
-        end
+        ezid = Hydranorth::EzidService.new()
+        ezid.modify(@generic_file)
 
         redirect_to sufia.edit_generic_file_path(tab: params[:redirect_tab]), notice:
           render_to_string(partial: 'generic_files/asset_updated_flash', locals: { generic_file: @generic_file })
