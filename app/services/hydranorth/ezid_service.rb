@@ -36,7 +36,7 @@ module Hydranorth
     end
 
     def modify(generic_file)
-      ark_identifier = find(Ezid::Client.config.default_shoulder + generic_file.id)
+      ark_identifier = find(generic_file)
       unless ark_identifier.nil?
         ark_changed = false
  
@@ -67,7 +67,12 @@ module Hydranorth
     end
 
     def delete(generic_file)
+<<<<<<< HEAD
       ark_identifier = find(Ezid::Client.config.default_shoulder + generic_file.id)
+=======
+      byebug
+      ark_identifier = find(generic_file)
+>>>>>>> 929_ark_update_metadata
       unless ark_identifier.nil?
         ark_identifier.status = "unavailable"
         ark_identifier.save
