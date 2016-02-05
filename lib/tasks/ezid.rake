@@ -15,20 +15,22 @@ namespace :ezid do
 
   def create_arks
     GenericFile.find_each() do |gf|
-      byebug
       if gf.ark_created.nil? || gf.ark_created == false
-        identifier = Ezid::Identifier.create(id: Ezid::Client.config.default_shoulder + gf.id)
+        identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + gf.id)
+        if identifier.nil?
+          identifier = Ezid::Identifier.create(id: Ezid::Client.config.default_shoulder + gf.id)
+          EzidLogger.info "Ark created for noid: " + gf.id
+        else
+          EzidLogger.info "Ark already exists for noid: " + gf.id + ",updating metadata"
+        end
 
-        EzidLogger.info "Ark created for noid: " + gf.id
-
-        byebug
         identifier.target = "http://hydranorthdev.library.ualberta.ca/files/" + gf.id 
         identifier.status = "public"
         identifier.datacite_title = gf.title.join(";")
         identifier.datacite_creator = gf.creator.join(";")
 
         if gf.year_created.nil?
-          identifier.datacite_publicationyear = (:unav)
+          identifier.datacite_publicationyear = "(:unav)"
         else
           identifier.datacite_publicationyear = gf.year_created
         end
@@ -43,7 +45,7 @@ namespace :ezid do
 
         EzidLogger.info "Ark metadata updated for noid: " + gf.id
       else
-        EzidLogger.info "Ark already exists: " + gf.id
+        EzidLogger.info "Ark already exists and generic file has been updated for: " + gf.id
       end
     end
   end
