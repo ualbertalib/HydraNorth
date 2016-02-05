@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Hydranorth
   class Application < Rails::Application
+    config.ezid_url = "http://hydranorthdev.library.ualberta.ca/files/"
     
     config.generators do |g|
       g.test_framework :rspec, :spec => true
