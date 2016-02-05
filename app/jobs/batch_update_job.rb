@@ -76,17 +76,22 @@ class BatchUpdateJob
       gf.apply_embargo(embargo_release_date, visibility_during_embargo, visibility_after_embargo)
     end
     save_tries = 0
-    begin
-        ezid = Hydranorth::EzidService.new()
-        ark_identifier = ezid.create(gf)
-        unless ark_identifier.nil?
-          gf.ark_created = "true"
-          gf.ark_id = ark_identifier.id
-        else
-          gf.ark_created = "false"
-        end
-#      end
 
+    ezid = Hydranorth::EzidService.new()
+    begin
+      ark_identifier = ezid.create(gf)
+    rescue Ezid::Error
+      ark_identifier = ezid.find(gf)
+    end
+
+    unless ark_identifier.nil?
+      gf.ark_created = "true"
+      gf.ark_id = ark_identifier.id
+    else
+      gf.ark_created = "false"
+    end
+
+    begin
       gf.save!
     rescue RSolr::Error::Http => error
       save_tries += 1

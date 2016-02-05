@@ -63,6 +63,7 @@ describe BatchUpdateJob do
       ezid = double('ezid')
       Hydranorth::EzidService.stub(:new) { ezid }
 
+      allow(ezid).to receive(:find).and_return(stub_response)
       allow(ezid).to receive(:create).and_return(stub_response)
     end
 
@@ -128,6 +129,7 @@ describe BatchUpdateJob do
       ezid = double('ezid')
       Hydranorth::EzidService.stub(:new) { ezid }
 
+      allow(ezid).to receive(:find).and_return(stub_response)
       allow(ezid).to receive(:create).and_return(stub_response)
     end
 

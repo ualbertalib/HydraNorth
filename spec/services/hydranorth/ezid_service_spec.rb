@@ -4,7 +4,7 @@ describe Hydranorth::EzidService do
   let(:user) { FactoryGirl.find_or_create(:jill) }
   let!(:generic_file) do
     GenericFile.new do |f|
-      f.id =  "888888888"
+      f.id = @uuid
       f.title = ['little_file.txt']
       f.creator = ['little_file.txt_creator']
       f.resource_type = ["Book" ]
@@ -14,10 +14,12 @@ describe Hydranorth::EzidService do
   end
   let(:ezid) { Hydranorth::EzidService.new }
 
+  before :all do
+    @uuid = SecureRandom.uuid
+  end
+
   after :all do
     cleanup_jetty
-    ark_identifier = Ezid::Identifier.find("ark:/99999/fk4888888888")
-    ark_identifier.delete
   end
 
   describe "create" do

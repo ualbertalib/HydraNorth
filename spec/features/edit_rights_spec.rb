@@ -13,6 +13,15 @@ describe 'Rights', :type => :feature do
       f.save!
     end
   end
+  let(:http_response) { double(body: "success: ark:/99999/fk4fn19h88") }
+  let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
+
+  before do
+    ezid = double('ezid')
+    Hydranorth::EzidService.stub(:new) { ezid }
+
+    allow(ezid).to receive(:modify).and_return(stub_response)
+  end
 
   after :all do
     cleanup_jetty
