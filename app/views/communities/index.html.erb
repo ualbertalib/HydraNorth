@@ -1,10 +1,38 @@
 <h2>Communities</h2>
 
-	<ul class="communities">
-		<% @user_communities.each do |c| %>
-			<li class="col-sm-3 col-md-2">
+<%# First the @user_communities array needs to be split in half so that we can have two equal size lists%>
+
+	<ul class="communities col-sm-6">
+		<%# @user_communities_FIRST_HALF.each do |c| %>
+			<li class="row">
 				<%= link_to c.title, collections.collection_path(c) %>
+				<a href="#collections1" class="collection-drop col-sm-3" data-toggle="collapse"><span class="glyphicon glyphicon-th-list"></span>view collections</a>
 			</li>
+			
+			<%# If COLLECTIONS_IN_COMMUNITIES %>
+				<ul class="inner-collections collapse" id="collections1" aria-expanded="false" style="height: 0px;">
+					<%# FOR_COLLECTIONS_IN_COMMUNITIES.each do |cc| %>
+						<li><%= link_to cc.title, collections.collection_path(cc) %></li>
+					<%# end %>
+				</ul>
+			<%# end %>
 		<% end %>
 	</ul>
 
+
+	<ul class="communities col-sm-6">
+		<%# @user_communities.each_SECOND_HALF do |c| %>
+			<li class="row">
+				<%= link_to c.title, collections.collection_path(c) %>
+				<a href="#collections1" class="collection-drop col-sm-3" data-toggle="collapse"><span class="glyphicon glyphicon-th-list"></span>view collections</a>
+			</li>
+			
+			<%# If COLLECTIONS_IN_COMMUNITIES %>
+				<ul class="inner-collections collapse" id="collections1" aria-expanded="false" style="height: 0px;">
+					<%# FOR_COLLECTIONS_IN_COMMUNITIES.each do |cc| %>
+						<li><%= link_to cc.title, collections.collection_path(cc) %></li>
+					<%# end %>
+				</ul>
+			<%# end %>
+		<% end %>
+	</ul>
