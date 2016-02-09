@@ -50,15 +50,11 @@ module Hydranorth
       end
 
       def destroy
-        byebug
         generic_file.destroy
         FeaturedWork.where(generic_file_id: generic_file.id).destroy_all
 
-        ark_identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + @generic_file.id)
-        unless ark_identifier.nil?
-          ark_identifier.status = "unavailable"
-          ark_identifier.save
-        end
+        ezid = Hydranorth::EzidService.new()
+        ezid.delete(generic_file)
 
         Sufia.config.after_destroy.call(generic_file.id, user) if Sufia.config.respond_to?(:after_destroy)
       end
