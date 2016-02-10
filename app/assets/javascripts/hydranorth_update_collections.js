@@ -1,5 +1,6 @@
-$(document).on("change", '.community-select', function(){ 
-          currentClass = $(this).attr('class').split(' ')
+$(document).on("ready change", function(){ 
+          if (!($('.community-select').attr('class'))) return;
+          currentClass = $('.community-select').attr('class').split(' ')
           var index
           $.each ( currentClass, function(i, v) {
             if (v.match(/community-group/)) { index = v}
@@ -9,7 +10,7 @@ $(document).on("change", '.community-select', function(){
             type: 'GET',
             dataType: 'script',
             data:  {
-              community_id: $("option:selected", this).val(),
+              community_id: $("option:selected", '.community-select').val(),
               index: index
             },
             complete: function() {}, 
