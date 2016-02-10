@@ -26,6 +26,19 @@ if !User.find_by_user_key("dittest@ualberta.ca")
   admin.save!
 end
 
+if !User.find_by_user_key("batchuser@example.com")
+
+  batch = User.new({
+      :email => "batchuser@example.com",
+      :password => "password",
+      :password_confirmation => "password",
+      :group_list => "admin" # this is the important part
+    }) unless User.find_by_user_key("batchuser@example.com")
+
+  batch.skip_confirmation!
+  batch.save!
+end
+
 # create a dummy admin user for dataverse
 if !User.find_by_user_key("dit.application.test@ualberta.ca")
 
