@@ -26,6 +26,7 @@ describe 'generic file new', :type => :feature do
   describe 'new item fields', js: true, :integration => true do
     before do
       visit '/'
+      Capybara.default_max_wait_time = 30
     end
     it "should not allow multiple resource_type selections, but assign to an array" do
       sign_in user
@@ -35,7 +36,6 @@ describe 'generic file new', :type => :feature do
         attach_file "files[]", [fixture_path + '/world.png']
         click_button('main_upload_start')
       end
-      sleep(30)
       expect(page).to have_xpath('//select[@name="generic_file[resource_type][]" and not(@multiple)]')
     end
   end
@@ -51,7 +51,6 @@ describe 'generic file new', :type => :feature do
       check('terms_of_service')
       attach_file "files[]", [fixture_path + '/world.png']
       click_button('main_upload_start')
-      sleep(30)
       expect(page).to have_field('generic_file_trid')
     end
   end
@@ -68,7 +67,6 @@ describe 'generic file new', :type => :feature do
         page.attach_file "files[]", [fixture_path + '/world.png']
         click_button('main_upload_start')
       end
-      sleep(30)
       within("form#new_generic_file") do
         expect(find_field('Description or Abstract')).to have_content ''
         expect(find_field('Date Created')).to have_content ''
