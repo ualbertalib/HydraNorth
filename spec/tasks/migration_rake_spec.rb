@@ -26,7 +26,7 @@ describe "Migration rake tasks" do
 
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/standard-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid', :symbol)}:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -69,7 +69,8 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/multifile-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:846f544d-94db-41b4-9f4a-654e1457ed8c"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:846f544d-94db-41b4-9f4a-654e1457ed8c"]}
+      byebug
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -107,7 +108,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/licensefile-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:488e5517-ace7-4cda-8196-f29f853711c8"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:488e5517-ace7-4cda-8196-f29f853711c8"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -150,7 +151,7 @@ describe "Migration rake tasks" do
       GenericFile.delete_all
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/thesis-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -206,7 +207,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/legacy-thesis-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:1a045a35-8294-4f8a-ad49-2641852345bb"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:1a045a35-8294-4f8a-ad49-2641852345bb"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -245,7 +246,7 @@ describe "Migration rake tasks" do
 
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/darkitem-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:ea8f6b8f-c142-4cf9-aeba-98bb23810d92"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:ea8f6b8f-c142-4cf9-aeba-98bb23810d92"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -281,7 +282,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/ccid-protected-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:394266f0-0e4a-42e6-a199-158165226426"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -321,7 +322,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/inactive-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:f0b84406-ad6c-410b-a76a-42af656d1171"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:f0b84406-ad6c-410b-a76a-42af656d1171"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -360,7 +361,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/embargo-open-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:ceaf5095-41bd-473a-bdd9-d485abe39652"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:ceaf5095-41bd-473a-bdd9-d485abe39652"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -401,7 +402,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:eraitem"].invoke('spec/fixtures/migration/test-metadata/embargo-ccid-metadata')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:08769268-8c3a-4798-b298-ff321dc5c3cc"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:08769268-8c3a-4798-b298-ff321dc5c3cc"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -459,7 +460,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:update_ccid_visiblity"].invoke('spec/fixtures/migration/uuids_ccid_visibility')
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)

@@ -1,5 +1,6 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
+require './lib/tasks/migration/namespace'
 
 namespace :migration do
 	
