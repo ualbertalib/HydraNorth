@@ -146,7 +146,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("trid", :stored_searchable), label: "CS Technical Report ID"
     config.add_show_field solr_name("ser", :stored_searchable), label: "Structural Engineering Report ID"
     config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
-    config.add_show_field solr_name("fedora3uuid", :stored_searchable), label: "UUID"
+    config.add_show_field solr_name("fedora3uuid", :symbol), label: "UUID"
 
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "Relevance \u25BC"
     config.add_sort_field "#{date_created_field} desc", label: "Date (newest first)"

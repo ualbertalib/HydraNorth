@@ -68,7 +68,7 @@ describe "Migration rake tasks" do
       end
       Rake::Task.define_task(:environment)
       Rake::Task["migration:update_dataverse_fields"].invoke
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd"]}
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["#{Solrizer.solr_name('fedora3uuid')}:uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
