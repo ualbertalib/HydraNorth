@@ -34,6 +34,9 @@ Hydranorth::Application.routes.draw do
   get '/public/view/author/:username' => 'redirect#author'
   get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
 
+  # redirect ark to hydranorth
+  get '/id/:arkid' => 'redirect#ark', :constraints => { :arkid => /ark:\/\d{5}\/.*/ }
+
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'
