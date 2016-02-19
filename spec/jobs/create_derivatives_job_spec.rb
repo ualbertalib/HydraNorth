@@ -27,7 +27,7 @@ describe CreateDerivativesJob do
         expect(@generic_file.thumbnail).not_to have_content
       end
 
-      it 'generates a thumbnail on job run' do
+      it 'generates a thumbnail on job run', :integration => true do
         subject.run
         @generic_file.reload
         expect(@generic_file.thumbnail).to have_content
