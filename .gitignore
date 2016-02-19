@@ -26,3 +26,6 @@ lib/tasks/migration/community
 /.project
 /.idea/
 **/.DS_Store
+
+# ignore generated sitemaps
+public/sitemap.xml

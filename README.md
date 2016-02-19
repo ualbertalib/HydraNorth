@@ -106,6 +106,11 @@ Batch ingest
 - **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['lib/tasks/batch/ERA_batch_ingest.csv','lib/tasks/batch/files_and_metadata/']```
   - **note: collections and communities dependencies must exist.**
 
+Generate Sitemap
+---
+** for Google Scholar
+- use: rake sitemap:generate
+
 Populating Local Geonames Authority 
 ---
 - **hydranorth:harvest:geonames_cities** which downloads the latest list of cities1000 file from geonames.org, and populates the data into local database tables: local_authorities, and local_authority_entries. 

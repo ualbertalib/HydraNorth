@@ -1,11 +1,11 @@
 <%= javascript_tag do %>
 <% end %>
 <%= content_for :heading do %>
-    
+  <% unless current_user.nil? %>
     <%= render partial: "dashboard/_index_partials/heading_greetings", locals: { title: "My Profile" } %>
 
     <%= render partial: "dashboard/_index_partials/heading_actions" %>
-
+  <% end %>
 <% end %>
  <%= yield :heading %>
 <div class="col-xs-12 profile">
