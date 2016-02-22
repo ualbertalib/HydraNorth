@@ -10,6 +10,7 @@ namespace :hydranorth do
   task :remove_lapsed_embargoes => :environment do |t|
     items = Hydra::EmbargoService.assets_with_expired_embargoes
     items.each do |item|
+      item.deactivate_embargo! if item.embargo_release_date
       item.embargo_visibility!
       item.embargo.save!
       item.save!
