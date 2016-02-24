@@ -1,20 +1,24 @@
 # borrowed and developed based on psu-stewardship/scholarsphere/lib/tasks/scholarsphere.rake
 
-namespace :hydranorth do
+require './lib/tasks/rake_logger'
 
-  def logger
-    Rails.logger
-  end
+namespace :hydranorth do
 
   desc "Remove lapsed embargoes"
   task :remove_lapsed_embargoes => :environment do |t|
+    RakeLogger.info "********START remove_lapsed_embargoes ********" 
     items = Hydra::EmbargoService.assets_with_expired_embargoes
+    RakeLogger.info "Number of items that have expired embargoes: #{items.count}"
+    count = 0
     items.each do |item|
-      item.deactivate_embargo! if item.embargo_release_date
+      RakeLogger.info "clear expired embargo for #{item.id}"
       item.embargo_visibility!
+      item.embargo_release_date = nil if item.embargo_release_date
       item.embargo.save!
       item.save!
+      count = count + 1 if GenericFile.find(item.id).embargo_release_date.nil?
     end
+    RakeLogger.info "Number of items which lapsed embargo has been lifted: #{count}"
   end
 
   desc "Update Resource Type for selected collections"
@@ -27,7 +31,7 @@ namespace :hydranorth do
       if numFound == 1
         id = solr_rsp['response']['docs'].first['id']
       else
-        logger.error "Number of Collection retrieved by #{uuid} is incorrect: #{numFound}"
+        RakeLogger.error "Number of Collection retrieved by #{uuid} is incorrect: #{numFound}"
       end
       Collection.find(id).member_ids.each do |fid|
         file = GenericFile.find(fid)
@@ -148,7 +152,7 @@ namespace :hydranorth do
         Sufia.queue.push(CreateDerivativesJob.new id)
       rescue Exception => e  
         errors += 1
-        logger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"  
+        RakeLogger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"  
       end
     end
 
@@ -174,7 +178,7 @@ namespace :hydranorth do
         end
       rescue Exception => e
         errors += 1
-        logger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"
+        RakeLogger.error "Error processing document: #{id}\r\n#{e.message}\r\n#{e.backtrace.inspect}"
       end
     end
   end
