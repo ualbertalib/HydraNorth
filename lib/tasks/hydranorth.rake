@@ -9,6 +9,7 @@ namespace :hydranorth do
     RakeLogger.info "********START remove_lapsed_embargoes ********" 
     items = Hydra::EmbargoService.assets_with_expired_embargoes
     RakeLogger.info "Number of items that have expired embargoes: #{items.count}"
+    puts "Number of items that have expired embargoes: #{items.count}"
     count = 0
     items.each do |item|
       RakeLogger.info "clear expired embargo for #{item.id}"
@@ -19,6 +20,7 @@ namespace :hydranorth do
       count = count + 1 if GenericFile.find(item.id).embargo_release_date.nil?
     end
     RakeLogger.info "Number of items which lapsed embargo has been lifted: #{count}"
+    puts "Number of items that have expired embargoes: #{items.count}"
   end
 
   desc "Update Resource Type for selected collections"
