@@ -7,13 +7,11 @@
         <a href="<%= collections.collection_path(community) %>" class="col-sm-9"><%= community.title %></a>
         <a href="<%= '#'+community.id %>" class="collection-drop col-sm-3" data-toggle="collapse"><span class="glyphicon glyphicon-th-list"></span>view collections</a>
       </li>
-      <% if 0 < count_collections_in_community(community.id) %>
         <ul class="inner-collections collapse" id="<%= community.id %>" aria-expanded="false" style="height: 0px;">
           <% collections_in_community(community.id).each do |collection| %>
             <li><%= link_to collection.title, collections.collection_path(collection) %></li>
           <% end %>
         </ul>
-      <% end %>
     <% end %>
   </ul>
 <% end %>
