@@ -37,6 +37,11 @@ module Hydranorth::Collections::SelectsCollections
    end
  end
 
+ def find_collections_grouped_by_community(access_level = nil)
+   find_collections(access_level)
+   @grouped_user_collections = @user_collections.group_by { |c| c["#{Solrizer.solr_name('belongsToCommunity')}"] }
+ end
+
  # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed
  def find_communities(access_level = nil)
     # need to know the user if there is an access level applied otherwise we are just doing public collections
