@@ -16,14 +16,18 @@ class Ability
           can? :read, obj
         end
       end
-      can :create, ::Collection if user_groups.include? 'registered'
-      cannot :destroy, ::Collection do |obj|
-        obj.is_official?
-      end unless admin?
+      cannot :create, ::Collection 
+      cannot :destroy, ::Collection unless admin?
       cannot :manage, ::Collection do |obj|
         obj.is_admin_set?
       end unless admin? 
       can :manage, :all if admin?
+    end
+
+    # modified from ability.rb in sufia-models, to force override
+    def generic_file_abilities
+      can :view_share_work, [GenericFile]
+      can :create, [GenericFile] if registered_user?
     end
 
     # callback run at download time to check with CanCan whether or not the user

@@ -27,6 +27,8 @@ en:
   unauthorized:
     ccid_required: "Please sign in using your CCID"
     # for cancan from https://github.com/ryanb/cancan/wiki/exception-handling
+    create:
+      collection: "You are not authorized to create collections. Please contact erahelp@ualberta.ca to request a new collection."
     manage:
       all: "This item is restricted to users with a University of Alberta CCID. Please login in with your CCID to view this item."
   sufia:

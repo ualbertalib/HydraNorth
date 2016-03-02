@@ -89,12 +89,12 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:create, GenericFile) }
     it { is_expected.to be_able_to(:edit, file) }
     it { is_expected.to be_able_to(:update, file) }
-    it { is_expected.to_not be_able_to(:destroy, file) }
+    it { is_expected.not_to be_able_to(:destroy, file) }
 
-    it { is_expected.to be_able_to(:create, Collection) }
+    it { is_expected.not_to be_able_to(:create, Collection) }
     it { is_expected.to be_able_to(:edit, collection) }
     it { is_expected.to be_able_to(:update, collection) }
-    it { is_expected.to be_able_to(:destroy, collection) }
+    it { is_expected.not_to be_able_to(:destroy, collection) }
 
     it { is_expected.to be_able_to(:update, official_collection) }
     it { is_expected.to be_able_to(:edit, official_collection) }
@@ -166,7 +166,7 @@ describe Ability, :type => :model do
   
  describe "a registered user that is not the owner of the collections" do
     subject { Ability.new(user2) }
-    it { is_expected.to be_able_to(:create, Collection) }
+    it { is_expected.not_to be_able_to(:create, Collection) }
     it { is_expected.to be_able_to(:update, official_collection) }
     it { is_expected.to be_able_to(:edit, official_collection) }
     it { is_expected.not_to be_able_to(:destroy, official_collection) }
@@ -183,7 +183,7 @@ describe Ability, :type => :model do
 
   describe "a registered user that is not the owner of the collections" do
     subject { Ability.new(user2) }
-    it { is_expected.to be_able_to(:create, Collection) }
+    it { is_expected.not_to be_able_to(:create, Collection) }
     it { is_expected.to be_able_to(:update, official_collection) }
     it { is_expected.to be_able_to(:edit, official_collection) }
     it { is_expected.not_to be_able_to(:destroy, official_collection) }
