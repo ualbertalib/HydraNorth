@@ -3,6 +3,14 @@ class UsersController < ApplicationController
 
   skip_before_filter :force_account_link, only: [:link_account, :set_saml]
 
+  def index
+    if current_user.nil? || !current_user.admin?
+      redirect_to sufia.dashboard_index_path, alert: "Permission denied: cannot access this page."
+    else
+      super
+    end
+  end
+ 
   def edit
     @user = User.from_url_component(params[:id])
     @trophies = @user.trophy_files
