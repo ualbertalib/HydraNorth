@@ -63,6 +63,7 @@ Hydranorth::Application.routes.draw do
   get 'browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
+  get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
 
 
