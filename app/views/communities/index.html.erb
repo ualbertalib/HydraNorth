@@ -1,10 +1,19 @@
 <h2>Communities</h2>
-
-	<ul class="communities">
-		<% @user_communities.each do |c| %>
-			<li class="col-sm-3 col-md-2">
-				<%= link_to c.title, collections.collection_path(c) %>
-			</li>
-		<% end %>
-	</ul>
-
+<% left,right = @user_communities.each_slice( (@user_communities.size/2.0).round ).to_a %>
+<% for col in [left,right] %>
+  <ul class="communities col-sm-6">
+    <% col.each do |community| %>
+      <li class="row">
+        <a href="<%= collections.collection_path(community) %>" class="col-sm-9"><%= community.title %></a>
+        <a href="<%= '#'+community.id %>" class="collection-drop col-sm-3" data-toggle="collapse"><span class="glyphicon glyphicon-th-list"></span>view collections</a>
+      </li>
+      <% if @grouped_user_collections.has_key?([community.id]) %>
+        <ul class="inner-collections collapse" id="<%= community.id %>" aria-expanded="false" style="height: 0px;">
+          <% @grouped_user_collections[[community.id]].each do |collection| %>
+            <li><%= link_to collection.title, collections.collection_path(collection) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
