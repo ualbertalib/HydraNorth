@@ -332,7 +332,7 @@ describe 'collection', :type => :feature do
       visit "/collections/#{community.id}/edit"
     end
 
-    it "should set Official and Communityi flags" do
+    it "should set Official and Community flags" do
       visit "/collections/#{community.id}/edit"
 
       expect(page).to have_content("Official")
@@ -355,6 +355,35 @@ describe 'collection', :type => :feature do
 
       visit "/communities"
       expect(page).not_to have_content("Test Community")
+    end
+  end
+
+  describe 'create collection' do
+    let(:admin) { FactoryGirl.create :admin }
+    let!(:user)  { FactoryGirl.create :jill }
+    context 'admin logged in' do
+      it 'should allow admin to create collection' do
+        sign_in admin
+        expect { visit '/collections/new' }.to_not raise_error
+        visit '/collections/new'
+        expect(page).to_not have_content "You are not authorized to create collections. Please contact erahelp@ualberta.ca to request a new collection."
+        expect(page).to have_content("Create New Collection")
+      end
+    end
+    context 'user logged in' do
+      it 'should not allow user to create collection' do
+        sign_in user 
+        visit '/collections/new'
+        expect(page).to_not have_content("Create New Collection")
+        expect(page).to have_content "You are not authorized to create collections. Please contact erahelp@ualberta.ca to request a new collection."
+      end
+    end
+    context 'not logged in' do
+      it 'should not allow guest to create collection' do
+        logout
+        visit '/collections/new'
+        expect(page).to have_content "You need to sign in or sign up before continuing."
+      end
     end
   end
 
