@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rest-client'
 
 describe Collection do
 
@@ -13,7 +14,7 @@ describe Collection do
   end
   let(:another_collection) { FactoryGirl.create(:collection) }
 
-  before do
+  before :each do
     subject.title = 'A title'
     subject.apply_depositor_metadata(user.user_key)
     subject.save
@@ -87,6 +88,16 @@ describe Collection do
     subject.belongsToCommunity = ["adsfsfsd"]
     subject.save
     expect(subject.belongsToCommunity?).to be true
+  end
+
+  it "should not insert a hasCollection_ref instead of hasCollection" do
+    subject.add_member_ids [file.id]
+    response_code, xml = Hydranorth::RawFedora.get(file.id, '/fcr:export', format: 'jcr/xml')
+
+    expect(response_code).to eq 200
+    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection"]')).not_to be_empty
+    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection_ref"]')).to be_empty
+    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection"]').first.inner_text).to eq 'A title'
   end
 
 end
