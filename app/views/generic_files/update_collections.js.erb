@@ -1,0 +1,1 @@
+$(".collection-select").empty().append("<%= escape_javascript(render(:partial => 'filtered_collections', :locals => { :r => @filtered_collections })) %>");
