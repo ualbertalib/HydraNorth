@@ -32,7 +32,7 @@ function update_collections() {
 
 
 $(function() {
-	// ensure collection optionss match selected community on page load
+	// ensure collection options match selected community on page load
 	update_collections();
 	
 	$('#generic_file_belongsToCommunity').change(function() {
