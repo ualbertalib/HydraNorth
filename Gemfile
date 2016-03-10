@@ -71,8 +71,6 @@ gem 'sitemap'
 
 gem 'noid', '~> 0.8'
 
-gem 'ezid-client'
-
 group :test do
   gem "rspec-rails"
   gem "rspec-its"

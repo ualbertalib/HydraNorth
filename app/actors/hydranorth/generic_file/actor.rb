@@ -49,15 +49,6 @@ module Hydranorth
         create_metadata(batch_id)
       end
 
-      def destroy
-        generic_file.destroy
-        FeaturedWork.where(generic_file_id: generic_file.id).destroy_all
-
-        ezid = Hydranorth::EzidService.new()
-        ezid.delete(generic_file)
-
-        Sufia.config.after_destroy.call(generic_file.id, user) if Sufia.config.respond_to?(:after_destroy)
-      end
 
     end
   end

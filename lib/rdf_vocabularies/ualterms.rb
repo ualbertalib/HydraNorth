@@ -12,8 +12,6 @@ class UALTerms < RDF::Vocabulary("http://terms.library.library.ca/identifiers/")
   term :year_created
   term :thesiscommitteemember,
     label: "Thesis Committee Member for ETD"
-  term :ark_created
-  term :ark_id
 
   term :specialization
   term :graduationdate
