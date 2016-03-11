@@ -16,11 +16,8 @@ class Ability
           can? :read, obj
         end
       end
-      cannot :create, ::Collection 
-      cannot :destroy, ::Collection unless admin?
-      cannot :manage, ::Collection do |obj|
-        obj.is_admin_set?
-      end unless admin? 
+      cannot :manage, ::Collection
+      can [:read, :update], ::Collection
       can :manage, :all if admin?
     end
 
