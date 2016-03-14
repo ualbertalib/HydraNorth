@@ -44,6 +44,9 @@ module Hydranorth
     def edit_form
       find_collections_with_read_access
       find_communities_with_read_access
+
+      @community_collections = collections_for_community(@generic_file.belongsToCommunity.first)
+
       if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
         Hydranorth::Forms::CstrEditForm.new(@generic_file)
       elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
