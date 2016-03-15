@@ -13,6 +13,7 @@
                 <th>Files Deposited</th> 
                 <% if current_user && current_user.admin? %>
                   <th>Status</th>
+                  <th>Action</th>
                 <% end %>
             </tr> 
         </thead> 
@@ -26,6 +27,7 @@
                    <td><%= number_of_deposits(user) %> </td>
                    <% if current_user && current_user.admin? %>
                      <td><%= !user.confirmed? ? 'Not Confirmed' : user.access_locked? ? 'Deactivated' : 'Registered' %></td>
+                     <td><%= link_to "Login As",  admin_become_index_path(id: user.email) %></td>
                    <% end %>
                 </tr> 
              <% end %> 
