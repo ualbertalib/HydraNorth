@@ -28,6 +28,7 @@ class Ability
     def generic_file_abilities
       can :view_share_work, [GenericFile]
       can :create, [GenericFile] if registered_user?
+      can :update_collections, GenericFile
     end
 
     # callback run at download time to check with CanCan whether or not the user
