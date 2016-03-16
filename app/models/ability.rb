@@ -17,7 +17,10 @@ class Ability
         end
       end
       cannot :manage, ::Collection
-      can [:read, :update], ::Collection
+      can :read, ::Collection
+      can :update, ::Collection do |c|
+        c.edit_users.include?(@current_user) || (c.is_official? && !c.is_admin_set?)
+      end
       can :manage, :all if admin?
     end
 
