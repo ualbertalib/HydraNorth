@@ -6,28 +6,24 @@
 <% registered_perm = f.object.permissions.map { |perm| perm.access if perm.agent_name == "registered"}.compact.first %>
 
 
-  <h3>Add Item to Communities and Collections</h3>
-  <div class="row">
+<h3>Add Item to Communities and Collections</h3>
+<div class="row">
     <div class="col-xs-6">
-      <div class="container-community-group">
+        <div class="container-community-group">
 
-       <div id="community-group-1" class="community-group"> 
-      <%= f.input_label :belongsToCommunity, as: :multi_value, label: "Community" %>
-      <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) && (@form[:resource_type].include? Sufia.config.special_types['ser']) %>
-        <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1' } %>
-      <% else %>
-        <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1', :required => true} %>
-      <% end %>
-      <%= f.input_label :hasCollectionId, as: :multi_value, label: "Collection" %>
-      <%= f.collection_select :hasCollectionId, @user_collections, :id, :title, {:include_blank => true}, {:name => "generic_file[hasCollectionId][]", :class => 'form-control collection-select community-group-1' } %>
-      </div>
-
-<div id="additional">
-</div>
-   <button type="button" class="btn btn-success add_collection_group"><i class="icon-white glyphicon-plus"></i><span> Add another Community/Collection group</span></button> 
+            <div id="community-group-1" class="community-group">
+                <%= f.input_label :belongsToCommunity, as: :multi_value, label: "Community" %>
+                <% if (@form[:resource_type].include? Sufia.config.special_types['cstr']) && (@form[:resource_type].include? Sufia.config.special_types['ser']) %>
+                    <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1' } %>
+                <% else %>
+                    <%= f.collection_select :belongsToCommunity, @user_communities, :id, :title, {:include_blank => true}, {:name => "generic_file[belongsToCommunity][]", :class => 'form-control community-select community-group-1', :required => true} %>
+                <% end %>
+                <%= f.input_label :hasCollectionId, as: :multi_value, label: "Collection" %>
+                <%= f.collection_select :hasCollectionId, @user_collections, :id, :title, {:include_blank => true}, {:name => "generic_file[hasCollectionId][]", :class => 'form-control collection-select community-group-1' } %>
+            </div>
+        </div>
     </div>
-  </div>
-   <div class="col-xs-5">
-     <p class="help-block">Items must be associated with at least one ERA Community. This association will apply to ALL THE FILES that you just uploaded. You can change individual file associations once the upload process is complete</p>
-   </div>
+    <div class="col-xs-5">
+        <p class="help-block">Items must be associated with at least one ERA Community. This association will apply to ALL THE FILES that you just uploaded. You can change individual file associations once the upload process is complete</p>
+    </div>
 </div>

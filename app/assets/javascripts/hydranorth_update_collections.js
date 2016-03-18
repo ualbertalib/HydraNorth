@@ -4,18 +4,18 @@ function update_collections() {
 	// here. A custom data attribute would likely be a better choice.
 	// I don't want to delay the bugfix to clean this up, though -- MB
 	if (!($('.community-select').attr('class'))) return;
-	
+
 	currentClass = $('.community-select').attr('class').split(' ');
-	
+
 	var index;
-	
+
 	$.each(currentClass, function(i, v) {
-		
+
 		if (v.match(/community-group/)) {
 			index = v
 		}
 	});
-	
+
 	$.ajax({
 		url: 'update_collections',
 		type: 'GET',
@@ -32,12 +32,8 @@ function update_collections() {
 
 
 $(function() {
-	// ensure collection options match selected community on page load
-	update_collections();
-	
 	$('#generic_file_belongsToCommunity').change(function() {
 		// Reload collections when the community selection is changed.
 		update_collections();
 	});
 });
-

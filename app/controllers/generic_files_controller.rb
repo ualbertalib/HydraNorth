@@ -14,7 +14,7 @@ class GenericFilesController < ApplicationController
 
   # on edit pages required to filter collections based on selected community
   def update_collections
-    @filtered_collections = find_filtered_collections_sorted
+    @filtered_collections = collections_for_community(params[:community_id])
     @index = params[:index]
     respond_to do |format|
       format.js {}
