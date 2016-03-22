@@ -95,9 +95,14 @@ describe Collection do
     response_code, xml = Hydranorth::RawFedora.get(file.id, '/fcr:export', format: 'jcr/xml')
 
     expect(response_code).to eq 200
-    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection"]')).not_to be_empty
-    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection_ref"]')).to be_empty
-    expect(xml.xpath('//sv:property[@sv:name="ns002:hasCollection"]').first.inner_text).to eq 'A title'
+
+    namespace = xml.collect_namespaces.invert['http://terms.library.library.ca/identifiers/']
+    expect(namespace).not_to eq nil
+
+    namespace = namespace.gsub(/xmlns:/, '')
+    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|)).not_to be_empty
+    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection_ref"]|)).to be_empty
+    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|).first.inner_text).to eq 'A title'
   end
 
 end
