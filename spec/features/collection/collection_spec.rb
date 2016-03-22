@@ -19,83 +19,43 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
 
-  describe 'community landing page as user' do
+  describe 'Add logo to community', :js => true do
+    let!(:community_logo) do
+      Collection.create( title: 'Test Community') do |c|
+        c.add_file(File.open(fixture_path + '/world.png'), path: 'logo', original_name: 'world.png', mime_type: 'image/png')
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = true
+        c.is_official = false
+        c.is_admin_set = false
+      end
+    end
+
     let!(:community) do
-      Collection.create( title: 'Test Community' ) do |c|
+      Collection.create( title: 'Test Community') do |c|
         c.apply_depositor_metadata(jill.user_key)
         c.is_community = true
-        c.description = "Community Description" 
-      end
-    end
-
-    let!(:public_file) do
-      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
-        g.apply_depositor_metadata(jill.user_key)
-        g.resource_type = ["Book"]
-        g.belongsToCommunity = [community.id]
+        c.is_official = false
+        c.is_admin_set = false
       end
     end
 
     before do
-      visit "/collections/#{community.id}"
+      sign_in admin
     end
 
-    it "should have following features" do
-      expect(page).to have_link('View Communities')
-      expect(page).to have_button('Description')
-      expect(page).to have_content(community.description)
-      expect(page).to have_content('Collections and items in this Community')
-      expect(page).to have_content("Download")
-      expect(page).to_not have_css("input#collection_search")
-      within("#facets") do
-        within("#facet-resource_type_sim") do
-          expect(page).to have_content("Book")
-        end
-      end
-    end
-  end
+    it "should have logo field" do
+      visit "/collections/#{community_logo.id}/edit"
 
-  describe 'collection landing page as user' do
-   let!(:community) do
-      Collection.create( title: 'Test Community' ) do |c|
-        c.apply_depositor_metadata(jill.user_key)
-        c.is_community = true
-        c.description = "Community Description"
+      within "#descriptions_display" do
+        expect(page).to have_selector(:css, "input#collection_logo", visible: false)
       end
     end
 
-    let!(:collection) do
-      Collection.create( title: 'Test Collection' ) do |c|
-        c.apply_depositor_metadata(jill.user_key)
-        c.description = "Collection Description"
-      end
-    end
+    it "should not have logo field" do
+      visit "/collections/#{community.id}/edit"
 
-    let!(:public_file) do
-      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
-        g.resource_type = ["Book"]
-        g.apply_depositor_metadata(jill.user_key)
-        g.resource_type = ["Book"]
-        g.belongsToCommunity = [community.id]
-        g.hasCollectionId = [collection.id]
-      end
-    end
-
-    before do
-      visit "/collections/#{collection.id}"
-    end
-
-    it "should have following features" do
-      expect(page).to have_button('Description')
-      expect(page).to have_content(collection.description)
-      expect(page).to have_content('Items in this Collection')
-      expect(page).to have_content("Download")
-      expect(page).to have_css("input#collection_search")
-      expect(page).to have_content("Item Type")
-      within("#facets") do
-        within("#facet-resource_type_sim") do
-          expect(page).to have_content("Book")
-        end
+      within "#descriptions_display" do
+        expect(page).to have_selector(:css, "input#collection_logo", visible: false)
       end
     end
   end
@@ -286,6 +246,15 @@ describe 'collection', :type => :feature do
       visit "/collections/#{collection_modify.id}"
     end
 
+    it "should not have edit and delete options" do
+      expect(page).to have_content(generic_file.title.first)
+      click_button("Select an action")
+
+      expect(page).to have_content("Test Item")
+      expect(page).to have_content("Download File")
+      expect(page).not_to have_content("Edit File")
+    end
+
     it 'should have a working search field' do
 
       fill_in 'collection_search', with: 'asdf'
@@ -405,7 +374,7 @@ describe 'collection', :type => :feature do
       visit "/collections/#{community.id}/edit"
     end
 
-    it "should set Official and Communityi flags" do
+    it "should set Official and Community flags" do
       visit "/collections/#{community.id}/edit"
 
       expect(page).to have_content("Official")
@@ -428,6 +397,27 @@ describe 'collection', :type => :feature do
 
       visit "/communities"
       expect(page).not_to have_content("Test Community")
+    end
+  end
+
+  describe 'create collection' do
+    let(:admin) { FactoryGirl.create :admin }
+    let!(:user)  { FactoryGirl.create :jill }
+    context 'admin logged in' do
+      it 'should allow admin to create collection' do
+        sign_in admin
+        expect { visit '/collections/new' }.to_not raise_error
+        visit '/collections/new'
+        expect(page).to_not have_content "You are not authorized to create collections. Please contact erahelp@ualberta.ca to request a new collection."
+        expect(page).to have_content("Create New Collection")
+      end
+    end
+    context 'not logged in' do
+      it 'should not allow guest to create collection' do
+        logout
+        visit '/collections/new'
+        expect(page).to have_content "You need to sign in or sign up before continuing."
+      end
     end
   end
 

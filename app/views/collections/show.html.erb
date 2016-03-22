@@ -11,12 +11,9 @@
           <%= sanitize @presenter.description %>
         </div>
       </header>
-      <% unless has_collection_search_parameters? %>
-      <%= render 'collections/show_descriptions' %>
-      <% end %>
     </div>
     <div class="col-sm-2">
-      <%= render partial: 'collections/media_display', locals: { generic_file: @collection } %> 
+      <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
       <% unless has_collection_search_parameters? %>
       <%= render partial: 'collections/show_actions' %>
       <% end %>
@@ -33,9 +30,6 @@
           <%= sanitize @presenter.description %>
         </div>
       </header>
-      <% unless has_collection_search_parameters? %>
-      <%= render 'collections/show_descriptions' %>
-      <% end %>
     </div>
     <div>
       <% unless has_collection_search_parameters? %>

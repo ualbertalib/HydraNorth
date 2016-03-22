@@ -9,6 +9,7 @@ module Hydranorth
     include Hydra::Collections::Collectible
     include Hydra::AccessControls::Permissions
     include Hydra::Collections::Metadata
+    include Hydranorth::Collections::Logo
 
     included do
       before_save :remove_self_from_members, :update_permissions

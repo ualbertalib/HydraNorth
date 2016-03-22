@@ -27,6 +27,22 @@ $(document).ready(function(){
  	var randomSlide2 = images2[Math.floor(Math.random() * images.length)];
  	$('#slide2').addClass(randomSlide2);
 
+        if ($("#descriptions_display").length){
+                var checkbox = document.getElementById('collection_is_community');
+                var logo_div = document.getElementById('logo');
+
+                if (checkbox.checked) {
+                  logo_div.style['display'] = 'block';
+                }
+
+                checkbox.onchange = function() {
+                if(this.checked) {
+                  logo_div.style['display'] = 'block';
+                } else {
+                  logo_div.style['display'] = 'none';
+                }};
+        }
+
  	if ($("#generic_file_license").length){
                 $("#generic_file_license").change(function() {
                 	if ($("#generic_file_license").val()=="I am required to use/link to a publisher's license") {
