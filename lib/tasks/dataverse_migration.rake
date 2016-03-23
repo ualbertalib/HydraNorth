@@ -134,7 +134,7 @@ namespace :migration do
 
       # add other metadata to the new object
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
+      file_attributes = {"resource_type"=>[type], "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
@@ -166,6 +166,9 @@ namespace :migration do
         sleep 0.01
         retry
       end
+      #save creators seperately to keep the order of the authors
+      @generic_file.creator = creators
+      @generic_file.save
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to community dataverse"
