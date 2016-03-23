@@ -1,5 +1,9 @@
 Hydranorth::Application.routes.draw do
   
+  namespace :admin do
+  get 'become/index'
+  end
+
   blacklight_for :catalog
   devise_for :users, :controllers => { :sessions => 'users/sessions',:omniauth_callbacks => "users/omniauth_callbacks" }
 
