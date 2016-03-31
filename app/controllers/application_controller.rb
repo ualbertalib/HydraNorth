@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  around_filter :profile, if: -> {Rails.env.development? && params[:trace] == "1"}
+
   before_filter :force_account_link,
                 if: -> { @current_user && @current_user.link_pending? }
 
@@ -22,9 +24,24 @@ class ApplicationController < ActionController::Base
      render_404 exception
   end
 
+  def profile
+    require 'ruby-prof'
+
+    RubyProf.start
+
+    yield
+
+    results = RubyProf.stop
+
+    File.open "#{Rails.root}/profile-stack.html", 'w' do |file|
+        RubyProf::CallStackPrinter.new(results).print(file)
+    end
+  end
+
+
   def after_sign_in_path_for(resource)
     if current_user.admin?
-      stored_location_for(resource) || root_path 
+      stored_location_for(resource) || root_path
     else
       stored_location_for(resource) || sufia.dashboard_index_path || root_path
     end

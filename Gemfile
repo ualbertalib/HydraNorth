@@ -76,6 +76,7 @@ group :test do
   gem "rspec-its"
   gem "ci_reporter_rspec"
 end
+
 group :development, :test do
   gem "byebug"
   gem "ruby-debug-passenger"
@@ -93,4 +94,5 @@ group :development, :test do
   gem 'pry-byebug'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'ruby-prof'
 end
