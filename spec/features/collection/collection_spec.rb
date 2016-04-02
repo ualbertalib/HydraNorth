@@ -18,88 +18,6 @@ describe 'collection', :type => :feature do
   after :each do
     cleanup_jetty
   end
-
-  describe 'community landing page as user' do
-    let!(:community) do
-      Collection.create( title: 'Test Community' ) do |c|
-        c.apply_depositor_metadata(jill.user_key)
-        c.is_community = true
-        c.description = "Community Description" 
-      end
-    end
-
-    let!(:public_file) do
-      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
-        g.apply_depositor_metadata(jill.user_key)
-        g.resource_type = ["Book"]
-        g.belongsToCommunity = [community.id]
-      end
-    end
-
-    before do
-      visit "/collections/#{community.id}"
-    end
-
-    it "should have following features" do
-      expect(page).to have_link('View Communities')
-      expect(page).to have_button('Description')
-      expect(page).to have_content(community.description)
-      expect(page).to have_content('Collections and items in this Community')
-      expect(page).to have_content("Download")
-      expect(page).to_not have_css("input#collection_search")
-      within("#facets") do
-        within("#facet-resource_type_sim") do
-          expect(page).to have_content("Book")
-        end
-      end
-    end
-  end
-
-  describe 'collection landing page as user' do
-   let!(:community) do
-      Collection.create( title: 'Test Community' ) do |c|
-        c.apply_depositor_metadata(jill.user_key)
-        c.is_community = true
-        c.description = "Community Description"
-      end
-    end
-
-    let!(:collection) do
-      Collection.create( title: 'Test Collection' ) do |c|
-        c.apply_depositor_metadata(jill.user_key)
-        c.description = "Collection Description"
-      end
-    end
-
-    let!(:public_file) do
-      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
-        g.resource_type = ["Book"]
-        g.apply_depositor_metadata(jill.user_key)
-        g.resource_type = ["Book"]
-        g.belongsToCommunity = [community.id]
-        g.hasCollectionId = [collection.id]
-      end
-    end
-
-    before do
-      visit "/collections/#{collection.id}"
-    end
-
-    it "should have following features" do
-      expect(page).to have_button('Description')
-      expect(page).to have_content(collection.description)
-      expect(page).to have_content('Items in this Collection')
-      expect(page).to have_content("Download")
-      expect(page).to have_css("input#collection_search")
-      expect(page).to have_content("Item Type")
-      within("#facets") do
-        within("#facet-resource_type_sim") do
-          expect(page).to have_content("Book")
-        end
-      end
-    end
-  end
-
   describe 'total item count for a collection with 1 public item and 1 private item' do
     let(:alice) { FactoryGirl.find_or_create(:alice) }
 
@@ -284,6 +202,15 @@ describe 'collection', :type => :feature do
 
     before do
       visit "/collections/#{collection_modify.id}"
+    end
+
+    it "should not have edit and delete options" do
+      expect(page).to have_content(generic_file.title.first)
+      click_button("Select an action")
+
+      expect(page).to have_content("Test Item")
+      expect(page).to have_content("Download File")
+      expect(page).not_to have_content("Edit File")
     end
 
     it 'should have a working search field' do

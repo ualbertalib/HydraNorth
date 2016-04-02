@@ -1,100 +1,40 @@
 <% @page_title = "#{@collection.title} - #{application_name}" %>
 
-<% if @collection.is_community == true or @collection.is_community == "true" %>
-  <a href="/communities">View Communities</a>
+<%= render_breadcrumbs builder: Sufia::BootstrapBreadcrumbsBuilder %>
+
   <div itemscope itemtype="http://schema.org/CollectionPage" class="row">
     <div class="col-sm-10 pull-right">
       <header>
         <h1><%= @presenter.title %></h1>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#description">Description</button>
-        <div id="description" class="collapse">
-          <%= sanitize @presenter.description %>
-        </div>
+        <%= render_collection_list(@collection) %>
+        <p class="collection_description"><%= @presenter.description %></p>
       </header>
       <% unless has_collection_search_parameters? %>
       <%= render 'collections/show_descriptions' %>
       <% end %>
     </div>
     <div class="col-sm-2">
-      <%= render partial: 'collections/media_display', locals: { generic_file: @collection } %> 
+      <%= render partial: 'collections/media_display', locals: { generic_file: @collection } %>
       <% unless has_collection_search_parameters? %>
       <%= render partial: 'collections/show_actions' %>
       <% end %>
     </div>
   </div>
+
+<%= render 'sort_and_per_page' %>
+
+<% if has_collection_search_parameters? %>
+    <% header_title = "Search Results within this Collection" %>
 <% else %>
-  <%= render_collection_list(@collection) %>
-  <div itemscope itemtype="http://schema.org/CollectionPage" class="row">
-    <div>
-      <header>
-        <h1><%= @presenter.title %></h1>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#description">Description</button>
-        <div id="description" class="collapse">
-          <%= sanitize @presenter.description %>
-        </div>
-      </header>
-      <% unless has_collection_search_parameters? %>
-      <%= render 'collections/show_descriptions' %>
-      <% end %>
-    </div>
-    <div>
-      <% unless has_collection_search_parameters? %>
-      <%= render partial: 'collections/show_actions' %>
-      <% end %>
-    </div>
-  </div>
+    <% header_title = "Items in this Collection" %>
 <% end %>
 
-<% if @collection.is_community == true or @collection.is_community == "true" %>
-  <% if has_collection_search_parameters? %>
-      <% header_title = "Search Results within this Community" %>
-  <% else %>
-      <% header_title = "Collections and items in this Community" %>
-  <% end %>
-<% else %>
-  <% if has_collection_search_parameters? %>
-      <% header_title = "Search Results within this Collection" %>
-  <% else %>
-      <% header_title = "Items in this Collection" %>
-  <% end %>
-<% end %>
+<div>
+  <!-- Use CSS class h2 rather than HTML h2 tag to allow header and search box to align vertically -->
+  <span class="h2"><%= header_title %></span>
+  <%= render partial: 'search_form'%>
+</div>
 
-<% if @collection.is_community == true or @collection.is_community == "true" %>
-  <div>
-    <!-- Use CSS class h2 rather than HTML h2 tag to allow header and search box to align vertically -->
-    <span class="h2"><%= header_title %></span>
-  </div>
-<% else %>
-  <div>
-    <!-- Use CSS class h2 rather than HTML h2 tag to allow header and search box to align vertically -->
-    <span class="h2"><%= header_title %></span>
-    <%= render partial: 'search_form'%>
-  </div>
-<% end %>
-
-<% if current_user.nil? %>
-  <div id="sidebar" class="col-md-3 col-sm-4">
-    <%= render 'facets' %>
-  </div>
-
-  <div id="content" class="col-md-9 col-sm-8">
-    <%= render 'document_list' %>
-  </div>
-<% else %>
-  <% if current_user.admin? %>
-    <%= render partial: 'show_document_list' %>
-
-  <% else %>a
-    <div id="sidebar" class="col-md-3 col-sm-4">
-      <%= render 'facets' %>
-    </div>
-
-    <div id="content" class="col-md-9 col-sm-8">
-      <div id="content" class="col-md-9 col-sm-8">
-        <%= render 'search_results' %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<%= render_document_index @member_docs %>
 
 <%= render partial: 'paginate' %>
