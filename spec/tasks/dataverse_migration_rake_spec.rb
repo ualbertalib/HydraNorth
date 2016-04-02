@@ -10,9 +10,10 @@ describe "Migration rake tasks" do
   end
 
   before do
+    load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
     load File.expand_path("../../../lib/tasks/dataverse_migration.rake", __FILE__)
   end
-
+=begin
   describe "migration:dataverse" do
     before do
       Collection.delete_all
@@ -36,10 +37,11 @@ describe "Migration rake tasks" do
       @dataverse_datasets.delete
     end
     subject { @file }
-    it "dataverse item should be migrated" do
+    it "dataverse item should be migrated and expect original creator order" do
       expect(subject.remote_resource).to eq "dataverse" 
       expect(subject.publisher).to include("University of Alberta Libraries")
-    end 
+      expect(subject.creator).to eq ["Gaffield, Chad", "Baskerville, Peter", "St-Hilaire, Marc", "Amrhein, Carl", "Cadigan, Sean", "Moldofsky, Byron", "Darroch, Gordon", "Bellavance, Claude", "Normand, France"]
+    end
 
     describe 'catalog searching', :type => :feature do
       before do
@@ -54,7 +56,43 @@ describe "Migration rake tasks" do
     end
 
   end
+=end
+  describe "migration:dataverse_objects" do
+    before do
+      @new_file = GenericFile.new(title:['test generic dataverse file']).tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.identifier = ['doi:10.7939/DVN/10161']
+        c.publisher = ['publisher']
+        c.save
+      end
+      Collection.delete_all
+      @dataverse_datasets = Collection.new(title: "Dataverse Datasets").tap do |c|
+        c.apply_depositor_metadata('dittest@ualberta.ca')
+        c.is_community = true
+        c.is_official = true
+        c.save
+      end
+      Rake::Task.define_task(:environment)
+      Rake::Task["migration:dataverse_objects"].invoke('spec/fixtures/migration/test-metadata/dataverse')
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id' }
+      doc = result["response"]["docs"].first
+      id = doc["id"]
+      @file = GenericFile.find(id)
 
+    end
+    after do
+      Rake::Task["migration:dataverse_objects"].reenable
+      @new_file.delete
+    end
+    subject { @file }
+    it "should update the metadata and not created new record" do
+      byebug
+      expect(subject.publisher).to include("University of Alberta Libraries")
+      expect(subject.title).to include("Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].")
+    end
+  end
+
+=begin
   describe 'migration:update_dataverse_fields' do
     before do
       GenericFile.delete_all
@@ -95,5 +133,5 @@ describe "Migration rake tasks" do
       click_button("query-button")
     end
   end
-
+=end
 end

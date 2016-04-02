@@ -48,23 +48,23 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/*/export_oai_dcterms.xml") do |file|
+    Dir.glob(metadata_dir+"/*_dcterms.xml") do |file|
     begin
-      object_id = File.dirname(file)[/(\d\d\d\d\d)/, 1]
+      object_id = File.basename(file)[/(\d\d\d\d\d)/, 1]
+      puts object_id
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
-      metadata = metadata_file.xpath("//oai_dc:dcterms",NS)
+      metadata = metadata_file.xpath("//ddi_to_dcterms",NS)
       #get the doi of the object
       identifier = metadata.xpath("dcterms:identifier", NS).text
-      
-      # check duplication in the system
-      next if duplicated?(identifier)
+      puts identifier 
   
       # set the owner id to a generic dataverse account (currently with dit.application.test@ualberta.ca email address)
       owner_id = "dit.application.test@ualberta.ca"
  
       title = metadata.xpath("dcterms:title", NS).text
+      puts title
       identifier = metadata.xpath("dcterms:identifier", NS).text
       creators = metadata.xpath("dcterms:creator/text()", NS).map(&:to_s) if metadata.xpath("dcterms:creator", NS)
       subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
@@ -79,10 +79,10 @@ namespace :migration do
       spatials = metadata.xpath("dcterms:spatial/text()",NS).map(&:to_s)
       temporals = metadata.xpath("dcterms:temporal/text()", NS).map(&:to_s)
       rights = metadata.xpath("dcterms:rights/text()", NS).map(&:to_s).join(" ")
+      puts rights
 	  
       # create the depositor
       depositor = User.find_by_email(owner_id)
-
       if !depositor
         depositor = User.new({
                :username => "dataverse",
@@ -92,6 +92,7 @@ namespace :migration do
                :group_list => "admin",
                })
       end
+     puts depositor
 
      # This is something we can discuss with stakeholders if we will create users for all creators
      #permissions_attributes = []
@@ -112,11 +113,19 @@ namespace :migration do
       # set the time
       time_in_utc = DateTime.now
 
-      # create the batch for the file upload
-      @batch_id = ActiveFedora::Noid::Service.new.mint
-      @batch = Batch.find_or_create(@batch_id)
-      # create the generic file
-      @generic_file = GenericFile.new
+      # check duplication in the system
+      if duplicated?(identifier)
+	puts "record is a duplication"
+        @generic_file = GenericFile.find(duplicated_record(identifier))
+        puts duplicated_record(identifier)
+      else
+	puts "new record"
+        # create the batch for the file upload
+        @batch_id = ActiveFedora::Noid::Service.new.mint
+        @batch = Batch.find_or_create(@batch_id)
+        # create the generic file
+        @generic_file = GenericFile.new
+      end
 	  
       # create metadata for the new object in Hydranorth
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
@@ -150,7 +159,6 @@ namespace :migration do
       end
       community = Collection.find(id) 
       @generic_file.hasCollection = [community.title]
-      
 
       # save the file
       MigrationLogger.info "Save the file"
@@ -169,6 +177,9 @@ namespace :migration do
       #save creators seperately to keep the order of the authors
       @generic_file.creator = creators
       @generic_file.save
+      puts @generic_file
+      puts @generic_file.id
+     
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Add file to community dataverse"
@@ -224,6 +235,16 @@ namespace :migration do
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
     numFound = solr_rsp['response']['numFound']
 	return true if numFound > 0
+  end
+
+  def duplicated_record(identifier)
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
+    id = nil
+    numFound = solr_rsp['response']['numFound']
+    if numFound == 1
+      id = solr_rsp['response']['docs'].first['id']
+    end
+    return id
   end
 
   def find_collection(title)
