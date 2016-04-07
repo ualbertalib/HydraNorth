@@ -95,4 +95,5 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'ruby-prof'
+  gem 'rest-client'
 end
