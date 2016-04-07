@@ -26,16 +26,14 @@ describe 'generic file new', :type => :feature do
   describe 'new item fields', js: true, :integration => true do
     before do
       visit '/'
-      Capybara.default_max_wait_time = 30
+      Capybara.default_max_wait_time = 90
     end
     it "should not allow multiple resource_type selections, but assign to an array" do
       sign_in user
       visit '/files/new'
-      within ("#local #fileupload") do
-        check('terms_of_service')
-        attach_file "files[]", [fixture_path + '/world.png']
-        click_button('main_upload_start')
-      end
+      check('terms_of_service')
+      attach_file "files[]", [fixture_path + '/world.png']
+      click_button('main_upload_start')
       expect(page).to have_xpath('//select[@name="generic_file[resource_type][]" and not(@multiple)]')
     end
   end
@@ -43,6 +41,7 @@ describe 'generic file new', :type => :feature do
   describe 'request CSTR item', js: true, :integration => true do
     before do
       visit '/'
+      Capybara.default_max_wait_time = 90
     end
     it "should have CSTR field" do
       sign_in user
@@ -58,6 +57,7 @@ describe 'generic file new', :type => :feature do
   describe 'check form fields', js: true, :integration => true do
     before do
       visit '/'
+      Capybara.default_max_wait_time = 90
     end
     it "Title and creator is blank" do
       sign_in user
@@ -67,15 +67,13 @@ describe 'generic file new', :type => :feature do
         page.attach_file "files[]", [fixture_path + '/world.png']
         click_button('main_upload_start')
       end
-      within("form#new_generic_file") do
-        expect(find_field('Description or Abstract')).to have_content ''
-        expect(find_field('Date Created')).to have_content ''
-        expect(find_field('generic_file_title')).to have_content ''
-        expect(page).to have_content 'world.png'
-        expect(find_field('Creator')).to have_content ''
-        click_button("Show Additional Descriptive Fields")
-        expect(page).not_to have_field('Identifier')
-      end
+      expect(find_field('Description or Abstract')).to have_content ''
+      expect(find_field('Date Created')).to have_content ''
+      expect(find_field('generic_file_title')).to have_content ''
+      expect(page).to have_content 'world.png'
+      expect(find_field('Creator')).to have_content ''
+      click_button("Show Additional Descriptive Fields")
+      expect(page).not_to have_field('Identifier')
     end
   end
 end

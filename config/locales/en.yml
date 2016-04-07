@@ -22,9 +22,11 @@
 en:
   hello: "Hello world"
   error:
+    become_user: "There was a problem with your request."
     ccid_link:
       invalid_email: 'The email account specified does not exist'
   unauthorized:
+    become_user: "You are not authorized to become another user.  Please login as an administrator before trying again."
     ccid_required: "Please sign in using your CCID"
     # for cancan from https://github.com/ryanb/cancan/wiki/exception-handling
     create:
