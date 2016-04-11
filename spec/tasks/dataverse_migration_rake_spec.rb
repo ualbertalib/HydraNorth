@@ -13,7 +13,6 @@ describe "Migration rake tasks" do
     load File.expand_path("../../../lib/tasks/migration.rake", __FILE__)
     load File.expand_path("../../../lib/tasks/dataverse_migration.rake", __FILE__)
   end
-=begin
   describe "migration:dataverse" do
     before do
       Collection.delete_all
@@ -56,7 +55,6 @@ describe "Migration rake tasks" do
     end
 
   end
-=end
   describe "migration:dataverse_objects" do
     before do
       @new_file = GenericFile.new(title:['test generic dataverse file']).tap do |c|
@@ -86,13 +84,11 @@ describe "Migration rake tasks" do
     end
     subject { @file }
     it "should update the metadata and not created new record" do
-      byebug
       expect(subject.publisher).to include("University of Alberta Libraries")
       expect(subject.title).to include("Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].")
     end
   end
 
-=begin
   describe 'migration:update_dataverse_fields' do
     before do
       GenericFile.delete_all
@@ -133,5 +129,4 @@ describe "Migration rake tasks" do
       click_button("query-button")
     end
   end
-=end
 end

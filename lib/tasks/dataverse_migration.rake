@@ -51,20 +51,17 @@ namespace :migration do
     Dir.glob(metadata_dir+"/*_dcterms.xml") do |file|
     begin
       object_id = File.basename(file)[/(\d\d\d\d\d)/, 1]
-      puts object_id
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
       metadata = metadata_file.xpath("//ddi_to_dcterms",NS)
       #get the doi of the object
       identifier = metadata.xpath("dcterms:identifier", NS).text
-      puts identifier 
   
       # set the owner id to a generic dataverse account (currently with dit.application.test@ualberta.ca email address)
       owner_id = "dit.application.test@ualberta.ca"
  
       title = metadata.xpath("dcterms:title", NS).text
-      puts title
       identifier = metadata.xpath("dcterms:identifier", NS).text
       creators = metadata.xpath("dcterms:creator/text()", NS).map(&:to_s) if metadata.xpath("dcterms:creator", NS)
       subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
@@ -79,7 +76,6 @@ namespace :migration do
       spatials = metadata.xpath("dcterms:spatial/text()",NS).map(&:to_s)
       temporals = metadata.xpath("dcterms:temporal/text()", NS).map(&:to_s)
       rights = metadata.xpath("dcterms:rights/text()", NS).map(&:to_s).join(" ")
-      puts rights
 	  
       # create the depositor
       depositor = User.find_by_email(owner_id)
@@ -92,7 +88,6 @@ namespace :migration do
                :group_list => "admin",
                })
       end
-     puts depositor
 
      # This is something we can discuss with stakeholders if we will create users for all creators
      #permissions_attributes = []
@@ -114,12 +109,11 @@ namespace :migration do
       time_in_utc = DateTime.now
 
       # check duplication in the system
-      if duplicated?(identifier)
-	puts "record is a duplication"
+      if doi_duplicated?(identifier)
+	MigrationLogger.info "record is a duplication"
         @generic_file = GenericFile.find(duplicated_record(identifier))
-        puts duplicated_record(identifier)
       else
-	puts "new record"
+	MigrationLogger.info "this is a new record"
         # create the batch for the file upload
         @batch_id = ActiveFedora::Noid::Service.new.mint
         @batch = Batch.find_or_create(@batch_id)
@@ -231,7 +225,7 @@ namespace :migration do
     
   end
 
-  def duplicated?(identifier)
+  def doi_duplicated?(identifier)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
     numFound = solr_rsp['response']['numFound']
 	return true if numFound > 0
