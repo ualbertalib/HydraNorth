@@ -19,7 +19,8 @@ require 'open3'
         "userns"=>"http://era.library.ualberta.ca/schema/definitions.xsd#",
         "xmlns:marcrel"=>"http://id.loc.gov/vocabulary/relators",
         "xmlns:vivo"=>"http://vivoweb.org/ontology/core",
-        "xmlns:bibo"=>"http://purl.org/ontology/bibo/"
+        "xmlns:bibo"=>"http://purl.org/ontology/bibo/",
+	"dcterms" => "http://purl.org/dc/terms/",
     }
 
 
