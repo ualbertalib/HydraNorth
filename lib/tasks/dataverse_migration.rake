@@ -153,7 +153,7 @@ namespace :migration do
       end
       community = Collection.find(id) 
       @generic_file.hasCollection = [community.title]
-
+      @generic_file.belongsToCommunity = [community.id]
       # save the file
       MigrationLogger.info "Save the file"
       save_tries = 0
@@ -176,9 +176,6 @@ namespace :migration do
      
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
-      MigrationLogger.info "Add file to community dataverse"
-      community.member_ids = community.member_ids.push(@generic_file.id)
-      community.save 
       MigrationLogger.info "Finish migrating the file"
 
       rescue Exception => e
@@ -237,6 +234,8 @@ namespace :migration do
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
+    else 
+      MigrationLogger.error "ERROR: More than one record with the DOI #{identifier} has been found! Please deduplicate the records first."
     end
     return id
   end
