@@ -16,6 +16,7 @@ describe "Migration rake tasks" do
   describe "migration:dataverse" do
     before do
       Collection.delete_all
+      GenericFile.delete_all
       @dataverse_datasets = Collection.new(title: "Dataverse Datasets").tap do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -73,6 +74,7 @@ describe "Migration rake tasks" do
       Rake::Task.define_task(:environment)
       Rake::Task["migration:dataverse_objects"].invoke('spec/fixtures/migration/test-metadata/dataverse')
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id' }
+      @numFound = result["response"]["numFound"]
       doc = result["response"]["docs"].first
       id = doc["id"]
       @file = GenericFile.find(id)
@@ -83,7 +85,8 @@ describe "Migration rake tasks" do
       @new_file.delete
     end
     subject { @file }
-    it "should update the metadata and not created new record" do
+    it "should add all metadata and not create new record" do
+      @numFound.should eql(1) 
       expect(subject.publisher).to include("University of Alberta Libraries")
       expect(subject.title).to include("Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].")
     end
