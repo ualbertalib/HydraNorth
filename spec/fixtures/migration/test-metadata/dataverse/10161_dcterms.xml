@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ddi_to_dcterms xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:georss="http://www.georss.org/georss/">
+   <dcterms:title>Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].</dcterms:title>
+   <dcterms:identifier>doi:10.7939/DVN/10161</dcterms:identifier> 
+   <dcterms:creator>Gaffield, Chad</dcterms:creator>
+   <dcterms:creator>Baskerville, Peter</dcterms:creator>
+   <dcterms:creator>St-Hilaire, Marc</dcterms:creator>
+   <dcterms:creator>Amrhein, Carl</dcterms:creator>
+   <dcterms:creator>Cadigan, Sean</dcterms:creator>
+   <dcterms:creator>Moldofsky, Byron</dcterms:creator>
+   <dcterms:creator>Darroch, Gordon</dcterms:creator>
+   <dcterms:creator>Bellavance, Claude</dcterms:creator>
+   <dcterms:creator>Normand, France</dcterms:creator>
+   <dcterms:publisher>University of Alberta Libraries</dcterms:publisher>
+   <dcterms:created>2014</dcterms:created>
+   <dcterms:subject>Prairie Provinces</dcterms:subject>
+   <dcterms:subject>Western Canada</dcterms:subject>
+   <dcterms:subject>Maps</dcterms:subject>
+   <dcterms:subject>Topographic</dcterms:subject>
+   <dcterms:subject>Western Canada</dcterms:subject>
+   <dcterms:description>This item is a resource in the University of Alberta Libraries' Dataverse Network. Access this item in Dataverse by clicking on the DOI link. | Kind of data: Geospatial Data | This .shp file was derived from a georeferenced scan of the Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955], published by the Department of the Interior February 1, 1917. The original georeferenced scan and world file is included in the study for reference purposes.</dcterms:description>
+   <dcterms:spatial>Canada</dcterms:spatial>
+   <georss:box>49.380834 -120.008242 59.953827 -94.915469</georss:box>
+   <dcterms:type>Dataset</dcterms:type>
+   <dcterms:dateSubmitted>2014-09-18</dcterms:dateSubmitted>
+   <dcterms:modified>2014-09-19</dcterms:modified>
+</ddi_to_dcterms>
