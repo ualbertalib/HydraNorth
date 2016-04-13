@@ -48,18 +48,15 @@ namespace :migration do
     @ingest_batch = Batch.find_or_create(@ingest_batch_id)
     MigrationLogger.info "Ingest Batch ID #{@ingest_batch_id}"
     #for each metadata file in the migration directory
-    Dir.glob(metadata_dir+"/*/export_oai_dcterms.xml") do |file|
+    Dir.glob(metadata_dir+"/*_dcterms.xml") do |file|
     begin
-      object_id = File.dirname(file)[/(\d\d\d\d\d)/, 1]
+      object_id = File.basename(file)[/(\d\d\d\d\d)/, 1]
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
-      metadata = metadata_file.xpath("//oai_dc:dcterms",NS)
+      metadata = metadata_file.xpath("//ddi_to_dcterms",NS)
       #get the doi of the object
       identifier = metadata.xpath("dcterms:identifier", NS).text
-      
-      # check duplication in the system
-      next if duplicated?(identifier)
   
       # set the owner id to a generic dataverse account (currently with dit.application.test@ualberta.ca email address)
       owner_id = "dit.application.test@ualberta.ca"
@@ -82,7 +79,6 @@ namespace :migration do
 	  
       # create the depositor
       depositor = User.find_by_email(owner_id)
-
       if !depositor
         depositor = User.new({
                :username => "dataverse",
@@ -112,11 +108,18 @@ namespace :migration do
       # set the time
       time_in_utc = DateTime.now
 
-      # create the batch for the file upload
-      @batch_id = ActiveFedora::Noid::Service.new.mint
-      @batch = Batch.find_or_create(@batch_id)
-      # create the generic file
-      @generic_file = GenericFile.new
+      # check duplication in the system
+      if doi_duplicated?(identifier)
+	MigrationLogger.info "record is a duplication"
+        @generic_file = GenericFile.find(duplicated_record(identifier))
+      else
+	MigrationLogger.info "this is a new record"
+        # create the batch for the file upload
+        @batch_id = ActiveFedora::Noid::Service.new.mint
+        @batch = Batch.find_or_create(@batch_id)
+        # create the generic file
+        @generic_file = GenericFile.new
+      end
 	  
       # create metadata for the new object in Hydranorth
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
@@ -134,7 +137,7 @@ namespace :migration do
 
       # add other metadata to the new object
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "creator"=>creators, "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
+      file_attributes = {"resource_type"=>[type], "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
@@ -150,8 +153,7 @@ namespace :migration do
       end
       community = Collection.find(id) 
       @generic_file.hasCollection = [community.title]
-      
-
+      @generic_file.belongsToCommunity = [community.id]
       # save the file
       MigrationLogger.info "Save the file"
       save_tries = 0
@@ -166,11 +168,14 @@ namespace :migration do
         sleep 0.01
         retry
       end
+      #save creators seperately to keep the order of the authors
+      @generic_file.creator = creators
+      @generic_file.save
+      puts @generic_file
+      puts @generic_file.id
+     
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
-      MigrationLogger.info "Add file to community dataverse"
-      community.member_ids = community.member_ids.push(@generic_file.id)
-      community.save 
       MigrationLogger.info "Finish migrating the file"
 
       rescue Exception => e
@@ -217,10 +222,22 @@ namespace :migration do
     
   end
 
-  def duplicated?(identifier)
+  def doi_duplicated?(identifier)
     solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
     numFound = solr_rsp['response']['numFound']
 	return true if numFound > 0
+  end
+
+  def duplicated_record(identifier)
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
+    id = nil
+    numFound = solr_rsp['response']['numFound']
+    if numFound == 1
+      id = solr_rsp['response']['docs'].first['id']
+    else 
+      MigrationLogger.error "ERROR: More than one record with the DOI #{identifier} has been found! Please deduplicate the records first."
+    end
+    return id
   end
 
   def find_collection(title)

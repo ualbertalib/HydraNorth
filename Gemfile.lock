@@ -552,6 +552,7 @@ GEM
       multipart-post
       oauth2
     ruby-debug-passenger (0.2.0)
+    ruby-prof (0.15.9)
     ruby-rc4 (0.1.5)
     ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
@@ -746,6 +747,7 @@ DEPENDENCIES
   rspec-its
   rspec-rails
   ruby-debug-passenger
+  ruby-prof
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
