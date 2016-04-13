@@ -35,21 +35,26 @@ module GenericFileHelper
   end
 
   def render_collection_list(gf)
-    if gf.respond_to?(:hasCollection) && gf.hasCollectionId.present?
-      ("Is part of: " + gf.hasCollection.each_with_index.map { |title, i| link_to(title, collections.collection_path(gf.hasCollectionId[i])) }.join(", ")).html_safe
+    nested_collection = ''
+
+    nested_collection ||= if (gf.respond_to?(:hasCollection) && gf.hasCollectionId.present?)
+      'Is part of: ' + link_to(title, collections.collection_path(gf.hasCollectionId.first))
+    elsif gf.respond_to?(:belongsToCommunity) && gf.belongsToCommunity.present?
+      # This is EXTREMELY expensive, and it would be nice if items cached the name of their Community analogous to the way they do
+      # with Collection names in hasCollection
+      'Is part of: ' + link_to(Collection.find(id).title, collections.collection_path(gf.belongsToCommunity.first))
     end
-    if gf.respond_to? :belongsToCommunity
-      ("Is part of: " + gf.belongsToCommunity.each_with_index.map { |id, i| link_to(Collection.find(id).title, collections.collection_path(gf.belongsToCommunity[i])) }.join(", ")).html_safe
-    end
+
+    return nested_collection.html_safe
   end
 
-  def display_multiple value
+  def display_multiple(value)
     auto_link(value.join(" | "))
   end
 
   private
 
-  def download_image_tag title = nil
+  def download_image_tag(title = nil)
     if title.nil?
       image_tag "default.png", { alt: "No preview available", class: "img-responsive" }
     else
