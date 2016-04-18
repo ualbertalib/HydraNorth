@@ -217,7 +217,7 @@
 <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2010-05-14T20:36:54.129Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="440">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
   <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
 </oai_dc:dc>
@@ -225,7 +225,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.1" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-05-14T20:36:55.634Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="357">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -235,7 +235,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.2" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T15:06:45.743Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -245,7 +245,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.3" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T16:08:58.785Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -255,7 +255,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.4" LABEL="Oil Sands Research Information Network (OSRIN)" CREATED="2010-07-22T16:16:36.228Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="998">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -265,7 +265,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.5" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-11T21:38:50.274Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="1002">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -275,7 +275,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.6" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-12T16:38:13.477Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="1002">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -285,7 +285,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.7" LABEL="Oil Sands Research and Information Network (OSRIN)" CREATED="2010-08-12T17:13:39.351Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</dc:identifier>
   <dc:title>Oil Sands Research and Information Network (OSRIN)</dc:title>
   <dc:creator>Administrator admin</dc:creator>
@@ -685,7 +685,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:81b7dcc7-78f7-4adf-a703-6688b82090f5</ualterms:fedora3uuid>
   <dcterms:title>Oil Sands Research and Information Network (OSRIN)</dcterms:title>
   <dcterms:creator>Administrator admin</dcterms:creator>

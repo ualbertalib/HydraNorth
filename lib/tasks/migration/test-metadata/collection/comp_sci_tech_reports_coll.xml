@@ -155,7 +155,7 @@
 <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2012-05-11T19:17:43.073Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="411">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd
   <dc:title>Technical Reports</dc:title>
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
 </oai_dc:dc>
@@ -163,7 +163,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.1" LABEL="Technical Reports" CREATED="2012-05-11T19:17:44.302Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="399">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -174,7 +174,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.2" LABEL="Technical Reports" CREATED="2012-06-02T04:28:26.001Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="468">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -185,7 +185,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.3" LABEL="Technical Reports" CREATED="2012-06-02T04:50:23.312Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="468">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -196,7 +196,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.4" LABEL="Technical Reports" CREATED="2013-04-30T18:27:32.917Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="417">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -206,7 +206,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.5" LABEL="Technical Reports" CREATED="2013-04-30T18:29:30.206Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="481">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -217,7 +217,7 @@
 </foxml:datastreamVersion>
 <foxml:datastreamVersion ID="DC.6" LABEL="Technical Reports" CREATED="2013-04-30T18:30:30.568Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
 <foxml:xmlContent>
-<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.lib ` rary/ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
   <dc:identifier>uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</dc:identifier>
   <dc:identifier>http://hdl.handle.net/10402/era.26345</dc:identifier>
   <dc:title>Technical Reports</dc:title>
@@ -445,7 +445,7 @@
 <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
 <foxml:datastreamVersion ID="DCQ.0" LABEL="Item Metadata" MIMETYPE="text/xml">
 <foxml:xmlContent>
-<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library/ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dc xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ualterms="http://terms.library.ualberta.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ualterms:fedora3uuid xsi:type="string">uuid:33713a7b-b387-4a7e-8d9e-860df87c1fe5</ualterms:fedora3uuid>
   <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.26345</ualterms:fedora3handle>
   <dcterms:title>Technical Reports</dcterms:title>
