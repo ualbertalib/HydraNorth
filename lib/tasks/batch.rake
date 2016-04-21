@@ -66,7 +66,7 @@ namespace :batch do
         # if multiple owners, all of them should have edit access to the object
         coowners = file_attributes["owner_id"] - [depositor.id] if file_attributes["owner_id"]
         @gf.permissions_attributes = set_coowners(coowners) if coowners && coowners.count > 0
-        if mode == "ingest" || !file_attributes["file_name"].nil?
+        if mode == "ingest" || !file_attributes["file_name"]
           puts "retrieve file for the object"
           BatchIngestLogger.info("Retrieve the files for the object") 
           file_location = files_dir + "/"+ file_attributes["file_name"] +".pdf"
@@ -81,7 +81,7 @@ namespace :batch do
           end
         end
 
-        set_visibility(file_attributes) unless file_attributes["visibility"].nil?
+        set_visibility(file_attributes) unless file_attributes["visibility"]
         saved_attributes = file_attributes.except("noid", "visibility", "visibility_after_embargo", "owner_id", "embargo_release_date", "file_name", "title", "creator")
         saved_attributes["ingestbatch"] = @ingest_batch_id if @ingest_batch_id
         @gf.attributes = saved_attributes
