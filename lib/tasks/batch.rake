@@ -5,14 +5,17 @@ require 'json'
 
 namespace :batch do
   desc "batch ingest from a csv file - used by ERA Admin and ERA Assistants"
-  task :ingest_csv, [:file, :tmp_dir] => :environment do |t, args|
+  task :ingest_csv, [:file, :tmp_dir, :mode] => :environment do |t, args|
     begin
       BatchIngestLogger.info "**************START: Batch ingest started ***************************"
       input_file = args.file
       files_dir = args.tmp_dir
+      mode = args.mode
+      BatchIngestLogger.fatal "Invalid ingest mode #{mode}, should be either ingest or update." unless mode == "update" || mode == "ingest"
       if File.exist?(input_file)
+        puts "mode is #{mode}"
         json = convert_csv_json(input_file)
-        ingest(json, files_dir)
+        ingest(json, files_dir, mode)
       else
         BatchIngestLogger.fatal "Invalid file #{file}"
       end
@@ -32,48 +35,55 @@ namespace :batch do
     return json
   end
 
-  def ingest(json, files_dir)
-    @ingest_batch_id = ActiveFedora::Noid::Service.new.mint
-    @ingest_batch = Batch.find_or_create(@ingest_batch_id)
-    @collection_hash = {}
+  def ingest(json, files_dir, mode)
+    if mode == "ingest"
+      @ingest_batch_id = ActiveFedora::Noid::Service.new.mint
+      @ingest_batch = Batch.find_or_create(@ingest_batch_id)
+      @collection_hash = {}
+    end 
     json.each do |metadata|
       begin
         next if metadata.empty?
         BatchIngestLogger.info "Get the metadata for the object"
         file_attributes = read_metadata(metadata)
+        if mode == "update"
+          BatchIngestLogger.info "update the batch"
+          noid = file_attributes["noid"]
+          puts "noid is #{noid}"
+          @gf = GenericFile.find(noid)
+        elsif mode == "ingest"
+          BatchIngestLogger.info "Create the batch and generic file object"
+          batch_id = ActiveFedora::Noid::Service.new.mint
+          batch = Batch.find_or_create(batch_id)
+          @gf = GenericFile.new
+          # map the owner id if exist, or use eraadmi as the depositor"
+          depositor = set_depositor(file_attributes["owner_id"])
 
-        BatchIngestLogger.info "Create the batch and generic file object"
-        batch_id = ActiveFedora::Noid::Service.new.mint
-        batch = Batch.find_or_create(batch_id)
-        @gf = GenericFile.new
+          @gf.apply_depositor_metadata(depositor.user_key)
 
-        # map the owner id if exist, or use eraadmi as the depositor"
-        depositor = set_depositor(file_attributes["owner_id"])
-
-        @gf.apply_depositor_metadata(depositor.user_key)
-
+        end
 
         # if multiple owners, all of them should have edit access to the object
         coowners = file_attributes["owner_id"] - [depositor.id] if file_attributes["owner_id"]
         @gf.permissions_attributes = set_coowners(coowners) if coowners && coowners.count > 0
-        puts "retrieve file for the object"
-        BatchIngestLogger.info("Retrieve the files for the object") 
-        file_location = files_dir + "/"+ file_attributes["file_name"] +".pdf"
-        if File.exist?(file_location)
-          mime_type = MIME::Types.of(file_location).first.to_s
-          content = File.open(file_location)
-          puts file_location
-          @gf.add_file(content, {path: 'content', original_name: file_attributes["file_name"], mime_type: mime_type})
-          BatchIngestLogger.info "Add file #{file_attributes["file_name"]} to object, size: #{File::size(file_location)}"
+        if mode == "ingest" || !file_attributes["file_name"].nil?
+          puts "retrieve file for the object"
+          BatchIngestLogger.info("Retrieve the files for the object") 
+          file_location = files_dir + "/"+ file_attributes["file_name"] +".pdf"
+          if File.exist?(file_location)
+            mime_type = MIME::Types.of(file_location).first.to_s
+            content = File.open(file_location)
+            puts file_location
+            @gf.add_file(content, {path: 'content', original_name: file_attributes["file_name"], mime_type: mime_type})
+            BatchIngestLogger.info "Add file #{file_attributes["file_name"]} to object, size: #{File::size(file_location)}"
+            @gf.label = file_attributes["file_name"]
+            @gf.title = file_attributes["title"]
+          end
         end
 
-        @gf.label = file_attributes["file_name"]
-        @gf.title = file_attributes["title"]
-
-        set_visibility(file_attributes)
-
-        saved_attributes = file_attributes.except("visibility", "visibility_after_embargo", "owner_id", "embargo_release_date", "file_name", "title", "creator")
-        saved_attributes["ingestbatch"] = @ingest_batch_id
+        set_visibility(file_attributes) unless file_attributes["visibility"].nil?
+        saved_attributes = file_attributes.except("noid", "visibility", "visibility_after_embargo", "owner_id", "embargo_release_date", "file_name", "title", "creator")
+        saved_attributes["ingestbatch"] = @ingest_batch_id if @ingest_batch_id
         @gf.attributes = saved_attributes
 
         BatchIngestLogger.info "start saving the generic file"
@@ -90,14 +100,14 @@ namespace :batch do
           retry
         end
 
-        @gf.creator = file_attributes["creator"]
+        @gf.creator = file_attributes["creator"] if file_attributes["creator"]
         @gf.save
 
         BatchIngestLogger.info "Generic File saved: id #{@gf.id}"
         puts "Generic File saved: id #{@gf.id}"
         BatchIngestLogger.info "Add file #{@gf.id} to community #{file_attributes["belongsToCommunities"]} and collection #{file_attributes["hasCollectionId"]} - #{file_attributes["hasCollection"]}"
 
-        add_collections_communities(file_attributes)
+        add_collections_communities(file_attributes) if file_attributes["belongsToCommunities"] || file_attributes["hasCollectionId"]
       rescue Exception => e
         puts "FAILED: Item #{file_attributes["title"]}: #{file_attributes["file_name"]} ingest!"
         puts e.message
@@ -109,7 +119,7 @@ namespace :batch do
         next
       end
     end
-    add_collection_member_ids  
+    #add_collection_member_ids  
   end
 
   def add_collection_member_ids
@@ -154,7 +164,7 @@ namespace :batch do
     when "open access"
       @gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     when "private"
-      embargo_release_date = DateTime.strptime(file_attributes["embargo_release_date"], '%Y-%m-%dT%H:%M:%S.%N%Z')
+      embargo_release_date = DateTime.strptime(file_attributes["embargo_release_date"], '%m/%d/%Y').strftime('%Y-%m-%dT%H:%M:%S.%N%Z')
       @gf.apply_embargo(embargo_release_date, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE, file_attributes["visibility_after_embargo"])
     when "university_of_alberta"
       @gf.visibility = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
@@ -173,38 +183,41 @@ namespace :batch do
   end
   def read_metadata(metadata)
     BatchIngestLogger.info "Get the metadata for the object"
-    file_name = metadata[:file_name]
-    item_type = metadata[:item_type]
-    owner_ids = metadata[:owner_id].split("|") if metadata[:owner_id]
-    collections = metadata[:coll_noid].split("|") if metadata[:coll_noid]
-    communities = metadata[:comm_noid].split("|") if metadata[:comm_noid]
-    is_version_of = metadata[:is_version_of]
-    title = metadata[:title]
-    creators = metadata[:creator].split("|") if metadata[:creator]
-    contributors = metadata[:contributor].split("|") if metadata[:contributor]
-    description = metadata[:description].gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ') if metadata[:description]
-    subjects = metadata[:subject].split("|") if metadata[:subject]
-    license = metadata[:license]
-    rights = metadata[:rights]
-    date_created = metadata[:date_created].to_s
-    language = metadata[:language]
-    related_url = metadata[:related_url]
-    source = metadata[:source]
-    temporals = metadata[:temporal].split("|") if metadata[:temporal]
-    spatials = metadata[:spatial].split("|") if metadata[:spatial]
-    embargo_date = metadata[:embargo_date]
-    visibility = metadata[:vis_on_ingest]
-    visibility_after_embargo = metadata[:vis_after_embargo]
+    file_attributes = {}
+    file_attributes['noid'] = metadata[:noid] if metadata[:noid]
+    file_attributes['file_name'] = metadata[:file_name] if metadata[:file_name]
+    file_attributes['resource_type'] = [metadata[:item_type]] if metadata[:item_type]
+    file_attributes['owner_id'] = metadata[:owner_id].split("|") if metadata[:owner_id]
+    file_attributes['hasCollectionId'] = metadata[:coll_noid].split("|") if metadata[:coll_noid]
+    file_attributes['belongsToCommunity'] = metadata[:comm_noid].split("|") if metadata[:comm_noid]
+    file_attributes['is_version_of'] = metadata[:is_version_of] if metadata[:is_version_of]
+    file_attributes['title'] = [metadata[:title]] if metadata[:title]
+    file_attributes['creator'] = metadata[:creator].split("|") if metadata[:creator]
+    file_attributes['contributor'] = metadata[:contributor].split("|") if metadata[:contributor]
+    file_attributes['description'] = [metadata[:description].gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')] if metadata[:description]
+    file_attributes['subject'] = metadata[:subject].split("|") if metadata[:subject]
+    file_attributes['license'] = metadata[:license] if metadata[:license]
+    file_attributes['rights'] = metadata[:rights] if metadata[:rights]
+    file_attributes['date_created'] = metadata[:date_created].to_s if metadata[:date_create]
+    file_attributes['language'] = metadata[:language] if metadata[:language]
+    file_attributes['related_url'] = metadata[:related_url] if metadata[:related_url]
+    file_attributes['source'] = metadata[:source] if metadata[:source]
+    file_attributes['temporal'] = metadata[:temporal].split("|") if metadata[:temporal]
+    file_attributes['spatial'] = metadata[:spatial].split("|") if metadata[:spatial]
+    file_attributes['embargo_release_date'] = metadata[:embargo_date] if metadata[:embargo_date]
+    file_attributes['visibility'] = metadata[:vis_on_ingest] if metadata[:vis_on_ingest]
+    file_attributes['visibility_after_embargo'] = metadata[:vis_after_embargo] if metadata[:vis_after_embargo]
+    file_attributes['year_created'] = date_created[/(\d\d\d\d)/, 0] if file_attributes['date_created']
 
-    year_created = date_created[/(\d\d\d\d)/, 0]
-
-    if license.nil? and !rights.nil?
-      license = "I am required to use/link to a publisher's license"
+    if file_attributes['license'].nil? and !file_attributes['rights'].nil?
+      file_attributes['license'] = "I am required to use/link to a publisher's license"
     end
+    puts "getting there #{file_attributes}"
 
     collections_title = []
-    if collections
-      collections.each do |cid|
+    if file_attributes['hasCollectionId']
+      puts 'get collection titles'
+      file_attributes['hasCollectionId'].each do |cid|
         begin
           c = Collection.find(cid)
         rescue ActiveFedora::ObjectNotFoundError => not_found_e
@@ -215,8 +228,7 @@ namespace :batch do
         end
       end
     end
-
-    file_attributes = {"file_name" => file_name, "owner_id" => owner_ids, "resource_type" => [item_type], "title" => [title],"creator" => creators, "contributor"=>contributors, "description" =>[description], "date_created" => date_created, "year_created"=>year_created, "license"=>license, "rights" => rights, "subject"=>subjects, "spatial" => spatials, "temporal"=> temporals, "language"=>language, "is_version_of" => is_version_of, "belongsToCommunity" => communities, "hasCollectionId" => collections, "hasCollection" => collections_title, "related_url" => related_url, "source" => source, "embargo_release_date" => embargo_date, "visibility" => visibility, "visibility_after_embargo" => visibility_after_embargo }
+    file_attributes['hasCollection'] = collections_title if !collections_title.empty?
 
     return file_attributes
   end 
