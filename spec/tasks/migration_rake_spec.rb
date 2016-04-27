@@ -45,6 +45,7 @@ describe "Migration rake tasks", :integration => true do
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
       expect(subject.institutional_visibility?).to be false
+      expect(subject.date_uploaded).to eq "2013-01-06T05:11:52.580Z"
 
       expect(subject.hasCollection).to include 'test collection'
       expect(subject.hasCollectionId).to include @collection.id

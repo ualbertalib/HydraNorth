@@ -3,6 +3,7 @@ require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
 require 'open3'
+require 'curb'
 
   NS = {
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
@@ -205,7 +206,9 @@ namespace :migration do
 
       #get the item state
       item_state = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#state')]/@VALUE", NS).to_s
-
+      #get the date_uploaded
+      date_uploaded_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#createdDate')]/@VALUE", NS).to_s
+      date_uploaded = DateTime.strptime(date_uploaded_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_uploaded_string.nil?
       #get the modifiedDate
       date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
       date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
@@ -269,7 +272,6 @@ namespace :migration do
         when ds_datastreams.length > 0
           original_filename =""
           file_full=""
-          original_deposit_time=""
           original_md5s ={}
           md5s = {}
           ds_datastreams.each do |ds|
@@ -280,7 +282,6 @@ namespace :migration do
 
             original_filename = file_version.attribute('LABEL').to_s
             original_filename_normalize = original_filename.gsub(/[^0-9A-Za-z.\-]/, '_')
-            original_deposit_time = file_version.attribute('CREATED').to_s
             md5_node = file_version.xpath("foxml:contentDigest")
             original_md5 = md5_node.attribute('DIGEST').to_s.gsub(/\s/,'') if !md5_node.empty?
             #file location has to use the public download url
@@ -340,8 +341,8 @@ namespace :migration do
             license = "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
         elsif type == "Thesis"
           license = "I am required to use/link to a publisher's license"
-          rights = "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
-        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
+          rights = "This thesis is made available by the University of Alberta Libraries with permission of the copyright owner solely for the purpose of private, scholarly or scientific research. This thesis, or any portion thereof, may not otherwise be copied or reproduced without the written consent of the copyright owner, except to the extent permitted by Canadian copyright law."
+        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.include? "..."
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
@@ -520,7 +521,7 @@ namespace :migration do
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
 
       @generic_file.apply_depositor_metadata(depositor.user_key)
-      @generic_file.date_uploaded = DateTime.strptime(original_deposit_time, '%Y-%m-%dT%H:%M:%S.%N%Z') unless original_deposit_time.nil?
+      @generic_file.date_uploaded = date_uploaded
       @generic_file.date_modified = date_modified
 
       if @batch_id
