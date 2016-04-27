@@ -25,7 +25,7 @@
         <dt class="sr-only">Description:</dt>
         <dd><%= recent_document.description.html_safe if recent_document.description %>
         <dt>Author/Creators:</dt>
-        <dd><%= recent_document.creator.html_safe %></dd>
+        <dd><%= recent_document.creator.html_safe if recent_document.creator.present? %></dd>
       </dl>
     </div>
   <% end %>
