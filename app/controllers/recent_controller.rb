@@ -18,7 +18,7 @@ class RecentController < ApplicationController
     end
 
     def date_buckets
-      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('read_access_group', :symbol)+':public', 'facet.range' => "#{Solrizer.solr_name('system_create', :stored_sortable, type: :date)}", 'facet.range.gap' => '+1MONTH', 'facet.range.start' => '1906-01-01T00:00:00Z', 'facet.range.end' => 'NOW', :rows => 0 } 
+      solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => "#{Solrizer.solr_name('read_access_group', :symbol)}:public #{Solrizer.solr_name('active_fedora_model', :stored_sortable)}:GenericFile", 'facet.range' => "#{Solrizer.solr_name('system_create', :stored_sortable, type: :date)}", 'facet.range.gap' => '+1MONTH', 'facet.range.start' => '1906-01-01T00:00:00Z', 'facet.range.end' => 'NOW', :rows => 0, 'facet.mincount' => 1 } 
       @date_buckets = solr_rsp['facet_counts']['facet_ranges']['system_create_dtsi']['counts']
     end
 
