@@ -16,5 +16,6 @@ RSpec.describe RecentHelper, type: :helper do
   it { expect(floor(time, 1.year)).to eq '2016-01-01T12:00:00Z' }
   it { expect(ceil(time, 1.year)).to eq '2017-01-01T11:59:59Z' }
   it { expect(bucket_as_date(bucket)).to eq '2016: January' }
+  it { expect(bucket_as_month(bucket)).to eq 'January' }
   it { expect(bucket_as_params(bucket)).to include(:year => 2016, :month => 1) }
 end

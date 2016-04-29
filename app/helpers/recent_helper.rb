@@ -27,6 +27,10 @@ module RecentHelper
     DateTime.parse(bucket).strftime("%Y: %B")
   end
   
+  def bucket_as_month(bucket)
+    DateTime.parse(bucket).strftime("%B")
+  end
+
   def bucket_as_params(bucket)
     date = DateTime.parse(bucket)
     {:year => date.year, :month => date.month}

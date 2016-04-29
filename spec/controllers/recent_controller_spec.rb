@@ -33,7 +33,7 @@ RSpec.describe RecentController, type: :controller do
 
     it 'includes date buckets for crawling' do
       get :index
-      expect(assigns(:date_buckets)).to eq ["2016-04-01T00:00:00Z", 1]
+      expect(assigns(:date_buckets)).to include "2016"=>[["2016-04-01T00:00:00Z", 1]]
     end
 
     context "with a document not created this second" do
@@ -106,8 +106,32 @@ RSpec.describe RecentController, type: :controller do
         expect(response).to be_success
         expect(assigns(:recent_documents).length).to eq 0
       end
+      it 'includes date buckets for crawling' do
+        get :index
+        expect(assigns(:date_buckets)).to include "2016" => [["2016-03-01T00:00:00Z", 1], ["2016-04-01T00:00:00Z", 2]]
+      end
     end
 
+    context "with a document not created in the last year" do
+      before do 
+        gf6 = GenericFile.new(title: ['Test 6 Document'], read_groups: ['public'])
+        gf6.apply_depositor_metadata('mjg36')
+        #stubbing to_solr so we know we have something significantly older
+        old_to_solr = gf6.method(:to_solr)
+        allow(gf6).to receive(:to_solr) do
+          old_to_solr.call.merge(
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => 1.year.ago.iso8601
+          )
+        end
+        gf6.save
+      end
+
+      it 'includes date buckets for crawling' do
+        get :index
+        expect(assigns(:date_buckets)).to include "2016"=>[["2016-04-01T00:00:00Z", 1]]
+        expect(assigns(:date_buckets)).to include "2015" => [["2015-04-01T00:00:00Z", 1]]
+      end
+    end
   end
 
 end

@@ -6,8 +6,11 @@
   <h1><%= recent_title %></h1>
   <%= render partial: "recent_document", collection: @recent_documents, locals: {display_thumbs: true, display_access: false} %>
   <h1>Older documents</h1>
-  <% @date_buckets.each_slice(2) do |bucket, count| %>
-    <%= link_to bucket_as_date(bucket), recent_path(bucket_as_params(bucket)) %>
+  <% @date_buckets.each do |year, date| %>
+    <div><%= "#{year}: " %>
+    <% date.each do |bucket| %>
+      <%= link_to bucket_as_month(bucket[0]), recent_path(bucket_as_params(bucket[0])) %> 
+    <% end %>
   <% end %>
 </div>
 
