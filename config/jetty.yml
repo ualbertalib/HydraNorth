@@ -2,12 +2,16 @@ default:
   startup_wait: 90
   jetty_port: 8983
   java_opts:
-    - "-Xmx512m"
-    # pc: add options for jdk8, audit and oai 
+    - "-Xmx1024m"
     - "-XX:NewSize=256m"
     - "-XX:MaxNewSize=256m" 
     - "-XX:MetaspaceSize=256m"
     - "-XX:MaxMetaspaceSize=512m"
     - "-XX:+DisableExplicitGC"
     - "-Dfcrepo.audit.container=/audit"
-    - "-Dfcrepo.data.container=/dev"
+    - "-Dfcrepo.modeshape.index.directory=/var/www/sites/hydranorth/jetty/fcrepo4-data/fcrepo.index.directory"
+    - "-Dfcrepo.log.jcr=DEBUG"
+    - "-Dfcrepo.log.oai=DEBUG"
+    - "-Dfcrepo.log.maxHistory=30"
+    - "-Dfcrepo.log.totalSizeCap=3G"
+    - "-Dfcrepo.log.directory=/var/www/sites/hydranorth/jetty/logs" 
