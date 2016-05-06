@@ -3,6 +3,8 @@
 require './lib/tasks/rake_logger'
 
 namespace :hydranorth do
+
+  desc "Remove lapsed embargoes"
   task :remove_lapsed_embargoes => :environment do |t|
     RakeLogger.info "********START remove_lapsed_embargoes ********" 
     items = Hydra::EmbargoService.assets_with_expired_embargoes
@@ -264,18 +266,4 @@ namespace :hydranorth do
     end
   end    
 
-  namespace :solr do
-
-    desc "Index a single object in solr"
-    task :index, [:id] => :environment do |t, args|
-      raise "Please provide a id" if args[:id].nil?
-      ActiveFedora::Base.find(args[:id]).update_index
-    end
-
-    desc "update the index on all GenericFiles"
-    task update_generic_file_index: :environment do
-      GenericFile.all.each(&:update_index)
-    end
-
-  end
 end
