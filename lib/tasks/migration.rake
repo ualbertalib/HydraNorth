@@ -264,11 +264,9 @@ namespace :migration do
       unicorn = dc_version.xpath("ualid:unicorn", NS).text() if dc_version.xpath("ualid:unicorn", NS)
       degree_grantor = dc_version.xpath("marcrel:dgg", NS).text() if dc_version.xpath("marcrel:dgg", NS)
       dissertant = dc_version.xpath("marcrel:dis", NS).text() if dc_version.xpath("marcrel:dis", NS)
-      dissertant = creators.first if type == "Thesis" && (dissertant.nil? || dissertant.blank?)
-      end
+      dissertant = creators.first if (dissertant.nil? || dissertant.blank?)
       #calculated year_created based on date_created or date_accepted
-      if type == "Thesis"
-        year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
+      year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
       else
         year_created = date[/(\d\d\d\d)/,0]
       end
