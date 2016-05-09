@@ -248,7 +248,6 @@ describe 'collection', :type => :feature do
 
     it "should not have edit and delete options" do
       expect(page).to have_content(generic_file.title.first)
-      click_button("Select an action")
 
       expect(page).to have_content("Test Item")
       expect(page).to have_content("Download File")

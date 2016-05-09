@@ -11,7 +11,7 @@
       <div id="logo" style="display:none">
         <span style="font-weight:bold">Logo</span>
         <%= f.label :logo do %>
-          <%= f.file_field :logo %>
+          <%= f.file_field :logo, :onchange =>"validateFiles(this);", :data => {:max_file_size => 20.kilobytes} %>
         <% end %>
       </div>
     </div><!-- /well -->
