@@ -243,7 +243,7 @@ namespace :migration do
       fedora3uuid = dc_version.xpath("ualib:fedora3uuid", NS).text()
       trid = dc_version.xpath("ualib:trid", NS).text() if dc_version.xpath("ualid:trid", NS)
       ser = dc_version.xpath("ualid:ser",NS).text() if dc_version.xpath("ualid:ser", NS)
-      if type == "thesis"
+      if type == "Thesis"
       #for thesis objects
       abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
       date_accepted = dc_version.xpath("dcterms:dateAccepted", NS).text() unless dc_version.xpath("dcterms:dateAccepted", NS).blank?
