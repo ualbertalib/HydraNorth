@@ -22,7 +22,7 @@ describe 'collection', :type => :feature do
   describe 'Add logo to community', :js => true do
     let!(:community_logo) do
       Collection.create( title: 'Test Community') do |c|
-        c.add_file(File.open(fixture_path + '/world.png'), path: 'logo', original_name: 'world.png', mime_type: 'image/png')
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
         c.apply_depositor_metadata(jill.user_key)
         c.is_community = true
         c.is_official = false

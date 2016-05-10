@@ -153,7 +153,7 @@ describe CollectionsController do
         @child_collection.member_ids = [@file2.id]
         @child_collection.save
 
-        @logo_file = fixture_file_upload('world.png', 'image/png')
+        @logo_file = fixture_file_upload('logo.jpg', 'image/jpg')
 
       end
 

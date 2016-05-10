@@ -12,7 +12,7 @@ module Hydranorth
     include Hydranorth::Collections::Logo
 
     included do
-      before_save :remove_self_from_members, :update_permissions
+      before_save :remove_self_from_members, :update_permissions, :check_logo_size
       validates :title, presence: true
     end
 
@@ -32,6 +32,13 @@ module Hydranorth
         end
       end
     end
+ 
+    def check_logo_size
+      size = logo.size
+      if size.to_i > 2.kilobytes
+        raise "Collection logo larger than 20KB"
+      end
+    end  
 
     def update_permissions
       self.visibility = "open"
