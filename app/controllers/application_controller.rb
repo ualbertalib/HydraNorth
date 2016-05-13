@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   around_filter :profile, if: -> {Rails.env.development? && params[:trace] == "1"}
+  around_filter :gc_stats, if: -> {params[:gc_stats] == "1"}
 
   before_filter :force_account_link,
                 if: -> { @current_user && @current_user.link_pending? }
@@ -39,6 +40,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def gc_stats
+    before = GC.stat.to_s
+    yield
+    after = GC.stat.to_s
+    response.header['X-GC-STATS-BEFORE'] = before
+    response.header['X-GC-STATS-AFTER'] = after
+  end
 
   def after_sign_in_path_for(resource)
     if current_user.admin?
