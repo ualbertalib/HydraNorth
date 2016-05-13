@@ -5,6 +5,7 @@ class CatalogController < ApplicationController
   include Hydra::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Sufia::Catalog
+  include Hydranorth::Collections::AdminNestingTargets
 
   # These before_filters apply the hydra access controls
   before_filter :enforce_show_permissions, only: :show
@@ -13,6 +14,11 @@ class CatalogController < ApplicationController
   CatalogController.search_params_logic += [:add_access_controls_to_solr_params, :add_advanced_parse_q_to_solr]
 
   skip_before_filter :default_html_head
+
+  def index
+    @target_collections = admin_target_collections
+    super
+  end
 
   def self.uploaded_field
     solr_name('date_uploaded', :stored_sortable, type: :date)

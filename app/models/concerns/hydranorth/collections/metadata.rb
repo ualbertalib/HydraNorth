@@ -20,6 +20,14 @@ module Hydranorth::Collections
         index.as :symbol, :stored_searchable
       end
 
+      property :hasCollection, predicate: ::UALTerms.hasCollection do |index|
+        index.as :symbol, :stored_searchable
+      end
+
+      property :hasCollectionId, predicate: ::UALTerms.hasCollectionId do |index|
+        index.as :symbol, :stored_searchable
+      end
+
       property :is_community, predicate: ::UALTerms.is_community, multiple: false do |index|
         index.type :boolean
         index.as :stored_searchable

@@ -7,10 +7,21 @@ module Hydranorth
       if current_user && current_user.admin?
         self.search_params_logic -= [:add_access_controls_to_solr_params]
       end
-
       super
-
       presenter
+    end
+
+    def update
+      if params['collection']['members'] == 'add'
+        parent = Collection.find(params['id'])
+        parent.add_member_ids(params['batch_document_ids'])
+        parent.save
+        @collection = parent
+        flash[:notice] = "Collection was successfully updated."
+        redirect_to Hydra::Collections::Engine.routes.url_helpers.collection_path(parent)
+      else
+        super
+      end
     end
 
     protected

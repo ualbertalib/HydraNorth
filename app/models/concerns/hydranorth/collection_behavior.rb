@@ -46,7 +46,7 @@ module Hydranorth
     end
 
     def is_community?
-      self.is_community ||= false
+      self.is_community && self.is_community != "false"
     end
 
     def belongsToCommunity?
@@ -143,27 +143,53 @@ module Hydranorth
 
     def add_member_ids(new_member_ids)
       return if new_member_ids.nil? || new_member_ids.size < 1
-      member_collection = self.hasCollectionMember.dup + new_member_ids
+      new_member_ids.reject! {|id| self.id == id} # attempt to avoid simple cases of circularity
 
+      member_collection = self.hasCollectionMember.dup + new_member_ids
       self.set_value(:hasCollectionMember, member_collection)
+
+      # update values on new members
       new_member_ids.each do |id|
         new_member = ActiveFedora::Base.find(id)
 
         # if I'm community and new_member is a collection, update all its members
         if self.is_community?
           new_member.set_value(:belongsToCommunity, [self.id])
-          # update children
-          if new_member.is_a? Collection
-            new_member.materialized_members.each do |child|
-              child.set_value(:belongsToCommunity, [self.id])
-            end
+
+          if new_member.is_a?(Collection)
+            # if we're adding a collection to a top-level community, it's no longer nested in some other collection
+            new_member.set_value(:hasCollection, [])
+            new_member.set_value(:hasCollectionId, [])
+
+            # work around ActiveFedora issue where saving the children w/o first saving the parent will wipe out the
+            # parent's changes
+            new_member.save
+
+            # update children, and nested collections children, etc, etc
+            recursive_update_children_with_community(new_member.materialized_members, self.id)
+            new_member.save
           end
         else # I'm a collection
-          new_member.set_value(:hasCollection, [self.title]) if new_member.respond_to? :hasCollection
-          new_member.set_value(:hasCollectionId, [self.id]) if new_member.respond_to? :hasCollectionId
-          new_member.set_value(:belongsToCommunity, self.belongsToCommunity) if self.belongsToCommunity?
+          new_member.set_value(:hasCollection, [self.title]) if new_member.respond_to?(:hasCollection)
+          new_member.set_value(:hasCollectionId, [self.id]) if new_member.respond_to?(:hasCollectionId)
+          if self.belongsToCommunity?
+            new_member.set_value(:belongsToCommunity, self.belongsToCommunity)
+            # update children, and nested collections children, etc, etc
+            if new_member.is_a?(Collection) && new_member.materialized_members.present?
+              recursive_update_children_with_community(new_member.materialized_members, self.belongsToCommunity.first)
+            end
+          end
+          new_member.save
         end
-        new_member.save
+      end
+    end
+
+    def recursive_update_children_with_community(children, community_id)
+      children.each do |child|
+        next if community_id == child.id
+        child.set_value(:belongsToCommunity, [community_id])
+        child.save
+        recursive_update_children_with_community(child.materialized_members, community_id) if child.is_a?(Collection)
       end
     end
 

@@ -101,8 +101,6 @@ describe 'collection', :type => :feature do
       click_button 'Update Collection'
       expect(page).to have_content("Collection was successfully updated.")
       expect(page).to have_content(collection.title)
-      expect(page).to have_content("Is part of: #{community.title}")
-
     end
 
   end
@@ -291,6 +289,7 @@ describe 'collection', :type => :feature do
       GenericFile.create( title: ['Test Item 1'], read_groups: ['public'] ) do |g|
         g.apply_depositor_metadata(jill.user_key)
         g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection2.id]
       end
     end
     let!(:generic_file2) do
@@ -301,11 +300,11 @@ describe 'collection', :type => :feature do
       end
     end
 
-    it "should list 2 collections and 1 generic files on the community page" do
+    it "should list 2 collections on the community page" do
       visit "/collections/#{community.id}"
       expect(page).to have_content(collection1.title.first)
       expect(page).to have_content(collection2.title.first)
-      expect(page).to have_content(generic_file1.title.first)
+      expect(page).not_to have_content(generic_file1.title.first)
       expect(page).not_to have_content(generic_file2.title.first)
     end
 
@@ -345,7 +344,7 @@ describe 'collection', :type => :feature do
       visit "/communities"
       expect(page).to have_content("Test Community")
     end
-    
+
     it "should remove Official and Community flags" do
       visit "/collections/#{community.id}/edit"
 
@@ -372,7 +371,7 @@ describe 'collection', :type => :feature do
     end
     context 'user logged in' do
       it 'should not allow user to create collection' do
-        sign_in user 
+        sign_in user
         visit '/collections/new'
         expect(page).to_not have_content("Create New Collection")
         expect(page).to have_content "You are not authorized to create collections. Please contact erahelp@ualberta.ca to request a new collection."
