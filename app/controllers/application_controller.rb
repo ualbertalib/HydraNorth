@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveFedora::ObjectNotFoundError do |exception|
      render_404 exception
   end
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
      render_404 exception
   end
