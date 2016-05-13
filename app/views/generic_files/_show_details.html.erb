@@ -6,12 +6,6 @@
   <dd itemprop="dateModified"><%= @generic_file.date_modified %></dd>
   <dt>Audit Status</dt>
   <dd><%= @audit_status %></dd>
-  <% unless @generic_file.related_files.empty? %>
-  <dt>Related Files</dt>
-      <% @generic_file.related_files.each do |f| %>
-          <dd><%= link_to(f.label, sufia.generic_file_url(f)) %></dd>
-      <% end %>
-  <% end %>
   <dt>Characterization</dt>
   <dd>
     <%= "not yet characterized" if @generic_file.characterization_terms.values.flatten.map(&:empty?).reduce(true) { |sum, value| sum && value } %>
