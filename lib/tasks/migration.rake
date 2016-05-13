@@ -240,8 +240,8 @@ namespace :migration do
       spatials = dc_version.xpath("dcterms:spatial/text()",NS).map(&:text) if dc_version.xpath("dcterms:spatial", NS)
       temporals = dc_version.xpath("dcterms:temporal/text()", NS).map(&:text) if dc_version.xpath("dcterms:temporal", NS)
       fedora3handle = dc_version.xpath("ualid:fedora3handle",NS).text()
-      fedora3uuid = dc_version.xpath("ualib:fedora3uuid", NS).text()
-      trid = dc_version.xpath("ualib:trid", NS).text() if dc_version.xpath("ualid:trid", NS)
+      fedora3uuid = dc_version.xpath("ualid:fedora3uuid", NS).text()
+      trid = dc_version.xpath("ualid:trid", NS).text() if dc_version.xpath("ualid:trid", NS)
       ser = dc_version.xpath("ualid:ser",NS).text() if dc_version.xpath("ualid:ser", NS)
       if type == "Thesis"
       #for thesis objects
@@ -348,7 +348,7 @@ namespace :migration do
         elsif type == "Thesis"
           license = "I am required to use/link to a publisher's license"
           rights = "This thesis is made available by the University of Alberta Libraries with permission of the copyright owner solely for the purpose of private, scholarly or scientific research. This thesis, or any portion thereof, may not otherwise be copied or reproduced without the written consent of the copyright owner, except to the extent permitted by Canadian copyright law."
-        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/ || license.include? "..."
+        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
