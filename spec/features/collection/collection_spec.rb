@@ -309,10 +309,6 @@ describe 'collection', :type => :feature do
       click_button "Update Collection"
       expect(page).to have_content "Items in this Collection"
       expect(page).to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
-
-      click_button("Select an action")
-      click_button('Remove from Collection')
-      expect(page).not_to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
     end
 
   end
@@ -332,15 +328,6 @@ describe 'collection', :type => :feature do
 
     before do
       visit "/collections/#{collection_modify.id}"
-    end
-
-    it "should not have edit and delete options" do
-      expect(page).to have_content(generic_file.title.first)
-      click_button("Select an action")
-
-      expect(page).to have_content("Test Item")
-      expect(page).to have_content("Download File")
-      expect(page).not_to have_content("Edit File")
     end
 
     it 'should have a working search field' do
