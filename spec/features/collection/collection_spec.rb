@@ -231,7 +231,6 @@ describe 'collection', :type => :feature do
       click_button 'Update Collection'
       expect(page).to have_content("Collection was successfully updated.")
       expect(page).to have_content(collection.title)
-      expect(page).to have_content("Is part of: #{community.title}")
 
     end
 
