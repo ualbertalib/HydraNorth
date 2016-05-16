@@ -27,6 +27,9 @@ Hydranorth::Application.routes.draw do
   get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
   get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
 
+  # redirect ERA AV to Avalon server
+  get '/av' => 'redirect#era_av'
+
   # redirect old item url to hydranorth
   get '/public/view/item/:uuid' => 'redirect#item'
   get '/public/view/item/:uuid/:ds' => 'redirect#datastream'
