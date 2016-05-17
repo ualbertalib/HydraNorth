@@ -68,6 +68,7 @@ Hydranorth::Application.routes.draw do
   get 'communities', controller: 'communities', action: :index
   get 'collections/:id/:sort', controller: 'collections', action: :show
   get 'collections/:id/:per_page', controller: 'collections', action: :show
+  get 'collections/:id/edit', controller: 'collections', action: :edit
 
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
