@@ -75,6 +75,7 @@ group :test do
   gem "rspec-rails"
   gem "rspec-its"
   gem "ci_reporter_rspec"
+  gem "timecop"
 end
 
 group :development, :test do
