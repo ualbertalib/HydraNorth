@@ -12,7 +12,15 @@ require 'open3'
         "xmlns:dcterms"=>"http://purl.org/dc/terms/",
         "xmlns:georss"=>"http://www.georss.org/georss/",
         "xmlns:oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/",
+        "xmlns:ualid"=>"http://terms.library.ualberta.ca/id/",
         "xmlns:ualterms"=>"http://terms.library.ualberta.ca",
+        "xmlns:ualthesis"=>"http://terms.library.ualberta.ca/thesis/",
+        "xmlns:ualplace"=>"http://terms.library.ualberta.ca/place/",
+	"xmlns:ualname"=>"http://terms.library.ualberta.ca/name/",
+	"xmlns:ualtitle"=>"http://terms.library.ualberta.ca/title/",
+	"xmlns:ualdate"=>"http://terms.library.ualberta.ca/date/",
+	"xmlns:ualsubj"=>"http://terms.library.ualberta.ca/subject/",
+	"xmlns:ualrole"=>"http://terms.library.ualberta.ca/role/",
         "memberof"=>"info:fedora/fedora-system:def/relations-external#",
         "hasmodel"=>"info:fedora/fedora-system:def/model#",
         "xmlns:rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -208,6 +216,7 @@ namespace :migration do
       #get the date_uploaded
       date_uploaded_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#createdDate')]/@VALUE", NS).to_s
       date_uploaded = DateTime.strptime(date_uploaded_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_uploaded_string.nil?
+
       #get the modifiedDate
       date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", NS).to_s
       date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
@@ -230,11 +239,11 @@ namespace :migration do
       language = dc_version.xpath("dcterms:language",NS).text
       spatials = dc_version.xpath("dcterms:spatial/text()",NS).map(&:text) if dc_version.xpath("dcterms:spatial", NS)
       temporals = dc_version.xpath("dcterms:temporal/text()", NS).map(&:text) if dc_version.xpath("dcterms:temporal", NS)
-      fedora3handle = dc_version.xpath("ualterms:fedora3handle",NS).text()
-      fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", NS).text()
-      trid = dc_version.xpath("ualterms:trid", NS).text() if dc_version.xpath("ualterms:trid", NS)
-      ser = dc_version.xpath("ualterms:ser",NS).text() if dc_version.xpath("ualterms:ser", NS)
-
+      fedora3handle = dc_version.xpath("ualid:fedora3handle",NS).text()
+      fedora3uuid = dc_version.xpath("ualid:fedora3uuid", NS).text()
+      trid = dc_version.xpath("ualid:trid", NS).text() if dc_version.xpath("ualid:trid", NS)
+      ser = dc_version.xpath("ualid:ser",NS).text() if dc_version.xpath("ualid:ser", NS)
+      if type == "Thesis"
       #for thesis objects
       abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
       date_accepted = dc_version.xpath("dcterms:dateAccepted", NS).text() unless dc_version.xpath("dcterms:dateAccepted", NS).blank?
@@ -243,23 +252,21 @@ namespace :migration do
       date_submitted ||= dc_version.xpath("dcterms:datesubmitted", NS).text() if dc_version.xpath("dcterms:datesubmitted", NS)
       is_version_of = dc_version.xpath("dcterms:isVersionOf", NS).text() unless dc_version.xpath("dcterms:isVersionOf", NS).blank?
       is_version_of ||= dc_version.xpath("dcterms:isversionof", NS).text() if dc_version.xpath("dcterms:isversionof", NS)
-      graduation_date = dc_version.xpath("ualterms:graduationdate", NS).text() if dc_version.xpath("ualterms:graduationdate", NS)
-      specialization = dc_version.xpath("ualterms:specialization", NS).text() if dc_version.xpath("ualterms:specialization", NS)
+      graduation_date = dc_version.xpath("ualdate:graduationdate", NS).text() if dc_version.xpath("ualdate:graduationdate", NS)
+      specialization = dc_version.xpath("ualthesis:specialization", NS).text() if dc_version.xpath("ualthesis:specialization", NS)
       supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:text) if dc_version.xpath("marcrel:ths", NS)
-      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", NS).map(&:text) if dc_version.xpath("ualterms:thesiscommitteemember/text()", NS)
+      committee_members = dc_version.xpath("ualrole:thesiscommitteemember/text()", NS).map(&:text) if dc_version.xpath("ualrole:thesiscommitteemember/text()", NS)
       departments = dc_version.xpath("vivo:AcademicDepartment/text()", NS).map(&:text) if dc_version.xpath("vivo:AcademicDepartment", NS)
       thesis_name = dc_version.xpath("bibo:ThesisDegree", NS).text() if dc_version.xpath("bibo:ThesisDegree", NS)
-      thesis_level = dc_version.xpath("ualterms:thesislevel", NS).text() if dc_version.xpath("ualterms:thesislevel", NS)
+      thesis_level = dc_version.xpath("ualthesis:thesislevel", NS).text() if dc_version.xpath("ualthesis:thesislevel", NS)
       alternative_titles = dc_version.xpath("dcterms:alternative/text()", NS).map(&:text) if dc_version.xpath("dcterms:alternative", NS)
-      proquest = dc_version.xpath("ualterms:proquest", NS).text() if dc_version.xpath("ualterms:proquest", NS)
-      unicorn = dc_version.xpath("ualterms:unicorn", NS).text() if dc_version.xpath("ualterms:unicorn", NS)
+      proquest = dc_version.xpath("ualid:proquest", NS).text() if dc_version.xpath("ualid:proquest", NS)
+      unicorn = dc_version.xpath("ualid:unicorn", NS).text() if dc_version.xpath("ualid:unicorn", NS)
       degree_grantor = dc_version.xpath("marcrel:dgg", NS).text() if dc_version.xpath("marcrel:dgg", NS)
       dissertant = dc_version.xpath("marcrel:dis", NS).text() if dc_version.xpath("marcrel:dis", NS)
-      dissertant = creators.first if type == "Thesis" && (dissertant.nil? || dissertant.blank?)
-
+      dissertant = creators.first if (dissertant.nil? || dissertant.blank?)
       #calculated year_created based on date_created or date_accepted
-      if type == "Thesis"
-        year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
+      year_created = date_accepted[/(\d\d\d\d)/,0] unless date_accepted.nil? || date_accepted.blank?
       else
         year_created = date[/(\d\d\d\d)/,0]
       end
@@ -360,7 +367,7 @@ namespace :migration do
               MigrationLogger.error "Error to open License PDF for #{uuid}"
             end
           else
-            rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+            rights = File.open(license_file, "r"){ |file| file.read }.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ').gsub(/\r/, ' ')
           end
           rights = rights.squeeze(' ').gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ').squeeze(' ')
           license = "I am required to use/link to a publisher's license"
@@ -520,8 +527,8 @@ namespace :migration do
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
 
       @generic_file.apply_depositor_metadata(depositor.user_key)
-      @generic_file.date_uploaded = date_uploaded
       @generic_file.date_modified = date_modified
+      @generic_file.date_uploaded = date_uploaded
 
       if @batch_id
         @generic_file.batch_id = @batch_id

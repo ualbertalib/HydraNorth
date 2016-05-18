@@ -100,6 +100,7 @@ describe Collection do
     expect(namespace).not_to eq nil
 
     namespace = namespace.gsub(/xmlns:/, '')
+
     expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|)).not_to be_empty
     expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection_ref"]|)).to be_empty
     expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|).first.inner_text).to eq 'A title'

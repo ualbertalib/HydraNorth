@@ -1,4 +1,9 @@
 class RedirectController < ApplicationController
+
+  def era_av
+    redirect_to "https://era-av.library.ualberta.ca"
+  end
+
   def item
     return render_404 ActiveRecord::RecordNotFound unless is_uuid
     file = find_item_id
