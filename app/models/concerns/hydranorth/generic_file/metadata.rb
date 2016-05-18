@@ -1,7 +1,7 @@
 require "./lib/rdf_vocabularies/ualterms"
 require "./lib/rdf_vocabularies/ualid"
 
-module Hydranorth 
+module Hydranorth
   module GenericFile
     module Metadata
       extend ActiveSupport::Concern
@@ -26,7 +26,7 @@ module Hydranorth
         property :ser, predicate: ::UALId.ser, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
-        
+
         property :temporal, predicate: ::RDF::DC.temporal  do |index|
           index.as :stored_searchable, :facetable
         end
@@ -42,7 +42,7 @@ module Hydranorth
         property :unicorn, predicate: ::UALId.unicorn, multiple: false do |index|
           index.as :stored_searchable
         end
-       
+
         property :fedora3uuid, predicate: ::UALId.fedora3uuid, multiple: false do |index|
           index.as :symbol, :stored_searchable
         end
@@ -67,8 +67,6 @@ module Hydranorth
           index.as :symbol, :stored_searchable
         end
 
-
-
         begin
           LocalAuthority.register_vocabulary(self, "spatial", "geonames_cities")
         rescue
@@ -76,14 +74,14 @@ module Hydranorth
         end
 
         property :year_created, predicate: ::UALTerms.year_created, multiple: false do |index|
-          index.type :date 
+          index.type :date
           index.as :stored_searchable, :facetable
         end
 
         property :remote_resource, predicate: ::UALTerms.remote_resource, multiple:false
 
       end
-   
+
       def belongsToCommunity?
         !self.belongsToCommunity.empty?
       end
