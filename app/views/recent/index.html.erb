@@ -1,0 +1,16 @@
+<% content_for(:gscholar_meta) do %>
+ <meta name="robots" content="noindex" />
+<% end %>
+
+<div class="col-md-6">
+  <h1><%= recent_title %></h1>
+  <%= render partial: "recent_document", collection: @recent_documents, locals: {display_thumbs: true, display_access: false} %>
+  <h1>Older documents</h1>
+  <% @date_buckets.each do |year, date| %>
+    <div><%= "#{year}: " %>
+    <% date.each do |bucket| %>
+      <%= link_to bucket_as_month(bucket[0]), recent_path(bucket_as_params(bucket[0])) %> 
+    <% end %>
+  <% end %>
+</div>
+

@@ -45,6 +45,7 @@ describe "Migration rake tasks", :integration => true do
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
       expect(subject.institutional_visibility?).to be false
+      expect(subject.date_uploaded).to eq "2013-01-06T05:11:52.580Z"
 
       expect(subject.hasCollection).to include 'test collection'
       expect(subject.hasCollectionId).to include @collection.id
@@ -180,7 +181,7 @@ describe "Migration rake tasks", :integration => true do
       expect(subject.content.latest_version.label).to eq "version1"
       expect(subject.fedora3foxml.latest_version.label).to eq "version1"
       expect(subject.license).to eq "I am required to use/link to a publisher's license"
-      expect(subject.rights).to eq "Permission is hereby granted to the University of Alberta Libraries to reproduce single copies of this thesis and to lend or sell such copies for private, scholarly or scientific research purposes only. The author reserves all other publication and other rights in association with the copyright in the thesis and, except as herein before provided, neither the thesis nor any substantial portion thereof may be printed or otherwise reproduced in any material form whatsoever without the author's prior written permission."
+      expect(subject.rights).to eq "This thesis is made available by the University of Alberta Libraries with permission of the copyright owner solely for the purpose of private, scholarly or scientific research. This thesis, or any portion thereof, may not otherwise be copied or reproduced without the written consent of the copyright owner, except to the extent permitted by Canadian copyright law."
       expect(subject.hasCollection).to include 'Theses'
       expect(subject.hasCollectionId).to include @collection.id
       expect(subject.belongsToCommunity).to include @community.id
