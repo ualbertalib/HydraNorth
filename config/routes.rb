@@ -1,5 +1,7 @@
 Hydranorth::Application.routes.draw do
   
+  get 'recent/index'
+
   namespace :admin do
   get 'become/index'
   end
@@ -26,6 +28,9 @@ Hydranorth::Application.routes.draw do
 
   get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
   get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
+
+  # redirect ERA AV to Avalon server
+  get '/av' => 'redirect#era_av'
 
   # redirect old item url to hydranorth
   get '/public/view/item/:uuid' => 'redirect#item'
@@ -69,6 +74,7 @@ Hydranorth::Application.routes.draw do
   get 'collections/:id/:sort', controller: 'collections', action: :show
   get 'collections/:id/:per_page', controller: 'collections', action: :show
   get 'collections/:id/edit', controller: 'collections', action: :edit
+  get 'recent', controller: 'recent', action: :index
 
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
