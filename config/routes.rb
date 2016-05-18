@@ -71,6 +71,9 @@ Hydranorth::Application.routes.draw do
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
   get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
+  get 'collections/:id/:sort', controller: 'collections', action: :show
+  get 'collections/:id/:per_page', controller: 'collections', action: :show
+  get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
 
 
