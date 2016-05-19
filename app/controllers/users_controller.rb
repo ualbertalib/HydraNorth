@@ -64,4 +64,11 @@ class UsersController < ApplicationController
     end
   end
 
+  protected
+
+  def user_params
+    params.require(:user).permit(:avatar, :facebook_handle, :twitter_handle,
+                                 :googleplus_handle, :linkedin_handle, :remove_avatar, :orcid)
+  end
+
 end
