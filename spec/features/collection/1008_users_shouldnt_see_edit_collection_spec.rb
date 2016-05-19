@@ -40,11 +40,11 @@ describe 'collection', :type => :feature do
     end
     it 'should be able to see edit for admin collection' do
       visit collections.collection_path(admin_collection)
-      expect(page).to have_content 'edit'
+      expect(page).to have_content 'Edit'
     end
     it 'should be able to see edit for official collection' do
       visit collections.collection_path(official_collection)
-      expect(page).to have_content 'edit'
+      expect(page).to have_content 'Edit'
     end
   end
 
