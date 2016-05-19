@@ -72,7 +72,6 @@ gem 'sitemap', github: 'ualbertalib/rails-sitemap'
 gem 'noid', '~> 0.8'
 
 group :test do
-  gem "rspec-rails"
   gem "rspec-its"
   gem "ci_reporter_rspec"
   gem "timecop"
@@ -80,6 +79,7 @@ end
 
 group :development, :test do
   gem "byebug"
+  gem "rspec-rails"
   gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"

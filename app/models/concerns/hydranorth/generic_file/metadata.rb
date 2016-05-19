@@ -12,7 +12,7 @@ module Hydranorth
         # fedora's system created date will reflect the date when the record
         # was created in fedora4, but the date_uploaded will preserve the
         # original creation date from the old repository.
-        property :date_uploaded, predicate: ::RDF::DC.dateSubmitted, multiple: false do |index|
+        property :date_uploaded, predicate: ActiveFedora::RDF::Fcrepo::Model.createdDate, multiple: false do |index|
           index.type :date
           index.as :stored_sortable
         end

@@ -1,4 +1,4 @@
-class UALTerms < RDF::Vocabulary("http://terms.library.ualberta.ca/identifiers/")
+class UALTerms < RDF::Vocabulary("http://terms.library.ualberta.ca/")
   # legacy terms, to be deprecated after PCDM
   term :ingestbatch
   term :year_created
