@@ -67,13 +67,14 @@ gem "clamav"
 gem "pdf-reader"
 
 # to generate sitemap for google scholar et al
-gem 'sitemap'
+gem 'sitemap', github: 'ualbertalib/rails-sitemap'
 
 gem 'noid', '~> 0.8'
 
 group :test do
   gem "rspec-its"
   gem "ci_reporter_rspec"
+  gem "timecop"
 end
 
 group :development, :test do

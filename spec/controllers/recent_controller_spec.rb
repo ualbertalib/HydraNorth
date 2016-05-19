@@ -4,17 +4,33 @@ RSpec.describe RecentController, type: :controller do
   routes { Rails.application.class.routes }
 
   describe "GET #index" do
+
     before :each do
       @gf1 = GenericFile.new(title: ['Test Document PDF'], filename: ['test.pdf'], subject: ['rocks'], read_groups: ['public'])
       @gf1.apply_depositor_metadata('mjg36')
+      old_to_solr = @gf1.method(:to_solr)
+      allow(@gf1).to receive(:to_solr) do
+        old_to_solr.call.merge(
+          Solrizer.solr_name('system_create', :stored_sortable, type: :date) => Time.parse("2016-04-29T16:25:21Z").iso8601
+        )
+      end
       @gf1.save
       @gf2 = GenericFile.new(title: ['Test Private Document'], filename: ['test2.doc'], subject: ['clouds'], contributor: ['Contrib1'], read_groups: ['private'])
       @gf2.apply_depositor_metadata('mjg36')
+      old_to_solr = @gf2.method(:to_solr)
+      allow(@gf2).to receive(:to_solr) do
+        old_to_solr.call.merge(
+          Solrizer.solr_name('system_create', :stored_sortable, type: :date) => Time.parse("2016-05-1    0T22:42:30Z").iso8601
+        )
+      end
       @gf2.save
+
+      Timecop.freeze(Time.parse("2016-04-29T16:25:21Z"))
     end
 
     after :each do
       cleanup_jetty
+      Timecop.return
     end
 
     it "does not include other user's private documents in recent documents" do
@@ -44,7 +60,7 @@ RSpec.describe RecentController, type: :controller do
         old_to_solr = gw3.method(:to_solr)
         allow(gw3).to receive(:to_solr) do
           old_to_solr.call.merge(
-            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => 1.day.ago.iso8601
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => (Time.now - 1.day).utc.iso8601
           )
         end
         gw3.save
@@ -67,7 +83,7 @@ RSpec.describe RecentController, type: :controller do
         old_to_solr = gf4.method(:to_solr)
         allow(gf4).to receive(:to_solr) do
           old_to_solr.call.merge(
-            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => 15.day.ago.iso8601
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => (Time.now - 15.day).utc.iso8601
           )
         end
         gf4.save
@@ -78,7 +94,7 @@ RSpec.describe RecentController, type: :controller do
         old_to_solr = gf5.method(:to_solr)
         allow(gf5).to receive(:to_solr) do
           old_to_solr.call.merge(
-            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => 32.day.ago.iso8601
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => (Time.now - 32.day).utc.iso8601
           )
         end
         gf5.save
@@ -87,9 +103,9 @@ RSpec.describe RecentController, type: :controller do
       it "doesn't include older documents" do
         get :index
         expect(response).to be_success
-        expect(assigns(:recent_documents).length).to eq 1 
+        expect(assigns(:recent_documents).length).to eq 0 
         create_times = assigns(:recent_documents).map { |d| d['system_create_dtsi'] }
-        expect(create_times).to_not include(15.days.ago.iso8601)
+        expect(create_times).to_not include((Time.now - 15.days).utc.iso8601)
       end
       it "includes all documents in date bucket" do
         get :index, {:year => Time.now.year}
@@ -120,7 +136,7 @@ RSpec.describe RecentController, type: :controller do
         old_to_solr = gf6.method(:to_solr)
         allow(gf6).to receive(:to_solr) do
           old_to_solr.call.merge(
-            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => 1.year.ago.iso8601
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => (Time.now - 1.year).utc.iso8601
           )
         end
         gf6.save
