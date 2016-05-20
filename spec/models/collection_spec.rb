@@ -96,7 +96,7 @@ describe Collection do
 
     expect(response_code).to eq 200
 
-    namespace = xml.collect_namespaces.invert['http://terms.library.ualberta.ca/']
+    namespace = xml.collect_namespaces.invert['http://terms.library.ualberta.ca/identifiers/']
     expect(namespace).not_to eq nil
 
     namespace = namespace.gsub(/xmlns:/, '')
