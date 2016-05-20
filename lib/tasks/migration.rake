@@ -348,7 +348,7 @@ namespace :migration do
         elsif type == "Thesis"
           license = "I am required to use/link to a publisher's license"
           rights = "This thesis is made available by the University of Alberta Libraries with permission of the copyright owner solely for the purpose of private, scholarly or scientific research. This thesis, or any portion thereof, may not otherwise be copied or reproduced without the written consent of the copyright owner, except to the extent permitted by Canadian copyright law."
-        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC)$/
+        elsif license=~/^.*\.(pdf|PDF|txt|TXT|doc|DOC|\.\.\.)$/ 
           file_location = FEDORA_URL + uuid + "/LICENSE"
           MigrationLogger.info "Download license file for #{uuid}"
           license_file = "#{TEMP}/#{uuid}/LICENSE"
