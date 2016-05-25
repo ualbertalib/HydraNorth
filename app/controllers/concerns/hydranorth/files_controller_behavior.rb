@@ -58,6 +58,16 @@ module Hydranorth
       end
     end
 
+    def update_metadata
+      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
+        self.edit_form_class = Hydranorth::Forms::CstrEditForm
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
+        self.edit_form_class = Hydranorth::Forms::SerEditForm
+      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
+        self.edit_form_class = Hydranorth::Forms::ThesisEditForm
+      end
+      super
+    end
 
     def process_file(file)
       Batch.find_or_create(params[:batch_id])
