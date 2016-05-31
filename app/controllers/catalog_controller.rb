@@ -102,6 +102,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("year_created", :facetable), label: "Year", limit: 3
     # publisher: has "show: false", but is needed to provide field label in "You searched for" box
     config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", show: false
+    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", show: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
