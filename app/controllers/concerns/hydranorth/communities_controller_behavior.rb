@@ -15,7 +15,6 @@ module Hydranorth
 
     def logo
       @community = Collection.find(params[:id])
-      logger.debug @community.logo
       send_data @community.logo.content, disposition: 'inline'
     end
 
