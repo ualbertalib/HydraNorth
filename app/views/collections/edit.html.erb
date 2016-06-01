@@ -8,7 +8,9 @@
       <%= render 'collections/form' %>
     </div>
     <div class="col-xs-12 col-sm-2">
-      <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      <div id="community-logo">
+        <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      </div>
       <%= render 'collections/edit_actions' %>
     </div>
   </div>

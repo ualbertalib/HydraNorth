@@ -35,8 +35,8 @@ module Hydranorth
  
     def check_logo_size
       size = logo.size
-      if size.to_i > 2.kilobytes
-        raise "Collection logo larger than 20KB"
+      if size.to_i > 200.kilobytes
+        raise "Collection logo larger than 200KB"
       end
     end  
 
