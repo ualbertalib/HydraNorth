@@ -6,14 +6,15 @@
     <div class="col-sm-10 pull-right">
       <header>
         <h1><%= @presenter.title %></h1>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#description">Description</button>
-        <div id="description" class="collapse">
+        <div id="description">
           <%= sanitize @presenter.description %>
         </div>
       </header>
     </div>
     <div class="col-sm-2">
-      <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      <div id="community-logo">
+        <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      </div>
       <% unless has_collection_search_parameters? %>
       <%= render partial: 'collections/show_actions' %>
       <% end %>
@@ -25,8 +26,7 @@
     <div>
       <header>
         <h1><%= @presenter.title %></h1>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#description">Description</button>
-        <div id="description" class="collapse">
+        <div id="description">
           <%= sanitize @presenter.description %>
         </div>
       </header>
