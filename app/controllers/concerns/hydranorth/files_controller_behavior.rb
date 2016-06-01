@@ -11,12 +11,6 @@ module Hydranorth
     include Hydranorth::Breadcrumbs
 
 
-    included do
-      self.edit_form_class = Hydranorth::Forms::GenericFileEditForm
-      self.presenter_class = Hydranorth::GenericFilePresenter
-    end
-
-
     protected
 
     def actor
@@ -27,19 +21,6 @@ module Hydranorth
       attributes = params
     end
 
-    def presenter
-      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
-        Hydranorth::CstrPresenter.new(@generic_file)
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
-        Hydranorth::SerPresenter.new(@generic_file)
-      elsif @generic_file[:remote_resource] == "dataverse"
-        Hydranorth::DataversePresenter.new(@generic_file)
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
-        Hydranorth::ThesisPresenter.new(@generic_file)
-      else
-        Hydranorth::GenericFilePresenter.new(@generic_file)
-      end
-    end
 
     def edit_form
       find_collections_with_read_access
@@ -47,25 +28,6 @@ module Hydranorth
 
       @community_collections = collections_for_community(@generic_file.belongsToCommunity.first)
 
-      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
-        Hydranorth::Forms::CstrEditForm.new(@generic_file)
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
-        Hydranorth::Forms::SerEditForm.new(@generic_file)
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
-        Hydranorth::Forms::ThesisEditForm.new(@generic_file)
-      else
-        Hydranorth::Forms::GenericFileEditForm.new(@generic_file)
-      end
-    end
-
-    def update_metadata
-      if @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
-        self.edit_form_class = Hydranorth::Forms::CstrEditForm
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['ser']
-        self.edit_form_class = Hydranorth::Forms::SerEditForm
-      elsif @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
-        self.edit_form_class = Hydranorth::Forms::ThesisEditForm
-      end
       super
     end
 
