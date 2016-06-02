@@ -250,8 +250,10 @@ describe 'collection', :type => :feature do
       expect(page).to have_content(generic_file.title.first)
 
       expect(page).to have_content("Test Item")
-      expect(page).to have_content("Download File")
-      expect(page).not_to have_content("Edit File")
+      expect(page).to have_content("Download")
+      click_link ('Test Item')
+      expect(page).not_to have_content("Edit")
+      expect(page).not_to have_content("Delete")
     end
 
     it 'should have a working search field' do
