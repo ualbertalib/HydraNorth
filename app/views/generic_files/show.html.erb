@@ -1,7 +1,9 @@
 <% content_for(:twitter_meta) do %>
-  <meta name="twitter:card" content="product">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="<%= t('sufia.product_twitter_handle') %>"/>
-  <meta name="twitter:creator" content="<%= @presenter.tweeter %>"/>
+  <meta name="twitter:title" content="<%= @presenter.title.first %>"/>
+  <meta name="twitter:description" content="<%= @presenter.description.first.truncate(200) rescue @presenter.title.first %>"/>
+  <meta name="twitter:image" content="<%= sufia.download_url(@presenter, file: 'thumbnail') %>"/>
   <meta property="og:site_name" content="<%= t('sufia.product_name') %>"/>
   <meta property="og:type" content="object"/>
   <meta property="og:title" content="<%= @presenter.title.first %>"/>

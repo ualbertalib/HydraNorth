@@ -1,5 +1,11 @@
 Hydranorth::Application.routes.draw do
   
+  get 'recent/index'
+
+  namespace :admin do
+  get 'become/index'
+  end
+
   blacklight_for :catalog
   devise_for :users, :controllers => { :sessions => 'users/sessions',:omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -23,6 +29,9 @@ Hydranorth::Application.routes.draw do
   get 'users/:id/link_account' => 'users#link_account', as: 'link_account_user'
   get 'users/:id/set_saml' => 'users#set_saml', as: 'set_saml_user'
 
+  # redirect ERA AV to Avalon server
+  get '/av' => 'redirect#era_av'
+
   # redirect old item url to hydranorth
   get '/public/view/item/:uuid' => 'redirect#item'
   get '/public/view/item/:uuid/:ds' => 'redirect#datastream'
@@ -33,9 +42,6 @@ Hydranorth::Application.routes.draw do
   get '/public/view/community/:uuid' => 'redirect#collection'
   get '/public/view/author/:username' => 'redirect#author'
   get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
-
-  # redirect ark to hydranorth
-  get '/id/:arkid' => 'redirect#ark', :constraints => { :arkid => /ark:\/\d{5}\/.*/ }
 
   scope :dashboard do
 
@@ -63,8 +69,13 @@ Hydranorth::Application.routes.draw do
   get 'browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
+  get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
   get 'communities/logo', controller: 'communities', action: :logo
+  get 'collections/:id/:sort', controller: 'collections', action: :show
+  get 'collections/:id/:per_page', controller: 'collections', action: :show
+  get 'collections/:id/edit', controller: 'collections', action: :edit
+  get 'recent', controller: 'recent', action: :index
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

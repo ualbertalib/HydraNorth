@@ -67,19 +67,19 @@ gem "clamav"
 gem "pdf-reader"
 
 # to generate sitemap for google scholar et al
-gem 'sitemap'
+gem 'sitemap', github: 'ualbertalib/rails-sitemap'
 
 gem 'noid', '~> 0.8'
 
-gem 'ezid-client'
-
 group :test do
-  gem "rspec-rails"
   gem "rspec-its"
   gem "ci_reporter_rspec"
+  gem "timecop"
 end
+
 group :development, :test do
   gem "byebug"
+  gem "rspec-rails"
   gem "ruby-debug-passenger"
   gem "selenium-webdriver"
   gem "jettywrapper"
@@ -95,4 +95,6 @@ group :development, :test do
   gem 'pry-byebug'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'ruby-prof'
+  gem 'rest-client'
 end

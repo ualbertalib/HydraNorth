@@ -7,6 +7,7 @@ module Hydranorth
     included do
       before_action only: [:index] do
         find_communities
+        find_collections_grouped_by_community
       end
     end
 

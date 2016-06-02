@@ -1,25 +1,28 @@
 require 'spec_helper'
 
 describe UsersController, :type => :controller do
+  let(:admin) { FactoryGirl.create :admin }
+  let(:user) { FactoryGirl.create :jill }
   before(:each) do
-    @user = FactoryGirl.find_or_create(:jill)
-    @another_user = FactoryGirl.find_or_create(:admin)
-    sign_in @user
-    allow_any_instance_of(User).to receive(:groups).and_return([])
-#    allow(controller).to receive(:clear_session_user) ## Don't clear out the authenticated session
+    sign_in user
+  end
+  after :all do
+    cleanup_jetty
   end
 
   describe "#index" do
-    before do
-      @u1 = FactoryGirl.find_or_create(:admin)
-      @u2 = FactoryGirl.find_or_create(:jill)
-    end
     describe "requesting html" do
       it "should test users" do
+        sign_in admin # the only user that can see html
         get :index
-        expect(assigns[:users]).to include(@u2)
-        expect(assigns[:users]).to_not include(@u1)
+        expect(assigns[:users]).to include(user)
+        expect(assigns[:users]).to_not include(admin)
         expect(response).to be_successful
+      end
+      it "should not serve non admin" do
+        get :index
+        expect(assigns[:users]).to be_nil
+        expect(response).to_not be_successful
       end
     end
     describe "requesting json" do
@@ -27,41 +30,41 @@ describe UsersController, :type => :controller do
         get :index, format: :json
         expect(response).to be_successful
         json = JSON.parse(response.body)
-        expect(json.map{|u| u['id']}).to include(@u2.email)
-        expect(json.map{|u| u['text']}).to_not include(@u1.email)
+        expect(json.map{|u| u['id']}).to include(user.email)
+        expect(json.map{|u| u['text']}).to_not include(admin.email)
       end
     end
     describe "query users"  do
       it "does not find the expected user via email" do
-        get :index,  uq: @u1.email
-        expect(assigns[:users]).to_not include(@u1)
+        get :index, format: :json, uq: admin.email
+        expect(assigns[:users]).to_not include(admin)
         expect(response).to be_successful
       end
       it "finds the expected user via email" do
-        get :index,  uq: @u2.email
-        expect(assigns[:users]).to include(@u2)
+        get :index, format: :json, uq: user.email
+        expect(assigns[:users]).to include(user)
         expect(response).to be_successful
       end
       it "finds the expected user via display name" do
-        @u1.display_name = "User 1"
-        @u1.save
-        @u2.display_name = "User 2"
-        @u2.save
+        admin.display_name = "User 1"
+        admin.save
+        user.display_name = "User 2"
+        user.save
         allow_any_instance_of(User).to receive(:display_name).and_return("User 1", "User 2")
-        get :index,  uq: "User"
-        expect(assigns[:users]).to include(@u2)
-        expect(assigns[:users]).to_not include(@u1)
+        get :index, format: :json, uq: "User"
+        expect(assigns[:users]).to include(user)
+        expect(assigns[:users]).to_not include(admin)
         expect(response).to be_successful
-        @u1.display_name = nil
-        @u1.save
-        @u2.display_name = nil
-        @u2.save
+        admin.display_name = nil
+        admin.save
+        user.display_name = nil
+        user.save
       end
       it "uses the base query" do
         allow(controller).to receive(:base_query).and_return(['email = "jilluser@example.com"'])
-        get :index
-        expect(assigns[:users]).to include(@u2)
-        expect(assigns[:users]).to_not include(@u1)
+        get :index, format: :json
+        expect(assigns[:users]).to include(user)
+        expect(assigns[:users]).to_not include(admin)
       end
     end
   end

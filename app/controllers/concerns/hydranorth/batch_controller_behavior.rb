@@ -54,7 +54,7 @@ module Hydranorth
 
 
     def update_collections
-      @filtered_collections = Collection.where(belongsToCommunity: params[:community_id])
+      @filtered_collections = collections_for_community(params[:community_id])
       @index = params[:index]
       respond_to do |format|
         format.js {}

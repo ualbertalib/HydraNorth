@@ -12,18 +12,48 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  around_filter :profile, if: -> {Rails.env.development? && params[:trace] == "1"}
+  around_filter :gc_stats, if: -> {params[:gc_stats] == "1"}
+
   before_filter :force_account_link,
                 if: -> { @current_user && @current_user.link_pending? }
 
   rescue_from ActiveFedora::ObjectNotFoundError do |exception|
      render_404 exception
   end
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
      render_404 exception
   end
 
+  def profile
+    require 'ruby-prof'
+
+    RubyProf.start
+
+    yield
+
+    results = RubyProf.stop
+
+    File.open "#{Rails.root}/profile-stack.html", 'w' do |file|
+        RubyProf::CallStackPrinter.new(results).print(file)
+    end
+  end
+
+  def gc_stats
+    before = GC.stat.to_s
+    yield
+    after = GC.stat.to_s
+    response.header['X-GC-STATS-BEFORE'] = before
+    response.header['X-GC-STATS-AFTER'] = after
+  end
+
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || sufia.dashboard_index_path || root_path
+    if current_user.admin?
+      stored_location_for(resource) || root_path
+    else
+      stored_location_for(resource) || sufia.dashboard_index_path || root_path
+    end
   end
 
   def force_account_link

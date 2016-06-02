@@ -1,22 +1,22 @@
 <% @page_title = "#{@collection.title} - #{application_name}" %>
 
-<% if @collection.is_community == true or @collection.is_community == "true" %>
+<% if @collection.is_community or @collection.is_community == "true" %>
   <a href="/communities">View Communities</a>
   <div itemscope itemtype="http://schema.org/CollectionPage" class="row">
     <div class="col-sm-10 pull-right">
       <header>
         <h1><%= @presenter.title %></h1>
-        <div id="description">
-          <%= sanitize @presenter.description %>
-        </div>
+        <%= sanitize @presenter.description %>
       </header>
     </div>
     <div class="col-sm-2">
       <div id="community-logo">
         <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
       </div>
-      <% unless has_collection_search_parameters? %>
-      <%= render partial: 'collections/show_actions' %>
+      <% if !current_user.nil? %>
+        <% if current_user.admin? %>
+          <%= render partial: 'collections/show_actions' %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -26,18 +26,20 @@
     <div>
       <header>
         <h1><%= @presenter.title %></h1>
-        <div id="description">
-          <%= sanitize @presenter.description %>
-        </div>
+        <%= sanitize @presenter.description %>
       </header>
     </div>
     <div>
-      <% unless has_collection_search_parameters? %>
-      <%= render partial: 'collections/show_actions' %>
+      <% if !current_user.nil? %>
+        <% if current_user.admin? %>
+          <%= render partial: 'collections/show_actions' %>
+        <% end %>
       <% end %>
     </div>
   </div>
 <% end %>
+
+<%= render 'sort_and_per_page' %>
 
 <% if @collection.is_community == true or @collection.is_community == "true" %>
   <% if has_collection_search_parameters? %>
@@ -78,15 +80,13 @@
   <% if current_user.admin? %>
     <%= render partial: 'show_document_list' %>
 
-  <% else %>a
+  <% else %>
     <div id="sidebar" class="col-md-3 col-sm-4">
       <%= render 'facets' %>
     </div>
 
     <div id="content" class="col-md-9 col-sm-8">
-      <div id="content" class="col-md-9 col-sm-8">
-        <%= render 'search_results' %>
-      </div>
+      <%= render 'document_list' %>
     </div>
   <% end %>
 <% end %>

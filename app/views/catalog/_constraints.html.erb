@@ -5,6 +5,6 @@
           <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink btn btn-sm btn-text", :id=>"startOverLink" %>
         </div>
         <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
-        <%= render_constraints(params) %>
+        <%= render_checked_constraints(params) %>
       </div>
 <% end %>

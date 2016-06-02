@@ -1,4 +1,8 @@
 require "./lib/rdf_vocabularies/ualterms"
+require "./lib/rdf_vocabularies/ualrole"
+require "./lib/rdf_vocabularies/ualthesis"
+require "./lib/rdf_vocabularies/ualdate"
+require "./lib/rdf_vocabularies/ualid"
 
 module Hydranorth 
   module Thesis
@@ -19,13 +23,13 @@ module Hydranorth
         property :supervisor, predicate: ::RDF::Vocab::MARCRelators.ths do |index|
           index.as :stored_searchable
         end
-        property :committee_member, predicate: ::UALTerms.thesiscommitteemember do |index|
+        property :committee_member, predicate: ::UALRole.thesiscommitteemember do |index|
           index.as :stored_searchable
         end
         property :department, predicate: vivo.AcademicDepartment do |index|
           index.as :stored_searchable
         end
-        property :specialization, predicate: ::UALTerms.specialization, multiple: false do |index|
+        property :specialization, predicate: ::UALThesis.specialization, multiple: false do |index|
           index.as :stored_searchable
         end
         property :date_submitted, predicate: ::RDF::DC.dateSubmitted, multiple: false do |index|
@@ -36,7 +40,7 @@ module Hydranorth
           index.type :date
           index.as :stored_searchable
         end
-        property :graduation_date, predicate: ::UALTerms.graduationdate, multiple: false do |index|
+        property :graduation_date, predicate: ::UALDate.graduationdate, multiple: false do |index|
           index.as :stored_searchable, :facetable
         end
         property :alternative_title, predicate: ::RDF::DC.alternative do |index|
@@ -45,11 +49,11 @@ module Hydranorth
         property :thesis_name, predicate: bibo.ThesisDegree, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :thesis_level, predicate: ::UALTerms.thesislevel, multiple: false do |index|
+        property :thesis_level, predicate: ::UALThesis.thesislevel, multiple: false do |index|
           index.as :stored_searchable
         end
 
-        property :proquest, predicate: ::UALTerms.proquest, multiple: false do |index|
+        property :proquest, predicate: ::UALId.proquest, multiple: false do |index|
           index.as :stored_searchable
         end
         property :abstract, predicate: ::RDF::DC.abstract, multiple: false do |index|

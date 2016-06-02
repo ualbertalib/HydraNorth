@@ -10,4 +10,16 @@ class GenericFilesController < ApplicationController
   def new
     @batch_id  = Batch.create.id
   end
+
+
+  # on edit pages required to filter collections based on selected community
+  def update_collections
+    @filtered_collections = collections_for_community(params[:community_id])
+    @index = params[:index]
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+
 end

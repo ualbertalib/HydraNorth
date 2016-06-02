@@ -167,7 +167,7 @@ module Hydranorth
             end
           end
         else # I'm a collection
-          new_member.set_value(:hasCollection, self) if new_member.respond_to? :hasCollection
+          new_member.set_value(:hasCollection, [self.title]) if new_member.respond_to? :hasCollection
           new_member.set_value(:hasCollectionId, [self.id]) if new_member.respond_to? :hasCollectionId
           new_member.set_value(:belongsToCommunity, self.belongsToCommunity) if self.belongsToCommunity?
         end

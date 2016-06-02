@@ -1,7 +1,7 @@
-#Custom Migration Logger
+#Custom Rake Task Logger
 require 'singleton'
 
-class EzidLogger < Logger
+class RakeLogger < Logger
   include Singleton
 
     # Optional, but good for prefixing timestamps automatically
@@ -15,9 +15,9 @@ class EzidLogger < Logger
 
   def initialize
     if Rails.env.test?
-      super(Rails.root.join('log/ezid-spec.log'))
+      super(Rails.root.join('log/rake_task_spec.log'))
     else
-      super(Rails.root.join('log/ezid.log'))
+      super(Rails.root.join('log/rake_task.log'))
     end
     self.formatter = Formatter.new
     self

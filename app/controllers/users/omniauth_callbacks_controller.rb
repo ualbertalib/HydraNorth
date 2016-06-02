@@ -1,6 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def shibboleth
     auth = request.env['omniauth.auth']
+
     unless @current_user.present?
       @user = User.from_omniauth(auth).first
       @user.associate_auth(auth) if @user && @user.ccid.nil?

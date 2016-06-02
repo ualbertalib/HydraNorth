@@ -1,4 +1,5 @@
 require "./lib/rdf_vocabularies/ualterms"
+require "./lib/rdf_vocabularies/ualid"
 
 module Hydranorth 
   module GenericFile
@@ -11,7 +12,7 @@ module Hydranorth
         # fedora's system created date will reflect the date when the record
         # was created in fedora4, but the date_uploaded will preserve the
         # original creation date from the old repository.
-        property :date_uploaded, predicate: ::RDF::DC.dateSubmitted, multiple: false do |index|
+        property :date_uploaded, predicate: ActiveFedora::RDF::Fcrepo::Model.createdDate, multiple: false do |index|
           index.type :date
           index.as :stored_sortable
         end
@@ -19,10 +20,10 @@ module Hydranorth
         property :license, predicate: ::RDF::DC.license, multiple: false do |index|
           index.as :stored_searchable
         end
-        property :trid, predicate: ::UALTerms.trid, multiple: false do |index|
+        property :trid, predicate: ::UALId.trid, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
-        property :ser, predicate: ::UALTerms.ser, multiple: false do |index|
+        property :ser, predicate: ::UALId.ser, multiple: false do |index|
           index.as :stored_searchable, :sortable
         end
         
@@ -38,15 +39,15 @@ module Hydranorth
           index.as :stored_searchable
         end
 
-        property :unicorn, predicate: ::UALTerms.unicorn, multiple: false do |index|
+        property :unicorn, predicate: ::UALId.unicorn, multiple: false do |index|
           index.as :stored_searchable
         end
        
-        property :fedora3uuid, predicate: ::UALTerms.fedora3uuid, multiple: false do |index|
+        property :fedora3uuid, predicate: ::UALId.fedora3uuid, multiple: false do |index|
           index.as :symbol, :stored_searchable
         end
 
-        property :fedora3handle, predicate: ::UALTerms.fedora3handle, multiple: false do |index|
+        property :fedora3handle, predicate: ::UALId.fedora3handle, multiple: false do |index|
           index.as :symbol, :stored_searchable
         end
 
@@ -66,14 +67,7 @@ module Hydranorth
           index.as :symbol, :stored_searchable
         end
 
-        property :ark_created, predicate: ::UALTerms.ark_created, multiple: false do |index|
-          index.type :boolean
-          index.as :stored_searchable
-        end
 
-        property :ark_id, predicate: ::UALTerms.ark_id, multiple: false do |index|
-          index.as :symbol, :stored_searchable
-        end
 
         begin
           LocalAuthority.register_vocabulary(self, "spatial", "geonames_cities")

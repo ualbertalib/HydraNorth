@@ -3,6 +3,19 @@ class UsersController < ApplicationController
 
   skip_before_filter :force_account_link, only: [:link_account, :set_saml]
 
+  def index
+    respond_to do |format|
+      format.html do 
+        if current_user.nil? || !current_user.admin?
+          redirect_to sufia.dashboard_index_path, alert: "Permission denied: cannot access this page."
+        else
+          super
+        end
+      end 
+      format.json { super }
+    end
+  end
+ 
   def edit
     @user = User.from_url_component(params[:id])
     @trophies = @user.trophy_files
@@ -49,6 +62,13 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t('devise.omniauth_callbacks.success', :kind => 'Shibboleth')
       sign_in_and_redirect @user, :event => :authentication
     end
+  end
+
+  protected
+
+  def user_params
+    params.require(:user).permit(:display_name, :avatar, :facebook_handle, :twitter_handle,
+                               :googleplus_handle, :remove_avatar, :orcid)
   end
 
 end
