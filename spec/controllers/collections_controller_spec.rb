@@ -153,6 +153,13 @@ describe CollectionsController do
         @child_collection.member_ids = [@file2.id]
         @child_collection.save
 
+        @logo_file = fixture_file_upload('logo.jpg', 'image/jpg')
+
+      end
+
+      it "should add logo" do
+        put :update, id: community, collection: {logo: @logo_file}
+        expect(response).to redirect_to routes.url_helpers.collection_path(community)
       end
 
       it "should set belongsToCommunity on member file" do

@@ -1,11 +1,20 @@
+<%= javascript_include_tag 'modules/community-logo' %>
 <%= simple_form_for [collections, @form], html: {class: 'form-horizontal editor'} do |f| %>
   <div id="descriptions_display">
-   
+
     <div class="well">
-       <p><small><span class="error">*</span> indicates required fields</small></p>
+      <p><small><span class="error">*</span> indicates required fields</small></p>
+
       <% f.object.terms.each do |term| %>
         <%= render_edit_field_partial term, f: f %>
       <% end %>
+      <br/><br/>
+      <div id="logo" style="display:none">
+        <span style="font-weight:bold">Logo</span>
+        <%= f.label :logo do %>
+          <%= f.file_field :logo, :onchange =>"validateFiles(this);", :data => {:max_file_size => 20.kilobytes} %>
+        <% end %>
+      </div>
     </div><!-- /well -->
   </div>
   <%= hidden_field_tag :type, params[:type] %>

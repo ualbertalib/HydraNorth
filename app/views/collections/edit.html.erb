@@ -1,0 +1,25 @@
+<% @page_title = "Edit Collection #{display_title(@collection)} - #{application_name}" %>
+<%= render_breadcrumbs builder: Sufia::BootstrapBreadcrumbsBuilder %>
+<h1>Edit Collection: <%= display_title(@collection) %></h1>
+
+<% unless has_collection_search_parameters? %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 pull-right">
+      <%= render 'collections/form' %>
+    </div>
+    <div class="col-xs-12 col-sm-2">
+      <div id="community-logo">
+        <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      </div>
+      <%= render 'collections/edit_actions' %>
+    </div>
+  </div>
+<% end %>
+
+<h2>Manage Items in this Collection</h2>
+<%= render 'search_collection_dashboard_form'%>
+<%= render 'my/did_you_mean' %>
+<%= render 'my/facet_selected' %>
+<%= render 'collections/sort_and_per_page' %>
+<%= render 'document_list', documents: @member_docs, document_list_format: "dashboard" %>
+<%= render 'paginate' %>

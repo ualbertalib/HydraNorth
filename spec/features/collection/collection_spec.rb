@@ -19,15 +19,42 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
 
+  describe 'Add logo to community', :js => true do
+    let!(:community_logo) do
+      Collection.create( title: 'Test Community') do |c|
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = true
+        c.is_official = false
+        c.is_admin_set = false
+        c.description = "Community Description"
+      end
+    end
+
+    before do
+      sign_in admin
+    end
+
+    it "community should have a logo field" do
+      visit "/collections/#{community_logo.id}/edit"
+
+      within "#descriptions_display" do
+        expect(page).to have_selector(:css, "input#collection_logo", visible: false)
+      end
+    end
+  end
+
   describe 'community landing page as user' do
     let!(:community) do
       Collection.create( title: 'Test Community' ) do |c|
         c.apply_depositor_metadata(jill.user_key)
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
         c.is_community = true
         c.description = "Community Description"
       end
     end
 
+    
     let!(:public_file) do
       GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
         g.apply_depositor_metadata(jill.user_key)
@@ -40,9 +67,11 @@ describe 'collection', :type => :feature do
       visit "/collections/#{community.id}"
     end
 
+    
     it "should have following features" do
       expect(page).to have_link('View Communities')
       expect(page).to have_content(community.description)
+      expect(page).to have_selector(:css, "div#community-logo")
       expect(page).to have_content('Collections and items in this Community')
       expect(page).to have_content("Download")
       expect(page).to_not have_css("input#collection_search")
@@ -53,15 +82,18 @@ describe 'collection', :type => :feature do
       end
     end
   end
-
+  
   describe 'collection landing page as user' do
-   let!(:community) do
+
+    let!(:community) do
       Collection.create( title: 'Test Community' ) do |c|
         c.apply_depositor_metadata(jill.user_key)
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
         c.is_community = true
         c.description = "Community Description"
       end
     end
+
 
     let!(:collection1) do
       Collection.create( title: 'Test Collection 1' ) do |c|
@@ -327,6 +359,16 @@ describe 'collection', :type => :feature do
 
     before do
       visit "/collections/#{collection_modify.id}"
+    end
+
+    it "should not have edit and delete options" do
+      expect(page).to have_content(generic_file.title.first)
+
+      expect(page).to have_content("Test Item")
+      expect(page).to have_content("Download")
+      click_link ('Test Item')
+      expect(page).not_to have_content("Edit")
+      expect(page).not_to have_content("Delete")
     end
 
     it 'should have a working search field' do

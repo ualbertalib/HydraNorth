@@ -13,5 +13,11 @@ module Hydranorth
 
     def index
     end
+
+    def logo
+      @community = Collection.find(params[:id])
+      send_data @community.logo.content, disposition: 'inline'
+    end
+
   end
 end
