@@ -1,1 +1,7 @@
-<%= f.input :description, as: :single_text_with_help, input_html: { rows: '14', type: 'textarea', value: f.object.description.first}, required: false %>
+<%# GenericFile and Collection both use this file because hydra-editor %>
+<%# GenericFile description is expecting multivalued but we only display one for editing %>
+<% if f.object.class.multiple? key %>
+  <%= f.input :description, as: :single_text_with_help, input_html: { rows: '14', type: 'textarea', name: 'generic_file[description][]', value: f.object.description.first } %>
+<% else %>
+  <%= f.input :description, as: :single_text_with_help, input_html: { rows: '14', type: 'textarea' } %>
+<% end %>
