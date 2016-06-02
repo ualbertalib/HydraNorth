@@ -131,14 +131,16 @@ Audit Fix
 * To fix data with triple files:
 ```RAILS_ENV = {{RAILS_ENV}} bundle exec ruby bin/fix/fix-audit.rb 'triples','sample-sparql.txt'```
 * To remove irrelevant theses dates:
-```RAILS_ENV = {{RAILS_ENV}} bundle exec ruby bin/fix/fix-audit.rb 'thesis'```
+```RAILS_ENV = {{RAILS_ENV}} bundle exec ruby bin/fix/fix-audit.rb 'thesis' <pair tree prefix|id>```
 * To fix reindex:
-```RAILS_ENV = {{RAILS_ENV}} bundle exec ruby bin/fix/fix-audit.rb 'reindex'```
-A set of rake tasks is also added for index jobs:
-rake hydranorth:solr:index[id]         Index a single object with ID
-rake hydranorth:solr:index_pairtree[input]   Index with a pairtree structure
-rake hydranorth:solr:update_generic_file_index  Index all Generic File objects
+```RAILS_ENV = {{RAILS_ENV}} bundle exec ruby bin/fix/fix-audit.rb 'reindex' <pair tree prefix|id>```
 
-/bin/fix/fix.rb is to update all the namespace uris
-/bin/fix/run.sh is to run script through all the pairtree combinations. 
+A set of rake tasks is also added for index jobs:
+* ```rake hydranorth:solr:index[id]```         Index a single object with ID
+* ```rake hydranorth:solr:index_pairtree[input]```   Index with a pairtree structure
+* ```rake hydranorth:solr:update_generic_file_index```  Index all Generic File objects
+
+A shell script will update namespace uris
+* ```/bin/fix/fix.rb``` is to update all the namespace uris. Requires user to replace @server with the Fedora server location before using.
+* ```/bin/fix/run.sh``` is to run script through all the pairtree combinations. Requires being run from the bin/fix directory.
 

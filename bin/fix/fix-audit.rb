@@ -89,10 +89,10 @@ def find_objects(input)
           id = statement.object.relativize(statement.object.parent).to_s
  	  if id.include? "-"
             puts "Not a noid: " + id
-	    notfixable += 1
+	    @notfixable += 1
           else
 	    puts "An ERA Object: " + statement.object.to_s
-            fixable += 1
+            @fixable += 1
             objects << id
           end
         end
@@ -144,7 +144,7 @@ end
 
 def reindex_single(id)
   start = Time.now
-  ActiveFedora::Base.find(args[:id]).update_index
+  ActiveFedora::Base.find(id).update_index
   finish = Time.now
   used_time = finish - start
   puts "reindexed #{id} used #{used_time}"
