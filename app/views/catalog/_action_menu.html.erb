@@ -14,10 +14,6 @@
       class: 'itemicon itemedit', title: 'Edit File' %>
     </li>
     <li role="menuitem" tabindex="-1">
-    <%= link_to raw('<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download File'), download_path(gf),
-      class: 'itemicon itemdownload', title: 'Download File', target: '_new' %>
-    </li>
-    <li role="menuitem" tabindex="-1">
     <% if current_user.admin? %>
       <%= link_to raw('<i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Delete File'), sufia.generic_file_path(id),
       class: 'itemicon itemtrash', title: 'Delete File', method: :delete, data: {
