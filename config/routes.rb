@@ -43,6 +43,9 @@ Hydranorth::Application.routes.draw do
   get '/public/view/author/:username' => 'redirect#author'
   get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
 
+  # handle file download links below /files/<noid>  
+  get '/files/:id/*file' => 'downloads#show', format: false
+
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'
