@@ -1,5 +1,11 @@
 Hydranorth::Application.routes.draw do
   
+  class WantsThumbnailConstraint
+    def self.matches?(request)
+      request.query_parameters['file'] == 'thumbnail'
+    end
+  end
+
   get 'recent/index'
 
   namespace :admin do
@@ -42,12 +48,17 @@ Hydranorth::Application.routes.draw do
   get '/public/view/community/:uuid' => 'redirect#collection'
   get '/public/view/author/:username' => 'redirect#author'
   get '/action/submit/init/thesis/:uuid' => 'redirect#thesis'
+  get '/downloads/:id' => 'redirect#sufiadownload'
 
   scope :dashboard do
 
     get '/files',             controller: 'my/files', action: :index, as: 'dashboard_files'
     get '/files/page/:page',  controller: 'my/files', action: :index
     get '/files/facet/:id',   controller: 'my/files', action: :facet, as: 'dashboard_files_facet'
+
+    get '/shares',             controller: 'my/shares', action: :index, as: 'dashboard_shares'
+    get '/shares/page/:page',  controller: 'my/shares', action: :index
+    get '/shares/facet/:id',   controller: 'my/shares', action: :facet, as: 'dashboard_shares_facet'
 
     get '/collections',             controller: 'my/collections', action: :index, as: 'dashboard_collections'
     get '/collections/page/:page',  controller: 'my/collections', action: :index
@@ -69,6 +80,8 @@ Hydranorth::Application.routes.draw do
   get 'browse',  controller: 'browse', action: :index
   get 'advanced' => 'advanced#index', as: :advanced
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
+  get 'files/:id/stats' => 'generic_files#stats'
+  get 'files/:id/edit' => 'generic_files#edit'
   get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
   get 'communities/logo', controller: 'communities', action: :logo
@@ -76,6 +89,8 @@ Hydranorth::Application.routes.draw do
   get 'collections/:id/:per_page', controller: 'collections', action: :show
   get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
+  get 'files/:id/*file' => 'downloads#show', format: false
+  get 'files/:id' => 'downloads#show', constraints: WantsThumbnailConstraint
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

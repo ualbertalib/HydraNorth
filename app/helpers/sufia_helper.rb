@@ -23,4 +23,5 @@ module SufiaHelper
       image_tag path, options
     end
   end 
+
 end

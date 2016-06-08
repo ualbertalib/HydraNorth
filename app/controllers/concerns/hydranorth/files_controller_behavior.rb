@@ -10,7 +10,6 @@ module Hydranorth
     include Sufia::FilesControllerBehavior
     include Hydranorth::Breadcrumbs
 
-
     protected
 
     def actor
@@ -20,7 +19,6 @@ module Hydranorth
     def attributes
       attributes = params
     end
-
 
     def edit_form
       find_collections_with_read_access
