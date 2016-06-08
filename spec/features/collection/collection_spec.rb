@@ -44,7 +44,6 @@ describe 'collection', :type => :feature do
       expect(page).to have_link('View Communities')
       expect(page).to have_content(community.description)
       expect(page).to have_content('Collections and items in this Community')
-      expect(page).to have_content("Download")
       expect(page).to_not have_css("input#collection_search")
       within("#facets") do
         within("#facet-resource_type_sim") do
