@@ -10,7 +10,9 @@
       </header>
     </div>
     <div class="col-sm-2">
-      <%= render partial: 'collections/media_display', locals: { generic_file: @collection } %> 
+      <div id="community-logo">
+        <%= image_tag url_for(:controller => 'communities', action: 'logo', id: @collection.id), alt: "No logo" %>
+      </div>
       <% if !current_user.nil? %>
         <% if current_user.admin? %>
           <%= render partial: 'collections/show_actions' %>

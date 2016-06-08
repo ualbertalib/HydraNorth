@@ -13,6 +13,24 @@ module Hydranorth
       presenter
     end
 
+    def update 
+     if params[:collection][:logo]
+       mime_type = params[:collection][:logo].content_type
+       original_filename = params[:collection][:logo].original_filename
+       @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
+     end
+     super
+    end
+
+    def create
+     if params[:collection][:logo]
+       mime_type = params[:collection][:logo].content_type
+       original_filename = params[:collection][:logo].original_filename
+       @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
+     end
+     super
+    end
+
     protected
 
     # override Sufia::CollectionsControllerBehavior#presenter to establish
@@ -40,6 +58,10 @@ module Hydranorth
 
     protected
 
+    def logo
+      send_data(collection.logo, filename: "image", type: "text/xml", disposition: "inline")
+    end
+    
     # these methods enhacnce hydra-collection's collections_controller_behaviour
 
     def add_members_to_collection collection = nil

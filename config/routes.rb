@@ -71,11 +71,11 @@ Hydranorth::Application.routes.draw do
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
   get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
+  get 'communities/logo', controller: 'communities', action: :logo
   get 'collections/:id/:sort', controller: 'collections', action: :show
   get 'collections/:id/:per_page', controller: 'collections', action: :show
   get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
-
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

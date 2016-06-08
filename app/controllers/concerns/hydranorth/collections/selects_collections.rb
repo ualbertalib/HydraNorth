@@ -47,7 +47,11 @@ module Hydranorth::Collections::SelectsCollections
     authenticate_user! unless access_level.blank?
 
     # run the solr query to find the collections
-    query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) '}).query
+    if access_level.blank?
+      query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) '}).query
+    else
+      query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) AND is_admin_set_bsi:false'}).query
+    end
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
     # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on

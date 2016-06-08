@@ -18,7 +18,7 @@ class Ability
       end
       cannot :create, ::Collection 
       cannot :destroy, ::Collection unless admin?
-      cannot :manage, ::Collection do |obj|
+      cannot [:edit, :update], ::Collection do |obj|
         obj.is_admin_set?
       end unless admin? 
       can :manage, :all if admin?

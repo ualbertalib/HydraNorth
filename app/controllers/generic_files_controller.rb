@@ -21,5 +21,37 @@ class GenericFilesController < ApplicationController
     end
   end
 
+  def cstr_resource?
+    @generic_file[:resource_type].include? Sufia.config.special_types['cstr']
+  end
+  
+  def ser_resource?
+    @generic_file[:resource_type].include? Sufia.config.special_types['ser']
+  end
+
+  def dataverse_resource?
+    @generic_file[:remote_resource] == "dataverse" 
+  end
+
+  def thesis_resource?
+    @generic_file[:resource_type].include? Sufia.config.special_types['thesis']
+  end
+
+  def presenter_class
+    super unless @generic_file
+    return Hydranorth::CstrPresenter if cstr_resource?
+    return Hydranorth::SerPresenter if ser_resource?
+    return Hydranorth::DataversePresenter if dataverse_resource?
+    return Hydranorth::ThesisPresenter if thesis_resource?
+    Hydranorth::GenericFilePresenter
+  end
+
+  def edit_form_class
+    super unless @generic_file
+    return Hydranorth::Forms::CstrEditForm if cstr_resource?
+    return Hydranorth::Forms::SerEditForm if ser_resource?
+    return Hydranorth::Forms::ThesisEditForm if thesis_resource?
+    Hydranorth::Forms::GenericFileEditForm
+  end
 
 end
