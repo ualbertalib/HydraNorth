@@ -12,7 +12,7 @@ module Hydranorth
     include Hydranorth::Collections::Logo
 
     included do
-      before_save :remove_self_from_members, :update_permissions, :check_logo_size
+      before_save :check_logo_size, :remove_self_from_members, :update_permissions
       validates :title, presence: true
     end
 
@@ -32,13 +32,13 @@ module Hydranorth
         end
       end
     end
- 
+
     def check_logo_size
       size = logo.size
       if size.to_i > 200.kilobytes
         raise "Collection logo larger than 200KB"
       end
-    end  
+    end
 
     def update_permissions
       self.visibility = "open"
@@ -175,6 +175,8 @@ module Hydranorth
 
             # update children, and nested collections children, etc, etc
             recursive_update_children_with_community(new_member.materialized_members, self.id)
+            new_member.save
+          else
             new_member.save
           end
         else # I'm a collection
