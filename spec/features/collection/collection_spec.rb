@@ -18,6 +18,167 @@ describe 'collection', :type => :feature do
   after :each do
     cleanup_jetty
   end
+
+  describe 'Add logo to community', :js => true do
+    let!(:community_logo) do
+      Collection.create( title: 'Test Community') do |c|
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
+        c.apply_depositor_metadata(jill.user_key)
+        c.is_community = true
+        c.is_official = false
+        c.is_admin_set = false
+        c.description = "Community Description"
+      end
+    end
+
+    before do
+      sign_in admin
+    end
+
+    it "community should have a logo field" do
+      visit "/collections/#{community_logo.id}/edit"
+
+      within "#descriptions_display" do
+        expect(page).to have_selector(:css, "input#collection_logo", visible: false)
+      end
+    end
+  end
+
+  describe 'community landing page as user' do
+    let!(:community) do
+      Collection.create( title: 'Test Community' ) do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
+        c.is_community = true
+        c.description = "Community Description"
+      end
+    end
+
+    
+    let!(:public_file) do
+      GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
+        g.apply_depositor_metadata(jill.user_key)
+        g.resource_type = ["Book"]
+        g.belongsToCommunity = [community.id]
+      end
+    end
+
+    before do
+      visit "/collections/#{community.id}"
+    end
+
+    
+    it "should have following features" do
+      expect(page).to have_link('View Communities')
+      expect(page).to have_content(community.description)
+      expect(page).to have_selector(:css, "div#community-logo")
+      expect(page).to have_content('Collections and items in this Community')
+      expect(page).to_not have_css("input#collection_search")
+      within("#facets") do
+        within("#facet-resource_type_sim") do
+          expect(page).to have_content("Book")
+        end
+      end
+    end
+  end
+  
+  describe 'collection landing page as user' do
+
+    let!(:community) do
+      Collection.create( title: 'Test Community' ) do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
+        c.is_community = true
+        c.description = "Community Description"
+      end
+    end
+
+
+    let!(:collection1) do
+      Collection.create( title: 'Test Collection 1' ) do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.description = "Collection Description 1"
+      end
+    end
+
+    let!(:collection2) do
+      Collection.create( title: 'Test Collection 2' ) do |c|
+        c.apply_depositor_metadata(jill.user_key)
+        c.description = "Collection Description 2"
+      end
+    end
+
+    let!(:public_file1) do
+      GenericFile.create( title: ['Test Item 1'], read_groups: ['public'] ) do |g|
+        g.resource_type = ["Book"]
+        g.apply_depositor_metadata(jill.user_key)
+        g.subject = ["subject 1"]
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection1.id]
+      end
+    end
+
+    let!(:public_file2) do
+      GenericFile.create( title: ['Test Item 2'], read_groups: ['public'] ) do |g|
+        g.resource_type = ["Book"]
+        g.apply_depositor_metadata(jill.user_key)
+        g.subject = ["subject 2"]
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection1.id]
+      end
+    end
+
+    let!(:public_file3) do
+      GenericFile.create( title: ['Test Item 3'], read_groups: ['public'] ) do |g|
+        g.resource_type = ["Book"]
+        g.apply_depositor_metadata(jill.user_key)
+        g.subject = ["subject 3"]
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection1.id]
+      end
+    end
+
+    let!(:public_file4) do
+      GenericFile.create( title: ['Test Item 4'], read_groups: ['public'] ) do |g|
+        g.resource_type = ["Book"]
+        g.apply_depositor_metadata(jill.user_key)
+        g.subject = ["subject 4"]
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection1.id]
+      end
+    end
+
+    let!(:public_file5) do
+      GenericFile.create( title: ['Test Item 5'], read_groups: ['public'] ) do |g|
+        g.resource_type = ["Book"]
+        g.apply_depositor_metadata(jill.user_key)
+        g.subject = ["subject 5"]
+        g.belongsToCommunity = [community.id]
+        g.hasCollectionId = [collection2.id]
+      end
+    end
+
+    before do
+      visit "/collections/#{collection1.id}"
+    end
+
+    it "should have following features" do
+      expect(page).to have_content(collection.description)
+      expect(page).to have_content('Items in this Collection')
+      expect(page).to have_css("input#collection_search")
+      within("#facets") do
+        within("#facet-resource_type_sim") do
+          expect(page).to have_content("Book")
+        end
+        within("#facet-subject_sim") do
+          find("a.more_facets_link").click
+          expect(page).to have_content("subject 1")
+          expect(page).not_to have_content("subject 5")
+        end
+      end
+    end
+  end
+
   describe 'total item count for a collection with 1 public item and 1 private item' do
     let(:alice) { FactoryGirl.find_or_create(:alice) }
 
@@ -177,10 +338,6 @@ describe 'collection', :type => :feature do
       click_button "Update Collection"
       expect(page).to have_content "Items in this Collection"
       expect(page).to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
-
-      click_button("Select an action")
-      click_button('Remove from Collection')
-      expect(page).not_to have_selector "table.table-zebra-striped tr#document_#{generic_file.id}"
     end
 
   end
@@ -204,11 +361,12 @@ describe 'collection', :type => :feature do
 
     it "should not have edit and delete options" do
       expect(page).to have_content(generic_file.title.first)
-      click_button("Select an action")
 
       expect(page).to have_content("Test Item")
-      expect(page).to have_content("Download File")
-      expect(page).not_to have_content("Edit File")
+      expect(page).to have_content("Download")
+      click_link ('Test Item')
+      expect(page).not_to have_content("Edit")
+      expect(page).not_to have_content("Delete")
     end
 
     it 'should have a working search field' do

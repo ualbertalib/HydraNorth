@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     VERSION="1.1"
+                     PID="uuid:b13c373c-ea65-456d-8b53-07bc741a91ea"
+                     xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+   <foxml:objectProperties>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#label"
+                      VALUE="Faculty of Rehabilitation Medicine"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="admin"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate"
+                      VALUE="2010-04-13T16:50:53.426Z"/>
+      <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate"
+                      VALUE="2014-04-30T22:49:27.502Z"/>
+   </foxml:objectProperties>
+   <foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+      <foxml:datastreamVersion ID="AUDIT.0"
+                               LABEL="Audit Trail for this object"
+                               CREATED="2010-04-13T16:50:53.426Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+         <foxml:xmlContent>
+            <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+               <audit:record ID="AUDREC1">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>ingest</audit:action>
+                  <audit:componentID/>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2010-04-13T16:50:53.426Z</audit:date>
+                  <audit:justification>Created by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC2">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByValue</audit:action>
+                  <audit:componentID>DC</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2010-04-13T16:50:59.755Z</audit:date>
+                  <audit:justification>Created by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC3">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>addDatastream</audit:action>
+                  <audit:componentID>RELS-EXT</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2010-04-13T16:51:01.169Z</audit:date>
+                  <audit:justification>Created by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC4">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByValue</audit:action>
+                  <audit:componentID>RELS-EXT</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2012-09-11T23:14:38.063Z</audit:date>
+                  <audit:justification>Changed+sets+from+communities+to+collections</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC5">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByValue</audit:action>
+                  <audit:componentID>RELS-EXT</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2012-09-11T23:18:32.749Z</audit:date>
+                  <audit:justification>Changed+sets+from+communities+to+collections</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC6">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyObject</audit:action>
+                  <audit:componentID/>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2013-09-23T19:37:38.975Z</audit:date>
+                  <audit:justification>Modified by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC7">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByValue</audit:action>
+                  <audit:componentID>DC</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2013-09-23T19:37:39.933Z</audit:date>
+                  <audit:justification>Modified by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC8">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>addDatastream</audit:action>
+                  <audit:componentID>THUMBNAIL</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2013-09-23T19:37:41.690Z</audit:date>
+                  <audit:justification>Created by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC9">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByValue</audit:action>
+                  <audit:componentID>RELS-EXT</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2013-09-23T19:37:42.484Z</audit:date>
+                  <audit:justification>Modified by admin</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC10">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>modifyDatastreamByReference</audit:action>
+                  <audit:componentID>THUMBNAIL</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2014-04-25T01:29:30.547Z</audit:date>
+                  <audit:justification>Add checksum to datastream</audit:justification>
+               </audit:record>
+               <audit:record ID="AUDREC11">
+                  <audit:process type="Fedora API-M"/>
+                  <audit:action>purgeDatastream</audit:action>
+                  <audit:componentID>THUMBNAIL</audit:componentID>
+                  <audit:responsibility>fedoraAdmin</audit:responsibility>
+                  <audit:date>2014-04-30T22:49:27.502Z</audit:date>
+                  <audit:justification>Purged datastream (ID=THUMBNAIL), versions ranging from 2013-09-23T13:37:41.690Z to 2013-09-23T13:37:41.690Z.  This resulted in the permanent removal of 1 datastream version(s) (2013-09-23T13:37:41.690Z) and all associated audit records.</audit:justification>
+               </audit:record>
+            </audit:auditTrail>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="DC1.0"
+                               LABEL="Dublin Core Record for this object"
+                               CREATED="2010-04-13T16:50:53.426Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                               SIZE="428">
+         <foxml:xmlContent>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:title>Faculty of Rehabilitation Medicine</dc:title>
+               <dc:identifier>uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</dc:identifier>
+            </oai_dc:dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="DC.1"
+                               LABEL="Faculty of Rehabilitation Medicine"
+                               CREATED="2010-04-13T16:50:59.755Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                               SIZE="345">
+         <foxml:xmlContent>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:identifier>uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</dc:identifier>
+               <dc:title>Faculty of Rehabilitation Medicine</dc:title>
+               <dc:creator>Administrator admin</dc:creator>
+               <dc:description/>
+            </oai_dc:dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="DC.2"
+                               LABEL="Faculty of Rehabilitation Medicine"
+                               CREATED="2013-09-23T19:37:39.933Z"
+                               MIMETYPE="text/xml"
+                               FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+         <foxml:xmlContent>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+               <dc:identifier>uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</dc:identifier>
+               <dc:identifier>http://hdl.handle.net/10402/era.17183</dc:identifier>
+               <dc:title>Faculty of Rehabilitation Medicine</dc:title>
+               <dc:creator>Administrator admin</dc:creator>
+               <dc:description>The University of Alberta is home to North America’s only free-standing Faculty of Rehabilitation Medicine. We are a world class post-secondary institution and provide academic leadership and training in rehabilitation science, physical therapy, occupational therapy and speech-language pathology, balancing our activities among learning, discovery and citizenship (including clinical practice). 
+
+A research leader in musculoskeletal health, spinal cord injuries, cardiopulmonary rehabilitation, chronic pain management, seniors health, and the application of information and communication technologies to support community care; we are the destination of choice for rehabilitation professionals, researchers, students and scientists.</dc:description>
+            </oai_dc:dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="RELS-EXT.0"
+                               LABEL="Community Relationships"
+                               CREATED="2010-04-13T16:51:01.169Z"
+                               MIMETYPE="text/xml"
+                               SIZE="244">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea"/>
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.1"
+                               LABEL="Community Relationships"
+                               CREATED="2010-04-13T16:51:01.990Z"
+                               MIMETYPE="text/xml"
+                               SIZE="290">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.2"
+                               LABEL="Community Relationships"
+                               CREATED="2010-04-13T16:51:02.843Z"
+                               MIMETYPE="text/xml"
+                               SIZE="390">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.3"
+                               LABEL="Community Relationships"
+                               CREATED="2010-04-13T16:51:03.479Z"
+                               MIMETYPE="text/xml"
+                               SIZE="498">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.4"
+                               LABEL="Community Relationships"
+                               CREATED="2010-11-02T17:46:16.059Z"
+                               MIMETYPE="text/xml"
+                               SIZE="391">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.5"
+                               LABEL="Community Relationships"
+                               CREATED="2010-11-02T17:46:20.249Z"
+                               MIMETYPE="text/xml"
+                               SIZE="291">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.6"
+                               LABEL="Community Relationships"
+                               CREATED="2010-12-23T19:03:51.080Z"
+                               MIMETYPE="text/xml"
+                               SIZE="398">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.7"
+                               LABEL="Community Relationships"
+                               CREATED="2010-12-23T19:03:51.703Z"
+                               MIMETYPE="text/xml"
+                               SIZE="498">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.8"
+                               LABEL="Community Relationships"
+                               CREATED="2011-09-09T16:32:48.024Z"
+                               MIMETYPE="text/xml"
+                               SIZE="391">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.9"
+                               LABEL="Community Relationships"
+                               CREATED="2011-09-09T16:32:48.554Z"
+                               MIMETYPE="text/xml"
+                               SIZE="498">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.10"
+                               LABEL="Community Relationships"
+                               CREATED="2011-09-09T16:32:49.127Z"
+                               MIMETYPE="text/xml"
+                               SIZE="398">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.11"
+                               LABEL="Community Relationships"
+                               CREATED="2011-09-09T16:32:49.882Z"
+                               MIMETYPE="text/xml"
+                               SIZE="498">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.12"
+                               LABEL="Community Relationships"
+                               CREATED="2012-09-11T23:14:38.063Z"
+                               MIMETYPE="text/xml"
+                               SIZE="296">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+                  <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.13"
+                               LABEL="Community Relationships"
+                               CREATED="2012-09-11T23:18:32.749Z"
+                               MIMETYPE="text/xml"
+                               SIZE="296">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+                  <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.14"
+                               LABEL="Community Relationships"
+                               CREATED="2013-09-23T19:37:42.484Z"
+                               MIMETYPE="text/xml"
+                               SIZE="244">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:rel="info:fedora/fedora-system:def/relations-external#">
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea"/>
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.15"
+                               LABEL="Community Relationships"
+                               CREATED="2013-09-23T19:37:42.991Z"
+                               MIMETYPE="text/xml"
+                               SIZE="291">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.16"
+                               LABEL="Community Relationships"
+                               CREATED="2013-09-23T19:37:44.011Z"
+                               MIMETYPE="text/xml"
+                               SIZE="398">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+      <foxml:datastreamVersion ID="RELS-EXT.17"
+                               LABEL="Community Relationships"
+                               CREATED="2013-09-23T19:37:44.619Z"
+                               MIMETYPE="text/xml"
+                               SIZE="498">
+         <foxml:xmlContent>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+               <rdf:Description rdf:about="info:fedora/uuid:b13c373c-ea65-456d-8b53-07bc741a91ea">
+	                 <hasModel xmlns="info:fedora/fedora-system:def/model#"
+                            rdf:resource="info:fedora/ir:COMMUNITY"/>
+	                 <setSpec xmlns="http://www.openarchives.org/OAI/2.0/">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</setSpec>
+	                 <setName xmlns="http://www.openarchives.org/OAI/2.0/">Faculty of Rehabilitation Medicine</setName>
+               </rdf:Description>
+
+            </rdf:RDF>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream ID="THUMBNAIL" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+      <foxml:datastreamVersion ID="THUMBNAIL.1"
+                               LABEL="Community Logo"
+                               CREATED="2014-04-25T01:29:30.547Z"
+                               MIMETYPE="image/gif">
+         <foxml:contentDigest TYPE="MD5" DIGEST="8518949d743e6ad070c3a8f88affec4e"/>
+         <foxml:contentLocation TYPE="INTERNAL_ID"
+                                REF="uuid:b13c373c-ea65-456d-8b53-07bc741a91ea+THUMBNAIL+THUMBNAIL.1"/>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+   <foxml:datastream CONTROL_GROUP="X" ID="DCQ" STATE="A" VERSIONABLE="true">
+      <foxml:datastreamVersion
+                               ID="DCQ.0"
+                               LABEL="Item Metadata"
+                               MIMETYPE="text/xml">
+         <foxml:xmlContent>
+            <dc xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:ualterms="http://terms.library.ualberta.ca"
+                xmlns:vivo="http://vivoweb.org/ontology/core"
+                xmlns:marcrel="http://id.loc.gov/vocabulary/relators"
+                xmlns:bibo="http://purl.org/ontology/bibo/"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <ualterms:fedora3uuid xsi:type="string">uuid:b13c373c-ea65-456d-8b53-07bc741a91ea</ualterms:fedora3uuid>
+               <ualterms:fedora3handle xsi:type="anyURI">http://hdl.handle.net/10402/era.17183</ualterms:fedora3handle>
+               <dcterms:title>Faculty of Rehabilitation Medicine</dcterms:title>
+               <dcterms:creator>Administrator admin</dcterms:creator>
+               <dcterms:description>The University of Alberta is home to North America’s only free-standing Faculty of Rehabilitation Medicine. We are a world class post-secondary institution and provide academic leadership and training in rehabilitation science, physical therapy, occupational therapy and speech-language pathology, balancing our activities among learning, discovery and citizenship (including clinical practice). 
+
+A research leader in musculoskeletal health, spinal cord injuries, cardiopulmonary rehabilitation, chronic pain management, seniors health, and the application of information and communication technologies to support community care; we are the destination of choice for rehabilitation professionals, researchers, students and scientists.</dcterms:description>
+            </dc>
+         </foxml:xmlContent>
+      </foxml:datastreamVersion>
+   </foxml:datastream>
+</foxml:digitalObject>

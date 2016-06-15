@@ -3,12 +3,13 @@ module Hydranorth
     extend ActiveSupport::Concern
     include Sufia::CollectionsControllerBehavior
 
-    def show
-      if current_user && current_user.admin?
-        self.search_params_logic -= [:add_access_controls_to_solr_params]
-      end
-      super
-      presenter
+    def create
+     if params[:collection][:logo]
+       mime_type = params[:collection][:logo].content_type
+       original_filename = params[:collection][:logo].original_filename
+       @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
+     end
+     super
     end
 
     def update
@@ -20,8 +21,21 @@ module Hydranorth
         flash[:notice] = "Collection was successfully updated."
         redirect_to Hydra::Collections::Engine.routes.url_helpers.collection_path(parent)
       else
+        if params[:collection][:logo]
+          mime_type = params[:collection][:logo].content_type
+          original_filename = params[:collection][:logo].original_filename
+          @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
+        end
         super
       end
+    end
+
+    def show
+      if current_user && current_user.admin?
+        self.search_params_logic -= [:add_access_controls_to_solr_params]
+      end
+      super
+      presenter
     end
 
     protected
@@ -50,6 +64,10 @@ module Hydranorth
     end
 
     protected
+
+    def logo
+      send_data(collection.logo, filename: "image", type: "text/xml", disposition: "inline")
+    end
 
     # these methods enhacnce hydra-collection's collections_controller_behaviour
 

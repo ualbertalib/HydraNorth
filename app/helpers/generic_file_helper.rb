@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module GenericFileHelper
+
   def display_title(gf)
     gf.to_s
   end
@@ -29,9 +30,16 @@ module GenericFileHelper
   # download_path(id: @asset)
   # download_path document, file: 'thumbnail'
   def download_path(*args)
-    gf = args.first if args.first.is_a? GenericFile
-    gf ||= GenericFile.find(args.first.id) if args.first.is_a? SolrDocument
-    gf && gf.doi_url.present? ? gf.doi_url : sufia.download_path(*args)
+    item = args.first
+    return sufia.download_path(*args) unless (item.is_a?(SolrDocument) || item.is_a?(GenericFile))
+    return item.doi_url if item.respond_to?(:doi_url) && item.doi_url.present?
+
+    # not all doi_urls will be in SolrDocuments until a full reindex happens
+    if item.is_a?(SolrDocument) && !item.doi_url_indexed?
+      gf = GenericFile.find(item.id)
+      return gf.doi_url if gf.doi_url.present?
+    end
+    return sufia.download_path(*args)
   end
 
   def render_collection_list(gf)

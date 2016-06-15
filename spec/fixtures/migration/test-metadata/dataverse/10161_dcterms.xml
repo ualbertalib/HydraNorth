@@ -2,7 +2,7 @@
 <ddi_to_dcterms xmlns:dcterms="http://purl.org/dc/terms/"
                 xmlns:georss="http://www.georss.org/georss/">
    <dcterms:title>Shape File Index to the Sectional Maps, 1917 [of Western Canada, new style, 1905-1955].</dcterms:title>
-   <dcterms:identifier>doi:10.7939/DVN/10161</dcterms:identifier> 
+   <dcterms:identifier>http://dx.doi.org/10.7939/DVN/10161</dcterms:identifier> 
    <dcterms:creator>Gaffield, Chad</dcterms:creator>
    <dcterms:creator>Baskerville, Peter</dcterms:creator>
    <dcterms:creator>St-Hilaire, Marc</dcterms:creator>

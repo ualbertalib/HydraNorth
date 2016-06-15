@@ -58,7 +58,7 @@ describe SelectsCollectionsController, :type => :controller do
 
         it "should return only public and read access (edit access implies read) communities" do
           subject.find_communities_with_read_access
-          expect(assigns[:user_communities].map(&:id)).to match_array [@community.id, @no_edit_community.id]
+          expect(assigns[:user_communities].map(&:id)).to match_array [@community.id]
         end
       end
     end

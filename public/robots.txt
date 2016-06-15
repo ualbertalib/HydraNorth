@@ -6,3 +6,5 @@
 
 User-agent: *
 Disallow: /catalog
+
+Sitemap: https://era.library.ualberta.ca/sitemap.xml

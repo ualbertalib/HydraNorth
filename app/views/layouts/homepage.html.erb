@@ -80,8 +80,9 @@
           <div class="technical-info"><p>ERA builds on multi-institutional collaborations around open source technologies. For a full list of technical specifications, <a href="/about">see here</a>.</p></div>
         </div>
         <div class="col-sm-4 dark-tan second-row">
-          <div id="tweets">
-
+          <div id="recent_docs">
+            <h3><a href="recent">Recent Documents</a></h3>
+            <%= render partial: "recent_document", collection: [@recent_documents.first], locals: {display_thumbs: true, display_access: true} %>
           </div>
         </div>
 

@@ -1,0 +1,5 @@
+NOID: hd76s268x
+|DELETE { <> <http://purl.org/dc/terms/rights> "Use of this product is restricted to current faculty,..." . }
+INSERT { <> <http://purl.org/dc/terms/rights> "Use of this product is restricted to current faculty, staff, and students of the University. It is the responsibility of each user to ensure that he or she uses this product for individual, non-commercial educational or research purposes only, and does not systematically download or retain substantial portions of information.  Users may not reproduce or redistribute unprocessed/raw data portions of the data to any third party, or otherwise engage in the systematic retransmission or commercialization of the data." . }
+WHERE {}
+###
