@@ -4,52 +4,57 @@ RSpec.describe RecentController, type: :controller do
   routes { Rails.application.class.routes }
 
   describe "GET #index" do
-
     before :each do
-      @gf1 = GenericFile.new(title: ['Test Document PDF'], filename: ['test.pdf'], subject: ['rocks'], read_groups: ['public'])
-      @gf1.apply_depositor_metadata('mjg36')
-      old_to_solr = @gf1.method(:to_solr)
-      allow(@gf1).to receive(:to_solr) do
-        old_to_solr.call.merge(
-          Solrizer.solr_name('system_create', :stored_sortable, type: :date) => Time.parse("2016-04-29T16:25:21Z").iso8601
-        )
-      end
-      @gf1.save
-      @gf2 = GenericFile.new(title: ['Test Private Document'], filename: ['test2.doc'], subject: ['clouds'], contributor: ['Contrib1'], read_groups: ['private'])
-      @gf2.apply_depositor_metadata('mjg36')
-      old_to_solr = @gf2.method(:to_solr)
-      allow(@gf2).to receive(:to_solr) do
-        old_to_solr.call.merge(
-          Solrizer.solr_name('system_create', :stored_sortable, type: :date) => Time.parse("2016-05-1    0T22:42:30Z").iso8601
-        )
-      end
-      @gf2.save
-
       Timecop.freeze(Time.parse("2016-04-29T16:25:21Z"))
     end
-
     after :each do
       cleanup_jetty
       Timecop.return
     end
-
-    it "does not include other user's private documents in recent documents" do
-      get :index
-      expect(response).to be_success
-      titles = assigns(:recent_documents).map { |d| d['title_tesim'][0] }
-      expect(titles).to_not include('Test Private Document')
-    end
-
-    it "includes only GenericFile objects in recent documents" do
-      get :index
-      assigns(:recent_documents).each do |doc|
-        expect(doc[Solrizer.solr_name("has_model", :symbol)]).to eql ["GenericFile"]
+    context 'with truly recent documents so the NOW from solr works' do
+      let!(:gf1) do
+        GenericFile.new(title: ['Test Public Document'], read_groups: ['public']) do |file|
+          file.apply_depositor_metadata('mjg36')
+          file.save!
+        end
       end
-    end
+      let!(:gf2) do
+        GenericFile.new(title: ['Test Private Document'], read_groups: ['private']) do |file|
+          file.apply_depositor_metadata('mjg36')
+          file.save!
+        end
+      end
+      let!(:gf3) do
+        GenericFile.new(title: ['Test CCID Document'], read_groups: ['public','university_of_alberta']) do |file|
+          file.apply_depositor_metadata('mjg36')
+          file.save!
+        end
+      end
 
-    it 'includes date buckets for crawling' do
-      get :index
-      expect(assigns(:date_buckets)).to include "2016"=>[["2016-04-01T00:00:00Z", 1]]
+      before :each do
+        Timecop.return
+      end
+
+      it "does not include other user's private documents or CCID documents in recent documents" do
+        get :index
+        expect(response).to be_success
+        titles = assigns(:recent_documents).map { |d| d['title_tesim'][0] }
+        expect(titles).to include('Test Public Document')
+        expect(titles).to_not include('Test Private Document')
+        expect(titles).to_not include('Test CCID Document')
+      end
+
+      it "includes only GenericFile objects in recent documents" do
+        get :index
+        assigns(:recent_documents).each do |doc|
+          expect(doc[Solrizer.solr_name("has_model", :symbol)]).to eql ["GenericFile"]
+        end
+      end
+
+      it 'includes date buckets for crawling' do
+        get :index
+        expect(assigns(:date_buckets)).to include "#{Date.today.year}"=>[["#{Date.today.strftime("%Y-%m-01T00:00:00Z")}", 1]]
+      end
     end
 
     context "with a document not created this second" do
@@ -110,7 +115,7 @@ RSpec.describe RecentController, type: :controller do
       it "includes all documents in date bucket" do
         get :index, {:year => Time.now.year}
         expect(response).to be_success
-        expect(assigns(:recent_documents).length).to eq 3 
+        expect(assigns(:recent_documents).length).to eq 2 
       end
       it "includes all documents in month date bucket" do
         get :index, {:year => (Time.now - 1.month).year, :month => (Time.now - 1.month).month}
@@ -124,7 +129,7 @@ RSpec.describe RecentController, type: :controller do
       end
       it 'includes date buckets for crawling' do
         get :index
-        expect(assigns(:date_buckets)).to include "2016" => [["2016-03-01T00:00:00Z", 1], ["2016-04-01T00:00:00Z", 2]]
+        expect(assigns(:date_buckets)).to include "2016" => [["2016-03-01T00:00:00Z", 1], ["2016-04-01T00:00:00Z", 1]]
       end
     end
 
@@ -140,6 +145,16 @@ RSpec.describe RecentController, type: :controller do
           )
         end
         gf6.save
+        gf7 = GenericFile.new(title: ['Test 7 Document'], read_groups: ['public'])
+        gf7.apply_depositor_metadata('mjg36')
+        old_to_solr = gf7.method(:to_solr)
+        allow(gf7).to receive(:to_solr) do
+          old_to_solr.call.merge(
+            Solrizer.solr_name('system_create', :stored_sortable, type: :date) => (Time.now).utc.iso8601
+          )
+        end
+
+        gf7.save
       end
 
       it 'includes date buckets for crawling' do
