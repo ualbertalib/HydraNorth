@@ -364,6 +364,7 @@
           <dcterms:creator>Campbell, Sandy</dcterms:creator>
           <dcterms:format xsi:type="dcterms:IMT">image/pjpeg</dcterms:format>
           <dcterms:language xsi:type="dcterms:ISO639-3">eng</dcterms:language>
+          <dcterms:description>HTML entities should be decoded. &amp;This is a test to verify</dcterms:description>
           <dcterms:subject>Photographs</dcterms:subject>
           <dcterms:subject>Ice Core Lab Entrance - photograph</dcterms:subject>
           <dcterms:subject>National Ice Core Laboratory - Lakewood, Colorado</dcterms:subject>
