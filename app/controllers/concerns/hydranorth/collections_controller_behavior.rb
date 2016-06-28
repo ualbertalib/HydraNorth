@@ -3,25 +3,6 @@ module Hydranorth
     extend ActiveSupport::Concern
     include Sufia::CollectionsControllerBehavior
 
-    def show
-      if current_user && current_user.admin?
-        self.search_params_logic -= [:add_access_controls_to_solr_params]
-      end
-
-      super
-
-      presenter
-    end
-
-    def update 
-     if params[:collection][:logo]
-       mime_type = params[:collection][:logo].content_type
-       original_filename = params[:collection][:logo].original_filename
-       @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
-     end
-     super
-    end
-
     def create
      if params[:collection][:logo]
        mime_type = params[:collection][:logo].content_type
@@ -29,6 +10,32 @@ module Hydranorth
        @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
      end
      super
+    end
+
+    def update
+      if params['collection']['members'] == 'add'
+        parent = Collection.find(params['id'])
+        parent.add_member_ids(params['batch_document_ids'])
+        parent.save
+        @collection = parent
+        flash[:notice] = "Collection was successfully updated."
+        redirect_to Hydra::Collections::Engine.routes.url_helpers.collection_path(parent)
+      else
+        if params[:collection][:logo]
+          mime_type = params[:collection][:logo].content_type
+          original_filename = params[:collection][:logo].original_filename
+          @collection.add_file(params[:collection][:logo].tempfile, path: 'logo', original_name: original_filename, mine_type: mime_type)
+        end
+        super
+      end
+    end
+
+    def show
+      if current_user && current_user.admin?
+        self.search_params_logic -= [:add_access_controls_to_solr_params]
+      end
+      super
+      presenter
     end
 
     protected
@@ -61,7 +68,7 @@ module Hydranorth
     def logo
       send_data(collection.logo, filename: "image", type: "text/xml", disposition: "inline")
     end
-    
+
     # these methods enhacnce hydra-collection's collections_controller_behaviour
 
     def add_members_to_collection collection = nil
@@ -138,7 +145,6 @@ module Hydranorth
     end
 
     def remove_member_from_community(member,collection)
-      puts "remove belongsToCommunity from member"
       belongsToCommunity = member.belongsToCommunity
       belongsToCommunity.delete collection.id
       member.belongsToCommunity = belongsToCommunity

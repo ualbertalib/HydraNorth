@@ -11,15 +11,15 @@ Hydranorth::Application.routes.draw do
 
   Hydra::BatchEdit.add_routes(self)
 
-  # Administrative URLs
-  namespace :admin do
+   # Administrative URLs
+   namespace :admin do
     # Job monitoring
     constraints Sufia::ResqueAdmin do
       mount Resque::Server, at: 'queues'
     end
   end
 
-  mount BrowseEverything::Engine => '/browse_everything'  
+  mount BrowseEverything::Engine => '/browse_everything'
   mount Hydra::Collections::Engine => '/'
   mount HydraEditor::Engine => '/'
 
@@ -56,7 +56,7 @@ Hydranorth::Application.routes.draw do
     get '/all',             controller: 'my/all', action: :index, as: 'dashboard_all'
     get '/all/page/:page',  controller: 'my/all', action: :index
     get '/all/facet/:id',   controller: 'my/all', action: :facet, as: 'dashboard_all_facet'
-    
+
   end
 
 

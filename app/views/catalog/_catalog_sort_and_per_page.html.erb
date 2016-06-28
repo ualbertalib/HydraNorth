@@ -1,6 +1,6 @@
 <div class="batch-info">
   <div>
-    <%= render partial: 'collections/form_for_select_collection', locals: {user_collections: @user_collections}  %>
+    <%= render partial: 'collections/form_for_select_collection', locals: {user_collections: @target_collections}  %>
   </div>
 
   <div class="batch-toggle">
@@ -38,6 +38,6 @@
         <% end unless sort_fields.empty? %>
       </div>
     <% end %>
-  <% end %>  
+  <% end %>
 
 </div>

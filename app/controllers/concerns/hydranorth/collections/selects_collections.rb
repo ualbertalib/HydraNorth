@@ -1,5 +1,6 @@
 module Hydranorth::Collections::SelectsCollections
   extend ActiveSupport::Concern
+  # shouldn't this be Sufia::Catalog? We're all over the place with includes
   include Blacklight::Catalog
   include Hydra::Collections::SelectsCollections
   include Hydranorth::Permissions
@@ -38,7 +39,9 @@ module Hydranorth::Collections::SelectsCollections
 
  def find_collections_grouped_by_community(access_level = nil)
    find_collections(access_level)
-   @grouped_user_collections = @user_collections.group_by { |c| c["#{Solrizer.solr_name('belongsToCommunity')}"] }
+   # filter out collections in a community that are nested in a collection
+   collections = @user_collections.reject {|c| c[Solrizer.solr_name('hasCollection')].present? || c[Solrizer.solr_name('hasCollectionId')].present?}
+   @grouped_user_collections = collections.group_by { |c| c[Solrizer.solr_name('belongsToCommunity')] }
  end
 
  # need to check for _tesim and _bsi in solr query because ActiveFedora does not allow false to be passed

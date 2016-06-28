@@ -93,6 +93,7 @@ describe CollectionsController do
       it "should set collection on members" do
         put :update, id: collection, collection: {members:"add"}, batch_document_ids: [@asset3.id, @asset1.id, @asset2.id]
         expect(response).to redirect_to routes.url_helpers.collection_path(collection)
+
         expect(assigns[:collection].materialized_members).to match_array [@asset2, @asset3, @asset1]
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@asset2.id}\""],fl:['id',Solrizer.solr_name(:collection)]}
         expect(asset_results["response"]["numFound"]).to eq 1
@@ -176,16 +177,19 @@ describe CollectionsController do
       it "should set belongsToCommunity on member collection and their children files" do
         put :update, id: community, collection: { members: "add" }, batch_document_ids: [@child_collection.id]
         expect(response).to redirect_to routes.url_helpers.collection_path(community)
+
         expect(assigns[:collection].materialized_members).to match_array [@child_collection]
+
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@child_collection.id}\""],fl:['belongsToCommunity_tesim']}
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first
         expect(doc["belongsToCommunity_tesim"]).to eq [community.id]
+
         asset_results = ActiveFedora::SolrService.instance.conn.get "select", params:{fq:["id:\"#{@file2.id}\""],fl:['belongsToCommunity_tesim']}
         expect(asset_results["response"]["numFound"]).to eq 1
         doc = asset_results["response"]["docs"].first
-        expect(doc["belongsToCommunity_tesim"]).to eq [community.id]
 
+        expect(doc["belongsToCommunity_tesim"]).to eq [community.id]
       end
 
     end

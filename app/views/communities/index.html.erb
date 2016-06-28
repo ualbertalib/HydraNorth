@@ -2,6 +2,7 @@
 <% left,right = @user_communities.each_slice( (@user_communities.size/2.0).round ).to_a %>
 <% for col in [left,right] %>
   <ul class="communities col-sm-6">
+    <% next unless col %>
     <% col.each do |community| %>
       <li class="row">
         <a href="<%= collections.collection_path(community) %>" class="col-sm-9"><%= community.title %></a>
