@@ -19,8 +19,10 @@
 
   <div class="sort-toggle">
     <% unless @response.response['numFound'] < 2 %>
-      <%= form_tag sufia.dashboard_files_path, method: :get, class: 'per_page form-inline' do %>
+
+      <%= form_tag (@selected_tab_path || sufia.dashboard_files_path), method: :get, class: 'per_page form-inline' do %>
         <%= label_tag(:sort, "<span>Sort By:</span>".html_safe) %>
+
         <%= select_tag(:sort, options_for_select(sort_fields, h(params[:sort]))) %>
         &nbsp;&nbsp;&nbsp;
         <%= label_tag :per_page do %>

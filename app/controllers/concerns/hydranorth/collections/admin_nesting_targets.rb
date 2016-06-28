@@ -5,6 +5,6 @@ module Hydranorth::Collections::AdminNestingTargets
 
     search_params = {'q' => ''}
     response, document_list = search_results(search_params, logic)
-    document_list.sort! { |a,b| a.title <=> b.title }
+    document_list.sort! { |a,b| a.title.downcase <=> b.title.downcase }
   end
 end

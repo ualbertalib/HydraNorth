@@ -9,6 +9,7 @@ module My
     def index
       super
       @selected_tab = :files
+      @selected_tab_path = sufia.dashboard_files_path
     end
 
     protected

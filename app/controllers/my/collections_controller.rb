@@ -14,6 +14,7 @@ class My::CollectionsController < MyController
     ] unless @current_user.admin?
     super
     @selected_tab = :collections
+    @selected_tab_path = sufia.dashboard_collections_path
   end
 
 

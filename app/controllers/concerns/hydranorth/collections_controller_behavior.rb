@@ -145,7 +145,6 @@ module Hydranorth
     end
 
     def remove_member_from_community(member,collection)
-      puts "remove belongsToCommunity from member"
       belongsToCommunity = member.belongsToCommunity
       belongsToCommunity.delete collection.id
       member.belongsToCommunity = belongsToCommunity

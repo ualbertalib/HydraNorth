@@ -17,6 +17,7 @@ module My
     def index
       super
       @selected_tab = :shared
+      @selected_tab_path = sufia.dashboard_shares_path
     end
 
     protected
