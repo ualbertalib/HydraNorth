@@ -16,7 +16,11 @@ namespace :ezid do
   def create_arks
     GenericFile.find_each() do |gf|
       if gf.ark_created.nil? || gf.ark_created == false
-        identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + gf.id)
+        begin 
+          identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + gf.id)
+        rescue Exception => e
+          identifier = nil
+        end
         if identifier.nil?
           identifier = Ezid::Identifier.create(id: Ezid::Client.config.default_shoulder + gf.id)
           EzidLogger.info "Ark created for noid: " + gf.id

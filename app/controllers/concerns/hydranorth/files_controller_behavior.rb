@@ -29,9 +29,6 @@ module Hydranorth
         end
 
       if success
-        ezid = Hydranorth::EzidService.new()
-        ezid.modify(@generic_file)
-
         redirect_to sufia.edit_generic_file_path(tab: params[:redirect_tab]), notice:
           render_to_string(partial: 'generic_files/asset_updated_flash', locals: { generic_file: @generic_file })
       else
