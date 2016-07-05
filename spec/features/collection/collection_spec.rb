@@ -367,7 +367,7 @@ describe 'collection', :type => :feature do
       # and Rspec 3 doesn't let you mark individual expectations as pending
       # because ¯\_(ツ)_/¯
       #expect(page).to have_content("Download")
-
+      
       click_link ('Test Item')
       expect(page).not_to have_content("Edit")
       expect(page).not_to have_content("Delete")

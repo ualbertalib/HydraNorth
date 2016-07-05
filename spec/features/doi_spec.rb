@@ -41,41 +41,12 @@ describe 'download link', :type => :feature do
       end
     end
   end
-  describe 'where item has numeric identifier' do
-    let!(:gf_with_num) do
-      GenericFile.new.tap do |f|
-        f.identifier = ['1']
-        f.read_groups = ['public']
-        f.subject = ['doi']
-        f.apply_depositor_metadata user
-        f.save!
-      end
-    end
-
-    it 'should be download on file page' do
-      visit "files/#{gf_with_num.id}"
-      expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_with_num)}')]", count: 2)
-    end
-    it 'should be download on result page' do
-      pending 'pending doi_link inclusion in Solr index'
-      visit '/'
-      search gf_with_num.subject.first
-      expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_with_num)}')]", count: 1)
-    end
-    it 'should be download in action' do
-      sign_in user
-      visit "dashboard/files"
-      within("#document_#{gf_with_num.id}") do
-        click_button 'Select an action'
-        expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_with_num)}')]", count: 1)
-      end
-    end
-  end
   describe 'where item has no identifier' do
     let!(:gf_no_identifier) do
       GenericFile.new.tap do |f|
         f.read_groups = ['public']
         f.subject = ['doi']
+        f.label = 'thisfile.pdf'
         f.apply_depositor_metadata user
         f.save!
       end
@@ -83,20 +54,20 @@ describe 'download link', :type => :feature do
 
     it 'should be download on file page' do
       visit "files/#{gf_no_identifier.id}"
-      expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_no_identifier)}')]", count: 2)
+      expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 2)
     end
     it 'should be download on result page' do
       pending 'pending doi_link inclusion in Solr index'
       visit '/'
       search gf_no_identifier.subject.first
-      expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_no_identifier)}')]", count: 1)
+      expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 1)
     end
     it 'should be download in action' do
       sign_in user
       visit "dashboard/files"
       within("#document_#{gf_no_identifier.id}") do
         click_button 'Select an action'
-        expect(page).to have_xpath("//a[contains(@href, '#{sufia.download_path(gf_no_identifier)}')]", count: 1)
+        expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 1)
       end
     end
   end
