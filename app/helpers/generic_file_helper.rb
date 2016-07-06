@@ -11,7 +11,7 @@ module GenericFileHelper
   end
 
   def render_download_icon title = nil
-    if @generic_file.label.present? || @generic_file.doi_url.present?
+    if @generic_file.label.present? || @generic_file.doi_url.present? || !@generic_file.filename.empty?
       if title.nil?
         link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
       else
@@ -21,7 +21,7 @@ module GenericFileHelper
   end
 
   def render_download_link text = nil
-    if @generic_file.label.present?
+    if @generic_file.label.present? || !@generic_file.filename.empty?
       link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
     end
   end
@@ -48,8 +48,13 @@ module GenericFileHelper
       return gf.doi_url if gf.doi_url.present?
     end
     if args[1].nil?
-      return "/files/" + item.id + "/" + URI::encode(item.label) unless item.label.nil?
+      if !item.label.nil?
+        return "/files/" + item.id + "/" + URI::encode(item.label)
+      elsif !item.filename.empty?
+        return "/files/" + item.id + "/" + URI::encode(item.filename.first)
+      else
       # items with no file (which should never happen in production) return nil
+      end
     else
       # handle thumbnail requests, in this form:
       #   /downloads/<noid>?file=thumbnail
