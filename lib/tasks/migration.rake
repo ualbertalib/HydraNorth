@@ -3,6 +3,7 @@ require 'fileutils'
 require './lib/tasks/migration/migration_logger'
 require 'pdf-reader'
 require 'open3'
+require 'htmlentities'
 
   NS = {
         "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
@@ -50,6 +51,13 @@ require 'open3'
   }
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
+
+  #set ERA file url
+  ERA_FILE_URL = "https://era.library.ualberta.ca/files/"
+  
+  #set handle url
+  HANDLE_URL = "http://hdl.handle.net/"
+
   #Use the ERA public interface to download original file and foxml
   DOWNLOAD_URL = "https://thesisdeposit.library.ualberta.ca/public/view/"
   FEDORA_URL = "http://thesisdeposit.library.ualberta.ca:8180/fedora/get/"
@@ -196,6 +204,7 @@ namespace :migration do
     allfiles = Dir.glob(metadata_dir+"/uuid_*.xml")
     filecount = allfiles.select { |file| File.file?(file) }.count
     MigrationLogger.info "Files to process: " + filecount.to_s
+    noid_report = File.open(REPORTS+"/"+@ingest_batch_id+Time.now.strftime('%Y-%m-%d_%H-%M-%S')+"-report.csv", 'a+')
     allfiles.sort.each_with_index do |file, thisfile|
     begin
       start_time = Time.now
@@ -232,7 +241,8 @@ namespace :migration do
       creators = dc_version.xpath("dcterms:creator/text()", NS).map(&:text) if dc_version.xpath("dcterms:creator", NS)
       contributors = dc_version.xpath("dcterms:contributor/text()", NS).map(&:text) if dc_version.xpath("dcterms:contributor",NS)
       subjects = dc_version.xpath("dcterms:subject/text()",NS).map(&:text)
-      description = dc_version.xpath("dcterms:description",NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+      description = dc_version.xpath("dcterms:description",NS).text.gsub(/\n/,' ').gsub(/\t/,' ')
+      description = HTMLEntities.new.decode description
       date = dc_version.xpath("dcterms:created",NS).text
       type = dc_version.xpath("dcterms:type",NS).text
       format = dc_version.xpath("dcterms:format",NS).text
@@ -243,15 +253,17 @@ namespace :migration do
       fedora3uuid = dc_version.xpath("ualid:fedora3uuid", NS).text()
       trid = dc_version.xpath("ualid:trid", NS).text() if dc_version.xpath("ualid:trid", NS)
       ser = dc_version.xpath("ualid:ser",NS).text() if dc_version.xpath("ualid:ser", NS)
+      is_version_of = dc_version.xpath("dcterms:isVersionOf", NS).text().gsub(/\n/,'|').gsub(/\t/,' ') unless dc_version.xpath("dcterms:isVersionOf", NS).blank?
+      is_version_of ||= dc_version.xpath("dcterms:isversionof", NS).text().gsub(/\n/,'|').gsub(/\t/,' ') if dc_version.xpath("dcterms:isversionof", NS)
+      is_version_of = HTMLEntities.new.decode(is_version_of)
       if type == "Thesis"
       #for thesis objects
-      abstract = dc_version.xpath("dcterms:abstract", NS).text() if dc_version.xpath("dcterms:abstract", NS)
+      abstract = dc_version.xpath("dcterms:abstract", NS).text().gsub(/\n/,' ').gsub(/\t/,' ') if dc_version.xpath("dcterms:abstract", NS)
+      abstract = HTMLEntities.new.decode(abstract)
       date_accepted = dc_version.xpath("dcterms:dateAccepted", NS).text() unless dc_version.xpath("dcterms:dateAccepted", NS).blank?
       date_accepted ||= dc_version.xpath("dcterms:dateaccepted", NS).text() if dc_version.xpath("dcterms:dateaccepted", NS)
       date_submitted = dc_version.xpath("dcterms:dateSubmitted", NS).text() unless dc_version.xpath("dcterms:dateSubmitted", NS).blank?
       date_submitted ||= dc_version.xpath("dcterms:datesubmitted", NS).text() if dc_version.xpath("dcterms:datesubmitted", NS)
-      is_version_of = dc_version.xpath("dcterms:isVersionOf", NS).text() unless dc_version.xpath("dcterms:isVersionOf", NS).blank?
-      is_version_of ||= dc_version.xpath("dcterms:isversionof", NS).text() if dc_version.xpath("dcterms:isversionof", NS)
       graduation_date = dc_version.xpath("ualdate:graduationdate", NS).text() if dc_version.xpath("ualdate:graduationdate", NS)
       specialization = dc_version.xpath("ualthesis:specialization", NS).text() if dc_version.xpath("ualthesis:specialization", NS)
       supervisors = dc_version.xpath("marcrel:ths/text()", NS).map(&:text) if dc_version.xpath("marcrel:ths", NS)
@@ -616,6 +628,12 @@ namespace :migration do
 
       MigrationLogger.info "Generic File saved id:#{@generic_file.id}"
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
+      begin
+      	update_handle(fedora3handle, @generic_file.id) if ENV['RAILS_ENV'] == 'production'
+      rescue Exception => e
+        puts "Error in running script to update handle #{e}"
+        MigrationLogger.error "Failed to run script to update handle #{e}"
+      end
       MigrationLogger.info "Add file to collection #{collections} and community #{communities} if needed"
       if !collections_noid.empty?
         collections_noid.each do |c|
@@ -637,6 +655,8 @@ namespace :migration do
       MigrationLogger.info "Finish migrating the file ${uuid}"
       MigrationLogger.info "Deleting tmp directory #{TEMP}/#{uuid}"
       system "rm -rf #{TEMP}/#{uuid}"
+ 
+      noid_report.puts "#{uuid},#{@generic_file.id}"
 
 
     rescue Exception => e
@@ -683,6 +703,7 @@ namespace :migration do
       puts "Verification used #{verify_t - collection_t}"
 =end
     end
+      noid_report.close
       add_to_collection_all_t = Time.now
       puts @collection_hash
 
@@ -704,6 +725,37 @@ namespace :migration do
       puts "Summary: Verification time: #{verify_time}"
 
   end
+
+    def update_handle(handle,noid)
+      puts "Updating handle #{fedora3handle} for migrated file #{@generic_file.id}"
+      MigrationLogger.info "Updating handle #{fedora3handle} for migrated file #{@generic_file.id}"
+      link = ERA_FILE_URL+"#{noid}"
+      handle.slice!(HANDLE_URL)
+      MigrationLogger.info "Deleting existing handle #{handle}"
+      puts handle
+      delete_cmd = "./bin/handle/bin/hdl-delete 0.NA/10402 bin/handle/lib/admpriv.bin #{handle}"
+      Open3.popen3(delete_cmd) do |stdin, stdout, stderr|
+        puts stdout.read
+        if stdout.read.include? "Error" 
+          MigrationLogger.error stdout.read
+        else
+          MigrationLogger.info stdout.read
+        end
+      end
+      puts link
+      MigrationLogger.info "Creating a new handle to replace the old one with correct noid #{handle} - #{noid}"
+      create_cmd = "./bin/handle/bin/hdl-create 0.NA/10402 300 bin/handle/lib/admpriv.bin #{handle} #{link}"
+      Open3.popen3(create_cmd) do |stdin, stdout, stderr|
+        puts stdout.read
+        if stdout.read.include? "Error" 
+          MigrationLogger.error stdout.read
+        else
+          MigrationLogger.info stdout.read
+        end
+      end
+      puts "Updated #{handle} to redirect to #{link}"
+      MigrationLogger.info "Updated #{handle} to redirect to #{link}"
+    end
 
     def migrate_collection_community(metadata_dir)
     MigrationLogger.info " +++++++ START: collection ingest #{metadata_dir} +++++++ "

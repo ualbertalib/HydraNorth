@@ -50,6 +50,7 @@ describe "Migration rake tasks", :integration => true do
       expect(subject.hasCollection).to include 'test collection'
       expect(subject.hasCollectionId).to include @collection.id
       expect(subject.belongsToCommunity).to include @community.id
+      expect(subject.description).to include "HTML entities should be decoded. &This is a test to verify"
     end
   end
   describe "migration:eraitem - multifile item" do

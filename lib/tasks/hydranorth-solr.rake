@@ -1,5 +1,4 @@
 require './lib/tasks/rake_logger'
-require 'rest-client'
 require 'active_fedora/noid'
 require 'yaml'
 require 'rdf/turtle'
@@ -50,6 +49,7 @@ namespace :hydranorth do
     end
 
     def find_objects(input)
+      require 'rest-client'
       objects=[]
       if input.length == 2
         RakeLogger.info "It's a pairtree root: #{input}"
