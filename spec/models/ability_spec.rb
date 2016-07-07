@@ -49,6 +49,10 @@ describe Ability, :type => :model do
       gf.save!
     end
   end
+  let(:restricted_doc) do
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => "id:#{restricted_file.id}"}
+    SolrDocument.new(solr_rsp['response']['docs'].first)
+  end
 
   let (:institutionally_restricted_file) do
     GenericFile.new.tap do |gf|
@@ -56,6 +60,10 @@ describe Ability, :type => :model do
       gf.visibility = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
       gf.save!
     end
+  end
+  let(:institutionally_restricted_doc) do
+    solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => "id:#{institutionally_restricted_file.id}"}
+    SolrDocument.new(solr_rsp['response']['docs'].first)
   end
 
   after do
@@ -80,8 +88,10 @@ describe Ability, :type => :model do
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
 
     it {is_expected.not_to be_able_to(:download, restricted_file) }
+    it {is_expected.not_to be_able_to(:download, restricted_doc) }
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
+    it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
   end
 
   describe "a registered user" do
@@ -108,18 +118,22 @@ describe Ability, :type => :model do
     it { is_expected.not_to be_able_to(:update, ContentBlock) }
 
     it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.to be_able_to(:download, restricted_doc) }
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
+    it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
   end
 
   describe 'a CCID authenticated user' do
     let(:ccid_user) { FactoryGirl.find_or_create(:ccid) }
     subject { Ability.new(ccid_user) }
 
-    it {is_expected.to be_able_to(:download, restricted_file) }
 
+    it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.to be_able_to(:download, restricted_doc) }
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it { is_expected.to be_able_to(:download, institutionally_restricted_file) }
+    it { is_expected.to be_able_to(:download, institutionally_restricted_doc) }
   end
 
   describe "a user in the admin group" do
@@ -157,9 +171,11 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to(:update, ContentBlock) }
 
     it {is_expected.to be_able_to(:download, restricted_file) }
+    it {is_expected.to be_able_to(:download, restricted_doc) }
     
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
+    it {is_expected.to be_able_to(:download, institutionally_restricted_doc) }
 
   end
 

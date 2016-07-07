@@ -12,7 +12,9 @@ module SufiaHelper
     # file
     else
       path =
-        if !document.institutional_access? && (document.image? || document.pdf? || document.video? || document.office_document?)
+        if cannot?(:download, document)
+          "default.png"
+        elsif document.image? || document.pdf? || document.video? || document.office_document?
           sufia.download_path document, file: 'thumbnail'
         elsif document.audio?
           "audio.png"
