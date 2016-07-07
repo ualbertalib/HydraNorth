@@ -6,9 +6,10 @@ class Ability
       cannot :destroy, ::GenericFile unless admin?
       # we blanket restrict downloading, and then whitelist appropriates cases
       cannot :download, GenericFile
-      can :download, GenericFile do |obj|
+      can :download, [GenericFile,SolrDocument] do |obj|
         # original logic in Hydra was user can download if user can read
         # here, we layer institutional access on top of that logic
+        # we also want to be able to use the SolrDocument to check abilities to prevent performance hit
         if obj.institutional_access?
           @current_user.institutionally_authenticated? &&
           obj.read_groups.include?(@current_user.authenticating_institution)
