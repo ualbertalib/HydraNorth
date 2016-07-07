@@ -35,4 +35,8 @@ describe 'redirect', :type => :routing do
   it { expect(get("/action/submit/init/thesis/uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269")).to route_to(
     controller: "redirect", action: "thesis", uuid: "uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269") }
 
+  # download route
+  it { expect(get("/downloads/noidnoid")).to route_to(
+    controller: "redirect", action: "sufiadownload", id: "noidnoid") }
+
 end

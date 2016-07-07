@@ -3,11 +3,12 @@ require 'blacklight/catalog'
 module Hydranorth
   module MyControllerBehavior
     extend ActiveSupport::Concern
+    # shouldn't this be Sufia::Catalog? We're all over the place with includes
     include Blacklight::Catalog
     include Hydra::BatchEditBehavior
-    include Hydra::Collections::SelectsCollections
+    include Hydranorth::Collections::SelectsCollections
     include Sufia::MyControllerBehavior
-
+    include Hydranorth::Collections::AdminNestingTargets
 
     included do
       self.search_params_logic -= [:add_access_controls_to_solr_params]
@@ -30,6 +31,9 @@ module Hydranorth
       @entire_result_set_selected = @response.response["numFound"] == batch_size
       @batch_size_on_other_page = batch_size - count_on_page
       @batch_part_on_other_page = (@batch_size_on_other_page) > 0
+
+      @document_list.sort! { |a,b| a.title <=> b.title }
+      @target_collections = admin_target_collections
 
       respond_to do |format|
         format.html { }

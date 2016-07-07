@@ -11,6 +11,7 @@ describe RedirectController, type: :controller do
   let!(:gf) do
     GenericFile.create.tap do |f|
       f.fedora3uuid = fedora3uuid1
+      f.label = "thisfile.pdf"
       f.apply_depositor_metadata user
       f.save!
     end
@@ -117,4 +118,11 @@ describe RedirectController, type: :controller do
     end
   end
 
+  describe "#download" do
+    it "redirects to new download" do
+      get :sufiadownload, id: gf.id
+      expect(response).to redirect_to "http://test.host/files/#{gf.id}/#{gf.label}"
+    end
+  end
 end
+

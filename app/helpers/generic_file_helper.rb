@@ -11,15 +11,19 @@ module GenericFileHelper
   end
 
   def render_download_icon title = nil
-    if title.nil?
-      link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
-    else
-      link_to (download_image_tag(title) + title), download_path(@generic_file), { target: "_blank", title: title, id: "file_download", data: { label: @generic_file.id } }
+    if @generic_file.label.present? || @generic_file.doi_url.present? || !@generic_file.filename.empty?
+      if title.nil?
+        link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
+      else
+        link_to (download_image_tag(title) + title), download_path(@generic_file), { target: "_blank", title: title, id: "file_download", data: { label: @generic_file.id } }
+      end
     end
   end
 
   def render_download_link text = nil
-    link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
+    if @generic_file.label.present? || !@generic_file.filename.empty?
+      link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
+    end
   end
 
   # sufia.download path is from Sufia::Engine.routes.url_helpers
@@ -30,7 +34,11 @@ module GenericFileHelper
   # download_path(id: @asset)
   # download_path document, file: 'thumbnail'
   def download_path(*args)
-    item = args.first
+    if args.first.is_a? String
+      item = GenericFile.find(args.first)
+    else
+      item = args.first
+    end
     return sufia.download_path(*args) unless (item.is_a?(SolrDocument) || item.is_a?(GenericFile))
     return item.doi_url if item.respond_to?(:doi_url) && item.doi_url.present?
 
@@ -39,7 +47,27 @@ module GenericFileHelper
       gf = GenericFile.find(item.id)
       return gf.doi_url if gf.doi_url.present?
     end
-    return sufia.download_path(*args)
+    if args[1].nil?
+      if !item.label.nil?
+        return "/files/" + item.id + "/" + URI::encode(item.label)
+      elsif !item.filename.empty?
+        return "/files/" + item.id + "/" + URI::encode(item.filename.first)
+      else
+      # items with no file (which should never happen in production) return nil
+      end
+    else
+      # handle thumbnail requests, in this form:
+      #   /downloads/<noid>?file=thumbnail
+      # args[1] is therefore {:file=>"thumbnail"}
+      path = "/files/" + item.id + "?"
+      i = 0
+      args[1].each do |key,value|
+        path = path + "&" if i > 0
+        i = i + 1
+        path = path + key.to_s + "=" + URI::encode(value)
+      end
+      return path
+    end
   end
 
   def render_collection_list(gf)
