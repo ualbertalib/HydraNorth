@@ -28,13 +28,12 @@ module Hydranorth::Collections::SelectsCollections
     authenticate_user! unless access_level.blank?
 
     # run the solr query to find the collections
-    query = collections_search_builder(access_level).with({q: '(-is_community_bsi:true AND -is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true)'}).query
+    query = collections_search_builder(access_level).with({q: "(-#{Solrizer.solr_name('is_community', :stored_searchable, type: :boolean)}:true AND -#{Solrizer.solr_name('is_community')}:true) AND (#{Solrizer.solr_name('is_official', :stored_searchable, type: :boolean)}:true OR #{Solrizer.solr_name('is_official')}:true)"}).query
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
 
-   @user_collections = response.documents.sort do |d1, d2|
-     d1.title <=> d2.title
-   end
+   @user_collections = response.documents.sort! { |d1, d2| d1.title.downcase <=> d2.title.downcase }
+   @target_collecttions = admin_target_collections
  end
 
  def find_collections_grouped_by_community(access_level = nil)
@@ -51,17 +50,15 @@ module Hydranorth::Collections::SelectsCollections
 
     # run the solr query to find the collections
     if access_level.blank?
-      query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) '}).query
+      query = collections_search_builder(access_level).with({q: "(#{Solrizer.solr_name('is_community', :stored_searchable, type: :boolean)}:true OR #{Solrizer.solr_name('is_community')}:true) AND (#{Solrizer.solr_name('is_official', :stored_searchable, type: :boolean)}:true OR #{Solrizer.solr_name('is_official')}:true) "}).query
     else
-      query = collections_search_builder(access_level).with({q: '(is_community_bsi:true OR is_community_tesim:true) AND (is_official_bsi:true OR is_official_tesim:true) AND is_admin_set_bsi:false'}).query
+      query = collections_search_builder(access_level).with({q: "(#{Solrizer.solr_name('is_community', :stored_searchable, type: :boolean)}:true OR #{Solrizer.solr_name('is_community')}:true) AND (#{Solrizer.solr_name('is_official', :stored_searchable, type: :boolean)}:true OR #{Solrizer.solr_name('is_official')}:true) AND #{Solrizer.solr_name('is_admin_set', :stored_searchable, type: :boolean)}:false"}).query
     end
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
     # not a fan of sorting this in ruby, but collections search builder doesn't seem to pass on
     # sort params properly
-    @user_communities = response.documents.sort do |d1, d2|
-      d1.title <=> d2.title
-    end
+    @user_communities = response.documents.sort! { |d1, d2| d1.title.downcase <=> d2.title.downcase }
   end
 
   # Sorting by title implemented in hydra-collections v7.0.0 [projecthydra/hydra-collections@e8e57e5] this is a workaround
@@ -74,8 +71,13 @@ module Hydranorth::Collections::SelectsCollections
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
 
-    response.documents.sort do |d1, d2|
-     d1.title <=> d2.title
-    end
+    response.documents.sort! { |d1, d2| d1.title.downcase <=> d2.title.downcase }
+  end
+
+  def admin_target_collections
+    return [] unless current_user && current_user.admin?
+
+    response = repository.search(collections_search_builder.with({q: ''}).query)
+    response.documents.sort! { |a,b| a.title.downcase <=> b.title.downcase }
   end
 end

@@ -8,7 +8,6 @@ module Hydranorth
     include Hydra::BatchEditBehavior
     include Hydranorth::Collections::SelectsCollections
     include Sufia::MyControllerBehavior
-    include Hydranorth::Collections::AdminNestingTargets
 
     included do
       self.search_params_logic -= [:add_access_controls_to_solr_params]
