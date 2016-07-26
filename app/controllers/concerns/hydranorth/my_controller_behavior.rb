@@ -32,7 +32,6 @@ module Hydranorth
       @batch_size_on_other_page = batch_size - count_on_page
       @batch_part_on_other_page = (@batch_size_on_other_page) > 0
 
-      @document_list.sort! { |a,b| a.title <=> b.title }
       @target_collections = admin_target_collections
 
       respond_to do |format|

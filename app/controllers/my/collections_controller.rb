@@ -17,7 +17,6 @@ class My::CollectionsController < MyController
     @selected_tab_path = sufia.dashboard_collections_path
   end
 
-
   protected
 
   def search_action_url(*args)
