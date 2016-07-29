@@ -82,6 +82,18 @@ Hydranorth::Application.routes.draw do
   get 'batches/:id/update_collections' => 'batch#update_collections', as: 'update_collections'
   get 'files/:id/stats' => 'generic_files#stats'
   get 'files/:id/edit' => 'generic_files#edit'
+
+# Generic file routes
+  resources :generic_files, path: :files, except: [:index, :show] do
+    member do
+      resource :featured_work, only: [:create, :destroy]
+      resources :transfers, as: :generic_file_transfers, only: [:new, :create]
+      get 'citation'
+      get 'stats'
+      post 'audit'
+    end
+  end
+
   get 'files/:id/update_collections' => 'generic_files#update_collections'
   get 'communities', controller: 'communities', action: :index
   get 'communities/logo', controller: 'communities', action: :logo
