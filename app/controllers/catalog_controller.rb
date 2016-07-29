@@ -14,10 +14,6 @@ class CatalogController < ApplicationController
 
   skip_before_filter :default_html_head
 
-  def index
-    super
-  end
-
   def self.uploaded_field
     solr_name('date_uploaded', :stored_sortable, type: :date)
   end
