@@ -101,11 +101,11 @@ Hydranorth::Application.routes.draw do
   get 'collections/:id/:per_page', controller: 'collections', action: :show
   get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
+  get 'files/:id/*file' => 'downloads#show', format: false
   get 'files/:id' => 'downloads#show', constraints: WantsThumbnailConstraint
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
-  get 'files/:id/*file' => 'downloads#show', format: false
   root to: 'homepage#index'
 end
