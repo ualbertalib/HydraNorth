@@ -3,14 +3,10 @@ module Hydranorth
     extend ActiveSupport::Concern
     include Sufia::BatchControllerBehavior
     include Hydra::Catalog
-    include Hydranorth::Collections::SelectsCollections
+    include Hydranorth::Collections::CollectionSelection
+    include Hydranorth::Collections::CommunitySelection
 
     included do
-      before_action only: [:edit] do
-        find_communities_with_edit_access
-        find_collections_with_edit_access
-      end
-
       class_attribute :edit_form_class, :cstr_edit_form_class, :ser_edit_form_class
       self.edit_form_class = Hydranorth::Forms::BatchEditForm
       self.cstr_edit_form_class = Hydranorth::Forms::CstrBatchEditForm
@@ -19,6 +15,8 @@ module Hydranorth
 
     def edit
       @batch = Batch.find_or_create(params[:id])
+      @user_communities = find_communities(access_levels[:edit])
+      @user_collections = find_collections(access_levels[:edit])
       @form = edit_form
       @form[:resource_type] = @batch.generic_files.map(&:resource_type).flatten
     end

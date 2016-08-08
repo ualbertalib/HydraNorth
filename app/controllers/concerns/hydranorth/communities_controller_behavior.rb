@@ -2,12 +2,13 @@ module Hydranorth
   module CommunitiesControllerBehavior
     extend ActiveSupport::Concern
     include Hydra::Catalog
-    include Hydranorth::Collections::SelectsCollections
+    include Hydranorth::Collections::CollectionSelection
+    include Hydranorth::Collections::CommunitySelection
 
     included do
       before_action only: [:index] do
-        find_communities
-        find_collections_grouped_by_community
+        @user_communities = find_communities
+        @user_collections, @grouped_user_collections = find_collections_grouped_by_community
       end
     end
 

@@ -25,8 +25,7 @@ describe CommunitiesController, :type => :controller do
     end
     it "responds with success" do
       get :index
-      puts response.body.inspect
-      puts response.status.inspect
+
       expect(response).to be_successful
     end
   end

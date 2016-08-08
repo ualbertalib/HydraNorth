@@ -6,7 +6,7 @@ module Hydranorth
     # shouldn't this be Sufia::Catalog? We're all over the place with includes
     include Blacklight::Catalog
     include Hydra::BatchEditBehavior
-    include Hydranorth::Collections::SelectsCollections
+    include Hydranorth::Collections::AdminCollectionSelection
     include Sufia::MyControllerBehavior
 
     included do
