@@ -9,13 +9,13 @@ function create_repository_chart() {
 		// hardcoded, out-of-data but reasonable data to use
 		// if something goes wrong in fetching the real time stats
 		initialize_chart({
-			'total_count': '36,675',
+			'total_count': '40,463',
 			'facets': [
-				{indexLabel: "Report", y: 9136},
-				{indexLabel: "Image", y: 5416},
-				{indexLabel: "Thesis", y: 17276},
-				{indexLabel: "Journal Article (Published)", y: 1706},
-				{indexLabel: "Other", y: 1839}
+				{indexLabel: "Report", y: 10078},
+				{indexLabel: "Image", y: 5780},
+				{indexLabel: "Thesis", y: 18999},
+				{indexLabel: "Journal Article (Published)", y: 2303},
+				{indexLabel: "Other", y: 2314}
 			]
 		});
 	});
