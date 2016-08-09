@@ -69,6 +69,9 @@ gem "pdf-reader"
 # to generate sitemap for google scholar et al
 gem 'sitemap', github: 'ualbertalib/rails-sitemap'
 
+# to fetch noid from fedora for reindex job
+gem 'rest-client'
+
 gem 'noid', '~> 0.8'
 
 group :test do
@@ -96,5 +99,4 @@ group :development, :test do
   gem "better_errors"
   gem "binding_of_caller"
   gem 'ruby-prof'
-  gem 'rest-client'
 end

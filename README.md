@@ -138,7 +138,8 @@ Audit Fix
 A set of rake tasks is also added for index jobs:
 * ```rake hydranorth:solr:index[id]```         Index a single object with ID
 * ```rake hydranorth:solr:index_pairtree[input]```   Index with a pairtree structure
-* ```rake hydranorth:solr:update_generic_file_index```  Index all Generic File objects
+* ```rake hydranorth:solr:batch_index[directory|file]``` Index from a list of noids, usually from a solr csv output that just contains noids. 
+* ```rake hydranorth:solr:reindex_all```	Complete reindex of the repository
 
 A shell script will update namespace uris
 * ```/bin/fix/fix.rb``` is to update all the namespace uris. Requires user to replace @server with the Fedora server location before using.
