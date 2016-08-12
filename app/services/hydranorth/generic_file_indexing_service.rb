@@ -12,6 +12,7 @@ class Hydranorth::GenericFileIndexingService <  Sufia::GenericFileIndexingServic
       else
         'false'
       end
+      Solrizer.insert_field(solr_doc, 'sortable_title', object.title.first.downcase, :stored_sortable) if object.title && !object.title.empty?
     end
   end
 end
