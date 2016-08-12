@@ -20,6 +20,6 @@ module Hydranorth::Collections::BaseQuery
     response = repository.search(query)
     # return the user's collections (or public collections if no access_level is applied)
 
-    response.documents.sort! { |d1, d2| d1.title.downcase <=> d2.title.downcase }
+    response.documents
   end
 end
