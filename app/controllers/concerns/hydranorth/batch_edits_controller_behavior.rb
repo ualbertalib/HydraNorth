@@ -8,7 +8,7 @@ module Hydranorth
       if params[:return_controller]
         redirect_to url_for(controller: params[:return_controller], only_path: true)
       else
-        redirect_to sufia.dashboard_index_path
+        redirect_to sufia.dashboard_files_path
       end
     end
 
