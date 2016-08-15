@@ -12,7 +12,7 @@ gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 gem 'rdf-turtle', '1.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.7.1'
 
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.3.2'
