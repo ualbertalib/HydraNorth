@@ -34,7 +34,7 @@ describe 'download link', :type => :feature do
     end
     it 'should be DOI in action' do
       sign_in user
-      visit "dashboard/files"
+      visit "/dashboard/files"
       within("#document_#{gf_with_doi.id}") do
         click_button 'Select an action'
         expect(page).to have_link('Download File', {href: 'http://dx.doi.org'})
@@ -64,7 +64,7 @@ describe 'download link', :type => :feature do
     end
     it 'should be download in action' do
       sign_in user
-      visit "dashboard/files"
+      visit "/dashboard/files"
       within("#document_#{gf_no_identifier.id}") do
         click_button 'Select an action'
         expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 1)

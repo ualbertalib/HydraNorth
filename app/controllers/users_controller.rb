@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         if current_user.nil? || !current_user.admin?
-          redirect_to sufia.dashboard_index_path, alert: "Permission denied: cannot access this page."
+          redirect_to sufia.dashboard_files_path, alert: "Permission denied: cannot access this page."
         else
           super
         end

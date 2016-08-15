@@ -21,6 +21,7 @@ describe 'SAML' do
     end
 
     it 'should be able to use SAML to create acount' do
+      pending 'admin currently is sent to /dasboard/files pending #1233'
       sign_in_with_saml
       select_new_account
       expect(page).to have_content I18n.t('devise.omniauth_callbacks.success', kind: 'Shibboleth')
@@ -137,6 +138,7 @@ describe 'SAML' do
     end
 
     it 'should not be prompted to link account' do
+      pending 'admin currently is sent to /dasboard/files pending #1233'
       visit '/users/sign_in'
       expect { click_link 'YES, I have a CCID' }.to_not raise_error
       expect(page).to_not have_content "Do you have an existing ERA account?"
