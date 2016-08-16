@@ -6,7 +6,8 @@ module Hydranorth
 
   module FilesControllerBehavior
     extend ActiveSupport::Concern
-    include Hydranorth::Collections::SelectsCollections
+    include Hydranorth::Collections::CollectionSelection
+    include Hydranorth::Collections::CommunitySelection
     include Sufia::FilesControllerBehavior
     include Hydranorth::Breadcrumbs
 
@@ -21,8 +22,8 @@ module Hydranorth
     end
 
     def edit_form
-      find_collections_with_read_access
-      find_communities_with_read_access
+      @user_collections = find_collections(access_levels[:read])
+      @user_communities = find_communities(access_levels[:read])
 
       @community_collections = collections_for_community(@generic_file.belongsToCommunity.first)
 

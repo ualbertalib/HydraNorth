@@ -50,9 +50,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if current_user.admin?
-      stored_location_for(resource) || root_path
+      stored_location_for(resource) || sufia.dashboard_files_path || root_path
     else
-      stored_location_for(resource) || sufia.dashboard_index_path || root_path
+      stored_location_for(resource) || sufia.dashboard_files_path || root_path
     end
   end
 

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 class SelectsCollectionsController < ApplicationController
   include Blacklight::Catalog
-  include Hydranorth::Collections::SelectsCollections
+  include Hydranorth::Collections::CollectionSelection
+  include Hydranorth::Collections::CommunitySelection
   include Hydra::Controller::ControllerBehavior
 end
 
@@ -38,27 +39,27 @@ describe SelectsCollectionsController, :type => :controller do
 
     describe "Public Access" do
       it "should return public communities" do
-        subject.find_communities
-        expect(assigns[:user_communities].map(&:id)).to match_array [@community.id, @no_edit_community.id]
+        @user_communities = subject.find_communities
+        expect(@user_communities.map(&:id)).to match_array [@community.id, @no_edit_community.id]
       end
       it "should not return public collections" do
-        subject.find_communities
-        expect(assigns[:user_communities].map(&:id)).not_to include @collection.id
+        @user_communities = subject.find_communities
+        expect(@user_communities.map(&:id)).not_to include @collection.id
       end
     end
 
     describe "Regular User Read Access" do
       describe "not signed in" do
         it "should error if the user is not signed in" do
-          expect { subject.find_communities_with_read_access }.to raise_error
+          expect { subject.find_communities([:read, :edit]) }.to raise_error
         end
       end
       describe "signed in" do
         before { sign_in user }
 
         it "should return only public and read access (edit access implies read) communities" do
-          subject.find_communities_with_read_access
-          expect(assigns[:user_communities].map(&:id)).to match_array [@community.id]
+          @user_communities = subject.find_communities([:read, :edit])
+          expect(@user_communities.map(&:id)).to match_array [@community.id]
         end
       end
     end
@@ -66,7 +67,7 @@ describe SelectsCollectionsController, :type => :controller do
     describe "Regular User Edit Access" do
       describe "not signed in" do
         it "should error if the user is not signed in" do
-          expect { subject.find_communities_with_edit_access }.to raise_error
+          expect { subject.find_communities([:read, :edit])  }.to raise_error
         end
       end
 
@@ -74,8 +75,8 @@ describe SelectsCollectionsController, :type => :controller do
         before { sign_in user }
 
         it "should return only public or editable communities" do
-          subject.find_communities_with_edit_access
-          expect(assigns[:user_communities].map(&:id)).to match_array [@community.id]
+          @user_communities = subject.find_communities([:read, :edit])
+          expect(@user_communities.map(&:id)).to match_array [@community.id]
         end
       end
     end

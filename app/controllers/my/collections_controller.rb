@@ -1,5 +1,4 @@
 class My::CollectionsController < MyController
-  include Hydranorth::Collections::SelectsCollections
 
   self.search_params_logic += [
     # NB this isn't accounting for admin properly
@@ -16,7 +15,6 @@ class My::CollectionsController < MyController
     @selected_tab = :collections
     @selected_tab_path = sufia.dashboard_collections_path
   end
-
 
   protected
 
