@@ -79,11 +79,6 @@ namespace :hydranorth do
   end
 
 
-  desc "Re-solrize all objects"
-  task resolrize: :environment do
-    Sufia.queue.push(ResolrizeJob.new)
-  end
-
   namespace :export do
     desc "Dump metadata as RDF/XML for e.g. Summon integration"
     task rdfxml: :environment do
