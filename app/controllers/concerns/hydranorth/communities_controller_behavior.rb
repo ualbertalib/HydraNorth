@@ -5,14 +5,16 @@ module Hydranorth
     include Hydranorth::Collections::CollectionSelection
     include Hydranorth::Collections::CommunitySelection
 
-    included do
-      before_action only: [:index] do
-        @user_communities = find_communities
-        @user_collections, @grouped_user_collections = find_collections_grouped_by_community
-      end
-    end
-
     def index
+      @user_communities = find_communities
+
+      # TODO we should move this into the query itself, but that can't happen until after the re-index of communities &
+      # collections populates sortable_title_ssi
+      @user_communities.sort! do |a,b|
+        a.title.downcase <=> b.title.downcase
+      end
+
+      @user_collections, @grouped_user_collections = find_collections_grouped_by_community
     end
 
     def logo
