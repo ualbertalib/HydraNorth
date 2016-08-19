@@ -26,12 +26,23 @@ describe "sitemap:generate" do
       f.save!
     end
   end
+  let!(:missing_hash_file) do
+    GenericFile.new.tap do |f|
+      f.title = ['missing hash']
+      f.read_groups = ['public']
+      f.apply_depositor_metadata(user.user_key)
+      f.save!
+      allow(f.characterization).to receive(:digest).and_return nil
+    end
+  end
   let!(:public_file) do
     GenericFile.new.tap do |f|
       f.title = ['public']
       f.read_groups = ['public']
       f.apply_depositor_metadata(user.user_key)
+      f.add_file(File.open(fixture_path + '/world.png'), path: 'content', original_name: 'world.png')
       f.save!
+      f.characterize
     end
   end
   let!(:collection) do 
@@ -47,11 +58,20 @@ describe "sitemap:generate" do
     Timecop.return
   end
 
+  it "should make digest return nil" do
+    # using .find instance didn't allow the digest message to respond with nil
+    # but the named instance will
+    allow(GenericFile).to receive(:find).with(missing_hash_file.id).and_return missing_hash_file
+    expect(GenericFile.find(missing_hash_file.id).characterization.digest).to be_nil
+  end
+
   it "should create sitemap.xml which contains a file, collection and ommits the broken and private objects" do
     allow(GenericFile).to receive(:find).and_call_original
     allow(GenericFile).to receive(:find).with(broken_file.id) { raise ActiveFedora::ActiveFedoraError, "Model mismatch. Expected GenericFile. Got: ActiveFedora::Base>" }
+    allow(GenericFile).to receive(:find).with(missing_hash_file.id).and_return missing_hash_file
 
     expect(Rails.logger).to receive(:error).with("id:#{broken_file.id} threw 'Model mismatch. Expected GenericFile. Got: ActiveFedora::Base>' and it was not included in the sitemap.xml")
+    expect(Rails.logger).to receive(:error).with("id:#{missing_hash_file.id} threw 'undefined method `first' for nil:NilClass' and it was not included in the sitemap.xml")
 
     Rake::Task["sitemap:generate"].invoke
 
@@ -62,5 +82,6 @@ describe "sitemap:generate" do
     expect(file).to include collection.id
     expect(file).not_to include private_file.id
     expect(file).not_to include broken_file.id
+    expect(file).not_to include missing_hash_file.id
   end
 end
