@@ -1,4 +1,4 @@
-module Hydranorth 
+module Hydranorth
   module GenericFile
     module Export
 
@@ -19,30 +19,31 @@ module Hydranorth
           license: 'license' ,
           rights: 'rights'
         }
-        Rails.logger.debug "field_map #{field_map}"
+        # this is making the rails dev console VERY noisy, so I'm disabling it for now
+        # Rails.logger.debug "field_map #{field_map}"
         field_map.each do |element, kev|
-          Rails.logger.debug "self #{self.inspect}"
-          Rails.logger.debug "self.title #{self.title.inspect}"
-          Rails.logger.debug "self.creator #{self.creator}"
-          Rails.logger.debug "self.subject #{self.subject}"
-          Rails.logger.debug "self.description #{self.description}"
-          Rails.logger.debug "self.publisher #{self.publisher}"
-          Rails.logger.debug "self.date_create #{self.date_created}"
-          Rails.logger.debug "self.resource_type #{self.resource_type}"
-          Rails.logger.debug "self.language #{self.language}"
-          Rails.logger.debug "self.license #{self.license}"
-          Rails.logger.debug "self.rights #{self.rights}"
-          Rails.logger.debug "self.contributor #{self.contributor.inspect}"
+          # Rails.logger.debug "self #{self.inspect}"
+          # Rails.logger.debug "self.title #{self.title.inspect}"
+          # Rails.logger.debug "self.creator #{self.creator}"
+          # Rails.logger.debug "self.subject #{self.subject}"
+          # Rails.logger.debug "self.description #{self.description}"
+          # Rails.logger.debug "self.publisher #{self.publisher}"
+          # Rails.logger.debug "self.date_create #{self.date_created}"
+          # Rails.logger.debug "self.resource_type #{self.resource_type}"
+          # Rails.logger.debug "self.language #{self.language}"
+          # Rails.logger.debug "self.license #{self.license}"
+          # Rails.logger.debug "self.rights #{self.rights}"
+          # Rails.logger.debug "self.contributor #{self.contributor.inspect}"
           values = self.send(element)
-          Rails.logger.debug "values #{values}"
+          # Rails.logger.debug "values #{values}"
           next if values.nil? || values.first.nil? || values.empty?
           if values.respond_to?(:each)
 
             values.each do |value|
               export_text << "rft.#{kev}=#{CGI::escape(value.to_s)}"
             end
-          else 
-            
+          else
+
             export_text << "rft.#{kev}=#{CGI::escape(values.to_s)}"
           end
 

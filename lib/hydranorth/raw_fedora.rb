@@ -30,7 +30,7 @@ module Hydranorth
 
     def stringify_args(arg_hash)
       accumulator = []
-      arg_hash.each { |k, v| accumulator << k.to_s + '=' + v.to_s }
+      arg_hash.each { |k, v| accumulator << k.to_s + '=' + URI::encode(v.to_s) }
       '?' << accumulator.join('&')
     end
 

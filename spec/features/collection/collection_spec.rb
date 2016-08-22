@@ -74,6 +74,7 @@ describe 'collection', :type => :feature do
       expect(page).to have_selector(:css, "div#community-logo")
       expect(page).to have_content('Collections and items in this Community')
       expect(page).to_not have_css("input#collection_search")
+
       within("#facets") do
         within("#facet-resource_type_sim") do
           expect(page).to have_content("Book")
@@ -363,11 +364,8 @@ describe 'collection', :type => :feature do
       expect(page).to have_content(generic_file.title.first)
 
       expect(page).to have_content("Test Item")
-      # this is now pending the work to reindex DOIs into Solr
-      # and Rspec 3 doesn't let you mark individual expectations as pending
-      # because ¯\_(ツ)_/¯
-      #expect(page).to have_content("Download")
-      
+      expect(page).to have_content("Download")
+
       click_link ('Test Item')
       expect(page).not_to have_content("Edit")
       expect(page).not_to have_content("Delete")

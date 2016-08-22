@@ -10,7 +10,7 @@ module GenericFileHelper
     Hydranorth::PresenterRenderer.new(presenter, self).fields(terms, &block)
   end
 
-  def render_download_icon title = nil
+  def render_download_icon(title = nil)
     if @generic_file.label.present? || @generic_file.doi_url.present? || !@generic_file.filename.empty?
       if title.nil?
         link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
@@ -20,7 +20,7 @@ module GenericFileHelper
     end
   end
 
-  def render_download_link text = nil
+  def render_download_link(text = nil)
     if @generic_file.label.present? || !@generic_file.filename.empty?
       link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
     end
@@ -33,41 +33,34 @@ module GenericFileHelper
   # download_path(@generic_file, file: 'webm')
   # download_path(id: @asset)
   # download_path document, file: 'thumbnail'
+  #
+  # we shouldn't be overloading this to accept everything under the sun as it leads to all
+  # manner of bugs and corner cases, but these usages are imposed by Hydra/Sufia, so we're forced to live with
+  # it
   def download_path(*args)
-    if args.first.is_a? String
-      item = GenericFile.find(args.first)
-    else
-      item = args.first
-    end
-    return sufia.download_path(*args) unless (item.is_a?(SolrDocument) || item.is_a?(GenericFile))
-    return item.doi_url if item.respond_to?(:doi_url) && item.doi_url.present?
+    raise ArgumentError unless args.present?
+    item = item_for_download(args.shift)
 
-    # not all doi_urls will be in SolrDocuments until a full reindex happens
-    if item.is_a?(SolrDocument) && !item.doi_url_indexed?
-      gf = GenericFile.find(item.id)
-      return gf.doi_url if gf.doi_url.present?
+    # doi supercedes anything else
+    return item.doi_url if item.doi_url.present?
+
+    # this shouldn't happen normally in production, because it indicates an item with no file
+    # but a BUNCH of our tests do create items like this
+    unless item.label.present? || item.filename.present?
+      logger.error "item with no file found! id: #{item.id}"
+      # this would be a good place for hoptoad/airbrake/newrelic-style alerting
+      return "/files/#{item.id}/"
     end
-    if args[1].nil?
-      if !item.label.nil?
-        return "/files/" + item.id + "/" + URI::encode(item.label)
-      elsif !item.filename.empty?
-        return "/files/" + item.id + "/" + URI::encode(item.filename.first)
-      else
-      # items with no file (which should never happen in production) return nil
-      end
-    else
-      # handle thumbnail requests, in this form:
-      #   /downloads/<noid>?file=thumbnail
-      # args[1] is therefore {:file=>"thumbnail"}
-      path = "/files/" + item.id + "?"
-      i = 0
-      args[1].each do |key,value|
-        path = path + "&" if i > 0
-        i = i + 1
-        path = path + key.to_s + "=" + URI::encode(value)
-      end
-      return path
+
+    # otherwise path is /files/noid/(label or filename)
+    path = "/files/#{item.id}/" + (item.label.nil? ? URI::encode(item.filename) : URI::encode(item.label))
+
+    # appeand query args to download path, eg. /files/noid/label?file=thumbnail or file=mp3, etc
+    unless args.empty?
+      path += Hydranorth::RawFedora::stringify_args(args.shift)
     end
+
+    return path
   end
 
   def render_collection_list(gf)
@@ -89,6 +82,19 @@ module GenericFileHelper
   end
 
   private
+
+  # this could be a string (item ID), a SolrDocument corresponding to the cache of a GenericFile, or a fully reified
+  # GenericFile itself (all of these are usages of download_path imposed on us by Sufia, unfortunately, so this can't
+  # be easily rationalized). Ideally, SolrDocuments are preferable to GenericFiles for performance reasons, so we try
+  # to minimize reification of IDs whenever possible.
+  def item_for_download(candidate)
+    return candidate if candidate.is_a?(SolrDocument) || candidate.is_a?(GenericFile)
+
+    # TODO could we fish this out of Solr and send back a SolrDocument instead?
+    # it would be much faster
+    return GenericFile.find(candidate) if candidate.is_a?(String)
+    raise ArgumentError
+  end
 
   def download_image_tag(title = nil)
     if title.nil?
