@@ -1,14 +1,11 @@
 module Hydranorth
   class EzidService
 
-    def initialize()
-    end
-
-    def create(generic_file)
+    def self.create(generic_file)
       id = Ezid::Client.config.default_shoulder + generic_file.id 
       ark_identifier = Ezid::Identifier.create(id: id)
 
-      ark_identifier.target = Rails.application.config.ezid_url + generic_file.id
+      ark_identifier.target = Rails.application.routes.url_helpers.generic_file_url(generic_file.id)
 
       unless generic_file.title.nil?
         ark_identifier.datacite_title = generic_file.title.join(";")
@@ -27,15 +24,20 @@ module Hydranorth
       unless generic_file.resource_type[0].nil?
         ark_identifier.datacite_resourcetype = Sufia.config.ark_resource_types[generic_file.resource_type[0]]
       end
-
-      ark_identifier.save
+      save(ark_identifier)
+      return ark_identifier
     end
 
-    def find(generic_file)
-      ark_identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + generic_file.id)
+    def self.find(generic_file)
+      begin
+        ark_identifier = Ezid::Identifier.find(Ezid::Client.config.default_shoulder + generic_file.id)
+      rescue Ezid::Error => e
+        Rails.logger.info "#{generic_file.id} ark not found"
+        return nil
+      end
     end
 
-    def modify(generic_file)
+    def self.modify(generic_file)
       ark_identifier = find(generic_file)
       unless ark_identifier.nil?
         ark_changed = false
@@ -61,17 +63,25 @@ module Hydranorth
         end
  
         if ark_changed 
-          ark_identifier.save
+          save(ark_identifier)
         end
       end
     end
 
-    def delete(generic_file)
+    def self.delete(generic_file)
       ark_identifier = find(Ezid::Client.config.default_shoulder + generic_file.id)
       ark_identifier = find(generic_file)
       unless ark_identifier.nil?
         ark_identifier.status = "unavailable"
+        save(ark_identifier)
+      end
+    end
+
+    def self.save(ark_identifier)
+      begin 
         ark_identifier.save
+      rescue Exception => e
+        Rails.logger.error "#{ark_identifier} not saved. "
       end
     end
   end

@@ -40,12 +40,11 @@ module Hydranorth
       end
 
       def update_ark
-        ezid = Hydranorth::EzidService.new()
-        ark_identifier = ezid.find(generic_file)
+        ark_identifier = Hydranorth::EzidService.find(generic_file)
         if ark_identifier
-          ezid.modify(generic_file)
+          Hydranorth::EzidService.modify(generic_file)
         else 
-	  ark_identifier = ezid.create(generic_file)
+	  ark_identifier = Hydranorth::EzidService.create(generic_file)
         end
         unless ark_identifier.nil?
           generic_file.ark_created = "true"
@@ -67,8 +66,7 @@ module Hydranorth
 
       def destroy
         super
-        ezid = Hydranorth::EzidService.new()
-        ezid.delete(generic_file)
+        Hydranorth::EzidService.delete(generic_file)
       end
 
     end

@@ -24,13 +24,6 @@ describe GenericFilesController do
       end
     end
 
-    before do
-      ezid = double('ezid')
-      Hydranorth::EzidService.stub(:new) { ezid }
-
-      allow(ezid).to receive(:modify).and_return(stub_response)
-    end
-
     context "when updating metadata" do
       let(:update_message) { double('content update message') }
       before do

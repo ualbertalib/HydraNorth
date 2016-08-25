@@ -77,6 +77,9 @@ Sufia.config do |config|
     "Report" => "Text/Report",
     "Research Material" => "Other/Research Material",
     "Review" => "Text/Review",
+    "Computing Science Technical Report" => "Text/Report",
+    "Structual Engineering Report" => "Text/Report",
+    "Thesis" => "Text/Thesis",
   }
 
 
@@ -87,7 +90,6 @@ Sufia.config do |config|
   # DO NOT REMOVE THE NEXT TWO LINES!!! They are used as tokens to replace during application deployment
   # config.cstr_collection_id = ""
   # config.ser_collection_id = ""
-
 
   config.special_types = {
     "cstr" => "Computing Science Technical Report",

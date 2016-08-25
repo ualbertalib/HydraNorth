@@ -34,4 +34,5 @@ Hydranorth::Application.configure do
   config.assets.debug = true
 
   BetterErrors::Middleware.allow_ip! '192.168.0.1/16'
+  Rails.application.routes.default_url_options[:host] = 'hydranorthdev.library.ualberta.ca'
 end

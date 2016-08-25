@@ -17,10 +17,9 @@ describe 'Rights', :type => :feature do
   let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
 
   before do
-    ezid = double('ezid')
-    Hydranorth::EzidService.stub(:new) { ezid }
-
-    allow(ezid).to receive(:modify).and_return(stub_response)
+    allow(Hydranorth::EzidService).to receive(:find).and_return(stub_response)
+    allow(Hydranorth::EzidService).to receive(:modify).and_return(stub_response)
+    allow(Hydranorth::EzidService).to receive(:create).and_return(stub_response)
   end
 
   after :all do

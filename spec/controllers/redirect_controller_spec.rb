@@ -7,16 +7,14 @@ describe RedirectController, type: :controller do
 
   let(:user) { FactoryGirl.find_or_create(:user) }
   let(:fedora3uuid1) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
-
   let!(:gf) do
     GenericFile.create.tap do |f|
       f.fedora3uuid = fedora3uuid1
       f.label = "thisfile.pdf"
       f.apply_depositor_metadata user
+      f.ark_id = "ark:/99999/fk412345678"
       f.save!
     end
-    gf.ark_id = "ark:/99999/fk4#{gf.id}"
-    gf.save!
   end
 
   describe "#item" do
@@ -24,15 +22,13 @@ describe RedirectController, type: :controller do
       get :item, uuid: fedora3uuid1
       expect(response).to redirect_to "http://test.host/files/#{gf.id}"
     end
-
     it "ark redirects to item page" do
-      get :ark, arkid: "ark:/99999/fk4#{file.id}"
-      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["ark_id_tesim:ark:/99999/fk4#{file.id}"]}
+      get :ark, arkid: "ark:/99999/fk412345678"
+      result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["ark_id_tesim:ark:/99999/fk412345678"]}
       doc = result["response"]["docs"].first
       id = doc["id"]
       expect(response).to redirect_to "http://test.host/files/#{id}"
     end
-
     it "returns a 404 status code" do
       get :item, uuid: "xxx"
       expect(response).to have_http_status(404)

@@ -31,10 +31,7 @@ describe Hydranorth::GenericFile::Actor do
 
   describe "#destroy" do
     before do
-      ezid = double('ezid')
-      Hydranorth::EzidService.stub(:new) { ezid }
- 
-      allow(ezid).to receive(:delete).and_return(stub_response)
+      allow(Hydranorth::EzidService).to receive(:delete).and_return(stub_response)
     end
 
     it "should delete generic file" do

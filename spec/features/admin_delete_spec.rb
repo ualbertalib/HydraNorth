@@ -5,10 +5,7 @@ describe 'delete', :type => :feature do
   let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
 
   before do
-    ezid = double('ezid')
-    Hydranorth::EzidService.stub(:new) { ezid }
-
-    allow(ezid).to receive(:delete).and_return(stub_response)
+    allow(Hydranorth::EzidService).to receive(:delete).and_return(stub_response)
   end
 
   after :all do

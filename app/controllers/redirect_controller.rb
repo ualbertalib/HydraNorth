@@ -91,7 +91,7 @@ class RedirectController < ApplicationController
   end
 
   def find_id(uuid)
-    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('fedora3uuid')+':'+uuid}
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => "#{Solrizer.solr_name('fedora3uuid', :symbol)}:#{uuid}"}
     numFound = solr_rsp['response']['numFound']
     if numFound > 0
       return solr_rsp['response']['docs'].first['id']
@@ -111,7 +111,7 @@ class RedirectController < ApplicationController
     end
   end  
   def find_ark(arkid)
-    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => Solrizer.solr_name('ark_id')+':'+arkid}
+    solr_rsp =  ActiveFedora::SolrService.instance.conn.get 'select', :params => {:q => "#{Solrizer.solr_name('ark_id', :symbol)}:#{arkid}"}
     numFound = solr_rsp['response']['numFound']
     if numFound > 0
       return solr_rsp['response']['docs'].first['id']

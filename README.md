@@ -145,3 +145,8 @@ A shell script will update namespace uris
 * ```/bin/fix/fix.rb``` is to update all the namespace uris. Requires user to replace @server with the Fedora server location before using.
 * ```/bin/fix/run.sh``` is to run script through all the pairtree combinations. Requires being run from the bin/fix directory.
 
+ARK Identifier
+---
+* In test/development environments, 'config/initializers/ezid_client.rb' uses the default EZID test account, and test shoulder. In production environment, it uses UofA EZID account and assigned shoulder. This file should be managed by the ansible playbook. 
+* To generate ARKs for existing objects, run rake tasks in 'lib/tasks/hydranorth-solr.rake' to index a single object, a pairtree or all objects. 
+ 

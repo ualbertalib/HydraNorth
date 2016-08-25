@@ -136,11 +136,37 @@ namespace :hydranorth do
     def index_single(id)
       RakeLogger.info "start reindexing #{id}"
       start = Time.now
-        ActiveFedora::Base.find(id).update_index
+        object = ActiveFedora::Base.find(id)
+        if object.is_a? GenericFile
+          if object.ark_created.nil? || object.ark_created == false
+            create_ark(object)
+          end
+        end
+        object.update_index
       finish = Time.now
       used_time = finish - start
       RakeLogger.info "reindexed #{id} used #{used_time}"
     end
+
+    def create_ark(generic_file)
+      ark_identifier = Hydranorth::EzidService.find(generic_file)
+      if ark_identifier
+        Hydranorth::EzidService.modify(generic_file)
+        RakeLogger.info "Exists: #{ark_identifier}, Updated for #{generic_file.id}"
+      else
+        ark_identifier = Hydranorth::EzidServic3.create(generic_file)
+        RakeLogger.info "Created: #{ark_identifier} for #{generic_file.id}"
+      end
+      unless ark_identifier.nil?
+        generic_file.ark_created = "true"
+        generic_file.ark_id = ark_identifier.id
+        RakeLogger.info "Updated #{generic_file.id} with ARK information"
+      else
+        generic_file.ark_created = "false"
+        RakeLogger.warn "Ark not created for #{generic_file.id}"
+      end
+    end
+
   end
 end
 

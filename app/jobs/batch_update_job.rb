@@ -77,11 +77,10 @@ class BatchUpdateJob
     end
     save_tries = 0
 
-    ezid = Hydranorth::EzidService.new()
     begin
-      ark_identifier = ezid.create(gf)
+      ark_identifier = Hydranorth::EzidService.create(gf)
     rescue Ezid::Error
-      ark_identifier = ezid.find(gf)
+      ark_identifier = Hydranorth::EzidService.find(gf)
     end
 
     unless ark_identifier.nil?
