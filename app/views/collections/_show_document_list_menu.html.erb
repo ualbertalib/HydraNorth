@@ -19,7 +19,7 @@
         </li>
         <li>
             <%= link_to raw('<i class="glyphicon glyphicon-download-alt"></i> Download File'), sufia.download_path(id),
-                class: 'itemicon itemdownload', title: 'Download File', target: '_new' %>
+                class: 'itemicon itemdownload', title: 'Download File', target: '_blank', rel: 'noopener noreferrer' %>
         </li>
         <% if current_user %>
             <li>
