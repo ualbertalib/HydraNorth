@@ -17,7 +17,7 @@
     <% end %>
     <li role="menuitem" tabindex="-1">
     <%= link_to raw('<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download File'), download_path(gf),
-      class: 'itemicon itemdownload', title: 'Download File', target: '_new' %>
+      class: 'itemicon itemdownload', title: 'Download File', target: '_blank', rel: 'noopener noreferrer' %>
     </li>
     <li role="menuitem" tabindex="-1">
     <% if current_user.admin? %>

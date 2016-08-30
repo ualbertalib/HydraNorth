@@ -13,16 +13,16 @@ module GenericFileHelper
   def render_download_icon title = nil
     if @generic_file.label.present? || @generic_file.doi_url.present? || !@generic_file.filename.empty?
       if title.nil?
-        link_to download_image_tag, download_path(@generic_file), { target: "_blank", title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
+        link_to download_image_tag, download_path(@generic_file), { target: '_blank', rel: 'noopener noreferrer', title: "Download the document", id: "file_download", data: { label: @generic_file.id } }
       else
-        link_to (download_image_tag(title) + title), download_path(@generic_file), { target: "_blank", title: title, id: "file_download", data: { label: @generic_file.id } }
+        link_to (download_image_tag(title) + title), download_path(@generic_file), { target: '_blank', rel: 'noopener noreferrer', title: title, id: "file_download", data: { label: @generic_file.id } }
       end
     end
   end
 
   def render_download_link text = nil
     if @generic_file.label.present? || !@generic_file.filename.empty?
-      link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
+      link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: '_blank', rel: 'noopener noreferrer', data: { label: @generic_file.id } }
     end
   end
 
