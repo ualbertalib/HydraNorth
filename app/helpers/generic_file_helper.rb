@@ -20,10 +20,17 @@ module GenericFileHelper
     end
   end
 
-  def render_download_link(text = nil)
-    if @generic_file.label.present? || !@generic_file.filename.empty?
-      link_to (text || "Download"), download_path(@generic_file), { id: "file_download", target: "_new", data: { label: @generic_file.id } }
-    end
+  # if passed a block, this method conditionally renders the markup in the block only if the path is present. This
+  # provides an easy way of sanely dealing with some items having files (and thus download paths) and others not.
+  def render_download_link(item, text = nil)
+    # in Communities, Collections appear in lists alongside files, and so they are rendered through the same partial
+    # but collections have no download link
+    path = download_path(item)
+    return '' unless path.present?
+
+    download_link = link_to (text || 'Download'), path, { id: 'file_download', target: '_blank', rel: 'noopener noreferrer', data: { label: item.id } }
+    yield download_link if block_given?
+    return download_link
   end
 
   # sufia.download path is from Sufia::Engine.routes.url_helpers
@@ -34,26 +41,28 @@ module GenericFileHelper
   # download_path(id: @asset)
   # download_path document, file: 'thumbnail'
   #
-  # we shouldn't be overloading this to accept everything under the sun as it leads to all
-  # manner of bugs and corner cases, but these usages are imposed by Hydra/Sufia, so we're forced to live with
-  # it
+  # we shouldn't be overloading this to accept everything under the sun (GenericFiles, SolrDocs, Strings,
+  # Collections...) as it has lead to all manner of bugs and corner cases, but these usages are imposed by Hydra/Sufia,
+  # so we're forced to live with it.
+  #
+  # The precondition here is that if you're calling this, you're only going to get a sensible result on objects that
+  # actually have files. Not every object does, and there are various valid cases in which an object won't have one
+  # (Weiwei mentions that both dataverse objects and migrated items from Thesis deposit may not).
+  #
+  # Nil is returned for objects without files, to push decisions on how to sanely handle objects with no files up
+  # to the calling context. You probably want to use render_download_link or a different client function to generate
+  # the link for you -- it can cleanly not render the surrounding markup at all if this returns nil.
   def download_path(*args)
     raise ArgumentError unless args.present?
+
     item = item_for_download(args.shift)
+    return nil unless item.present? && (item.label.present? || item.filename.present? || item.doi_url.present?)
 
     # doi supercedes anything else
     return item.doi_url if item.doi_url.present?
 
-    # this shouldn't happen normally in production, because it indicates an item with no file
-    # but a BUNCH of our tests do create items like this
-    unless item.label.present? || item.filename.present?
-      logger.error "item with no file found! id: #{item.id}"
-      # this would be a good place for hoptoad/airbrake/newrelic-style alerting
-      return "/files/#{item.id}/"
-    end
-
     # otherwise path is /files/noid/(label or filename)
-    path = "/files/#{item.id}/" + (item.label.nil? ? URI::encode(item.filename) : URI::encode(item.label))
+    path = "/files/#{item.id}/" + (item.label.nil? ? URI::encode(item.filename.first) : URI::encode(item.label))
 
     # appeand query args to download path, eg. /files/noid/label?file=thumbnail or file=mp3, etc
     unless args.empty?
@@ -83,11 +92,13 @@ module GenericFileHelper
 
   private
 
-  # this could be a string (item ID), a SolrDocument corresponding to the cache of a GenericFile, or a fully reified
-  # GenericFile itself (all of these are usages of download_path imposed on us by Sufia, unfortunately, so this can't
-  # be easily rationalized). Ideally, SolrDocuments are preferable to GenericFiles for performance reasons, so we try
+  # this could be a string (item ID), a SolrDocument corresponding to the cache of a GenericFile, a fully reified
+  # GenericFile itself, or a Collection which isn't downloadable but which is rendered through the same partials. (
+  # All of these are usages of download_path imposed on us by Sufia, unfortunately, so this can't
+  # be easily rationalized. Ideally, SolrDocuments are preferable to GenericFiles for performance reasons, so we try
   # to minimize reification of IDs whenever possible.
   def item_for_download(candidate)
+    return nil if candidate.is_a?(Collection)
     return candidate if candidate.is_a?(SolrDocument) || candidate.is_a?(GenericFile)
 
     # TODO could we fish this out of Solr and send back a SolrDocument instead?

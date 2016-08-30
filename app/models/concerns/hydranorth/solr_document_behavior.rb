@@ -25,7 +25,7 @@ module Hydranorth
     end
 
     def filename
-      return Array(self[Solrizer.solr_name('filename')]).first if self.has_key?(Solrizer.solr_name('filename'))
+      return Array(self[Solrizer.solr_name('filename')]) if self.has_key?(Solrizer.solr_name('filename'))
 
       # we can try to fish it out of the object profile, but this is kind of a hack
       # if it doesn't work, we just return a link to the show page. This should be less
@@ -34,9 +34,7 @@ module Hydranorth
         # cache this, as it can get called repeatedly on the same object and
         # parsing JSON is relatively expensive (though cheaper than a trip to Fedora)
         @json ||= JSON.parse(self['object_profile_ssm'].first)
-        if @json.has_key?('filename') && @json['filename'].present?
-          return @json['filename'].first
-        end
+        return @json['filename'] if @json.has_key?('filename') && @json['filename'].present?
       rescue
         # this would be a good place for hoptoad/airbrake/newrelic-style alerting
         # this should indicate either a corrupted object cache in Solr or an object
