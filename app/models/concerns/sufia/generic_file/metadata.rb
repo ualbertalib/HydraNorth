@@ -66,7 +66,7 @@ module Sufia
         property :source, predicate: ::RDF::DC.source, multiple: false do |index|
           index.as :stored_searchable
         end
- 
+
       end
 
     end

@@ -15,10 +15,11 @@
       class: 'itemicon itemedit', title: 'Edit File' %>
     </li>
     <% end %>
-    <li role="menuitem" tabindex="-1">
-    <%= link_to raw('<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download File'), download_path(gf),
-      class: 'itemicon itemdownload', title: 'Download File', target: '_new' %>
-    </li>
+    <% render_download_link(gf, raw('<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i> Download File')) do |download_link| %>
+      <li role="menuitem" tabindex="-1">
+        <%= download_link %>
+      </li>
+    <% end %>
     <li role="menuitem" tabindex="-1">
     <% if current_user.admin? %>
       <%= link_to raw('<i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Delete File'), sufia.generic_file_path(id),

@@ -12,13 +12,22 @@ module Hydranorth::Collections::BaseQuery
     { read: [:read, :edit], edit: [:edit] }
   end
 
-  def perform_collection_query(query_string, access_level)
+  def perform_collection_query(query_string, access_level, sort_order='sortable_title_ssi asc')
     authenticate_user! unless access_level.blank?
+    query_elements = {q: query_string}
 
-    # run the solr query to find the collections
-    query = collections_search_builder(access_level).with({q: query_string}).query
+    # This seems silly, but
+    # we need to pass the sort order through the search_builder because it does some sort-key demangling, but
+    # SearchBuilder#query fails to include the sort order in the final query, which I THINK is a bug, so we have to
+    # put the demangled version back in anyways.
+    query_elements[:sort] = sort_order if sort_order.present?
+
+    search_builder = collections_search_builder(access_level).with(query_elements)
+    sort = search_builder.sort
+    query = search_builder.query
+    query[:sort] = sort if sort.present?
+
     response = repository.search(query)
-    # return the user's collections (or public collections if no access_level is applied)
 
     response.documents
   end

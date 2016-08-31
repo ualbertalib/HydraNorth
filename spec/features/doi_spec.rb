@@ -27,7 +27,6 @@ describe 'download link', :type => :feature do
       expect(page).to have_link('file_download', {href: 'http://dx.doi.org'})
     end
     it 'should be DOI on result page' do
-      pending 'pending doi_link inclusion in Solr index'
       visit '/'
       search gf_with_doi.subject.first
       expect(page).to have_link('Download', {href: 'http://dx.doi.org'})
@@ -57,7 +56,6 @@ describe 'download link', :type => :feature do
       expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 2)
     end
     it 'should be download on result page' do
-      pending 'pending doi_link inclusion in Solr index'
       visit '/'
       search gf_no_identifier.subject.first
       expect(page).to have_xpath("//a[contains(@href, '#{download_path(gf_no_identifier)}')]", count: 1)
