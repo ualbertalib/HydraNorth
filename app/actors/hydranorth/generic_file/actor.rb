@@ -35,8 +35,23 @@ module Hydranorth
             end
           end
         end
-
+        update_ark
         super
+      end
+
+      def update_ark
+        ark_identifier = Hydranorth::EzidService.find(generic_file)
+        if ark_identifier
+          Hydranorth::EzidService.modify(generic_file)
+        else 
+	  ark_identifier = Hydranorth::EzidService.create(generic_file)
+        end
+        unless ark_identifier.nil?
+          generic_file.ark_created = "true"
+          generic_file.ark_id = ark_identifier.id
+        else
+          generic_file.ark_created = "false"
+        end
       end
 
       def create_metadata_with_resource_type(batch_id, resource_type)
@@ -49,6 +64,10 @@ module Hydranorth
         create_metadata(batch_id)
       end
 
+      def destroy
+        super
+        Hydranorth::EzidService.delete(generic_file)
+      end
 
     end
   end

@@ -67,6 +67,15 @@ module Hydranorth
           index.as :symbol, :stored_searchable
         end
 
+        property :ark_created, predicate: ::UALTerms.ark_created, multiple: false do |index|
+          index.type :boolean
+          index.as :stored_searchable
+        end
+
+        property :ark_id, predicate: ::UALId.ark_id, multiple: false do |index|
+          index.as :symbol, :stored_searchable
+        end
+
         begin
           LocalAuthority.register_vocabulary(self, "spatial", "geonames_cities")
         rescue
