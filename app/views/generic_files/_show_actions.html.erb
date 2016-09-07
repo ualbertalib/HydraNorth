@@ -1,7 +1,7 @@
 <div id="show_actions">
 <h2 class="non lower">Actions</h2>
     <p>
-      <%= render_download_link %>
+      <%= render_download_link(@generic_file) %>
       <% if Sufia.config.analytics %>
         &nbsp;|&nbsp;
         <%= link_to "Analytics", sufia.stats_generic_file_path(@generic_file), id: 'stats' %>

@@ -17,10 +17,11 @@
             <%= link_to raw('<i class="glyphicon glyphicon-link over"></i> Single-Use Link to File'), '#',
                 class: "copypaste itemicon itemcode", title: "Single-Use Link to File", id: "copy_link_#{id}" %>
         </li>
-        <li>
-            <%= link_to raw('<i class="glyphicon glyphicon-download-alt"></i> Download File'), sufia.download_path(id),
-                class: 'itemicon itemdownload', title: 'Download File', target: '_blank', rel: 'noopener noreferrer' %>
-        </li>
+        <% render_download_link(gf, raw('<i class="glyphicon glyphicon-download-alt"></i> Download File')) do |download_link| %>
+          <li>
+            <%= download_link %>
+          </li>
+        <% end %>
         <% if current_user %>
             <li>
                 <%= display_trophy_link(current_user, id) do |text| %>

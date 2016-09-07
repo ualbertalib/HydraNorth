@@ -1,15 +1,8 @@
 Hydranorth::Application.routes.draw do
-  
-  class WantsThumbnailConstraint
-    def self.matches?(request)
-      request.query_parameters['file'] == 'thumbnail'
-    end
-  end
-
   get 'recent/index'
 
   namespace :admin do
-  get 'become/index'
+    get 'become/index'
   end
 
   blacklight_for :catalog
@@ -104,8 +97,8 @@ Hydranorth::Application.routes.draw do
   get 'collections/:id/:per_page', controller: 'collections', action: :show
   get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
-  get 'files/:id/*file' => 'downloads#show', format: false
-  get 'files/:id' => 'downloads#show', constraints: WantsThumbnailConstraint
+
+  get 'files/:id/*file' => 'downloads#show'
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

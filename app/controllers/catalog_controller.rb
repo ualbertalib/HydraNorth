@@ -29,7 +29,6 @@ class CatalogController < ApplicationController
   end
 
   def set_solr_search_fields
-
     blacklight_config.configure do |config|
 
       if !current_user.nil?
@@ -69,8 +68,6 @@ class CatalogController < ApplicationController
           end
         end
       end
-
-
     end
   end
 
@@ -150,9 +147,8 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("fedora3uuid", :stored_searchable), label: "UUID"
 
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "Relevance \u25BC"
-    # TODO: uncomment once a re-index is complete and sortable_title is in Solr
-    #config.add_sort_field "sortable_title_ssi asc", label: "Title A-Z"
-    #config.add_sort_field "sortable_title_ssi desc", label: "Title Z-A"
+    config.add_sort_field "sortable_title_ssi asc", label: "Title A-Z"
+    config.add_sort_field "sortable_title_ssi desc", label: "Title Z-A"
     config.add_sort_field "#{date_created_field} desc", label: "Date (newest first)"
     config.add_sort_field "#{date_created_field} asc", label: "Date (oldest first)"
     config.add_sort_field "#{uploaded_field} desc", label: "New items"
