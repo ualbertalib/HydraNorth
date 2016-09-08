@@ -106,6 +106,15 @@ Batch ingest
 - **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['lib/tasks/batch/ERA_batch_ingest.csv','lib/tasks/batch/files_and_metadata/']```
   - **note: collections and communities dependencies must exist.**
 
+Ingest Dataverse Metadata
+---
+
+- **migration:clean_up_withdrawn[old_dir,new_dir]: compare the last ingest directory and the current ingest directory, detect and clean any study that has been withdrawn from Dataverse. 
+  - **note: The Dataverse metadata export only includes current published studies, and doesn't include any information about withdrawn studies. Ingest directories are always named with timestamps.
+- **migration:dataverse_objects[dir]: ingest the metadata for dc term files in the given directory. It will create new objects for new studies, and update metadata for existing studies. 
+
+
+
 Generate Sitemap
 ---
 ** for Google Scholar
