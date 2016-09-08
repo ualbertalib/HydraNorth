@@ -44,7 +44,7 @@ Hydranorth::Application.routes.draw do
   get '/downloads/:id' => 'redirect#sufiadownload'
 
   # redirect ark to hydranorth
-  get '/id/:arkid' => 'redirect#ark', :constraints => { :arkid => /ark:\/\d{5}\/.*/ }
+  get '/id/*arkid' => 'redirect#ark', :constraints => { :arkid => /ark:\/\d{5}\/.*/ }, as: 'persistent_id'
 
   scope :dashboard do
 

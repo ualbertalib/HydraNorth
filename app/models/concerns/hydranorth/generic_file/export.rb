@@ -2,6 +2,10 @@ module Hydranorth
   module GenericFile
     module Export
 
+      def persistent_url
+        Rails.application.routes.url_helpers.persistent_id_url(ark_id) 
+      end
+
       # MIME type: 'application/x-openurl-ctx-kev'
       def export_as_openurl_ctx_kev
         export_text = []
