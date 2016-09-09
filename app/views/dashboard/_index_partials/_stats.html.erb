@@ -4,12 +4,8 @@
 
   <table class="table table-condensed stats">
     <tr>
-      <td>You have deposited <span><%= number_of_files %> files</span> which have been:
-
-        <ul class="views-downloads-dashboard">
-          <li>- viewed <span><%= @user.total_file_views %></span> times</li>
-          <li>- downloaded <span><%= @user.total_file_downloads %></span> times</li>
-        </ul>
+      <td>You have deposited <span><%= number_of_files %> files</span> 
+<%# Download and view aggregated stats are temporarily removed because of issue #889. And it will be fixed and restored in Sufia 7 %>
      
     </tr>
 
