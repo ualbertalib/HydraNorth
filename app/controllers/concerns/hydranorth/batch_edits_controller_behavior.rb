@@ -11,6 +11,11 @@ module Hydranorth
         redirect_to sufia.dashboard_files_path
       end
     end
+    #This override is for Sufia 6.2. Issue is fixed in Sufia 7 and this will not be needed.
+    def update_document(obj)
+      super
+      obj.date_modified = Time.current.ctime
+    end
 
     protected
 
