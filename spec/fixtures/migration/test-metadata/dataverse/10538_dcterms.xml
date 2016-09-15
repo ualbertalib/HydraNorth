@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ddi_to_dcterms xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:georss="http://www.georss.org/georss/">
+   <dcterms:title>Open Genetics Lectures (OGL) Fall 2015 - Individual Chapters in .docx format</dcterms:title>
+   <dcterms:identifier>doi:10.7939/DVN/10538</dcterms:identifier>
+   <dcterms:creator>Locke, John</dcterms:creator>
+   <dcterms:creator>Deyholos, Michael</dcterms:creator>
+   <dcterms:creator>Harrington, Michael</dcterms:creator>
+   <dcterms:creator>Canham, Lindsay</dcterms:creator>
+   <dcterms:creator>Kang, Min</dcterms:creator>
+   <dcterms:publisher>U of Alberta, Department of Biological Sciences</dcterms:publisher>
+   <dcterms:created/>
+   <dcterms:description>&lt;div&gt;&lt;p&gt;This item is a resource in the University of Alberta Libraries' Dataverse Network. Access this item in Dataverse by clicking on the DOI link.&lt;/p&gt;&lt;/div&gt;&lt;div&gt;OpenGenetics Lectures These are the Open Genetics Lectures individual chapters in .docx format. "This project/resource was funded in part by the Alberta Open Educational Resources (ABOER) Initiative, which is made possible through an investment from the Alberta government"&lt;/div&gt;</dcterms:description>
+   <dcterms:type>Dataset</dcterms:type>
+   <dcterms:dateSubmitted>2015-08-27</dcterms:dateSubmitted>
+   <dcterms:modified>2016-07-19</dcterms:modified>
+</ddi_to_dcterms>

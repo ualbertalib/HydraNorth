@@ -67,9 +67,7 @@ namespace :migration do
       subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
       description = metadata.xpath("dcterms:description/text()",NS).map(&:to_s)
       publisher = metadata.xpath("dcterms:publisher/text()",NS).text if metadata.xpath("dcterms:publisher", NS)
-      
-      description = [HTMLEntities.new.decode(description)] if description
- 
+      description = HTMLEntities.new.decode(description.join("")) if description
       date = metadata.xpath("dcterms:created",NS).text
       year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank? 
       type = "Dataset"
@@ -137,7 +135,7 @@ namespace :migration do
 
       # add other metadata to the new object
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
+      file_attributes = {"resource_type"=>[type], "description"=>[description], "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
