@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe CollectionsController do
+
   routes { Hydra::Collections::Engine.routes }
   before do
     allow_any_instance_of(User).to receive(:groups).and_return([])
@@ -9,8 +10,23 @@ describe CollectionsController do
   let(:user) { FactoryGirl.find_or_create(:user) }
   let(:dit)  { FactoryGirl.find_or_create(:dit) }
 
-  describe "#edit" do
+  describe 'facet limiting' do
+    let(:collection) do
+      Collection.create(title: "Personal Collection") do |c|
+        c.apply_depositor_metadata(user)
+        c.save
+      end
+    end
 
+    it "should attach collection facets properly" do
+      results = controller.attach_collection_facet('/', collection)
+      expect(results).to eq('/?f%5BhasCollection_ssim%5D%5B%5D=Personal+Collection')
+      results = controller.attach_collection_facet('/?asdf=1234', collection)
+      expect(results).to eq('/?asdf=1234&f%5BhasCollection_ssim%5D%5B%5D=Personal+Collection')
+    end
+  end
+
+  describe "#edit" do
     let(:collection) do
       Collection.create(title: "Personal Collection") do |c|
         c.apply_depositor_metadata(user)
