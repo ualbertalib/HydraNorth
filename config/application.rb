@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Hydranorth
   class Application < Rails::Application
+
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end

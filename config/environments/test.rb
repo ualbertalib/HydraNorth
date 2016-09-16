@@ -44,5 +44,4 @@ Hydranorth::Application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { :host => 'localhost' }
-  Rails.application.routes.default_url_options[:host] = 'hydranorthdev.library.ualberta.ca'
 end

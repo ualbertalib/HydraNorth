@@ -18,12 +18,6 @@
       &nbsp;|&nbsp;
       <%= link_to 'Mendeley', sufia.static_path('mendeley'), {id: 'mendeleyLink', name: 'mendeley', class: 'lightboxLink'} %>
     </p>
-    <p>
-    <div>Permanent url:</div> 
-      <% if !@generic_file.ark_id.nil? %>
-        <div><%= link_to persistent_id_url(@generic_file.ark_id), persistent_id_path(@generic_file.ark_id) %></div>&nbsp 
-      <% end %>
-    </p>
     <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style">
       <a class="addthis_button_preferred_1"></a>

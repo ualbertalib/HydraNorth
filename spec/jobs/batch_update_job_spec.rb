@@ -55,42 +55,24 @@ describe BatchUpdateJob do
     end
   end
 
-  
-  let(:http_response) { double(body: "success: ark:/99999/fk4fn19h88") }
-  let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
 
   describe "#run" do
     let(:title) { { file.id => ['File One'], file2.id => ['File Two'] }}
     let(:trid) { { file.id => 'TR-123', file2.id => 'TR-456' }}
     let(:metadata) do
-      { read_groups_string: '', read_users_string: 'archivist1, archivist2', creator: ['Doe, Jane'],
-        subject: [''], date_created: '2012/01/01', belongsToCommunity: [community.id, community2.id],
+      { read_groups_string: '', read_users_string: 'archivist1, archivist2',
+        subject: [''], date_created: '2012/01/01', belongsToCommunity: [community.id, community2.id], 
         hasCollectionId:[collection.id, collection2.id] }.with_indifferent_access
     end
-
+  
     let(:visibility) { nil }
     let(:ser) { nil }
     let(:job) { BatchUpdateJob.new(user.user_key, batch.id, title, trid, ser, metadata, visibility) }
 
-    describe "create ark" do
-      before do
-        allow(Sufia.queue).to receive(:push)
-        job.run
-      end
-      it "should have ark_id" do
-        ark_id = "ark:/99999/fk4" + file.id
-        expect(file.reload.ark_id). to eq ark_id
-      end
-    end
     describe "updates metadata" do
       before do
-        allow(Hydranorth::EzidService).to receive(:find).and_return(stub_response)
-        allow(Hydranorth::EzidService).to receive(:create).and_return(stub_response)
         allow(Sufia.queue).to receive(:push)
         job.run
-      end
-      it "should update the metadata" do
-        expect(file.reload.creator). to include 'Doe, Jane'
       end
 
       it "should update the trid" do
@@ -127,12 +109,8 @@ describe BatchUpdateJob do
       end
     end
   end
-  describe "embargo visibility" do 
-    before do
-      allow(Hydranorth::EzidService).to receive(:find).and_return(stub_response)
-      allow(Hydranorth::EzidService).to receive(:create).and_return(stub_response)
-    end
 
+  describe "embargo visibility" do 
     let(:title) { { file.id => ['File One'], file2.id => ['File Two'] }}
     let(:trid) { { file.id => 'TR-123', file2.id => 'TR-456' }}
     let(:metadata) do

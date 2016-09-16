@@ -73,7 +73,6 @@ gem 'sitemap', github: 'ualbertalib/rails-sitemap'
 gem 'rest-client'
 
 gem 'noid', '~> 0.8'
-gem 'ezid-client'
 
 group :test do
   gem "rspec-its"

@@ -1,12 +1,7 @@
 require 'spec_helper'
 
 describe 'delete', :type => :feature do
-  let(:http_response) { double(body: "success: ark:/99999/fk4fn19h88") }
-  let(:stub_response) { Ezid::CreateIdentifierResponse.new(http_response) }
 
-  before do
-    allow(Hydranorth::EzidService).to receive(:delete).and_return(stub_response)
-  end
 
   after :all do
     cleanup_jetty
