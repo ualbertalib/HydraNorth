@@ -1,3 +1,5 @@
+include GenericFileHelper
+
 Sitemap::Generator.instance.load(host: 'era.library.ualberta.ca') do
   path :root, priority: 1, change_frequency: 'weekly'
   read_group = Solrizer.solr_name('read_access_group', :symbol)
@@ -11,7 +13,7 @@ Sitemap::Generator.instance.load(host: 'era.library.ualberta.ca') do
     when 'GenericFile'
       begin
         gf = GenericFile.find(o['id'])
-        literal Sufia::Engine.routes.url_helpers.generic_file_path(o['id']), priority: 1, change_frequency: 'weekly', updated_at: o[Solrizer.solr_name('system_modified', :stored_sortable, type: :date)], metadata: { type: "text/html" }, link: { href: Sufia::Engine.routes.url_helpers.download_path(o['id']), rel: 'content', hash: gf.characterization.digest.first.to_s, length: gf.file_size.first, type: gf.mime_type }
+        literal Sufia::Engine.routes.url_helpers.generic_file_path(o['id']), priority: 1, change_frequency: 'weekly', updated_at: o[Solrizer.solr_name('system_modified', :stored_sortable, type: :date)], metadata: { type: "text/html" }, link: { href: download_path(o['id']), rel: 'content', hash: gf.characterization.digest.first.to_s, length: gf.file_size.first, type: gf.mime_type }
       rescue => e
         Rails.logger.error "id:#{o['id']} threw '#{e}' and it was not included in the sitemap.xml"
       end
