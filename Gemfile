@@ -7,6 +7,11 @@ gem 'activerecord-session_store'
 gem 'google-api-client', '~> 0.7.1'
 
 gem 'sufia', '~> 6.2.0'
+if ENV['LOCAL_SUFIA_MIGRATE_PATH']
+  gem 'sufia_migrate', path: ENV['LOCAL_SUFIA_MIGRATE_PATH']
+else
+  gem 'sufia_migrate', github: 'ualbertalib/sufia_migrate', branch: 'hydranorth'
+end
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
 gem 'rdf-turtle', '1.1.7'

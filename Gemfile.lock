@@ -13,6 +13,13 @@ GIT
   specs:
     sitemap (0.3.3)
 
+GIT
+  remote: git://github.com/ualbertalib/sufia_migrate.git
+  revision: 30ad0f30e0273429c04bbda43ddac367739e64fe
+  branch: hydranorth
+  specs:
+    sufia_migrate (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -765,9 +772,10 @@ DEPENDENCIES
   show_me_the_cookies
   sitemap!
   sufia (~> 6.2.0)
+  sufia_migrate!
   timecop
   turbolinks
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.1

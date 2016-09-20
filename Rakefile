@@ -5,4 +5,9 @@ ENV['HOME']="/root"
 
 require File.expand_path('../config/application', __FILE__)
 
+spec = Gem::Specification.find_by_name 'sufia_migrate'
+load "#{spec.gem_dir}/lib/tasks/export.rake"
+load "#{spec.gem_dir}/lib/tasks/import.rake"
+
+
 Hydranorth::Application.load_tasks
