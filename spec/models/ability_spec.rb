@@ -92,6 +92,8 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
+
+    it {is_expected.not_to be_able_to(:show_activity, user) }
   end
 
   describe "a registered user" do
@@ -122,6 +124,8 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
     it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
+
+    it {is_expected.to be_able_to(:show_activity, user) }
   end
 
   describe 'a CCID authenticated user' do
@@ -134,6 +138,8 @@ describe Ability, :type => :model do
     it { is_expected.to be_able_to :read, institutionally_restricted_file}
     it { is_expected.to be_able_to(:download, institutionally_restricted_file) }
     it { is_expected.to be_able_to(:download, institutionally_restricted_doc) }
+
+    it {is_expected.not_to be_able_to(:show_activity, user) }
   end
 
   describe "a user in the admin group" do
@@ -177,6 +183,7 @@ describe Ability, :type => :model do
     it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
     it {is_expected.to be_able_to(:download, institutionally_restricted_doc) }
 
+    it {is_expected.to be_able_to(:show_activity, user) }
   end
 
   
