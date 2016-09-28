@@ -151,9 +151,6 @@ class CatalogController < ApplicationController
     config.add_sort_field "sortable_title_ssi desc", label: "Title Z-A"
     config.add_sort_field "#{date_created_field} desc", label: "Date (newest first)"
     config.add_sort_field "#{date_created_field} asc", label: "Date (oldest first)"
-    config.add_sort_field "#{uploaded_field} desc", label: "New items"
-    config.add_sort_field "#{modified_field} desc", label: "Date modified (newest first)"
-    config.add_sort_field "#{modified_field} asc", label: "Date modified (oldest first)"
 
     config.add_search_field('all_fields', label: 'Keyword', include_in_advanced_search: true) do |field|
         all_names = config.show_fields.values.map{|val| val.field}.join(" ")
