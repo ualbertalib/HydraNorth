@@ -33,6 +33,11 @@ module GenericFileHelper
     return download_link
   end
 
+  def download_url(*args)
+    path = download_path(*args)
+    return "#{request.protocol}#{request.host}#{path}"
+  end
+
   # sufia.download path is from Sufia::Engine.routes.url_helpers
   # download_path is currently called in the following ways in Sufia and HydraNorth
   # download_path(@generic_file)
@@ -98,6 +103,7 @@ module GenericFileHelper
   # be easily rationalized. Ideally, SolrDocuments are preferable to GenericFiles for performance reasons, so we try
   # to minimize reification of IDs whenever possible.
   def item_for_download(candidate)
+    candidate = candidate.model if candidate.is_a?(Hydranorth::GenericFilePresenter)
     return nil if candidate.is_a?(Collection)
     return candidate if candidate.is_a?(SolrDocument) || candidate.is_a?(GenericFile)
 
