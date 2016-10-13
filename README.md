@@ -41,6 +41,34 @@ If you're using Vagrant the easiest path is to
 
 ```vagrant up hydranorth```
 
+To Do Development Outside The Vagrant
+--
+
+Developers not wanting to have to ssh into the Vagrant to work on the application can mount the code from the host operating system by doing the following:
+
+1. ssh into the vagrant and back up the existing Hydranorth installation: ```mv /var/www/sites/hydranorth /var/www/sites/hydranorth.bak```
+1. exit the vagrant and add the following to the Vagrant file above the provider line:
+  ```ruby
+
+  config.vm.define "hydranorth", primary: true do |hydranorth|
+
+    #...
+
+    hydranorth.vm.synced_folder "<path to host's hydranorth repo directory>", "/var/www/sites/hydranorth"
+
+    hydranorth.vm.provider "virtualbox" do |v|
+
+      #...
+  ```
+1. reboot the vagrant
+1. ssh into the vagrant and symlink the jetty directory on the vagrant into place (java does not like it when the jetty directory is mounted on the Host's share):
+  ```
+  cd /var/www/sites/hydranorth
+
+  ln -s /var/www/sites/hydranorth.bak/jetty jetty
+  ```
+1. restart jetty & httpd
+
 To Run Tests:
 --
 (see http://cardiff.library.ualberta.ca/job/HydraNorth/)
