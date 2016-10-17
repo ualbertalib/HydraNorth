@@ -1,10 +1,6 @@
 module ApplicationHelper
   include ::LinkUtils
 
-  def render_facet_path(collection)
-    path = "?f[hasCollectionId_ssim=#{collection}"  
-  end
-
   def render_checked_constraints(localized_params = params)
     if localized_params[:f] and localized_params[:f][:hasCollectionId_ssim]
       localized_params.tap{|d| d[:f].tap{|h| h.delete("hasCollectionId_ssim")}}

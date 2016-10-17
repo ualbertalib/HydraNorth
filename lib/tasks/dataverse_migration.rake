@@ -1,5 +1,7 @@
 require 'fileutils'
 require './lib/tasks/migration/migration_logger'
+require 'open3'
+require 'htmlentities'
 
 namespace :migration do
 	
@@ -20,23 +22,21 @@ namespace :migration do
     end
   end
 
-  desc "Fix Dataverse items' rights and description fields."
-  task update_dataverse_fields: :environment do
-    solr_rsp = ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id' }
-    numFound = solr_rsp['response']['numFound']
-    solr_rsp = ActiveFedora::SolrService.instance.conn.get 'select', :params => {:fq => 'hasCollection_tesim:"Dataverse Datasets"', :fl =>'id', :rows => numFound }
-    idList = solr_rsp['response']['docs']
-    idList.each do |o|
-      id = o['id']
-      MigrationLogger.error "Object: " + id
-      file = GenericFile.find(id)
-      file.rights = nil
-      file.hasCollectionId =['wm117p010']
-      file.description ||= [""]
-      new_statement = "This item is a resource in the University of Alberta Libraries' Dataverse Network. Access this item in Dataverse by clicking on the DOI link. | "
-      file.description = ["#{new_statement}#{file.description[0]}"]
-      file.save
-      file = GenericFile.find(id)
+  desc "Clean up Withdrawn Dataverse studies"
+  task :clean_up_withdrawn, [:old_dir, :new_dir] => :environment do |t, args|
+    old_dir = args[:old_dir]
+    new_dir = args[:new_dir]
+    command =  "diff -qr #{old_dir} #{new_dir}"
+    stdout, stderr, status = Open3.capture3(command)
+    stdout.each_line do |l|
+      study = l.split(":")[1].gsub("_dcterms.xml","") if (l["Only in #{old_dir}:"])
+      if study
+        doi = "http://dx.doi.org/10.7939/DVN/#{study.gsub!(/\s+/,"")}" if study
+        if doi_duplicated?(doi)
+          MigrationLogger.info "Study #{study} has been withdrawn from Dataverse."
+          GenericFile.find(duplicated_record(doi)).delete
+        end
+      end
     end
   end
 
@@ -67,9 +67,7 @@ namespace :migration do
       subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
       description = metadata.xpath("dcterms:description/text()",NS).map(&:to_s)
       publisher = metadata.xpath("dcterms:publisher/text()",NS).text if metadata.xpath("dcterms:publisher", NS)
-      
-      #description.gsub!(/"/, '\"').gsub!(/\n/,' ').gsub!(/\t/,' ') if description
-   
+      description = HTMLEntities.new.decode(description.join("")) if description
       date = metadata.xpath("dcterms:created",NS).text
       year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank? 
       type = "Dataset"
@@ -137,7 +135,7 @@ namespace :migration do
 
       # add other metadata to the new object
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "description"=>description, "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
+      file_attributes = {"resource_type"=>[type], "description"=>[description], "date_created"=>date, "year_created"=>year_created, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "identifier"=>[identifier], "ingestbatch" => @ingest_batch_id, "publisher"=>[publisher], "remote_resource" => "dataverse"}
       @generic_file.attributes = file_attributes
       # OPEN ACCESS for all items ingested for now
       @generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
@@ -223,13 +221,13 @@ namespace :migration do
   end
 
   def doi_duplicated?(identifier)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:"'+identifier+'"'}
     numFound = solr_rsp['response']['numFound']
 	return true if numFound > 0
   end
 
   def duplicated_record(identifier)
-    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:'+identifier}
+    solr_rsp =  Blacklight.default_index.connection.get 'select', :params => {:q => 'identifier_tesim:"'+identifier+'"'}
     id = nil
     numFound = solr_rsp['response']['numFound']
     if numFound == 1

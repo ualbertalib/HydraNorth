@@ -95,7 +95,11 @@ Hydranorth::Application.routes.draw do
   get 'collections/:id/edit', controller: 'collections', action: :edit
   get 'recent', controller: 'recent', action: :index
 
-  get 'files/:id/*file' => 'downloads#show'
+  # TODO needs regression test which shows that Sufia::DownloadsController param[:file]
+  # is set correctly for thumbnails
+  get 'files/:id/*name' => 'downloads#show'
+
+  get 'public/home', to: redirect('/', status: 301)
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
