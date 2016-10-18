@@ -3,7 +3,7 @@ module Hydranorth
     module Export
 
       def persistent_url
-        Rails.application.routes.url_helpers.persistent_id_url(ark_id) 
+        Rails.application.routes.url_helpers.generic_file_url(id)
       end
 
       # MIME type: 'application/x-openurl-ctx-kev'
