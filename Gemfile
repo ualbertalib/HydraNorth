@@ -8,7 +8,7 @@ gem 'google-api-client', '~> 0.7.1'
 
 gem 'sufia', '~> 6.2.0'
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
-gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
+gem 'kaminari', git: 'https://github.com/jcoyne/kaminari.git', branch: 'sufia'
 gem 'rdf-turtle', '1.1.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -67,7 +67,7 @@ gem "clamav"
 gem "pdf-reader"
 
 # to generate sitemap for google scholar et al
-gem 'sitemap', github: 'ualbertalib/rails-sitemap'
+gem 'sitemap', git: 'https://github.com/ualbertalib/rails-sitemap.git'
 
 # to fetch noid from fedora for reindex job
 gem 'rest-client'
