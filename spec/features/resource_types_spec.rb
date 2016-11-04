@@ -10,6 +10,7 @@ describe 'Edit resource form', :type => :feature do
       f.creator = ['little_file.txt_creator']
       f.resource_type = ["Book"]
       f.read_groups = ['public']
+      f.aasm_state = 'unminted'
       f.apply_depositor_metadata(user.user_key)
       f.save!
     end
@@ -20,6 +21,7 @@ describe 'Edit resource form', :type => :feature do
       f.creator = ['little_file.txt_creator']
       f.resource_type = ["Book"]
       f.read_groups = ['public']
+      f.aasm_state = 'unminted'
       f.apply_depositor_metadata(admin.user_key)
       f.save!
     end

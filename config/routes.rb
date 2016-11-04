@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Hydranorth::Application.routes.draw do
   get 'recent/index'
 
@@ -14,7 +16,7 @@ Hydranorth::Application.routes.draw do
    namespace :admin do
     # Job monitoring
     constraints Sufia::ResqueAdmin do
-      mount Resque::Server, at: 'queues'
+      mount Resque::Server, at: '/queues'
     end
   end
 

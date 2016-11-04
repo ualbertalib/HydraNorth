@@ -1,4 +1,4 @@
-module Hydranorth 
+module Hydranorth
   #  To use this module, include it in your Actor class
   #  and then add its interpreters wherever you want them to run.
   #  They should be called _before_ apply_attributes is called because
@@ -35,8 +35,14 @@ module Hydranorth
         attributes.delete(:visibility_during_embargo)
         attributes.delete(:visibility_after_embargo)
         attributes.delete(:embargo_release_date)
-        generic_file.deactivate_embargo!
-        generic_file.embargo.save if generic_file.embargo
+
+        # if GenericFile's current visibility is embargo, then the new non-embargo visibility is overwriting it
+        # and we need to deactivate
+        if generic_file.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO
+          generic_file.deactivate_embargo!
+          generic_file.embargo.save if generic_file.embargo
+        end
+
         generic_file.visibility = attributes[:visibility]
         true
       elsif !attributes[:embargo_release_date]
@@ -48,7 +54,7 @@ module Hydranorth
                   attributes.delete(:visibility_after_embargo))
         if generic_file.embargo
           generic_file.embargo.save
-        end 
+        end
         generic_file.save
         true
       end
@@ -63,8 +69,13 @@ module Hydranorth
         attributes.delete(:visibility_during_lease)
         attributes.delete(:visibility_after_lease)
         attributes.delete(:lease_expiration_date)
-        generic_file.deactivate_lease!
-        generic_file.lease.save if generic_file.lease
+
+        # if GenericFile's current visibility is lease, then the new non-lease visibility is overwriting it
+        # and we need to deactivate
+        if generic_file.visibility == Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_LEASE
+          generic_file.deactivate_lease!
+          generic_file.lease.save if generic_file.lease
+        end
         generic_file.visibility = attributes[:visibility]
         true
       elsif !attributes[:lease_expiration_date]

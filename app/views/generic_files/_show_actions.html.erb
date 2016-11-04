@@ -1,34 +1,36 @@
+<% if Sufia.config.analytics %>
+  <p><%= link_to 'Analytics', sufia.stats_generic_file_path(@generic_file), id: 'stats' %></p>
+<% end %>
 <div id="show_actions">
-<h2 class="non lower">Actions</h2>
-    <p>
-      <%= render_download_link(@generic_file) %>
-      <% if Sufia.config.analytics %>
+  <h2 class="non lower">Share</h2>
+  <% if @generic_file.doi_permanent_url.present? %>
+    <p><%= link_to "Permanent link (DOI): #{@generic_file.doi_permanent_url}", @generic_file.doi_permanent_url %></p>
+  <% end %>
+  <p>
+    <%= render_download_link(@generic_file) %>
+    <% if can? :edit, @generic_file %>
         &nbsp;|&nbsp;
-        <%= link_to "Analytics", sufia.stats_generic_file_path(@generic_file), id: 'stats' %>
-      <% end %>
-      <% if can? :edit, @generic_file %>
-          &nbsp;|&nbsp;
-          <%= link_to "Edit", sufia.edit_generic_file_path(@generic_file) %>
-      <% end %>
-    </p>
-    <p>Export to:
-      <%= link_to 'EndNote', sufia.generic_file_path(@generic_file, format: 'endnote') %>
-      &nbsp;|&nbsp;
-      <%= link_to 'Zotero', sufia.static_path('zotero'), {id: 'zoteroLink', name: 'zotero', class: 'lightboxLink'} %>
-      &nbsp;|&nbsp;
-      <%= link_to 'Mendeley', sufia.static_path('mendeley'), {id: 'mendeleyLink', name: 'mendeley', class: 'lightboxLink'} %>
-    </p>
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-      <a class="addthis_button_preferred_1"></a>
-      <a class="addthis_button_preferred_2"></a>
-      <a class="addthis_button_preferred_3"></a>
-      <a class="addthis_button_preferred_4"></a>
-      <a class="addthis_button_compact"></a>
-      <a class="addthis_counter addthis_bubble_style"></a>
-    </div>
-    <!-- AddThis Button END -->
+        <%= link_to "Edit", sufia.edit_generic_file_path(@generic_file) %>
+    <% end %>
+  </p>
+  <p>Export to:
+    <%= link_to 'EndNote', sufia.generic_file_path(@generic_file, format: 'endnote') %>
+    &nbsp;|&nbsp;
+    <%= link_to 'Zotero', sufia.static_path('zotero'), {id: 'zoteroLink', name: 'zotero', class: 'lightboxLink'} %>
+    &nbsp;|&nbsp;
+    <%= link_to 'Mendeley', sufia.static_path('mendeley'), {id: 'mendeleyLink', name: 'mendeley', class: 'lightboxLink'} %>
+  </p>
+  <!-- AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    <a class="addthis_counter addthis_bubble_style"></a>
+  </div>
+  <!-- AddThis Button END -->
 
-    <!-- COinS hook for Zotero -->
-    <span class="Z3988" title="<%= @generic_file.export_as_openurl_ctx_kev %>"></span>
+  <!-- COinS hook for Zotero -->
+  <span class="Z3988" title="<%= @generic_file.export_as_openurl_ctx_kev %>"></span>
 </div>

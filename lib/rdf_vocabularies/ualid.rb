@@ -1,6 +1,7 @@
 class UALId < RDF::Vocabulary("http://terms.library.ualberta.ca/id/")
+  term :doi
   term :trid,
-    label: "Computing Science Technical Report ID"    
+    label: "Computing Science Technical Report ID"
   term :ser
   term :unicorn
   term :proquest
