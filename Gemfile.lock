@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/jcoyne/kaminari.git
+  remote: https://github.com/jcoyne/kaminari.git
   revision: 7f7108e12bdd64eb5a76177633768feb14df5453
   branch: sufia
   specs:
@@ -8,7 +8,7 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
-  remote: git://github.com/ualbertalib/rails-sitemap.git
+  remote: https://github.com/ualbertalib/rails-sitemap.git
   revision: b5552f24c6aba99596733a3415cb1ccdc6d9bf7a
   specs:
     sitemap (0.3.3)
@@ -767,4 +767,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.3
