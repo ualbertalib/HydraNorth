@@ -19,7 +19,6 @@ gem 'mysql2', '~> 0.3.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3.4.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -27,34 +26,8 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', '~> 0.4.0', require: false
-end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 gem "devise"
 gem "devise-guests", "~> 0.3"
@@ -64,7 +37,7 @@ gem "omniauth-shibboleth"
 gem "clamav"
 
 # for migration reading the license file
-gem "pdf-reader"
+gem "pdf-reader", require: false
 
 # to generate sitemap for google scholar et al
 gem 'sitemap', git: 'https://github.com/ualbertalib/rails-sitemap.git'
@@ -76,8 +49,9 @@ gem 'noid', '~> 0.8'
 
 group :test do
   gem "rspec-its"
-  gem "ci_reporter_rspec"
+  gem "ci_reporter_rspec", require: false
   gem "timecop"
+  gem "show_me_the_cookies"
 end
 
 group :development, :test do
@@ -91,12 +65,14 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "capybara-select2"
-  gem "show_me_the_cookies"
-  gem "brakeman"
+  gem 'brakeman', require: false
   gem "pry"
   gem "pry-remote"
   gem 'pry-byebug'
+  gem 'ruby-prof'
+end
+
+group :development do
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'ruby-prof'
 end
