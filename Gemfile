@@ -7,6 +7,7 @@ gem 'activerecord-session_store'
 gem 'google-api-client', '~> 0.7.1'
 
 gem 'sufia', '~> 6.2.0'
+gem 'jbuilder', '~> 2.0' # hidden sufia dependency
 gem 'rsolr', '~> 1.0.6' # blacklight will not load by default
 gem 'kaminari', git: 'https://github.com/jcoyne/kaminari.git', branch: 'sufia'
 gem 'rdf-turtle', '1.1.7'
