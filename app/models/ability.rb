@@ -3,6 +3,9 @@ class Ability
   include Sufia::Ability
 
     def custom_permissions
+      can :show_activity, User do |user|
+        @current_user.id.present? && (admin? || user == @current_user)
+      end
       cannot :destroy, ::GenericFile unless admin?
       # we blanket restrict downloading, and then whitelist appropriates cases
       cannot :download, GenericFile
