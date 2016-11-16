@@ -19,8 +19,6 @@ http_interactions:
       - ezid.cdlib.org
       Content-Type:
       - text/plain; charset=UTF-8
-      Authorization:
-      - Basic YXBpdGVzdDphcGl0ZXN0
   response:
     status:
       code: 200
@@ -60,8 +58,6 @@ http_interactions:
       - ezid.cdlib.org
       Content-Type:
       - text/plain; charset=UTF-8
-      Authorization:
-      - Basic YXBpdGVzdDphcGl0ZXN0
   response:
     status:
       code: 200
