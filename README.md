@@ -54,7 +54,7 @@ Relative to the application directory
 
 To Restart Components
 ---
-The shell script `bin/resta. You will still be required tort-all` runs these commands:
+The shell script `bin/restart-all` runs these commands:
 * Jetty
  * ```cd /var/www/sites/hydranorth && rake jetty:restart```
 * Resque/Redis
