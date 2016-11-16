@@ -29,8 +29,12 @@ describe User do
 
   context "legacy user" do
     subject { FactoryGirl.find_or_create(:legacy_user) }
-    it { should be_valid}
-    its(:legacy_password) { should_not be_nil }
+
+    it 'should be a valid user' do
+      should be_valid
+      expect(subject.legacy_password).not_to be_nil
+    end
+
     describe "#valid_password?" do
 
       it 'should reject invalid legacy passwords' do

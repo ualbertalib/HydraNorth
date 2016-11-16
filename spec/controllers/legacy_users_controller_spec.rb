@@ -9,9 +9,9 @@ describe UsersController, :type => :controller do
   end
 
   describe "#legacy password user" do
-    its(:current_user) do
-      should_not  be_nil
-      should      be_instance_of User
+    it 'should have current_user available' do
+      expect(controller.current_user).not_to eq(nil)
+      expect(controller.current_user).to be_instance_of(User)
     end
   end
 end

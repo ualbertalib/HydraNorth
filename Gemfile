@@ -75,7 +75,6 @@ gem 'rest-client'
 gem 'noid', '~> 0.8'
 
 group :test do
-  gem "rspec-its"
   gem "ci_reporter_rspec"
   gem "timecop"
 end

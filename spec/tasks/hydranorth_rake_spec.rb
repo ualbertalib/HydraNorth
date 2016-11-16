@@ -10,9 +10,12 @@ describe "hydranorth:remove_lapsed_embargoes" do
       work.save(validate: false)
     end
   end
-  its(:prerequisites) { should include("environment") }
 
-  after do
+  it "should have environment defined" do
+    expect(subject.prerequisites).to eq(["environment"])
+  end
+
+  after(:each) do
     GenericFile.delete_all
   end
 
