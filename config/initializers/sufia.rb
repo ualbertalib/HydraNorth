@@ -149,7 +149,6 @@ Sufia.config do |config|
     "Department of Pharmacology" => "Department of Pharmacology",
     "Department of Philosophy" => "Department of Philosophy",
     "Department of Physical Therapy" => "Department of Physical Therapy",
-    "Department of Physical Therapy" => "Department of Physical Therapy",
     "Department of Physics" => "Department of Physics",
     "Department of Physiology" => "Department of Physiology",
     "Department of Political Science" => "Department of Political Science",

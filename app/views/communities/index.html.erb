@@ -1,5 +1,5 @@
 <h2>Communities</h2>
-<% left,right = @user_communities.each_slice( (@user_communities.size/2.0).round ).to_a %>
+<% left,right = @user_communities.each_slice( (@user_communities.size/2.0).round ).to_a  if @user_communities.present? %>
 <% for col in [left,right] %>
   <ul class="communities col-sm-6">
     <% next unless col %>
