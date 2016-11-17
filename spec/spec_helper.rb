@@ -12,6 +12,14 @@ require 'capybara/poltergeist'
 require 'factory_girl_rails'
 require File.join(Sufia::Engine.root, 'spec/factories/generic_files')
 require File.join(Sufia::Engine.root, 'spec/support/features')
+
+# The following line is provided for convenience purposes. It has the downside
+# of increasing the boot-up time by auto-requiring all files in the support
+# directory. Alternatively, in the individual `*_spec.rb` files, manually
+# require only the support files necessary.
+#
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 #
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file

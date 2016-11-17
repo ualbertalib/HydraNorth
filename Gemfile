@@ -3,6 +3,12 @@ source 'https://rubygems.org'
 # Use database to store sessions
 gem 'activerecord-session_store'
 
+gem 'aasm'
+gem 'aasm-active_fedora'
+gem 'ezid-client'
+
+gem 'resque'
+
 # Avoid cannot load such file -- google/api_client
 gem 'google-api-client', '~> 0.7.1'
 
@@ -75,6 +81,8 @@ gem 'rest-client'
 gem 'noid', '~> 0.8'
 
 group :test do
+  gem 'vcr', require: false
+  gem 'webmock', require: false
   gem "rspec-its"
   gem "ci_reporter_rspec"
   gem "timecop"

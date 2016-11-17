@@ -81,7 +81,7 @@ describe 'SAML' do
         expect(page).to have_content I18n.t('devise.failure.unconfirmed')
         expect(page).to have_content I18n.t('sufia.sign_in')
 
-        link = message.body.raw_source.match(%r[href="http://localhost(?<url>.+?)">])[:url]
+        link = message.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
         visit link
         expect(page).to have_content I18n.t('devise.confirmations.confirmed')
 

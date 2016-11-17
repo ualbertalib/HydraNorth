@@ -85,3 +85,6 @@ Hydranorth::Application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+# Required when using Rails.application.routes.url_helpers from outside the request/response life cycle (models, jobs, lib)
+Rails.application.routes.default_url_options = { host: 'era.library.ualberta.ca', port: 443, protocol: 'https' }

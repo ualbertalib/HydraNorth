@@ -91,9 +91,9 @@ The shell script `bin/reset-all` runs these commands:
 Batch ingest
 ---
 
-- **migration:user_migration** which migrates users in the user files (data derived from ERA mysql tables user and author) use: ```rake migration:user_migration['lib/tasks/migration/test-metadata/users.txt']``` 
-  - **note: this has only been tested with small dataset - need to proceed with caution due to the potential for sending emails to migrated users** 
-  - TO-DO: migrate user avator/profile images 
+- **migration:user_migration** which migrates users in the user files (data derived from ERA mysql tables user and author) use: ```rake migration:user_migration['lib/tasks/migration/test-metadata/users.txt']```
+  - **note: this has only been tested with small dataset - need to proceed with caution due to the potential for sending emails to migrated users**
+  - TO-DO: migrate user avator/profile images
 - **migration:era_collection_community** which migrates collections and communities in the metadata directory use (run community migration first then collection migration): ```rake migration:era_collection_community['lib/tasks/migration/test-metadata/community']```
 ```rake migration:era_collection_community['lib/tasks/migration/test-metadata/collection']```
 - **migration:eraitem** which migrates active/non-deleted items from the metadata directory (argument from the rake task) use: ```rake migration:eraitem['lib/tasks/migration/test-metadata']```
@@ -101,7 +101,7 @@ Batch ingest
   - **note: migration has to happen in the following order: communities, collections, then eraitems.**
   - **note: file name should start with "uuid_", only those files will be selected.**
 - ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
-- ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion. 
+- ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion.
   - **note: ```rake hydranorth:characterize_some['filename']``` will push the items in the given list to the characterize resque job. **
 - **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['lib/tasks/batch/ERA_batch_ingest.csv','lib/tasks/batch/files_and_metadata/']```
   - **note: collections and communities dependencies must exist.**
@@ -109,9 +109,9 @@ Batch ingest
 Ingest Dataverse Metadata
 ---
 
-- **migration:clean_up_withdrawn[old_dir,new_dir]**: compare the last ingest directory and the current ingest directory, detect and clean any study that has been withdrawn from Dataverse. 
+- **migration:clean_up_withdrawn[old_dir,new_dir]**: compare the last ingest directory and the current ingest directory, detect and clean any study that has been withdrawn from Dataverse.
   - **note: The Dataverse metadata export only includes current published studies, and doesn't include any information about withdrawn studies. Ingest directories are always named with timestamps.**
-- **migration:dataverse_objects[dir]**: ingest the metadata for dc term files in the given directory. It will create new objects for new studies, and update metadata for existing studies. 
+- **migration:dataverse_objects[dir]**: ingest the metadata for dc term files in the given directory. It will create new objects for new studies, and update metadata for existing studies.
   - use: ```rake migration:dataverse_objects['spec/fixtures/migration/test-metadata/dataverse/']```
 
 
@@ -120,13 +120,13 @@ Generate Sitemap
 ** for Google Scholar **
 - use: ```rake sitemap:generate```
 
-Populating Local Geonames Authority 
+Populating Local Geonames Authority
 ---
-- **hydranorth:harvest:geonames_cities** which downloads the latest list of cities1000 file from geonames.org, and populates the data into local database tables: local_authorities, and local_authority_entries. 
+- **hydranorth:harvest:geonames_cities** which downloads the latest list of cities1000 file from geonames.org, and populates the data into local database tables: local_authorities, and local_authority_entries.
   - use: ```rake hydranorth:harvest:geonames_cities```
   - file downloaded: http://download.geonames.org/export/dump/cities1000.zip
   - scope for authority entries: contains all cities with a population >1000 or seats of adm div (ca 80.000)
-  - local_authority_entries includes labels and URIs. Currently labels are used for autocompletion and saved in the record. 
+  - local_authority_entries includes labels and URIs. Currently labels are used for autocompletion and saved in the record.
 
 Configuring Shibboleth
 ---
@@ -147,10 +147,13 @@ Audit Fix
 A set of rake tasks is also added for index jobs:
 * ```rake hydranorth:solr:index[id]```         Index a single object with ID
 * ```rake hydranorth:solr:index_pairtree[input]```   Index with a pairtree structure
-* ```rake hydranorth:solr:batch_index[directory|file]``` Index from a list of noids, usually from a solr csv output that just contains noids. 
+* ```rake hydranorth:solr:batch_index[directory|file]``` Index from a list of noids, usually from a solr csv output that just contains noids.
 * ```rake hydranorth:solr:reindex_all```	Complete reindex of the repository
 
 A shell script will update namespace uris
 * ```/bin/fix/fix.rb``` is to update all the namespace uris. Requires user to replace @server with the Fedora server location before using.
 * ```/bin/fix/run.sh``` is to run script through all the pairtree combinations. Requires being run from the bin/fix directory.
 
+EZID DOI Configuration
+---
+For hydranorth to successfully create and maintain DOI's you must configure the environmental variables for EZID's API. For more details on these environmental variables see the secrets file at:  `config/secrets.yml`. For non-production environments you can use the `apitest` test account provided by EZID by configuring it's password using the `EZID_PASSWORD` environment variable.
