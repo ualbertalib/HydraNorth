@@ -75,7 +75,12 @@ gem 'rest-client'
 gem 'noid', '~> 0.8'
 
 group :test do
+  gem "capybara"
+  gem "capybara-select2"
+  gem "database_cleaner"
   gem "ci_reporter_rspec"
+  gem "poltergeist", "~> 1.5"
+  gem "show_me_the_cookies"
   gem "timecop"
 end
 
@@ -83,14 +88,9 @@ group :development, :test do
   gem "byebug"
   gem "rspec-rails"
   gem "ruby-debug-passenger"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver" # used spec-views (legacy?)
   gem "jettywrapper"
-  gem "capybara"
-  gem "poltergeist", "~> 1.5"
   gem "factory_girl_rails"
-  gem "database_cleaner"
-  gem "capybara-select2"
-  gem "show_me_the_cookies"
   gem "brakeman"
   gem "pry"
   gem "pry-remote"
