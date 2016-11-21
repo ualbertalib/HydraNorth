@@ -1,18 +1,19 @@
 require 'fileutils'
-require './lib/tasks/migration/migration_logger'
+require 'tasks/migration/migration_logger'
 require 'open3'
 require 'htmlentities'
+require 'tasks/migration/migration_constants'
 
 namespace :migration do
-	
+
   desc "batch migrate object metadata from Dataverse' OAI-DC"
   task :dataverse_objects, [:dir] => :environment do |t, args|
     begin
       MigrationLogger.info "**************START: Migrate metadata for Dataverse objects *******************"
-      metadata_dir = args.dir 
-      # Usage: Rake migration:dataverse_objects[<file directory here, path included>] 
+      metadata_dir = args.dir
+      # Usage: Rake migration:dataverse_objects[<file directory here, path included>]
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        migrate_dataverse_objects(metadata_dir) 
+        migrate_dataverse_objects(metadata_dir)
       else
 	MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
@@ -54,33 +55,33 @@ namespace :migration do
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
-      metadata = metadata_file.xpath("//ddi_to_dcterms",NS)
+      metadata = metadata_file.xpath("//ddi_to_dcterms", MigrationConstants::NS)
       #get the doi of the object
-      identifier = metadata.xpath("dcterms:identifier", NS).text
-  
+      identifier = metadata.xpath("dcterms:identifier", MigrationConstants::NS).text
+
       # set the owner id to a generic dataverse account (currently with dit.application.test@ualberta.ca email address)
       owner_id = "dit.application.test@ualberta.ca"
- 
-      title = metadata.xpath("dcterms:title", NS).text
-      identifier = metadata.xpath("dcterms:identifier", NS).text
-      creators = metadata.xpath("dcterms:creator/text()", NS).map(&:to_s) if metadata.xpath("dcterms:creator", NS)
-      subjects = metadata.xpath("dcterms:subject/text()",NS).map(&:to_s)
-      description = metadata.xpath("dcterms:description/text()",NS).map(&:to_s)
-      publisher = metadata.xpath("dcterms:publisher/text()",NS).text if metadata.xpath("dcterms:publisher", NS)
+
+      title = metadata.xpath("dcterms:title", MigrationConstants::NS).text
+      identifier = metadata.xpath("dcterms:identifier", MigrationConstants::NS).text
+      creators = metadata.xpath("dcterms:creator/text()", MigrationConstants::NS).map(&:to_s) if metadata.xpath("dcterms:creator", MigrationConstants::NS)
+      subjects = metadata.xpath("dcterms:subject/text()",MigrationConstants::NS).map(&:to_s)
+      description = metadata.xpath("dcterms:description/text()",MigrationConstants::NS).map(&:to_s)
+      publisher = metadata.xpath("dcterms:publisher/text()",MigrationConstants::NS).text if metadata.xpath("dcterms:publisher", MigrationConstants::NS)
       description = HTMLEntities.new.decode(description.join("")) if description
-      date = metadata.xpath("dcterms:created",NS).text
-      year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank? 
+      date = metadata.xpath("dcterms:created",MigrationConstants::NS).text
+      year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank?
       type = "Dataset"
-      spatials = metadata.xpath("dcterms:spatial/text()",NS).map(&:to_s)
-      temporals = metadata.xpath("dcterms:temporal/text()", NS).map(&:to_s)
-      rights = metadata.xpath("dcterms:rights/text()", NS).map(&:to_s).join(" ")
-	  
+      spatials = metadata.xpath("dcterms:spatial/text()",MigrationConstants::NS).map(&:to_s)
+      temporals = metadata.xpath("dcterms:temporal/text()", MigrationConstants::NS).map(&:to_s)
+      rights = metadata.xpath("dcterms:rights/text()", MigrationConstants::NS).map(&:to_s).join(" ")
+
       # create the depositor
       depositor = User.find_by_email(owner_id)
       if !depositor
         depositor = User.new({
                :username => "dataverse",
-               :email => owner_id,  
+               :email => owner_id,
                :password => "reset_password",
                :password_confirmation => "reset_password",
                :group_list => "admin",
@@ -118,15 +119,15 @@ namespace :migration do
         # create the generic file
         @generic_file = GenericFile.new
       end
-	  
+
       # create metadata for the new object in Hydranorth
       MigrationLogger.info "Create Metadata for new GenericFile: #{@generic_file.id}"
-	  
+
       @generic_file.apply_depositor_metadata(depositor.user_key)
       # set date_uploaded/date_modified to current time, need to discuss with metadata team to see if the info can be obtained elsewhere in the system?
-      @generic_file.date_uploaded = DateTime.now 
+      @generic_file.date_uploaded = DateTime.now
       @generic_file.date_modified = DateTime.now
-	 
+
       if @batch_id
         @generic_file.batch_id = @batch_id
       else
@@ -149,7 +150,7 @@ namespace :migration do
       else
         id = dataverse_dataset.first['id']
       end
-      community = Collection.find(id) 
+      community = Collection.find(id)
       @generic_file.hasCollection = [community.title]
       @generic_file.belongsToCommunity = [community.id]
       # save the file
@@ -171,8 +172,8 @@ namespace :migration do
       @generic_file.save
       puts @generic_file
       puts @generic_file.id
-     
-      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"	  
+
+      MigrationLogger.info "Generic File saved id:#{@generic_file.id}"
       MigrationLogger.info "Generic File created id:#{@generic_file.id}"
       MigrationLogger.info "Finish migrating the file"
 
@@ -182,8 +183,8 @@ namespace :migration do
         puts e.backtrace.inspect
         MigrationLogger.error "#{$!}, #{$@}"
         next
-      end 
-      begin 
+      end
+      begin
       MigrationLogger.info "START: verify if migration is successful"
       # verify file is migrated
       migrated = GenericFile.find(@generic_file.id)
@@ -217,7 +218,7 @@ namespace :migration do
         retry
       end
 
-    
+
   end
 
   def doi_duplicated?(identifier)
@@ -232,7 +233,7 @@ namespace :migration do
     numFound = solr_rsp['response']['numFound']
     if numFound == 1
       id = solr_rsp['response']['docs'].first['id']
-    else 
+    else
       MigrationLogger.error "ERROR: More than one record with the DOI #{identifier} has been found! Please deduplicate the records first."
     end
     return id
@@ -243,5 +244,5 @@ namespace :migration do
     return Collection.find(id)
   end
 
-	
+
 end
