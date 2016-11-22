@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'benchmark'
 
 describe 'community', :type => :feature do
-  let(:admin) { FactoryGirl.find_or_create(:admin) }
-  let(:jill) { FactoryGirl.find_or_create(:jill) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:jill) { FactoryGirl.create(:jill) }
 
   after :all do
     cleanup_jetty

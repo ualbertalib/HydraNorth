@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'lock_user', :type => :feature do
 
   let(:locked_user) { FactoryGirl.create :user, locked_at: Time.now }
-  let(:unlocked_user) { FactoryGirl.find_or_create :user }
+  let(:unlocked_user) { FactoryGirl.create :user }
 
   after :all do
     cleanup_jetty
@@ -20,7 +20,7 @@ describe 'lock_user', :type => :feature do
   end 
 
   describe "admin" do
-    let(:admin) { FactoryGirl.find_or_create :admin }
+    let(:admin) { FactoryGirl.create :admin }
     before do
       sign_in admin
     end
@@ -45,7 +45,7 @@ describe 'lock_user', :type => :feature do
   end
 
   describe "non-admin" do
-    let(:user) { FactoryGirl.find_or_create :user }
+    let(:user) { FactoryGirl.create :user }
     before do
       sign_in user
     end

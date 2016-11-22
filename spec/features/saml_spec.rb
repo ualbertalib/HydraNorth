@@ -38,7 +38,7 @@ describe 'SAML' do
   end
 
   describe 'Users with existing legacy accounts' do
-    let!(:user) { FactoryGirl.find_or_create :user }
+    let!(:user) { FactoryGirl.create :user }
     after :each do
       cleanup_jetty
       User.destroy_all
@@ -46,7 +46,7 @@ describe 'SAML' do
     before(:each) { ActionMailer::Base.deliveries.clear }
 
     context 'whose CCID and legacy address are identical' do
-      let(:user) { FactoryGirl.find_or_create :testshib }
+      let(:user) { FactoryGirl.create :testshib }
 
       it 'should automatically be associated with their CCID when logging in using it' do
         sign_in_with_legacy_credentials(user)

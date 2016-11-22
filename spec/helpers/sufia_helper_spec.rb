@@ -32,7 +32,6 @@ describe SufiaHelper, type: :helper do
         expect(rendered).to match(/src="\/assets\/default-.*.png"/)
       end
       context 'user can access' do
-        let(:user) { FactoryGirl.find_or_create(:ccid) }
         it 'shows the real thumbnail' do
           allow_any_instance_of(User).to receive(:institutionally_authenticated?).and_return true
           allow_any_instance_of(User).to receive(:authenticating_institution).and_return Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA

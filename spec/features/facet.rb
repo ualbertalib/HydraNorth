@@ -7,7 +7,7 @@ describe 'facet', :type => :feature do
     Collection.destroy_all
   end
 
-  let(:user) { FactoryGirl.find_or_create(:jill) }
+  let(:user) { FactoryGirl.create(:jill) }
 
   let!(:gf1) do
     GenericFile.new.tap do |r|

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'collection', :type => :feature do
-  let(:admin) { FactoryGirl.find_or_create(:admin) }
-  let(:jill) { FactoryGirl.find_or_create(:jill) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:jill) { FactoryGirl.create(:jill) }
   let!(:collection) do
     Collection.create( title: 'Theses') do |c|
       c.apply_depositor_metadata(admin.user_key)
@@ -181,7 +181,7 @@ describe 'collection', :type => :feature do
   end
 
   describe 'total item count for a collection with 1 public item and 1 private item' do
-    let(:alice) { FactoryGirl.find_or_create(:alice) }
+    let(:alice) { FactoryGirl.create(:alice) }
 
     let!(:public_file) do
       GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
@@ -491,8 +491,6 @@ describe 'collection', :type => :feature do
     end
 
     it "should set Official and Community flags" do
-      visit "/collections/#{community.id}/edit"
-
       expect(page).to have_content("Official")
       expect(page).to have_content("Community")
 
@@ -505,8 +503,6 @@ describe 'collection', :type => :feature do
     end
 
     it "should remove Official and Community flags" do
-      visit "/collections/#{community.id}/edit"
-
       uncheck('Official')
       uncheck('Community')
       click_button('Update Collection')

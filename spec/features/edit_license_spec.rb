@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'edit file with non-standard license', :type => :feature do
 
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
   let!(:file) do
     GenericFile.new.tap do |f|
       f.title = ['non_standard_file.txt']
@@ -32,7 +32,7 @@ end
 
 describe 'edit file with standard license', :type => :feature do
 
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
   let!(:file) do
     GenericFile.new.tap do |f|
       f.title = ['standard.txt']

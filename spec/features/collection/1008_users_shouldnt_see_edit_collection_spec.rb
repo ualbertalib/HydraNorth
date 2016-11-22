@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'collection', :type => :feature do
-  let(:admin) { FactoryGirl.find_or_create(:admin) }
-  let(:jill) { FactoryGirl.find_or_create(:jill) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:jill) { FactoryGirl.create(:jill) }
   let!(:official_collection) do
     Collection.create( title: 'Official') do |c|
       c.apply_depositor_metadata(admin.user_key)

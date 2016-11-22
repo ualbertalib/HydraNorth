@@ -1,5 +1,6 @@
-require 'bcrypt'
+require 'bcrypt' # We don't have this in our gemfile
 
+# We have way to many different users here. Should have a few test users depending on roles? User, Admin, etc.
 FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
@@ -14,6 +15,7 @@ FactoryGirl.define do
       email 'aliceuser@example.com'
     end
 
+    # TODO: Bad factory, we are already seeding the test database with this user? Potential conflict with email being taken already
     factory :dit do
       email 'dit.application.test@ualberta.ca'
     end
@@ -72,8 +74,8 @@ FactoryGirl.define do
 
     factory :legacy_user, :class => 'User' do
       email             'legacy_user@example.com'
-      password          BCrypt::Password.create(Digest::MD5.hexdigest("123456789"))
-      legacy_password   BCrypt::Password.create(Digest::MD5.hexdigest("123456789"))
+      password          BCrypt::Password.create(Digest::MD5.hexdigest("123456789"), cost: 1)
+      legacy_password   BCrypt::Password.create(Digest::MD5.hexdigest("123456789"), cost: 1)
     end
 
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'edit file', :type => :feature do
 
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
   let!(:file) do
     GenericFile.new.tap do |f|
       f.title = ['little_file.txt']

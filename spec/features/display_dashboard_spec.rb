@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "The Dashboard", type: :feature do
-  let(:abby) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:abby) { FactoryGirl.create :user_with_fixtures }
   
   before do
     sign_in abby

@@ -64,6 +64,7 @@ Sufia.config do |config|
     "Other" => "other",
   }
 
+  # TODO: This should be done better?
   # please run rake db:seed to create the collections and restart httpd.
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit

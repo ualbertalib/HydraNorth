@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'session', :type => :feature do
-  let(:user) { FactoryGirl.find_or_create :user }
+  let(:user) { FactoryGirl.create :user }
 
   it 'should assign new session after login' do
     visit '/'

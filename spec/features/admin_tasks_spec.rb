@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'admin_tasks', :type => :feature do
-  let(:admin) { FactoryGirl.find_or_create :admin }
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:admin) { FactoryGirl.create :admin }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
   let!(:file1) do
     init_file_1 user
   end
@@ -52,7 +52,7 @@ describe 'admin_tasks', :type => :feature do
     end
   end
 
-  describe "search for private item" do  
+  describe "search for private item" do
     before do
       sign_in admin
       visit "/advanced"
@@ -78,11 +78,6 @@ describe 'admin_tasks', :type => :feature do
     end
   end
 
-end
-
-def setup(user)
-      sign_in user 
-      visit "/dashboard/files"
 end
 
 def create_batch(file)
