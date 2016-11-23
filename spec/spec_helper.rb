@@ -8,9 +8,10 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
-require 'factory_girl_rails'
-require File.join(Sufia::Engine.root, 'spec/factories/generic_files')
-require File.join(Sufia::Engine.root, 'spec/support/features')
+require 'support/cleaner'
+require 'support/factory_girl'
+require 'support/session_helpers'
+require 'support/rake_helper'
 #
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
@@ -105,15 +106,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-module EngineRoutes
-  def self.included(base)
-    base.routes { Sufia::Engine.routes }
-  end
-  def main_app
-    Rails.application.class.routes.url_helpers
-  end
-end
 
+  # This is a code smell if you need to clear database before every test?
   config.before :each do |example|
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
       DatabaseCleaner.strategy = :truncation
@@ -129,29 +123,7 @@ end
 
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :helper
-  config.include EngineRoutes, type: :controller
   config.include Warden::Test::Helpers, type: :feature
   config.after(:each, type: :feature) { Warden.test_reset! }
   config.infer_spec_type_from_file_location!
-end
-module FactoryGirl
-  def self.find_or_create(handle, by=:email)
-    tmpl = FactoryGirl.build(handle)
-    tmpl.class.send("find_by_#{by}".to_sym, tmpl.send(by)) || FactoryGirl.create(handle)
-  end
-end
-# spec/support/features/session_helpers.rb
-module Features
-  module SessionHelpers
-    def sign_in(who = :user)
-      logout
-      user = who.is_a?(User) ? who : FactoryGirl.build(:user).tap(&:save!)
-      visit new_user_session_path
-      click_link 'NO, I do not have a CCID'
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      click_button I18n.t('sufia.sign_in')
-      expect(page).not_to have_text 'Invalid email or password.'
-    end
-  end
 end

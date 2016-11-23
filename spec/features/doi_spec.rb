@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'search_helper'
+require 'support/search_helper'
 
 describe 'download link', :type => :feature do
   include SearchHelper

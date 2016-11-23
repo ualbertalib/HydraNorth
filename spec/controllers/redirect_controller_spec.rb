@@ -1,15 +1,11 @@
 require 'spec_helper'
-require 'rake'
-require 'fileutils'
 
 describe RedirectController, type: :controller do
-  routes { Rails.application.class.routes }
-
-  let(:user) { FactoryGirl.find_or_create(:user) }
+  let(:user) { FactoryGirl.build(:user) }
   let(:fedora3uuid1) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
 
   let!(:gf) do
-    GenericFile.create.tap do |f|
+    GenericFile.create do |f|
       f.fedora3uuid = fedora3uuid1
       f.label = "thisfile.pdf"
       f.apply_depositor_metadata user
@@ -20,7 +16,7 @@ describe RedirectController, type: :controller do
   describe "#item" do
     it "redirects to item page" do
       get :item, uuid: fedora3uuid1
-      expect(response).to redirect_to "http://test.host/files/#{gf.id}"
+      expect(response).to redirect_to generic_file_path(gf.id)
     end
     it "returns a 404 status code" do
       get :item, uuid: "xxx"
@@ -125,4 +121,3 @@ describe RedirectController, type: :controller do
     end
   end
 end
-

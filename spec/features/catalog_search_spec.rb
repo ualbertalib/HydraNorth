@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'search_helper'
+require 'support/search_helper'
 
 describe 'catalog searching', :type => :feature do
   include SearchHelper
@@ -55,9 +55,9 @@ describe 'catalog searching', :type => :feature do
     search("p")
     expect(page).to have_content('Search Results')
     expect(page).to have_content(@gfP.title.first)
-    expect(page).to_not have_content(@gfQ.title.first) 
-    expect(page).to_not have_content(@gfR.title.first) 
-    expect(page).to have_content(@gfS.title.first) 
+    expect(page).to_not have_content(@gfQ.title.first)
+    expect(page).to_not have_content(@gfR.title.first)
+    expect(page).to have_content(@gfS.title.first)
   end
 
   it "NOT p finds {Q,R}" do
@@ -65,44 +65,44 @@ describe 'catalog searching', :type => :feature do
     expect(page).to have_content('Search Results')
     expect(page).to have_content(@gfQ.title.first)
     expect(page).to have_content(@gfR.title.first)
-    expect(page).to_not have_content(@gfP.title.first) 
-    expect(page).to_not have_content(@gfS.title.first) 
+    expect(page).to_not have_content(@gfP.title.first)
+    expect(page).to_not have_content(@gfS.title.first)
   end
 
   it "p AND q finds {S}" do
     search("p AND q")
     expect(page).to have_content('Search Results')
-    expect(page).to_not have_content(@gfP.title.first) 
+    expect(page).to_not have_content(@gfP.title.first)
     expect(page).to_not have_content(@gfQ.title.first)
     expect(page).to_not have_content(@gfR.title.first)
-    expect(page).to have_content(@gfS.title.first) 
+    expect(page).to have_content(@gfS.title.first)
   end
 
   it "p OR q finds {P,Q,S}" do
     search("p OR q")
     expect(page).to have_content('Search Results')
-    expect(page).to have_content(@gfP.title.first) 
+    expect(page).to have_content(@gfP.title.first)
     expect(page).to have_content(@gfQ.title.first)
     expect(page).to_not have_content(@gfR.title.first)
-    expect(page).to have_content(@gfS.title.first) 
+    expect(page).to have_content(@gfS.title.first)
   end
 
   it "NOT(p AND q) finds {P,Q,R}" do
     search("NOT(p AND q)")
     expect(page).to have_content('Search Results')
-    expect(page).to have_content(@gfP.title.first) 
+    expect(page).to have_content(@gfP.title.first)
     expect(page).to have_content(@gfQ.title.first)
     expect(page).to have_content(@gfR.title.first)
-    expect(page).to_not have_content(@gfS.title.first) 
+    expect(page).to_not have_content(@gfS.title.first)
   end
 
   it "NOT(p OR q) finds {R}" do
     search("NOT(p OR q)")
     expect(page).to have_content('Search Results')
-    expect(page).to_not have_content(@gfP.title.first) 
+    expect(page).to_not have_content(@gfP.title.first)
     expect(page).to_not have_content(@gfQ.title.first)
     expect(page).to have_content(@gfR.title.first)
-    expect(page).to_not have_content(@gfS.title.first) 
+    expect(page).to_not have_content(@gfS.title.first)
   end
 
 end

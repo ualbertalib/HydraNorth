@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO: Useless test?
 describe SingleUseLinksViewerController, :type => :controller do
 
   context "#presenter_class" do

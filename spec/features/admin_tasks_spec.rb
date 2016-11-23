@@ -44,7 +44,8 @@ describe 'admin_tasks', :type => :feature do
     before do
       sign_in admin
       visit "/advanced"
-      search "archivist1@example.com"
+      fill_in('User', with: "archivist1@example.com")
+      click_button("Search")
     end
 
     it "can find" do
@@ -85,12 +86,6 @@ def create_batch(file)
     check "batch_document_#{file.id}"
   end
 end
-
-def search(query="")
-  fill_in('User', with: query)
-  click_button("Search")
-end
-
 
 def init_file_1(user)
   GenericFile.new.tap do |f|

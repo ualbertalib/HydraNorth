@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe RecentController, type: :controller do
-  routes { Rails.application.class.routes }
-
   describe "GET #index" do
     before :each do
       Timecop.freeze(Time.parse("2016-04-29T16:25:21Z"))
@@ -77,7 +75,7 @@ RSpec.describe RecentController, type: :controller do
         expect(assigns(:recent_documents).length).to be <= 4
         create_times = assigns(:recent_documents).map { |d| d['system_create_dtsi'] }
         expect(create_times).to eq create_times.sort.reverse
-      end 
+      end
     end
 
     context "with a document not created in the last two weeks" do
@@ -104,23 +102,23 @@ RSpec.describe RecentController, type: :controller do
         end
         gf5.save
       end
-      
+
       it "doesn't include older documents" do
         get :index
         expect(response).to be_success
-        expect(assigns(:recent_documents).length).to eq 0 
+        expect(assigns(:recent_documents).length).to eq 0
         create_times = assigns(:recent_documents).map { |d| d['system_create_dtsi'] }
         expect(create_times).to_not include((Time.now - 15.days).utc.iso8601)
       end
       it "includes all documents in date bucket" do
         get :index, {:year => Time.now.year}
         expect(response).to be_success
-        expect(assigns(:recent_documents).length).to eq 2 
+        expect(assigns(:recent_documents).length).to eq 2
       end
       it "includes all documents in month date bucket" do
         get :index, {:year => (Time.now - 1.month).year, :month => (Time.now - 1.month).month}
         expect(response).to be_success
-        expect(assigns(:recent_documents).length).to eq 1 
+        expect(assigns(:recent_documents).length).to eq 1
       end
       it "excludes all documents not in date bucket" do
         get :index, {:year => 1.year.ago.year}
@@ -134,7 +132,7 @@ RSpec.describe RecentController, type: :controller do
     end
 
     context "with a document not created in the last year" do
-      before do 
+      before do
         gf6 = GenericFile.new(title: ['Test 6 Document'], read_groups: ['public'])
         gf6.apply_depositor_metadata('mjg36')
         #stubbing to_solr so we know we have something significantly older
