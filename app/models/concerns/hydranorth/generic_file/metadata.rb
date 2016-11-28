@@ -81,7 +81,7 @@ module Hydranorth
         property :remote_resource, predicate: ::UALTerms.remote_resource, multiple:false
 
         property :doi, predicate: ::UALId.doi, multiple: false do |index|
-          index.as :stored_searchable
+          index.as :symbol
         end
       end
 
