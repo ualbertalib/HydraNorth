@@ -7,7 +7,7 @@ describe 'download link', :type => :feature do
   let(:user) { FactoryGirl.create :jill }
 
   after(:all) do
-    GenericFile.destroy_all
+    cleanup_jetty
   end
 
   describe 'where item has doi identifier' do

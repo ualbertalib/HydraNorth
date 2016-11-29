@@ -1,7 +1,7 @@
 # spec/models/user.rb
 require 'spec_helper'
 
-describe User do
+describe User, type: :model do
 
   describe "#name" do
     subject { FactoryGirl.build_stubbed(:new_user)}

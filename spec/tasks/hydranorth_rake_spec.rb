@@ -14,7 +14,7 @@ describe "hydranorth:remove_lapsed_embargoes", type: :task do
   end
 
   after(:each) do
-    GenericFile.delete_all
+    cleanup_jetty
   end
 
   it "clears the expired embargo" do

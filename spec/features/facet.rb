@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe 'facet', :type => :feature do
 
-  before do
-    GenericFile.destroy_all
-    Collection.destroy_all
-  end
-
   let(:user) { FactoryGirl.create(:jill) }
 
   let!(:gf1) do
@@ -64,7 +59,7 @@ describe 'facet', :type => :feature do
       end
     end
 
-    it 'facet on collection' do 
+    it 'facet on collection' do
       within("#facets") do
         expect(page).to have_content( "Collection" )
         click_link("Collection")
@@ -72,7 +67,7 @@ describe 'facet', :type => :feature do
         expect(page).to have_selector 'span', text: '1'
       end
     end
-         
+
   end
 
 end

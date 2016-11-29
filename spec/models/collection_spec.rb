@@ -6,7 +6,7 @@ describe Collection do
   let(:reloaded_subject) { Collection.find(subject.id) }
   let(:user) { FactoryGirl.create(:user) }
   let(:file) do
-    GenericFile.create do |f|
+    GenericFile.new do |f|
       f.add_file(File.open(fixture_path + '/world.png'), path: 'content', original_name: 'world.png')
       f.apply_depositor_metadata(user.user_key)
       f.save

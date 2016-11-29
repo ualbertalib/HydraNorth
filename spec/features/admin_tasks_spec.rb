@@ -25,7 +25,7 @@ describe 'admin_tasks', :type => :feature do
     end
   end
 
-  describe "find facets", :js => true do
+  describe "find facets" do
     before do
       sign_in admin
       visit "/advanced"
@@ -65,7 +65,7 @@ describe 'admin_tasks', :type => :feature do
     end
   end
 
-  describe "delete batch", :js => true do
+  describe "delete batch", js: true do
     before do
       sign_in admin
       visit "/advanced"

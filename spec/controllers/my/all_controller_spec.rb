@@ -22,7 +22,8 @@ describe My::AllController, :type => :controller do
     end
 
     let!(:shared_file) do
-      FactoryGirl.create(:generic_file, depositor: other_user) do |gf|
+      FactoryGirl.build(:generic_file) do |gf|
+        gf.apply_depositor_metadata(other_user)
         gf.edit_users += [user.user_key]
         gf.save!
       end

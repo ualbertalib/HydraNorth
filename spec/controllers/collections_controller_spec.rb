@@ -72,7 +72,7 @@ describe CollectionsController, type: :controller do
     before { sign_in user }
 
     let(:community) do
-       Collection.create(title: "Community Title") do |community|
+       Collection.new(title: "Community Title") do |community|
          community.apply_depositor_metadata(user.user_key)
          community.is_community = true
          community.is_official = true
@@ -80,9 +80,8 @@ describe CollectionsController, type: :controller do
        end
     end
 
-
     let(:collection) do
-      Collection.create(title: "Collection Title") do |collection|
+      Collection.new(title: "Collection Title") do |collection|
         collection.apply_depositor_metadata(user.user_key)
         collection.save
       end

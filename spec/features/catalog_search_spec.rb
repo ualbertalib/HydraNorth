@@ -40,7 +40,7 @@ describe 'catalog searching', :type => :feature do
   end
 
   after(:all) do
-    GenericFile.destroy_all
+    cleanup_jetty
   end
 
   it "should have relevancy with newest" do

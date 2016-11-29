@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe 'allfiles', :type => :feature do
 
-  before do
-    GenericFile.destroy_all
+  after do
+    cleanup_jetty
   end
- 
+
   let(:user) { FactoryGirl.create :jill }
   let(:admin) { FactoryGirl.create :admin }
 
@@ -36,13 +36,10 @@ describe 'allfiles', :type => :feature do
   end
 
   describe 'Admin without filter' do
- 
-    before do
-      sign_in admin 
-      visit "/dashboard/all"
-    end
-    
+
     it 'Admin can see all files' do
+      sign_in admin
+      visit "/dashboard/all"
       expect(page).to have_content( "Admin file" )
       expect(page).to have_content( "User file 1" )
       expect(page).to have_content( "User file 2" )
@@ -53,7 +50,7 @@ describe 'allfiles', :type => :feature do
   describe 'Admin with user filter', js: true do
   # js: true is needed because the form is created dynamically
     before do
-      sign_in admin 
+      sign_in admin
       visit "/dashboard/all"
       click_link "Search for a user"
       within("#select2-drop") do
@@ -72,4 +69,4 @@ describe 'allfiles', :type => :feature do
 
   end
 
-end       
+end

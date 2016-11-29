@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe "Advanced search", :type => :feature do
   before do
-    Collection.destroy_all
-    GenericFile.destroy_all
+    cleanup_jetty
     visit "/advanced"
   end
   let!(:community) do
     Collection.new.tap do |c|
-      c.title = "test community"     
+      c.title = "test community"
       c.apply_depositor_metadata('dittest@ualberta.ca')
       c.is_community = true
       c.is_official = true
@@ -74,8 +73,8 @@ describe "Advanced search", :type => :feature do
       page.has_select?('Item Type', selected: 'Computing Science Technical Report')
     end
   end
-  def search(field="", query="") 
-      fill_in(field, with: query) 
+  def search(field="", query="")
+      fill_in(field, with: query)
       click_button("Search")
   end
 end

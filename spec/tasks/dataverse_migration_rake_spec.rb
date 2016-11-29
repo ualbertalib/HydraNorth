@@ -9,7 +9,7 @@ describe "Migration rake tasks", type: :task do
   end
 
   let(:dataverse_collection) do
-    Collection.create(title: 'Dataverse Datasets') do |c|
+    Collection.new(title: 'Dataverse Datasets') do |c|
       c.apply_depositor_metadata('dittest@ualberta.ca')
       c.save
     end
@@ -17,8 +17,7 @@ describe "Migration rake tasks", type: :task do
 
   describe "migration:dataverse" do
     before(:each) do
-      Collection.delete_all
-      GenericFile.delete_all
+      cleanup_jetty
       @dataverse_datasets = Collection.new(title: "Dataverse Datasets") do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -34,8 +33,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @dataverse_datasets.delete
+      cleanup_jetty
     end
 
     it "dataverse item should be migrated and expect original creator order" do
@@ -64,7 +62,7 @@ describe "Migration rake tasks", type: :task do
         c.publisher = ['publisher']
         c.save
       end
-      Collection.delete_all
+      cleanup_jetty
       @dataverse_datasets = Collection.new(title: "Dataverse Datasets") do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -80,7 +78,7 @@ describe "Migration rake tasks", type: :task do
 
     end
     after(:each) do
-      @new_file.delete
+      cleanup_jetty
     end
 
     it "should add all metadata and not cre    Rake.application.rake_require 'tasks/migration'

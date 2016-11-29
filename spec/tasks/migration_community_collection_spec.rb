@@ -16,7 +16,7 @@ describe "Migration rake tasks era_collection_community", type: :task do
     end
 
     after(:each) do
-      @community.delete
+      cleanup_jetty
     end
 
     it "community should be migrated" do
@@ -45,7 +45,7 @@ describe "Migration rake tasks era_collection_community", type: :task do
     end
 
     after(:each) do
-      @collection.delete
+      cleanup_jetty
     end
 
     it "collection should be migrated" do

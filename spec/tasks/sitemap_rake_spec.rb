@@ -51,8 +51,7 @@ describe "sitemap:generate", type: :task do
   end
 
   after(:all) do
-    GenericFile.delete_all
-    Collection.delete_all
+    cleanup_jetty
     Timecop.return
   end
 

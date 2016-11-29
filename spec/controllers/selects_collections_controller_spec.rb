@@ -12,26 +12,27 @@ end
 describe SelectsCollectionsController, :type => :controller do
 
   let(:user){ FactoryGirl.create(:jill) }
+  let(:other_user) { FactoryGirl.create(:alice) }
 
   describe "Select Communities" do
-    before :all do
-      Collection.delete_all
-      @community = Collection.new title: "Test Public Community" do |c|
-        c.apply_depositor_metadata('user_one@example.com')
+    before :each do
+      cleanup_jetty
+      @community = Collection.new(title: "Test Public Community") do |c|
+        c.apply_depositor_metadata(other_user)
         c.is_community = true
         c.is_official = true
-        c.edit_users = ['user_two@example.com', 'user_one@example.com']
+        c.edit_users = [user, other_user]
         c.save
       end
-      @collection = Collection.new title: "Test Public Collection" do |c|
-        c.apply_depositor_metadata('user_one@example.com')
-        c.edit_users = ['user_two@example.com', 'user_one@example.com']
+      @collection = Collection.new(title: "Test Public Collection") do |c|
+        c.apply_depositor_metadata(other_user)
+        c.edit_users = [user, other_user]
         c.is_official = true
         c.save
       end
-      @no_edit_community = Collection.new title: "Test No Edit Community" do |c|
-        c.apply_depositor_metadata('user_one@example.com')
-        c.edit_users = ['user_one@example.com']
+      @no_edit_community = Collection.new(title: "Test No Edit Community") do |c|
+        c.apply_depositor_metadata(other_user)
+        c.edit_users = [other_user]
         c.is_community = true
         c.is_official = true
         c.is_admin_set = true
@@ -41,7 +42,7 @@ describe SelectsCollectionsController, :type => :controller do
 
 
     after :all do
-      Collection.delete_all
+      cleanup_jetty
     end
 
 

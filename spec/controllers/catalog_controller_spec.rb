@@ -18,20 +18,20 @@ describe CatalogController, type: :controller do
   end
 
   before :all do
-    GenericFile.delete_all
+    cleanup_jetty
 
-    @gf1 = GenericFile.create(title: ['Test Document PDF'], filename: ['test.pdf'], creator: ['Contrib2'], read_groups:['public']) do |f|
+    @gf1 = GenericFile.new(title: ['Test Document PDF'], filename: ['test.pdf'], creator: ['Contrib2'], read_groups:['public']) do |f|
       f.apply_depositor_metadata('qw1')
       f.save
     end
 
 
-    GenericFile.create(title: ['Test 2 Document'], filename: ['test2.doc'], contributor: ['Contrib2'], read_groups:['public']) do |f|
+    GenericFile.new(title: ['Test 2 Document'], filename: ['test2.doc'], contributor: ['Contrib2'], read_groups:['public']) do |f|
       f.apply_depositor_metadata('qw1')
       f.save
     end
 
-    GenericFile.create do |f|
+    GenericFile.new do |f|
       f.title = ['titletitle']
       f.filename = ['filename.filename']
       f.date_created = '1900/12/31'
@@ -55,7 +55,7 @@ describe CatalogController, type: :controller do
   end
 
   after :all do
-    GenericFile.delete_all
+    cleanup_jetty
   end
 
   describe "#catalog" do

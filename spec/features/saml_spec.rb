@@ -4,8 +4,6 @@ describe 'SAML' do
 
   it { expect { visit '/users/sign_in' }.to_not raise_error }
 
-  after { cleanup_jetty }
-
   describe 'Users with no existing account' do
     before do
       OmniAuth.config.test_mode = true
@@ -38,11 +36,7 @@ describe 'SAML' do
   end
 
   describe 'Users with existing legacy accounts' do
-    let!(:user) { FactoryGirl.create :user }
-    after :each do
-      cleanup_jetty
-      User.destroy_all
-    end
+    let(:user) { FactoryGirl.create :user }
     before(:each) { ActionMailer::Base.deliveries.clear }
 
     context 'whose CCID and legacy address are identical' do
@@ -119,6 +113,7 @@ describe 'SAML' do
       end
 
       it 'should not be prompted to confirm their email addresses when linking a CCID' do
+        pending 'FIXME! Useless test, clicking on link below has nothing to do with email queue?'
         sign_in_with_legacy_credentials(user)
         visit sufia.edit_profile_path(user)
         click_link 'Link CCID credentials to account'
@@ -128,14 +123,7 @@ describe 'SAML' do
   end
 
   describe 'Users with confirmed CCID accounts' do
-    let!(:user) { FactoryGirl.create :user, email: emailize_uid(OmniAuth.config.mock_auth[:shibboleth][:uid]), ccid: OmniAuth.config.mock_auth[:shibboleth][:uid] }
-    after :each do
-      cleanup_jetty
-    end
-
-    after :all do
-      User.destroy_all
-    end
+    let(:user) { FactoryGirl.create :user, email: emailize_uid(OmniAuth.config.mock_auth[:shibboleth][:uid]), ccid: OmniAuth.config.mock_auth[:shibboleth][:uid] }
 
     it 'should not be prompted to link account' do
       pending 'admin currently is sent to /dasboard/files pending #1233'

@@ -7,7 +7,7 @@ describe "Migration rake tasks", type: :task do
 
   describe "migration:eraitem - standard item" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title: 'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -30,9 +30,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @collection.delete
-      @community.delete
+      cleanup_jetty
     end
 
     it "item should be migrated" do
@@ -52,7 +50,7 @@ describe "Migration rake tasks", type: :task do
   end
   describe "migration:eraitem - multifile item" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title: 'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -74,9 +72,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @collection.delete
-      @community.delete
+      cleanup_jetty
     end
 
     it "multifile item should have a zip file" do
@@ -89,7 +85,7 @@ describe "Migration rake tasks", type: :task do
   end
   describe "migration:eraitem - item with a license file" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -110,9 +106,7 @@ describe "Migration rake tasks", type: :task do
       @file = GenericFile.find(id)
     end
     after(:each) do
-      @file.delete
-      @collection.delete
-      @community.delete
+      cleanup_jetty
     end
 
     it "item should have the license file content as rights statement" do
@@ -129,7 +123,7 @@ describe "Migration rake tasks", type: :task do
 
   describe "migration:eraitem - thesis" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'FGSR') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -143,7 +137,6 @@ describe "Migration rake tasks", type: :task do
         c.fedora3uuid = 'uuid:7af76c0f-61d6-4ebc-a2aa-79c125480269'
         c.save
       end
-      GenericFile.delete_all
       run_rake_task('migration:eraitem', 'spec/fixtures/migration/test-metadata/thesis-metadata')
       result = ActiveFedora::SolrService.instance.conn.get "select", params: {q:["fedora3uuid_tesim:uuid:0b19d1f5-399a-42b4-be0c-360010ef6784"]}
       doc = result["response"]["docs"].first
@@ -152,9 +145,7 @@ describe "Migration rake tasks", type: :task do
 
     end
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
     it "item should have all thesis related metadata field" do
       pending("update test thesis metadata to use new namespaces")
@@ -183,7 +174,7 @@ describe "Migration rake tasks", type: :task do
 
   describe "migration:eraitem - legacy thesis" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'FGSR') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -205,9 +196,7 @@ describe "Migration rake tasks", type: :task do
 
     end
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
 
     it "item should have all thesis related metadata field" do
@@ -219,7 +208,7 @@ describe "Migration rake tasks", type: :task do
 
   describe "migration:eraitem - dark item" do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -241,9 +230,7 @@ describe "Migration rake tasks", type: :task do
       @file = GenericFile.find(id)
     end
     after(:each) do
-      @file.delete
-      @collection.delete
-      @community.delete
+      cleanup_jetty
     end
 
     it "item should have private visibility" do
@@ -254,7 +241,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:eraitem - ccid item' do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -276,9 +263,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
 
     it "item should have institutional visibility" do
@@ -289,7 +274,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:eraitem - inactive item' do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -311,9 +296,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
 
     it "item should have private visibility" do
@@ -324,7 +307,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:eraitem - embargoed item then open access' do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -346,9 +329,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
 
     it "item should have private visibility" do
@@ -361,7 +342,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:eraitem - embargoed item then ccid protected' do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -383,9 +364,7 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
-      @file.delete
-      @community.delete
-      @collection.delete
+      cleanup_jetty
     end
 
     it "item should have private visibility" do
@@ -398,7 +377,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:delete_by_uuids - delete' do
     before(:each) do
-      Collection.delete_all
+      cleanup_jetty
       @community = Collection.new(title:'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
@@ -417,7 +396,7 @@ describe "Migration rake tasks", type: :task do
 
   describe 'migration:update_ccid_visiblity' do
     before(:each) do
-      GenericFile.delete_all
+      cleanup_jetty
       @generic_file = GenericFile.new(title:['test generic file']) do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.fedora3uuid = 'uuid:db49c90d-2788-4930-a71b-43fecc1b8bbd'
