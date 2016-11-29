@@ -60,7 +60,8 @@ group :development, :test do
   gem "rspec-rails"
   gem "ruby-debug-passenger"
   gem "selenium-webdriver"
-  gem "jettywrapper"
+  gem "jettywrapper", require: false
+  gem "fcrepo_wrapper", require: false
   gem "capybara"
   gem "poltergeist", "~> 1.5"
   gem "factory_girl_rails"

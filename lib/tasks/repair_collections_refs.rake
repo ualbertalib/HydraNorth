@@ -3,10 +3,10 @@ namespace :hydranorth do
   
   task :repair_collections_refs => :environment do
     GenericFile.all.each do |file|
-      response, xml = Hydranorth::RawFedora.get(file.id, 'fcr:export', format: 'jcr/xml')
+      response, xml = Hydranorth::RawFedora.get(file.id)
       next unless response == 200
       
-      unless xml.xpath('//sv:property[@sv:name="ns002:hasCollection_ref"]').empty?
+      unless xml.xpath('//ns002:hasCollection_ref').empty?
         c = Collection.find(file.hasCollectionId.first)
         
         # removing and re-adding the file should replace the file's collection_ref

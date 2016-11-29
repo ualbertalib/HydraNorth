@@ -7,6 +7,11 @@ then
   bundle exec rake jetty:clean
   bundle exec rake sufia:jetty:config
   bundle exec rake jetty:start
+
+  bundle exec rake fcrepo:stop
+  bundle exec rake fcrepo:clean
+  bundle exec rake fcrepo:start
+
   redis-cli flushall
   # wait for jetty to be available on port 8983
   sleep 30

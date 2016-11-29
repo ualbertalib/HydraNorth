@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+  <property name="FCREPO_LOG_PATH" value="log/fcrepo${logfile.extension:-.log}"/>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${FCREPO_LOG_PATH}</file>
+    <encoder>
+      <pattern>%d{dd-MMM HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</pattern>
+    </encoder>
+ 
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <maxIndex>5</maxIndex>
+      <minIndex>1</minIndex>
+      <fileNamePattern>${FCREPO_LOG_PATH}.%i.gz</fileNamePattern>
+    </rollingPolicy>
+ 
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>20MB</maxFileSize>
+    </triggeringPolicy>
+  </appender>
+  
+  <logger name="org.fcrepo.auth" additivity="false" level="${log.fcrepo.auth:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.connector.file" additivity="false" level="${log.fcrepo.connector.file:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.http.api" additivity="false" level="${log.fcrepo.http.api:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.http.commons" additivity="false" level="${log.fcrepo.http.commons:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.jms" additivity="false" level="${log.fcrepo.jms:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.kernel" additivity="false" level="${log.fcrepo.kernel:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo.transform" additivity="false" level="${log.fcrepo.transform:-null}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.fcrepo" additivity="false" level="${log.fcrepo:-INFO}">
+    <appender-ref ref="FILE"/>
+  </logger>
+ 
+  <logger name="org.apache.activemq" additivity="false" level="WARN">
+    <appender-ref ref="FILE"/>
+  </logger>
+  
+  <root additivity="false" level="WARN">
+    <appender-ref ref="FILE"/>
+  </root>
+</configuration>

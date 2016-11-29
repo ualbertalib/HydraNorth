@@ -215,6 +215,8 @@ GEM
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
+    fcrepo_wrapper (0.7.0)
+      ruby-progressbar
     ffi (1.9.10)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
@@ -559,6 +561,7 @@ GEM
       oauth2
     ruby-debug-passenger (0.2.0)
     ruby-prof (0.15.9)
+    ruby-progressbar (1.8.1)
     ruby-rc4 (0.1.5)
     ruby2ruby (2.2.0)
       ruby_parser (~> 3.1)
@@ -727,6 +730,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   factory_girl_rails
+  fcrepo_wrapper
   google-api-client (~> 0.7.1)
   jbuilder (~> 2.0)
   jettywrapper

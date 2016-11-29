@@ -92,7 +92,7 @@ describe Collection do
 
   it "should not insert a hasCollection_ref instead of hasCollection" do
     subject.add_member_ids [file.id]
-    response_code, xml = Hydranorth::RawFedora.get(file.id, '/fcr:export', format: 'jcr/xml')
+    response_code, xml = Hydranorth::RawFedora.get(file.id)
 
     expect(response_code).to eq 200
 
@@ -101,9 +101,9 @@ describe Collection do
 
     namespace = namespace.gsub(/xmlns:/, '')
 
-    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|)).not_to be_empty
-    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection_ref"]|)).to be_empty
-    expect(xml.xpath(%Q|//sv:property[@sv:name="#{namespace}:hasCollection"]|).first.inner_text).to eq 'A title'
+    expect(xml.xpath(%Q|//#{namespace}:hasCollection|)).not_to be_empty
+    expect(xml.xpath(%Q|//#{namespace}:hasCollection_ref|)).to be_empty
+    expect(xml.xpath(%Q|//#{namespace}:hasCollection|).first.inner_text).to eq 'A title'
   end
 
 end

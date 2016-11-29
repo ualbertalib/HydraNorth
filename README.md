@@ -22,7 +22,7 @@ Dependencies:
  * clamav
 * backing store
  * Solr 4.10.3
- * Fedora 4.1 with authorization
+ * Fedora 4.7
  * MySQL
 
 To Install Application:
@@ -53,14 +53,17 @@ Relative to the application directory
 
 * **Application** ```log/<RAILS_ENV>.log```
 * **Jetty** ```jetty/jettywrapper.log```
-* **Solr/Fedora** ```jetty/logs```
+* **Solr** ```jetty/logs```
+* **Fedora** ```log/fcrepo.log```
 * **Resque** ```log/resque-pool.std[err|out].log```
 
 To Restart Components
 ---
 The shell script `bin/restart-all` runs these commands:
-* Jetty
+* Jetty/Solr
  * ```cd /var/www/sites/hydranorth && rake jetty:restart```
+* Fedora
+ * ```cd /var/www/sites/hydranorth && rake fcrepo:restart```
 * Resque/Redis
  * ```service resque-pool restart```
 * Rails/Passenger/Httpd
@@ -69,13 +72,19 @@ The shell script `bin/restart-all` runs these commands:
 To Reset Components
 ---
 The shell script `bin/reset-all` runs these commands:
- * Jetty
+ * Jetty/Solr
 
 ```
   rake jetty:stop
   rake jetty:clean
   rake sufia:jetty:config
   rake jetty:start
+```
+ * Fedora
+```
+  rake fcrepo:stop
+  rake fcrepo:clean
+  rake fcrepo:start
 ```
  * Resque/Redis
 ```

@@ -1,0 +1,7 @@
+port: 8984
+enable_jms: false
+fcrepo_home_dir: tmp/fcrepo4-development-data
+version: 4.7.0
+verbose: true
+java_options:
+ - "-Dlogback.configurationFile=fedora_conf/logback.xml"

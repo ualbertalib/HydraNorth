@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /var/www/sites/hydranorth && rake jetty:restart
+cd /var/www/sites/hydranorth && rake fcrepo:restart
 # kill old resque workers
 kill -9  `ps aux | grep [r]esque | grep -v grep | cut -c 10-16`
 service resque-pool start
