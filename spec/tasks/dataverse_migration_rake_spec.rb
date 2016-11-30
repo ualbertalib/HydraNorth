@@ -81,8 +81,7 @@ describe "Migration rake tasks", type: :task do
       cleanup_jetty
     end
 
-    it "should add all metadata and not cre    Rake.application.rake_require 'tasks/migration'
-ate new record" do
+    it "should add all metadata and not create new record" do
       expect(@numFound).to eq(1)
       expect(@file.publisher).to include("U of Alberta, Department of Biological Sciences")
       expect(@file.title).to include("Open Genetics Lectures (OGL) Fall 2015 - Individual Chapters in .docx format")
