@@ -4,7 +4,8 @@
 <div id="show_actions">
   <h2 class="non lower">Share</h2>
   <% if @generic_file.doi_permanent_url.present? %>
-    <p><%= link_to "Permanent link (DOI): #{@generic_file.doi_permanent_url}", @generic_file.doi_permanent_url %></p>
+    <p>Permanent link (DOI): <%= link_to @generic_file.doi_permanent_url,
+				 @generic_file.doi_permanent_url %></p>
   <% end %>
   <p>
     <%= render_download_link(@generic_file) %>
