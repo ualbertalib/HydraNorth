@@ -28,25 +28,44 @@ module Hydranorth
 
     def create
       if @generic_file.doi_fields_present? && @generic_file.unminted? && !@generic_file.private?
-        ezid_identifer = Ezid::Identifier.mint(Ezid::Client.config.default_shoulder, doi_metadata)
-        if ezid_identifer.present?
-          @generic_file.doi = ezid_identifer.id
-          @generic_file.synced!
-          ezid_identifer
+        begin
+          ezid_identifer = Ezid::Identifier.mint(Ezid::Client.config.default_shoulder, doi_metadata)
+          if ezid_identifer.present?
+            @generic_file.doi = ezid_identifer.id
+            @generic_file.synced!
+            ezid_identifer
+          end
+        rescue Exception => e
+          # EZID API call has failed so roll back to previous state change
+          @generic_file.skip_handle_doi_states = true
+          @generic_file.unpublish!
+
+          raise e
         end
       end
     end
 
     def update
-      if @generic_file.doi_fields_present? && @generic_file.unsynced?
-        ezid_identifer = Ezid::Identifier.modify(@generic_file.doi, doi_metadata)
-        if ezid_identifer.present?
-          if @generic_file.private?
-            @generic_file.unpublish!
-          else
-            @generic_file.synced!
+      if @generic_file.doi_fields_present? && @generic_file.awaiting_update?
+        begin
+          ezid_identifer = Ezid::Identifier.modify(@generic_file.doi, doi_metadata)
+          if ezid_identifer.present?
+            if @generic_file.private?
+              @generic_file.unpublish!
+            else
+              @generic_file.synced!
+            end
+            ezid_identifer
           end
-          ezid_identifer
+        rescue Exception => e
+          # EZID API call has failed so roll back to previous state change
+          @generic_file.skip_handle_doi_states = true
+          if @generic_file.private?
+            @generic_file.synced!
+          else
+            @generic_file.unpublish!
+          end
+          raise e
         end
       end
     end

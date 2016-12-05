@@ -9,7 +9,7 @@ describe 'edit file', :type => :feature do
       f.creator = ['little_file.txt_creator']
       f.resource_type = ["Thesis" ]
       f.read_groups = ['public']
-      f.aasm_state = 'unminted'
+      f.aasm_state = 'excluded'
       f.apply_depositor_metadata(user.user_key)
       f.save!
     end

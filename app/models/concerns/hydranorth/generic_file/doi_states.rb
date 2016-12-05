@@ -7,33 +7,35 @@ module Hydranorth
         after_save :handle_doi_states
         before_destroy :withdraw_doi
 
+        attr_accessor :skip_handle_doi_states
+
         include AASM
 
         aasm do
-          state :unpublished, initial: true
+          state :not_available, initial: true
           state :unminted
           state :excluded
           state :available
-          state :unsynced
+          state :awaiting_update
 
           event :created, after: :queue_create_job do
-            transitions from: :unpublished, to: :unminted
+            transitions from: :not_available, to: :unminted
           end
 
           event :removed do
-            transitions from: :unpublished, to: :excluded
+            transitions from: :not_available, to: :excluded
           end
 
           event :unpublish do
-            transitions from: [:excluded, :unsynced], to: :unpublished
+            transitions from: [:excluded, :awaiting_update, :unminted], to: :not_available
           end
 
           event :synced do
-            transitions from: [:unminted, :unsynced], to: :available
+            transitions from: [:unminted, :awaiting_update], to: :available
           end
 
           event :altered, after: :queue_update_job do
-            transitions from: [:available, :unpublished], to: :unsynced
+            transitions from: [:available, :not_available], to: :awaiting_update
           end
         end
 
@@ -54,16 +56,23 @@ module Hydranorth
         end
 
         def handle_doi_states
-          return unless doi_fields_present?
-          # TODO: handle unminted/unsynced states?
-          if doi.blank? # Never been minted before
-            created!(id) if !private? && unpublished?
-          else
-            # If private, we only care if visibility has been made public
-            # If public, we care if visibility changed to private or doi fields have been changed
-            if (unpublished? && transitioned_from_private?) || (available? && (doi_fields_changed? || transitioned_to_private?))
-              altered!(id)
+          if skip_handle_doi_states.blank?
+            return if !doi_fields_present?
+
+            if doi.blank? # Never been minted before
+              if !private? && not_available?
+                created!(id)
+              end
+            else
+              # If private, we only care if visibility has been made public
+              # If public, we care if visibility changed to private or doi fields have been changed
+              if (not_available? && transitioned_from_private?) ||
+                (available? && (doi_fields_changed? || transitioned_to_private?))
+                altered!(id)
+              end
             end
+          else
+            self.skip_handle_doi_states = false
           end
         end
 
