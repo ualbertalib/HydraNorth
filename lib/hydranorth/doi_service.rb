@@ -35,8 +35,12 @@ module Hydranorth
             @generic_file.synced!
             ezid_identifer
           end
+        # EZID API call has probably failed so let's roll back to previous state change
         rescue Exception => e
-          # EZID API call has failed so roll back to previous state change
+          # Skip the next handle_doi_states after_save callback and roll back
+          # the state to it's previous value. By skipping the callback we can prevent
+          # it temporarily from queueing another job. As this could make it end up
+          # right back here again resulting in an infinite loop.
           @generic_file.skip_handle_doi_states = true
           @generic_file.unpublish!
 
@@ -57,8 +61,12 @@ module Hydranorth
             end
             ezid_identifer
           end
+        # EZID API call has failed so roll back to previous state change
         rescue Exception => e
-          # EZID API call has failed so roll back to previous state change
+          # Skip the next handle_doi_states after_save callback and roll back
+          # the state to it's previous value. By skipping the callback we can prevent
+          # it temporarily from queueing another job. As this could make it end up
+          # right back here again resulting in an infinite loop.
           @generic_file.skip_handle_doi_states = true
           if @generic_file.private?
             @generic_file.synced!

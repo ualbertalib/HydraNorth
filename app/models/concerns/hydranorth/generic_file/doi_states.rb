@@ -56,6 +56,10 @@ module Hydranorth
         end
 
         def handle_doi_states
+          # ActiveFedora doesn't have skip_callbacks built in? So handle this ourselves.
+          # Allow this logic to be skipped if skip_handle_doi_states is set.
+          # This is mainly used so we can rollback the state when a job fails and
+          # we do not wish to rerun all this logic again which would queue up the same job again
           if skip_handle_doi_states.blank?
             return if !doi_fields_present?
 
@@ -72,6 +76,7 @@ module Hydranorth
               end
             end
           else
+            # Return it back to false, so callback can run on the next save
             self.skip_handle_doi_states = false
           end
         end
