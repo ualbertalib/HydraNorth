@@ -162,7 +162,7 @@ class CatalogController < ApplicationController
       end
 
       config.add_search_field('author', label: 'Author', include_in_advanced_search: true) do |field|
-        field.solr_parameters = { :"spellcheck.dictionary" => "contributor", :"spellcheck.dictionary" => "creator" }
+        field.solr_parameters = { :"spellcheck.dictionary" => "creator" }
         field_included = [Solrizer.solr_name("contributor", :stored_searchable), Solrizer.solr_name("creator", :stored_searchable)].join(" ")
         field.solr_parameters = {
           qf: field_included,
@@ -195,7 +195,7 @@ class CatalogController < ApplicationController
 
       config.add_search_field('date') do |field|
         field.label = "Date"
-        field.solr_parameters = { :"spellcheck.dictionary" => "date_accepted", :"spellcheck.dictionary" => "date_created" }
+        field.solr_parameters = { :"spellcheck.dictionary" => "date_created" }
         field_included = [Solrizer.solr_name("date_created", :stored_searchable), Solrizer.solr_name("date_accepted", :stored_searchable)].join(" ")
         field.solr_local_parameters = {
           qf: field_included,
@@ -205,8 +205,6 @@ class CatalogController < ApplicationController
 
       config.add_search_field('allsubject', label: 'Subject', include_in_advanced_search: true) do |field|
         field.solr_parameters = {
-          :"spellcheck.dictionary" => "subject",
-          :"spellcheck.dictionary" => "temporal",
           :"spellcheck.dictionary" => "spatial"
         }
         field_included = [Solrizer.solr_name("subject", :stored_searchable), Solrizer.solr_name("spatial", :stored_searchable), Solrizer.solr_name("temporal", :stored_searchable)].join(" ")

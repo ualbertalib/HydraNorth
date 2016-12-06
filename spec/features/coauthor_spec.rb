@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'coauthor', :type => :feature, :js => true do
+describe 'coauthor', :type => :feature, js: true do
 
-  let(:abby) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:abby) { FactoryGirl.create :user_with_fixtures }
   let(:barbara) { FactoryGirl.create :dit, display_name: 'dit.application.test' }
   let!(:file) do
     GenericFile.new.tap do |f|
@@ -20,8 +20,8 @@ describe 'coauthor', :type => :feature, :js => true do
   end
 
   context 'abby shares work' do
-    before do 
-      sign_in abby 
+    before do
+      sign_in abby
       visit "/dashboard/files"
       within("#document_#{file.id}") do
         click_button "Select an action"
@@ -34,7 +34,7 @@ describe 'coauthor', :type => :feature, :js => true do
       share_work_with barbara
     end
     it '@ not included' do
-      new_user_skel barbara.display_name 
+      new_user_skel barbara.display_name
       share_work_with barbara
     end
     it 'but not a user' do
@@ -44,7 +44,7 @@ describe 'coauthor', :type => :feature, :js => true do
       end
       expect(page).to have_content( "No matches found" )
     end
-  
+
     it 'barbara can edit and feature' do
       new_user_skel barbara.email
       share_work_with barbara
@@ -68,7 +68,7 @@ describe 'coauthor', :type => :feature, :js => true do
     end
   end
   def share_work_with user
-      expect(page).to have_content( user.email ) 
+      expect(page).to have_content( user.email )
       click_button "Save"
       click_link "Permissions"
       expect(page).to have_content( user.email )

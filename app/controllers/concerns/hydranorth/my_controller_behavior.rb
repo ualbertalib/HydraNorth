@@ -42,6 +42,7 @@ module Hydranorth
 
     protected
 
+    # TODO: show_only_files_with_access is deprecated in blacklight 6.0
     def show_only_files_with_access solr_parameters, user_parameters
       solr_parameters[:q] ||= []
       solr_parameters[:q] << "#{Solrizer.solr_name("depositor", :symbol)}:#{current_user.user_key} or (#{Solrizer.solr_name("read_access_person", :symbol)}:#{current_user.user_key}) or (#{Solrizer.solr_name("edit_access_person", :symbol)}:#{current_user.user_key})"

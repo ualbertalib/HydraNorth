@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 describe Hydranorth::GenericFile::Actor do
-  include ActionDispatch::TestProcess
-  
-  let(:user) { FactoryGirl.find_or_create(:user) }
-  let(:generic_file) { FactoryGirl.create(:generic_file) }
+  let(:user) { FactoryGirl.build(:user) }
+  let(:generic_file) { FactoryGirl.build(:generic_file) }
   let(:actor) { Hydranorth::GenericFile::Actor.new(generic_file, user, {}) }
-  let(:uploaded_file) { fixture_file_upload('/world.png','image/png') }
+  let(:uploaded_file) { ActionDispatch::TestProcess.fixture_file_upload('/world.png','image/png') }
 
   describe "#update_metadata" do
     it "should update year_created based on date_created" do

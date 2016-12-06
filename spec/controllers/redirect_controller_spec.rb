@@ -1,15 +1,11 @@
 require 'spec_helper'
-require 'rake'
-require 'fileutils'
 
 describe RedirectController, type: :controller do
-  routes { Rails.application.class.routes }
-
-  let(:user) { FactoryGirl.find_or_create(:user) }
+  let(:user) { FactoryGirl.build(:user) }
   let(:fedora3uuid1) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
 
   let!(:gf) do
-    GenericFile.create.tap do |f|
+    GenericFile.new do |f|
       f.fedora3uuid = fedora3uuid1
       f.label = "thisfile.pdf"
       f.apply_depositor_metadata user
@@ -20,7 +16,7 @@ describe RedirectController, type: :controller do
   describe "#item" do
     it "redirects to item page" do
       get :item, uuid: fedora3uuid1
-      expect(response).to redirect_to "http://test.host/files/#{gf.id}"
+      expect(response).to redirect_to generic_file_path(gf)
     end
     it "returns a 404 status code" do
       get :item, uuid: "xxx"
@@ -54,7 +50,7 @@ describe RedirectController, type: :controller do
   describe "#collection" do
     let(:fedora3uuid2) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
     let!(:collection) do
-      Collection.create(title: 'test collection').tap do |c|
+      Collection.new(title: 'test collection') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_official = true
         c.fedora3uuid = fedora3uuid2
@@ -78,7 +74,7 @@ describe RedirectController, type: :controller do
   describe "#collection (community)" do
     let(:fedora3uuid3) { "uuid:#{SecureRandom.hex 4}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 2}-#{SecureRandom.hex 6}" }
     let!(:community) do
-      Collection.create(title: 'test community').tap do |c|
+      Collection.new(title: 'test community') do |c|
         c.apply_depositor_metadata('dittest@ualberta.ca')
         c.is_community = true
         c.is_official = true
@@ -125,4 +121,3 @@ describe RedirectController, type: :controller do
     end
   end
 end
-

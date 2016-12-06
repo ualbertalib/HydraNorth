@@ -49,23 +49,22 @@ gem 'rest-client'
 gem 'noid', '~> 0.8'
 
 group :test do
-  gem "rspec-its"
+  gem "capybara"
+  gem "capybara-select2"
   gem "ci_reporter_rspec", require: false
-  gem "timecop"
+  gem "database_cleaner"
+  gem "poltergeist", "~> 1.5"
   gem "show_me_the_cookies"
+  gem "timecop"
 end
 
 group :development, :test do
   gem "byebug"
   gem "rspec-rails"
   gem "ruby-debug-passenger"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver" # used in spec-views (legacy?)
   gem "jettywrapper"
-  gem "capybara"
-  gem "poltergeist", "~> 1.5"
   gem "factory_girl_rails"
-  gem "database_cleaner"
-  gem "capybara-select2"
   gem 'brakeman', require: false
   gem "pry"
   gem "pry-remote"
@@ -76,4 +75,10 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'listen', '~> 3.0.5'
 end

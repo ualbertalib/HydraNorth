@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe 'collection', :type => :feature do
-  let(:admin) { FactoryGirl.find_or_create(:admin) }
-  let(:jill) { FactoryGirl.find_or_create(:jill) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:jill) { FactoryGirl.create(:jill) }
   let!(:collection) do
     Collection.create( title: 'Theses') do |c|
       c.apply_depositor_metadata(admin.user_key)
@@ -19,7 +19,7 @@ describe 'collection', :type => :feature do
     cleanup_jetty
   end
 
-  describe 'Add logo to community', :js => true do
+  describe 'Add logo to community' do
     let!(:community_logo) do
       Collection.create( title: 'Test Community') do |c|
         c.add_file(File.open(fixture_path + '/logo.jpg'), path: 'logo', original_name: 'logo.jpg', mime_type: 'image/jpg')
@@ -181,7 +181,7 @@ describe 'collection', :type => :feature do
   end
 
   describe 'total item count for a collection with 1 public item and 1 private item' do
-    let(:alice) { FactoryGirl.find_or_create(:alice) }
+    let(:alice) { FactoryGirl.create(:alice) }
 
     let!(:public_file) do
       GenericFile.create( title: ['Test Item'], read_groups: ['public'] ) do |g|
@@ -243,7 +243,7 @@ describe 'collection', :type => :feature do
     end
   end
 
-  describe 'show collection as admin', :js => true do
+  describe 'show collection as admin', js: true do
     before do
       sign_in admin
       visit '/dashboard/collections'
@@ -258,8 +258,7 @@ describe 'collection', :type => :feature do
       check "batch_document_#{collection.id}"
       click_button 'Add to Collection'
       expect(page).to have_content("Select the collection to add your files to:")
-      page.execute_script("document.getElementById('id_" + community.id + "').checked = true")
-      expect(find_field("id_#{community.id}")).to be_checked
+      choose "id_#{community.id}"
       click_button 'Update Collection'
       expect(page).to have_content("Collection was successfully updated.")
       expect(page).to have_content(collection.title)
@@ -287,15 +286,13 @@ describe 'collection', :type => :feature do
   it { expect { visit "/collections/#{collection.id}" }.to_not raise_error }
 
   describe 'paginate collections' do
-    let!(:collection_delete) do
+    before do
       (0..11).map do |x|
         Collection.create( title: "Title #{x}") do |c|
           c.apply_depositor_metadata(admin.user_key)
         end
       end
-    end
 
-    before do
       sign_in admin
       visit '/dashboard/collections'
     end
@@ -316,7 +313,7 @@ describe 'collection', :type => :feature do
     end
   end
 
-  describe 'delete items from collection', :js => true do
+  describe 'delete items from collection', js: true do
     let!(:collection_modify) do
       Collection.create( title: 'Test Collection') do |c|
         c.apply_depositor_metadata(admin.user_key)
@@ -475,7 +472,7 @@ describe 'collection', :type => :feature do
 
   end
 
-  describe 'modify collection and community', :js => true do
+  describe 'modify collection and community' do
     let!(:community) do
       Collection.create( title: 'Test Community') do |c|
         c.apply_depositor_metadata(jill.user_key)
@@ -491,8 +488,6 @@ describe 'collection', :type => :feature do
     end
 
     it "should set Official and Community flags" do
-      visit "/collections/#{community.id}/edit"
-
       expect(page).to have_content("Official")
       expect(page).to have_content("Community")
 
@@ -505,8 +500,6 @@ describe 'collection', :type => :feature do
     end
 
     it "should remove Official and Community flags" do
-      visit "/collections/#{community.id}/edit"
-
       uncheck('Official')
       uncheck('Community')
       click_button('Update Collection')

@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe CatalogController, type: :controller do
-  routes { Rails.application.class.routes }
-
   def solr_field name
     Solrizer.solr_name(name, :stored_searchable, type: :string)
   end
@@ -20,21 +18,20 @@ describe CatalogController, type: :controller do
   end
 
   before :all do
+    cleanup_jetty
 
-    GenericFile.create(title: ['Test Document PDF'], filename: ['test.pdf'], creator: ['Contrib2'], read_groups:['public']).tap do |f|
+    @gf1 = GenericFile.new(title: ['Test Document PDF'], filename: ['test.pdf'], creator: ['Contrib2'], read_groups:['public']) do |f|
       f.apply_depositor_metadata('qw1')
       f.save
-      @gf1 = f.id
     end
 
 
-    GenericFile.create(title: ['Test 2 Document'], filename: ['test2.doc'], contributor: ['Contrib2'], read_groups:['public']).tap do |f|
+    GenericFile.new(title: ['Test 2 Document'], filename: ['test2.doc'], contributor: ['Contrib2'], read_groups:['public']) do |f|
       f.apply_depositor_metadata('qw1')
       f.save
-      @gf2 = f.id
     end
 
-    GenericFile.create.tap do |f|
+    GenericFile.new do |f|
       f.title = ['titletitle']
       f.filename = ['filename.filename']
       f.date_created = '1900/12/31'
@@ -54,14 +51,11 @@ describe CatalogController, type: :controller do
       f.full_text.content = "full_textfull_text"
       f.apply_depositor_metadata('qw1')
       f.save
-      @gf3 = f.id
     end
   end
 
   after :all do
-    GenericFile.find(@gf1).delete
-    GenericFile.find(@gf2).delete
-    GenericFile.find(@gf3).delete
+    cleanup_jetty
   end
 
   describe "#catalog" do
@@ -75,7 +69,7 @@ describe CatalogController, type: :controller do
       end
 
       it 'should find a file by NOID' do
-        xhr :get, :index, q: @gf1
+        xhr :get, :index, q: @gf1.id
 
         expect(response).to be_success
         expect(response).to render_template('catalog/index')
@@ -206,12 +200,8 @@ describe CatalogController, type: :controller do
     end
 
     describe "year_created facet search" do
-
-      before do
-        xhr :get, :index, q: "{f=#{year_created_facet}}1900"
-      end
-
       it "should find facet files" do
+        xhr :get, :index, q: "{f=#{year_created_facet}}1900"
         expect(response).to be_success
         expect(response).to render_template('catalog/index')
         expect(assigns(:document_list).count).to eql(1)

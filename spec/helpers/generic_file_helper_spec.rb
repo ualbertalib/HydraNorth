@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'download link', :type => :feature do
+describe GenericFileHelper, type: :helper do
 
-  let(:user) { FactoryGirl.find_or_create :jill }
+  let(:user) { FactoryGirl.build :jill }
 
   after(:all) do
     GenericFile.destroy_all
@@ -10,8 +10,8 @@ describe 'download link', :type => :feature do
 
   describe 'when pass id to download_path' do
     let!(:gf) do
-      GenericFile.new.tap do |f|
-        f.label = 'myfile.txt' 
+      GenericFile.new do |f|
+        f.label = 'myfile.txt'
         f.apply_depositor_metadata user
         f.save!
       end

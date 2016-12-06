@@ -3,30 +3,30 @@ require 'spec_helper'
 require 'cancan/matchers'
 
 describe Ability, :type => :model do
-  let(:user) { FactoryGirl.find_or_create(:jill) }
-  let(:user2) { FactoryGirl.find_or_create(:dit)}
-  let (:file) do
-    GenericFile.new.tap do |gf|
+  let(:user) { FactoryGirl.create(:jill) }
+  let(:user2) { FactoryGirl.create(:alice)}
+  let(:file) do
+    GenericFile.new do |gf|
       gf.apply_depositor_metadata(user)
       gf.save!
     end
   end
-  let (:collection) do
-    Collection.new( title: "test collection").tap do |c|
+  let(:collection) do
+    Collection.new( title: "test collection") do |c|
       c.apply_depositor_metadata(user)
       c.save!
     end
   end
 
-  let (:personal_collection) do
-    Collection.new( title: "personal collection").tap do |c|
+  let(:personal_collection) do
+    Collection.new( title: "personal collection") do |c|
       c.apply_depositor_metadata(user)
       c.save!
     end
   end
 
-  let (:admin_collection) do
-    Collection.new( title: "admin collection").tap do |c|
+  let(:admin_collection) do
+    Collection.new( title: "admin collection") do |c|
       c.apply_depositor_metadata(user)
       c.is_official = true
       c.is_admin_set = true
@@ -35,15 +35,15 @@ describe Ability, :type => :model do
   end
 
 
-  let (:official_collection) do
-    Collection.new( title: "test collection").tap do |c|
+  let(:official_collection) do
+    Collection.new( title: "test collection") do |c|
       c.apply_depositor_metadata(user)
       c.is_official = true
       c.save!
     end
   end
-  let (:restricted_file) do
-    GenericFile.new.tap do |gf|
+  let(:restricted_file) do
+    GenericFile.new do |gf|
       gf.apply_depositor_metadata(user2)
       gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
       gf.save!
@@ -54,8 +54,8 @@ describe Ability, :type => :model do
     SolrDocument.new(solr_rsp['response']['docs'].first)
   end
 
-  let (:institutionally_restricted_file) do
-    GenericFile.new.tap do |gf|
+  let(:institutionally_restricted_file) do
+    GenericFile.new do |gf|
       gf.apply_depositor_metadata(user2)
       gf.visibility = Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA
       gf.save!
@@ -66,152 +66,142 @@ describe Ability, :type => :model do
     SolrDocument.new(solr_rsp['response']['docs'].first)
   end
 
-  after do
+  after(:all) do
     cleanup_jetty
   end
 
   describe "a user with no roles" do
-    let(:guest) { nil }
-    subject { Ability.new(guest) }
+    let(:guest_abilities) { Ability.new(nil) }
 
-    it { is_expected.not_to be_able_to(:create, GenericFile) }
-    it { is_expected.not_to be_able_to(:edit, file) }
-    it { is_expected.not_to be_able_to(:update, file) }
-    it { is_expected.not_to be_able_to(:destroy, file) }
+    it 'has proper permissions' do
+      expect(guest_abilities).not_to be_able_to(:create, GenericFile)
+      expect(guest_abilities).not_to be_able_to(:edit, file)
+      expect(guest_abilities).not_to be_able_to(:update, file)
+      expect(guest_abilities).not_to be_able_to(:destroy, file)
 
-    it { is_expected.not_to be_able_to(:create, Collection) }
-    it { is_expected.not_to be_able_to(:edit, collection) }
-    it { is_expected.not_to be_able_to(:update, collection) }
-    it { is_expected.not_to be_able_to(:destroy, collection) }
+      expect(guest_abilities).not_to be_able_to(:create, Collection)
+      expect(guest_abilities).not_to be_able_to(:edit, collection)
+      expect(guest_abilities).not_to be_able_to(:update, collection)
+      expect(guest_abilities).not_to be_able_to(:destroy, collection)
 
-    it { is_expected.not_to be_able_to(:create, TinymceAsset) }
-    it { is_expected.not_to be_able_to(:update, ContentBlock) }
+      expect(guest_abilities).not_to be_able_to(:create, TinymceAsset)
+      expect(guest_abilities).not_to be_able_to(:update, ContentBlock)
 
-    it {is_expected.not_to be_able_to(:download, restricted_file) }
-    it {is_expected.not_to be_able_to(:download, restricted_doc) }
-    it { is_expected.to be_able_to :read, institutionally_restricted_file}
-    it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
-    it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
+      expect(guest_abilities).not_to be_able_to(:download, restricted_file)
+      expect(guest_abilities).not_to be_able_to(:download, restricted_doc)
+      expect(guest_abilities).to be_able_to(:read, institutionally_restricted_file)
+      expect(guest_abilities).not_to be_able_to(:download, institutionally_restricted_file)
+      expect(guest_abilities).not_to be_able_to(:download, institutionally_restricted_doc)
+    end
   end
 
   describe "a registered user" do
-    subject { Ability.new(user) }
-    it { is_expected.to be_able_to(:create, GenericFile) }
-    it { is_expected.to be_able_to(:edit, file) }
-    it { is_expected.to be_able_to(:update, file) }
-    it { is_expected.not_to be_able_to(:destroy, file) }
+    let(:registered_abilities){ Ability.new(user) }
 
-    it { is_expected.not_to be_able_to(:create, Collection) }
-    it { is_expected.to be_able_to(:edit, collection) }
-    it { is_expected.to be_able_to(:update, collection) }
-    it { is_expected.not_to be_able_to(:destroy, collection) }
+    it 'has proper permissions' do
+      expect(registered_abilities).to be_able_to(:create, GenericFile)
+      expect(registered_abilities).to be_able_to(:edit, file)
+      expect(registered_abilities).to be_able_to(:update, file)
+      expect(registered_abilities).not_to be_able_to(:destroy, file)
 
-    it { is_expected.to be_able_to(:update, official_collection) }
-    it { is_expected.to be_able_to(:edit, official_collection) }
-    it { is_expected.not_to be_able_to(:destroy, official_collection) }
+      expect(registered_abilities).not_to be_able_to(:create, Collection)
+      expect(registered_abilities).to be_able_to(:edit, collection)
+      expect(registered_abilities).to be_able_to(:update, collection)
+      expect(registered_abilities).not_to be_able_to(:destroy, collection)
 
-    it { is_expected.not_to be_able_to(:update, admin_collection) }
-    it { is_expected.not_to be_able_to(:edit, admin_collection) }
-    it { is_expected.not_to be_able_to(:destroy, admin_collection) }
+      expect(registered_abilities).to be_able_to(:update, official_collection)
+      expect(registered_abilities).to be_able_to(:edit, official_collection)
+      expect(registered_abilities).not_to be_able_to(:destroy, official_collection)
 
-    it { is_expected.not_to be_able_to(:create, TinymceAsset) }
-    it { is_expected.not_to be_able_to(:update, ContentBlock) }
+      expect(registered_abilities).not_to be_able_to(:update, admin_collection)
+      expect(registered_abilities).not_to be_able_to(:edit, admin_collection)
+      expect(registered_abilities).not_to be_able_to(:destroy, admin_collection)
 
-    it {is_expected.to be_able_to(:download, restricted_file) }
-    it {is_expected.to be_able_to(:download, restricted_doc) }
-    it { is_expected.to be_able_to :read, institutionally_restricted_file}
-    it {is_expected.not_to be_able_to(:download, institutionally_restricted_file) }
-    it {is_expected.not_to be_able_to(:download, institutionally_restricted_doc) }
+      expect(registered_abilities).not_to be_able_to(:create, TinymceAsset)
+      expect(registered_abilities).not_to be_able_to(:update, ContentBlock)
+
+      expect(registered_abilities).to be_able_to(:download, restricted_file)
+      expect(registered_abilities).to be_able_to(:download, restricted_doc)
+      expect(registered_abilities).to be_able_to(:read, institutionally_restricted_file)
+      expect(registered_abilities).not_to be_able_to(:download, institutionally_restricted_file)
+      expect(registered_abilities).not_to be_able_to(:download, institutionally_restricted_doc)
+    end
+
   end
 
   describe 'a CCID authenticated user' do
-    let(:ccid_user) { FactoryGirl.find_or_create(:ccid) }
-    subject { Ability.new(ccid_user) }
+    let(:ccid_abilities) { Ability.new(FactoryGirl.create(:ccid)) }
 
-
-    it {is_expected.to be_able_to(:download, restricted_file) }
-    it {is_expected.to be_able_to(:download, restricted_doc) }
-    it { is_expected.to be_able_to :read, institutionally_restricted_file}
-    it { is_expected.to be_able_to(:download, institutionally_restricted_file) }
-    it { is_expected.to be_able_to(:download, institutionally_restricted_doc) }
+    it 'has proper permissions' do
+      expect(ccid_abilities).to be_able_to(:download, restricted_file)
+      expect(ccid_abilities).to be_able_to(:download, restricted_doc)
+      expect(ccid_abilities).to be_able_to(:read, institutionally_restricted_file)
+      expect(ccid_abilities).to be_able_to(:download, institutionally_restricted_file)
+      expect(ccid_abilities).to be_able_to(:download, institutionally_restricted_doc)
+    end
   end
 
   describe "a user in the admin group" do
-    let(:admin) { FactoryGirl.find_or_create(:admin) }
-    subject { Ability.new(admin) }
-    before { allow(user).to receive_messages(groups: ['admin', 'registered']) }
-    it { is_expected.to be_able_to(:create, GenericFile) }
-    it { is_expected.to be_able_to(:edit, file) }
-    it { is_expected.to be_able_to(:update, file) }
-    it { is_expected.to be_able_to(:destroy, file) }
+    let(:admin_abilities) { Ability.new(FactoryGirl.create(:admin)) }
 
-    it { is_expected.to be_able_to(:create, Collection) }
-    it { is_expected.to be_able_to(:edit, collection) }
-    it { is_expected.to be_able_to(:update, collection) }
-    it { is_expected.to be_able_to(:destroy, collection) }
+    it 'has proper permissions' do
+      expect(admin_abilities).to be_able_to(:create, GenericFile)
+      expect(admin_abilities).to be_able_to(:edit, file)
+      expect(admin_abilities).to be_able_to(:update, file)
+      expect(admin_abilities).to be_able_to(:destroy, file)
 
-    it { is_expected.to be_able_to(:create, User) }
-    it { is_expected.to be_able_to(:edit, user) }
-    it { is_expected.to be_able_to(:update, user) }
-    it { is_expected.to be_able_to(:destroy, user) }
+      expect(admin_abilities).to be_able_to(:create, Collection)
+      expect(admin_abilities).to be_able_to(:edit, collection)
+      expect(admin_abilities).to be_able_to(:update, collection)
+      expect(admin_abilities).to be_able_to(:destroy, collection)
 
-    it { is_expected.to be_able_to(:update, official_collection) }
-    it { is_expected.to be_able_to(:edit, official_collection) }
-    it { is_expected.to be_able_to(:destroy, official_collection) }
+      expect(admin_abilities).to be_able_to(:create, User)
+      expect(admin_abilities).to be_able_to(:edit, user)
+      expect(admin_abilities).to be_able_to(:update, user)
+      expect(admin_abilities).to be_able_to(:destroy, user)
 
-    it { is_expected.to be_able_to(:update, personal_collection) }
-    it { is_expected.to be_able_to(:edit, personal_collection) }
-    it { is_expected.to be_able_to(:destroy, personal_collection) }
+      expect(admin_abilities).to be_able_to(:update, official_collection)
+      expect(admin_abilities).to be_able_to(:edit, official_collection)
+      expect(admin_abilities).to be_able_to(:destroy, official_collection)
 
-    it { is_expected.to be_able_to(:update, admin_collection) }
-    it { is_expected.to be_able_to(:edit, admin_collection) }
-    it { is_expected.to be_able_to(:destroy, admin_collection) }
+      expect(admin_abilities).to be_able_to(:update, personal_collection)
+      expect(admin_abilities).to be_able_to(:edit, personal_collection)
+      expect(admin_abilities).to be_able_to(:destroy, personal_collection)
 
-    it { is_expected.to be_able_to(:create, TinymceAsset) }
-    it { is_expected.to be_able_to(:update, ContentBlock) }
+      expect(admin_abilities).to be_able_to(:update, admin_collection)
+      expect(admin_abilities).to be_able_to(:edit, admin_collection)
+      expect(admin_abilities).to be_able_to(:destroy, admin_collection)
 
-    it {is_expected.to be_able_to(:download, restricted_file) }
-    it {is_expected.to be_able_to(:download, restricted_doc) }
-    
-    it { is_expected.to be_able_to :read, institutionally_restricted_file}
-    it {is_expected.to be_able_to(:download, institutionally_restricted_file) }
-    it {is_expected.to be_able_to(:download, institutionally_restricted_doc) }
+      expect(admin_abilities).to be_able_to(:create, TinymceAsset)
+      expect(admin_abilities).to be_able_to(:update, ContentBlock)
 
+      expect(admin_abilities).to be_able_to(:download, restricted_file)
+      expect(admin_abilities).to be_able_to(:download, restricted_doc)
+
+      expect(admin_abilities).to be_able_to :read, institutionally_restricted_file
+      expect(admin_abilities).to be_able_to(:download, institutionally_restricted_file)
+      expect(admin_abilities).to be_able_to(:download, institutionally_restricted_doc)
+    end
   end
 
-  
+
  describe "a registered user that is not the owner of the collections" do
-    subject { Ability.new(user2) }
-    it { is_expected.not_to be_able_to(:create, Collection) }
-    it { is_expected.to be_able_to(:update, official_collection) }
-    it { is_expected.to be_able_to(:edit, official_collection) }
-    it { is_expected.not_to be_able_to(:destroy, official_collection) }
+    let(:non_owner) { Ability.new(user2) }
 
-    it { is_expected.not_to be_able_to(:update, personal_collection) }
-    it { is_expected.not_to be_able_to(:edit, personal_collection) }
-    it { is_expected.not_to be_able_to(:destroy, personal_collection) }
+    it 'has proper permissions' do
+      expect(non_owner).not_to be_able_to(:create, Collection)
+      expect(non_owner).to be_able_to(:update, official_collection)
+      expect(non_owner).to be_able_to(:edit, official_collection)
+      expect(non_owner).not_to be_able_to(:destroy, official_collection)
 
-    it { is_expected.not_to be_able_to(:update, admin_collection) }
-    it { is_expected.not_to be_able_to(:edit, admin_collection) }
-    it { is_expected.not_to be_able_to(:destroy, admin_collection) }
+      expect(non_owner).not_to be_able_to(:update, personal_collection)
+      expect(non_owner).not_to be_able_to(:edit, personal_collection)
+      expect(non_owner).not_to be_able_to(:destroy, personal_collection)
 
-  end
-
-  describe "a registered user that is not the owner of the collections" do
-    subject { Ability.new(user2) }
-    it { is_expected.not_to be_able_to(:create, Collection) }
-    it { is_expected.to be_able_to(:update, official_collection) }
-    it { is_expected.to be_able_to(:edit, official_collection) }
-    it { is_expected.not_to be_able_to(:destroy, official_collection) }
-
-    it { is_expected.not_to be_able_to(:update, personal_collection) }
-    it { is_expected.not_to be_able_to(:edit, personal_collection) }
-    it { is_expected.not_to be_able_to(:destroy, personal_collection) }
-
-    it { is_expected.not_to be_able_to(:update, admin_collection) }
-    it { is_expected.not_to be_able_to(:edit, admin_collection) }
-    it { is_expected.not_to be_able_to(:destroy, admin_collection) }
-
+      expect(non_owner).not_to be_able_to(:update, admin_collection)
+      expect(non_owner).not_to be_able_to(:edit, admin_collection)
+      expect(non_owner).not_to be_able_to(:destroy, admin_collection)
+    end
   end
 
 end

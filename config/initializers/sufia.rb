@@ -64,6 +64,7 @@ Sufia.config do |config|
     "Other" => "other",
   }
 
+  # TODO: This should be done better?
   # please run rake db:seed to create the collections and restart httpd.
   # The collection IDs will be added here
   # In production it assumes that the collections will be available in the system at the time of deposit
@@ -148,7 +149,6 @@ Sufia.config do |config|
     "Department of Oncology" => "Department of Oncology",
     "Department of Pharmacology" => "Department of Pharmacology",
     "Department of Philosophy" => "Department of Philosophy",
-    "Department of Physical Therapy" => "Department of Physical Therapy",
     "Department of Physical Therapy" => "Department of Physical Therapy",
     "Department of Physics" => "Department of Physics",
     "Department of Physiology" => "Department of Physiology",

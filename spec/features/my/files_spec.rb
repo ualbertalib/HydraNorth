@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'myfiles', :type => :feature do
 
   before do
-    GenericFile.destroy_all
+    cleanup_jetty
   end
- 
+
   let(:user) { FactoryGirl.create :archivist }
   let(:other_user) { FactoryGirl.create :user }
 
@@ -33,13 +33,13 @@ describe 'myfiles', :type => :feature do
   end
 
   describe 'User can edit and not edit' do
- 
+
     before do
       sign_in user
       visit "/dashboard/files"
       click_link "My Files"
     end
-    
+
     it 'user can edit' do
       within("#document_#{my_file.id}") do
         click_button("Select an action")
@@ -62,4 +62,4 @@ describe 'myfiles', :type => :feature do
     end
   end
 
-end       
+end

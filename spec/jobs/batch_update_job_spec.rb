@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BatchUpdateJob do
 
-  let(:user) { FactoryGirl.find_or_create(:jill) }
+  let(:user) { FactoryGirl.create(:jill) }
   let(:batch) { Batch.create }
 
   let!(:file) do

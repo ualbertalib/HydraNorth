@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-describe CollectionsController do
+describe CollectionsController, type: :controller do
+    routes { Hydra::Collections::Engine.routes }
 
-  routes { Hydra::Collections::Engine.routes }
   before do
     allow_any_instance_of(User).to receive(:groups).and_return([])
   end
 
-  let(:user) { FactoryGirl.find_or_create(:user) }
-  let(:dit)  { FactoryGirl.find_or_create(:dit) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:other_user)  { FactoryGirl.create(:alice) }
 
   describe 'facet limiting' do
     let(:collection) do
-      Collection.create(title: "Personal Collection") do |c|
+      Collection.new(title: "Personal Collection") do |c|
         c.apply_depositor_metadata(user)
         c.save
       end
@@ -28,14 +28,14 @@ describe CollectionsController do
 
   describe "#edit" do
     let(:collection) do
-      Collection.create(title: "Personal Collection") do |c|
+      Collection.new(title: "Personal Collection") do |c|
         c.apply_depositor_metadata(user)
         c.save
       end
     end
 
     let(:official_collection) do
-      Collection.create(title: "Official Collection that can be edited") do |c|
+      Collection.new(title: "Official Collection that can be edited") do |c|
         c.apply_depositor_metadata(user)
         c.is_official = true
         c.save
@@ -43,7 +43,7 @@ describe CollectionsController do
     end
 
     let(:admin_collection) do
-      Collection.create(title: "Official Collection -Admin set") do |c|
+      Collection.new(title: "Official Collection -Admin set") do |c|
         c.apply_depositor_metadata(user)
         c.is_official = true
         c.is_admin_set = true
@@ -52,7 +52,7 @@ describe CollectionsController do
     end
 
 
-    before { sign_in dit}
+    before { sign_in other_user }
     it "cannot edit other people's personal collection" do
       get :edit, id: collection
       expect(flash[:alert]).to eq "You do not have sufficient privileges to edit this document"
@@ -72,7 +72,7 @@ describe CollectionsController do
     before { sign_in user }
 
     let(:community) do
-       Collection.create(title: "Community Title") do |community|
+       Collection.new(title: "Community Title") do |community|
          community.apply_depositor_metadata(user.user_key)
          community.is_community = true
          community.is_official = true
@@ -80,14 +80,12 @@ describe CollectionsController do
        end
     end
 
-
     let(:collection) do
-      Collection.create(title: "Collection Title") do |collection|
+      Collection.new(title: "Collection Title") do |collection|
         collection.apply_depositor_metadata(user.user_key)
         collection.save
       end
     end
-
 
     context "a collections members" do
       before do

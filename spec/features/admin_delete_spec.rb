@@ -8,13 +8,14 @@ describe 'delete', :type => :feature do
   end
 
   context 'admin' do
-    let(:admin) { FactoryGirl.find_or_create :admin }
+    let(:admin) { FactoryGirl.create :admin }
     let!(:file) do
       init_file admin
     end
 
-    before do 
-      setup admin 
+    before do
+      sign_in admin
+      visit "/dashboard/files"
     end
 
     it "can delete" do
@@ -28,16 +29,17 @@ describe 'delete', :type => :feature do
       expect(page).to have_selector(:link_or_button, 'Delete Selected')
     end
 
-  end 
+  end
 
   context 'user' do
-    let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+    let(:user) { FactoryGirl.create :user_with_fixtures }
     let!(:file) do
       init_file user
     end
 
-    before do 
-      setup user
+    before do
+      sign_in user
+      visit "/dashboard/files"
     end
 
     it "can't delete" do
@@ -49,12 +51,7 @@ describe 'delete', :type => :feature do
       expect(page).to_not have_selector(:link_or_button, 'Delete Selected')
     end
 
-  end 
-end
-
-def setup(user)
-      sign_in user 
-      visit "/dashboard/files"
+  end
 end
 
 def select_delete(file)

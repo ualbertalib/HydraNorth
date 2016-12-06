@@ -1,13 +1,13 @@
 require 'spec_helper'
-require 'search_helper'
+require 'support/search_helper'
 
 describe 'download link', :type => :feature do
   include SearchHelper
 
-  let(:user) { FactoryGirl.find_or_create :jill }
+  let(:user) { FactoryGirl.create :jill }
 
   after(:all) do
-    GenericFile.destroy_all
+    cleanup_jetty
   end
 
   describe 'where item has doi identifier' do

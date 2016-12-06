@@ -4,7 +4,7 @@ include ::LinkUtils
 
 describe 'files with "I am required to use/link to a publishers license"', :type => :feature do
 
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
   let!(:file) do
     GenericFile.new.tap do |f|
       f.title = ['publisher_licensed_file.txt']

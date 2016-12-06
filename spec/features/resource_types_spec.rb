@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'Edit resource form', :type => :feature do
 
-  let(:user) { FactoryGirl.find_or_create :user_with_fixtures }
-  let(:admin) { FactoryGirl.find_or_create :admin }
+  let(:user) { FactoryGirl.create :user_with_fixtures }
+  let(:admin) { FactoryGirl.create :admin }
   let!(:file1) do
     GenericFile.new.tap do |f|
       f.title = ['little_file.txt']

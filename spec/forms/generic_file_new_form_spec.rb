@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe 'generic file new', :type => :feature do
-  let(:user) { FactoryGirl.find_or_create :user }
+  let(:user) { FactoryGirl.create :user }
   let!(:community1) do
     Collection.create( title: 'Community 1') do |c|
       c.apply_depositor_metadata(user.user_key)
