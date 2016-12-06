@@ -7,6 +7,9 @@ class Hydranorth::GenericFileIndexingService <  Sufia::GenericFileIndexingServic
         solr_doc[Solrizer.solr_name('creator')] = object.dissertant
         solr_doc[Solrizer.solr_name('description')] = object.abstract
       end
+      if object.doi.present?
+        Solrizer.insert_field(solr_doc, 'doi_without_label', object.doi.gsub('doi:', ''), :symbol)
+      end
       solr_doc[Solrizer.solr_name('doi_url')] = if object.identifier.first.present? && linkable?(object.identifier.first)
         object.identifier.first
       else
