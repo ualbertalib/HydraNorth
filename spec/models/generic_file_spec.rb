@@ -153,7 +153,8 @@ describe GenericFile, :type => :model do
       expect(local[Solrizer.solr_name("mime_type")]).to eq ["image/jpeg"]
       expect(local['all_text_timv']).to eq('abcxyz')
       expect(local[Solrizer.solr_name('belongsToCommunity')]).to eq [community.id]
-      expect(local[Solrizer.solr_name('doi')]).to eq ['doi:10.5072/FKEXAMPLE']
+      expect(local[Solrizer.solr_name('doi', :symbol)]).to eq ['doi:10.5072/FKEXAMPLE']
+      expect(local[Solrizer.solr_name('doi_without_label', :symbol)]).to eq ['10.5072/FKEXAMPLE']
       expect(local[Solrizer.solr_name('aasm_state')]).to eq ['available']
     end
   end
