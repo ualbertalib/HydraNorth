@@ -246,7 +246,7 @@ describe GenericFile, :type => :model do
       new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
       new_generic_file.save
       new_generic_file.reload
-      expect(new_generic_file.aasm_state).to eq('unpublished')
+      expect(new_generic_file.aasm_state).to eq('not_available')
       expect(enqueued_jobs.count).to eq(0)
     end
 
@@ -257,12 +257,21 @@ describe GenericFile, :type => :model do
       expect(enqueued_jobs.count).to eq(1)
     end
 
+    it 'should not mint a new file that is public if #skip_handle_doi_states is true' do
+      new_generic_file.skip_handle_doi_states = true
+      new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('not_available')
+      expect(new_generic_file.skip_handle_doi_states).to eq(false) # rollsback to false
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
     it 'should update doi when file is public and a changes to doi field happen' do
       generic_file.title = ['Diff Title']
       generic_file.save
 
       generic_file.reload
-      expect(generic_file.aasm_state).to eq('unsynced')
+      expect(generic_file.aasm_state).to eq('awaiting_update')
       expect(enqueued_jobs.count).to eq(1)
     end
 
@@ -289,24 +298,24 @@ describe GenericFile, :type => :model do
       generic_file.save
 
       generic_file.reload
-      expect(generic_file.aasm_state).to eq('unsynced')
+      expect(generic_file.aasm_state).to eq('awaiting_update')
       expect(enqueued_jobs.count).to eq(1)
     end
 
     it 'should update doi when file changes visibility from private to public' do
       new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
-      new_generic_file.aasm_state = 'unpublished'
+      new_generic_file.aasm_state = 'not_available'
       new_generic_file.doi = 'doi:10.5072/FKEXAMPLE'
       new_generic_file.save
 
       new_generic_file.reload
-      expect(new_generic_file.aasm_state).to eq('unpublished')
+      expect(new_generic_file.aasm_state).to eq('not_available')
       expect(enqueued_jobs.count).to eq(0)
 
       new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       new_generic_file.save
       new_generic_file.reload
-      expect(new_generic_file.aasm_state).to eq('unsynced')
+      expect(new_generic_file.aasm_state).to eq('awaiting_update')
       expect(enqueued_jobs.count).to eq(1)
     end
 

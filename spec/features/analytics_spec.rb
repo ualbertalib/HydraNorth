@@ -9,7 +9,7 @@ describe 'analytics', :type => :feature, :js => true do
       f.creator = ['little_file-1.txt_creator']
       f.resource_type = ["Thesis" ]
       f.read_groups = ['public']
-      f.aasm_state = 'unminted'
+      f.aasm_state = 'excluded'
       f.apply_depositor_metadata(user.user_key)
       f.add_file(File.open('lib/tasks/migration/stats/ga_stats.txt'), path: 'era1stats', original_name: 'ga_stats.txt', mime_type: 'text/xml')
       f.save!
@@ -22,7 +22,7 @@ describe 'analytics', :type => :feature, :js => true do
       f.creator = ['little_file-2.txt_creator']
       f.resource_type = ["Thesis" ]
       f.read_groups = ['public']
-      f.aasm_state = 'unminted'
+      f.aasm_state = 'excluded'
       f.apply_depositor_metadata(user.user_key)
       f.add_file(File.open('lib/tasks/migration/stats/ga_stats_2.txt'), path: 'era1stats', original_name: 'ga_stats_2.txt', mime_type: 'text/xml')
       f.save!

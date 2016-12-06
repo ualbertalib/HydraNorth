@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ezid.cdlib.org/shoulder/doi:10.5072/FK2
+    body:
+      encoding: UTF-8
+      string: |-
+        _status: public
+        _profile: datacite
+        datacite.creator: John Doe
+        datacite.publisher: University of Alberta Libraries
+        datacite.publicationyear: (:unav)
+        datacite.resourcetype: Text/Book
+        datacite.title: Test Title
+        _target: http://localhost:3000/files/0p096808h
+        _export: yes
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - ezid.cdlib.org
+      Content-Type:
+      - text/plain; charset=UTF-8
+      Authorization:
+      - Basic YXBpdGVhc2RzdDo=
+  response:
+    status:
+      code: 400
+      message: BAD REQUEST
+    headers:
+      Date:
+      - Mon, 05 Dec 2016 22:48:25 GMT
+      Server:
+      - Apache/2.2.17 (Unix) mod_ssl/2.2.17 OpenSSL/1.0.1k-fips mod_wsgi/4.4.9 Python/2.7.6
+      Content-Length:
+      - '38'
+      Vary:
+      - Accept-Language,Cookie
+      Content-Language:
+      - en
+      Connection:
+      - close
+      Content-Type:
+      - text/plain; charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: 'error: bad request - password required'
+    http_version: 
+  recorded_at: Mon, 05 Dec 2016 22:48:25 GMT
+recorded_with: VCR 3.0.3

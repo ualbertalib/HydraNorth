@@ -3,6 +3,7 @@
 # https://relishapp.com/vcr/vcr/docs
 # http://www.rubydoc.info/gems/vcr/frames
 require 'vcr'
+require 'webmock/rspec'
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/support/http_cache/vcr'
