@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GenericFile, :type => :model do
-
+    
   describe "attributes" do
     it "should have a fedora3 foxml datastream" do
       subject.add_file(File.open(fixture_path + '/foxml.xml'), path: 'fedora3foxml', original_name: 'foxml.xml')
@@ -36,6 +36,8 @@ describe GenericFile, :type => :model do
       expect(subject).to respond_to(:spatial)
       expect(subject).to respond_to(:is_version_of)
       expect(subject).to respond_to(:belongsToCommunity)
+      expect(subject).to respond_to(:doi)
+      expect(subject).to respond_to(:aasm_state)
     end
 
     it "#belongsToCommunity? should check if object belongs to any community" do
@@ -69,6 +71,7 @@ describe GenericFile, :type => :model do
   describe '#append_metadata', :integration => true do
 
     before  do
+      # TODO: Don't use a before each, use a let instead
       @myfile = GenericFile.new(id: SecureRandom.hex)
       @myfile.add_file(File.open(fixture_path + '/sufia/sufia_test4.pdf', 'rb').read, path: 'content', original_name: 'sufia_test4.pdf', mime_type: 'application/pdf')
       @myfile.apply_depositor_metadata('mjg36')
@@ -121,6 +124,8 @@ describe GenericFile, :type => :model do
       subject.fedora3uuid = "uuid:f18e0d92-9474-478d-b0e5-0b50c866dea3"
       subject.fedora3handle = "http://hdl.handle.net/10402/era.23258"
       subject.belongsToCommunity = [community.id]
+      subject.doi = 'doi:10.5072/FKEXAMPLE'
+      subject.aasm_state = 'available'
     end
 
     it "supports to_solr" do
@@ -149,6 +154,9 @@ describe GenericFile, :type => :model do
       expect(local[Solrizer.solr_name("mime_type")]).to eq ["image/jpeg"]
       expect(local['all_text_timv']).to eq('abcxyz')
       expect(local[Solrizer.solr_name('belongsToCommunity')]).to eq [community.id]
+      expect(local[Solrizer.solr_name('doi', :symbol)]).to eq ['doi:10.5072/FKEXAMPLE']
+      expect(local[Solrizer.solr_name('doi_without_label', :symbol)]).to eq ['10.5072/FKEXAMPLE']
+      expect(local[Solrizer.solr_name('aasm_state')]).to eq ['available']
     end
   end
 
@@ -203,6 +211,126 @@ describe GenericFile, :type => :model do
   describe 'visibility' do
     it 'should include institutional visibility' do
       expect(GenericFile.included_modules.include? Hydranorth::AccessControls::InstitutionalVisibility).to be true
+    end
+  end
+
+  describe 'callbacks for doi' do
+    include ActiveJob::TestHelper
+
+    let(:new_generic_file) do
+      # TODO this is coming from sufia's factories, fix this
+      FactoryGirl.build(:generic_file, title: ['Test Title'],
+                                        creator: ['John Doe'],
+                                        resource_type: ['Book']) do |gf|
+                                          gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+                                          gf.apply_depositor_metadata('ditest@example.com')
+                                        end
+    end
+
+    let(:generic_file) do
+      # TODO this is coming from sufia's factories, fix this
+      FactoryGirl.create(:generic_file, title: ['Test Title'],
+                                        creator: ['John Doe'],
+                                        resource_type: ['Book']) do |gf|
+                                          gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+                                          gf.apply_depositor_metadata('ditest@example.com')
+                                          gf.aasm_state = 'available'
+                                          gf.doi = 'doi:10.5072/FKEXAMPLE'
+                                        end
+    end
+
+    after(:each) do
+      clear_enqueued_jobs
+    end
+
+    it 'should not mint a new file that is private' do
+      new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('not_available')
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
+    it 'should mint a new file that is public' do
+      new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('unminted')
+      expect(enqueued_jobs.count).to eq(1)
+    end
+
+    it 'should not mint a new file that is public if #skip_handle_doi_states is true' do
+      new_generic_file.skip_handle_doi_states = true
+      new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('not_available')
+      expect(new_generic_file.skip_handle_doi_states).to eq(false) # rollsback to false
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
+    it 'should update doi when file is public and a changes to doi field happen' do
+      generic_file.title = ['Diff Title']
+      generic_file.save
+
+      generic_file.reload
+      expect(generic_file.aasm_state).to eq('awaiting_update')
+      expect(enqueued_jobs.count).to eq(1)
+    end
+
+    it 'should not update doi when file is public and changes to non doi fields happen' do
+      generic_file.language = 'Arabic'
+      generic_file.save
+
+      generic_file.reload
+      expect(generic_file.aasm_state).to eq('available')
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
+    it 'should not update doi when file changes visibility between public visibilities' do
+      generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
+      generic_file.save
+
+      generic_file.reload
+      expect(generic_file.aasm_state).to eq('available')
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
+    it 'should update doi when file changes visibility from public to private' do
+      generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      generic_file.save
+
+      generic_file.reload
+      expect(generic_file.aasm_state).to eq('awaiting_update')
+      expect(enqueued_jobs.count).to eq(1)
+    end
+
+    it 'should update doi when file changes visibility from private to public' do
+      new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      new_generic_file.aasm_state = 'not_available'
+      new_generic_file.doi = 'doi:10.5072/FKEXAMPLE'
+      new_generic_file.save
+
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('not_available')
+      expect(enqueued_jobs.count).to eq(0)
+
+      new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+      new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('awaiting_update')
+      expect(enqueued_jobs.count).to eq(1)
+    end
+
+    it 'should not withdraw doi if file has no doi and is destroyed' do
+      new_generic_file.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+      new_generic_file.save
+
+      new_generic_file.destroy
+      expect(enqueued_jobs.count).to eq(0)
+    end
+
+    it 'should withdraw doi if file has doi and  is destroyed' do
+      generic_file.destroy
+      expect(enqueued_jobs.count).to eq(1)
     end
   end
 

@@ -113,9 +113,9 @@ Batch ingest
 Ingest Dataverse Metadata
 ---
 
-- **migration:clean_up_withdrawn[old_dir,new_dir]**: compare the last ingest directory and the current ingest directory, detect and clean any study that has been withdrawn from Dataverse. 
+- **migration:clean_up_withdrawn[old_dir,new_dir]**: compare the last ingest directory and the current ingest directory, detect and clean any study that has been withdrawn from Dataverse.
   - **note: The Dataverse metadata export only includes current published studies, and doesn't include any information about withdrawn studies. Ingest directories are always named with timestamps.**
-- **migration:dataverse_objects[dir]**: ingest the metadata for dc term files in the given directory. It will create new objects for new studies, and update metadata for existing studies. 
+- **migration:dataverse_objects[dir]**: ingest the metadata for dc term files in the given directory. It will create new objects for new studies, and update metadata for existing studies.
   - use: ```rake migration:dataverse_objects['spec/fixtures/migration/test-metadata/dataverse/']```
 
 
@@ -157,3 +157,7 @@ A set of rake tasks is also added for index jobs:
 A shell script will update namespace uris
 * ```/bin/fix/fix.rb``` is to update all the namespace uris. Requires user to replace @server with the Fedora server location before using.
 * ```/bin/fix/run.sh``` is to run script through all the pairtree combinations. Requires being run from the bin/fix directory.
+
+EZID DOI Configuration
+---
+For hydranorth to successfully create and maintain DOI's you must configure the environmental variables for EZID's API. For more details on these environmental variables see the secrets file at:  `config/secrets.yml`. For non-production environments you can use the `apitest` test account provided by EZID by configuring it's password using the `EZID_PASSWORD` environment variable.

@@ -9,6 +9,7 @@ describe 'edit file', :type => :feature do
       f.creator = ['little_file.txt_creator']
       f.resource_type = ["Thesis" ]
       f.read_groups = ['public']
+      f.aasm_state = 'excluded'
       f.apply_depositor_metadata(user.user_key)
       f.save!
     end
@@ -18,8 +19,8 @@ describe 'edit file', :type => :feature do
     cleanup_jetty
   end
 
-  before do 
-    sign_in user 
+  before do
+    sign_in user
     visit "/dashboard/files"
     within("#document_#{file.id}") do
       click_button "Select an action"

@@ -14,12 +14,12 @@ Hydranorth::Application.configure do
   config.action_controller.perform_caching = false
 
   #devise config
-  config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { :host => 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 25 }
   ActionMailer::Base.default :from => 'hydranorth@mailinator.com'
 
-  #contact for config 
+  #contact for config
   config.contact_email = 'hydranorth@mailinator.com'
 
   # Print deprecation notices to the Rails logger.
@@ -35,3 +35,6 @@ Hydranorth::Application.configure do
 
   BetterErrors::Middleware.allow_ip! '192.168.0.1/16'
 end
+
+# Required when using Rails.application.routes.url_helpers from outside the request/response life cycle (models, jobs, lib)
+Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }

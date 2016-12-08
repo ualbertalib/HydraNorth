@@ -18,6 +18,8 @@ module Hydranorth
         date_created = attributes[:date_created]
         generic_file.year_created  = date_created[/(\d\d\d\d)/,0] unless date_created.nil? || date_created.blank?
 
+        # TODO Do this much smarter! If you just hit an update from the UI,
+        # all this logic runs even though nothing changes! Should be checking for a diff of the ID's?
         ['hasCollectionId', 'belongsToCommunity'].each do |attr|
           if attributes[attr].present?
             # remove from old collections

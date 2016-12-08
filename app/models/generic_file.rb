@@ -6,6 +6,7 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::GenericFile::Export
   include Hydranorth::GenericFile::Fedora3Foxml
   include Hydranorth::GenericFile::DOI
+  include Hydranorth::GenericFile::DOIStates
   include Hydranorth::GenericFile::Era1Stats
 
   # override the default indexer from Sufia

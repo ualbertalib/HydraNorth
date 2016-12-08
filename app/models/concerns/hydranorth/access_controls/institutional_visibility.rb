@@ -20,20 +20,52 @@ module Hydranorth
         alias_method_chain :embargo_visibility!, :institutions
 
         alias :institutional_access? :institutional_visibility?
+
+
+        # aliases for visibility lifecycle visibility
+        alias_method_chain :visibility_will_change!, :lifecycle_hooks
+
       end
 
-      def visibility_with_institutions=(value) 
+      def visibility_with_institutions=(value)
         return (self.visibility_without_institutions = value) unless INSTITUTIONAL_PROVIDERS.include? value
         return set_institutional_visibility!(value)
       end
+
+
+      # hooks for visibility lifecycle visibility
+      # TODO hoist these out into a separate module
+
+      def visibility_will_change_with_lifecycle_hooks!
+        @visibility_lifecycle_previous_state = visibility
+        visibility_will_change_without_lifecycle_hooks!
+      end
+
+      def previous_visibility
+        return @visibility_lifecycle_previous_state
+      end
+
+      def transitioned_from_private?
+        private_visibility_text =  Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+        return previous_visibility == private_visibility_text && visibility != private_visibility_text
+      end
+
+      def transitioned_to_private?
+        private_visibility_text = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+        return previous_visibility != private_visibility_text && visibility == private_visibility_text
+      end
+
+      # end visibility lifecycle hooks
 
       def institutional_visibility?
         (read_groups & INSTITUTIONAL_PROVIDERS).present?
       end
 
+
       private
 
       def set_institutional_visibility!(institution)
+        visibility_will_change!
         # institutional visibility is a subset of public visibility
         public_visibility!
         set_read_groups([institution],[])

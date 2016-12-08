@@ -145,6 +145,8 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("ser", :stored_searchable), label: "Structural Engineering Report ID"
     config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
     config.add_show_field solr_name("fedora3uuid", :stored_searchable), label: "UUID"
+    config.add_show_field solr_name('doi', :symbol), label: 'DOI'
+    config.add_show_field solr_name('doi_without_label', :symbol), label: 'DOI'
 
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "Relevance \u25BC"
     config.add_sort_field "sortable_title_ssi asc", label: "Title A-Z"
@@ -235,6 +237,16 @@ class CatalogController < ApplicationController
           qf: solr_name,
           pf: solr_name
         }
+      end
+
+
+      config.add_search_field('doi') do |field|
+       field.label = 'DOI'
+       field_included = [Solrizer.solr_name('doi', :symbol), Solrizer.solr_name('doi_without_label', :symbol)].join(' ')
+       field.solr_local_parameters = {
+         qf: field_included,
+         pf: field_included
+       }
       end
 
     # If there are more than this many search results, no spelling ("did you
