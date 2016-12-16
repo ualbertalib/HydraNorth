@@ -23,6 +23,10 @@
   <% end %>
   <meta name="citation_publication_date" content="<%= @presenter.date_created %>"/>
   <meta name="citation_pdf_url" content="<%= download_url(@presenter) %>"/>
+  <% if @presenter.doi.present? %>
+    <meta name="dc.identifier" content="<%= @presenter.doi %>">
+    <meta name="citation_doi" content="<%= @presenter.doi %>">
+  <% end %>
   <!-- Sufia does not yet support these metadata -->
   <!--
     <meta name="citation_journal_title" content=""/>
