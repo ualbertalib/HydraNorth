@@ -46,7 +46,8 @@ module Hydranorth
         def doi_fields_present?
           # TODO: Shouldn't have to do this as these are required fields on the UI.
           # However since no data integrity a GF without these fields is technically valid... have to double check
-          self && title.present? && creator.present? && resource_type.present? && Sufia.config.admin_resource_types[resource_type.first].present?
+          self && title.present? && (creator.present? || dissertant.present?) &&
+            resource_type.present? && Sufia.config.admin_resource_types[resource_type.first].present?
         end
 
         private

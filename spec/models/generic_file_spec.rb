@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GenericFile, :type => :model do
-    
+
   describe "attributes" do
     it "should have a fedora3 foxml datastream" do
       subject.add_file(File.open(fixture_path + '/foxml.xml'), path: 'fedora3foxml', original_name: 'foxml.xml')
@@ -218,7 +218,6 @@ describe GenericFile, :type => :model do
     include ActiveJob::TestHelper
 
     let(:new_generic_file) do
-      # TODO this is coming from sufia's factories, fix this
       FactoryGirl.build(:generic_file, title: ['Test Title'],
                                         creator: ['John Doe'],
                                         resource_type: ['Book']) do |gf|
@@ -228,7 +227,6 @@ describe GenericFile, :type => :model do
     end
 
     let(:generic_file) do
-      # TODO this is coming from sufia's factories, fix this
       FactoryGirl.create(:generic_file, title: ['Test Title'],
                                         creator: ['John Doe'],
                                         resource_type: ['Book']) do |gf|
@@ -253,6 +251,16 @@ describe GenericFile, :type => :model do
 
     it 'should mint a new file that is public' do
       new_generic_file.save
+      new_generic_file.reload
+      expect(new_generic_file.aasm_state).to eq('unminted')
+      expect(enqueued_jobs.count).to eq(1)
+    end
+
+    it 'should mint a new file that has a dissertant instead of a creator' do
+      new_generic_file.creator = nil
+      new_generic_file.dissertant = 'John Doe'
+      new_generic_file.save
+
       new_generic_file.reload
       expect(new_generic_file.aasm_state).to eq('unminted')
       expect(enqueued_jobs.count).to eq(1)

@@ -88,7 +88,7 @@ module Hydranorth
     # Parse GenericFile and return hash of relevant DOI information
     def doi_metadata
       {
-        datacite_creator:  @generic_file.creator.join('; '),
+        datacite_creator:  @generic_file.dissertant.present? ? @generic_file.dissertant : @generic_file.creator.join('; '),
         datacite_publisher: PUBLISHER,
         datacite_publicationyear: @generic_file.year_created.present? ? @generic_file.year_created : '(:unav)',
         datacite_resourcetype: DATACITE_METADATA_SCHEME[@generic_file.resource_type.first],
