@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Hydranorth::DOIService do
   let(:example_doi_id) { 'doi:10.5072/FK2JQ1003W' }
   let(:generic_file) do
-    # TODO this is coming from sufia's factories, fix this
     FactoryGirl.create(:generic_file, title: ['Test Title'],
                                       creator: ['John Doe'],
                                       resource_type: ['Book'])
