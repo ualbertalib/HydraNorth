@@ -231,6 +231,8 @@ namespace :migration do
       is_version_of = dc_version.xpath("dcterms:isVersionOf", MigrationConstants::NS).text().gsub(/\n/,'|').gsub(/\t/,' ') unless dc_version.xpath("dcterms:isVersionOf", MigrationConstants::NS).blank?
       is_version_of ||= dc_version.xpath("dcterms:isversionof", MigrationConstants::NS).text().gsub(/\n/,'|').gsub(/\t/,' ') if dc_version.xpath("dcterms:isversionof", MigrationConstants::NS)
       is_version_of = HTMLEntities.new.decode(is_version_of)
+      source = dc_version.xpath("dcterms:source", MigrationConstants::NS).text()
+      relation = dc_version.xpath("dcterms:relation", MigrationConstants::NS).text()
       if type == "Thesis"
       #for thesis objects
       abstract = dc_version.xpath("dcterms:abstract", MigrationConstants::NS).text().gsub(/\n/,' ').gsub(/\t/,' ') if dc_version.xpath("dcterms:abstract", MigrationConstants::NS)
@@ -545,7 +547,7 @@ namespace :migration do
       # add other metadata to the new object
       @generic_file.label ||= original_filename
       @generic_file.title = [title]
-      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant,  "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
+      file_attributes = {"resource_type"=>[type], "contributor"=>contributors, "description"=>[description], "date_created"=>date, "year_created"=>year_created, "license"=>license, "rights"=>rights, "subject"=>subjects, "spatial"=>spatials, "temporal"=>temporals, "language"=>LANG.fetch(language), "fedora3uuid"=>uuid, "fedora3handle" => fedora3handle, "trid" => trid, "ser" => ser, "abstract" => abstract, "date_accepted" => date_accepted, "date_submitted" => date_submitted, "is_version_of" => is_version_of, "graduation_date" => graduation_date, "specialization" => specialization, "supervisor" => supervisors, "committee_member" => committee_members, "department" => departments, "thesis_name" => thesis_name, "thesis_level" => thesis_level, "alternative_title" => alternative_titles, "proquest" => proquest, "unicorn" => unicorn, "degree_grantor" => degree_grantor, "dissertant" => dissertant, "source" => source, "related_url" => relation, "ingestbatch" => @ingest_batch_id, "belongsToCommunity" => communities_noid, "hasCollectionId" => collections_noid, "hasCollection" => collections_title}
       @generic_file.attributes = file_attributes
       if item_state == 'Inactive'
         if embargoed
