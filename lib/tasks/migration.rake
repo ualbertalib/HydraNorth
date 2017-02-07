@@ -74,15 +74,17 @@ namespace :migration do
   end
 
   desc "batch migrate generic files from modified ERA FOXML file"
-  task :eraitem, [:dir, :migrate_datastreams] => :environment do |t, args|
+  task :eraitem, [:dir, :migrate_datastreams, :usecomm, :usecoll] => :environment do |t, args|
     args.with_defaults(:migrate_datastreams => "true")
     begin
       MigrationLogger.info "**************START: Migrate ERA objects *******************"
       metadata_dir = args.dir
       migrate_datastreams = args.migrate_datastreams == "true"
-      # Usage: Rake migration:eraitem[<file directory here, path included>,<optional: migrate_datastreams: boolean>]
+      usecomm = args.usecomm
+      usecoll = args.usecoll
+      # Usage: Rake migration:eraitem[<file directory here, path included>,<optional: migrate_datastreams: boolean>,<optional: usecomm: NOID>,<optional: usecoll: NOID]
       if File.exist?(metadata_dir) && File.directory?(metadata_dir)
-        migrate_object(metadata_dir, migrate_datastreams)
+        migrate_object(metadata_dir, migrate_datastreams, usecomm, usecoll)
       else
         MigrationLogger.fatal "Invalid directory #{metadata_dir}"
       end
@@ -159,7 +161,7 @@ namespace :migration do
     end
   end
 
-  def migrate_object(metadata_dir, migrate_datastreams)
+  def migrate_object(metadata_dir, migrate_datastreams, usecomm, usecoll)
     time = Time.now
     metadata_time = 0
     attr_time = 0
@@ -466,12 +468,20 @@ namespace :migration do
 
      # find communities and collections information based on UUID
      communities_noid = []
-     communities.each do |cuuid|
-       communities_noid << find_collection(cuuid)
+     if usecomm
+       communities_noid << usecomm
+     else
+       communities.each do |cuuid|
+         communities_noid << find_collection(cuuid)
+       end
      end
      collections_noid = []
-     collections.each do |cuuid|
-       collections_noid << find_collection(cuuid)
+     if usecoll
+       collections_noid << usecoll
+     else
+       collections.each do |cuuid|
+         collections_noid << find_collection(cuuid)
+       end
      end
 
      collections_title = []
