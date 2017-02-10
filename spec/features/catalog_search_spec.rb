@@ -105,4 +105,11 @@ describe 'catalog searching', :type => :feature do
     expect(page).to_not have_content(@gfS.title.first)
   end
 
+  it 'should have a start over link that takes you to /advanced' do
+    search("asdf")
+    expect(page).to have_link('Start Over')
+    click_link 'Start Over'
+    expect(current_path).to eq advanced_path
+  end
+
 end
