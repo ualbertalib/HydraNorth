@@ -577,7 +577,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
-    rubyzip (1.1.7)
+    rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.4.18)
     sass-rails (5.0.4)
@@ -777,6 +777,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug-passenger
   ruby-prof
+  rubyzip (~> 1.2.1)
   sass-rails (~> 5.0)
   selenium-webdriver
   show_me_the_cookies
