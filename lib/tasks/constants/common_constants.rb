@@ -1,4 +1,4 @@
-module MigrationConstants
+module CommonConstants
   # three different rake tasks depend on this constant being defined, instead of magically assuming its available,
   # lets make it an actual dependency that is required on each of the rake task needing it
   NS = {
@@ -27,4 +27,30 @@ module MigrationConstants
         "xmlns:bibo"=>"http://purl.org/ontology/bibo/",
         "dcterms" => "http://purl.org/dc/terms/"
     }
+
+    LANG = {
+      "eng" => "English",
+      "en" => "English",
+      "en_US" => "English",
+      "english" => "English",
+      "fre" => "French",
+      "french" => "French",
+      "spa" => "Spanish",
+      "spanish" => "Spanish",
+      "chi" => "Chinese",
+      "chinese" => "Chinese",
+      "ger" => "German",
+      "german" => "German",
+      "ita" => "Italian",
+      "italian" => "Italian",
+      "rus" => "Russian",
+      "russian" => "Russian",
+      "ukr" => "Ukrainian",
+      "ukrainian" => "Ukrainian",
+      "jpn" => "Japanese",
+      "japanese" => "Japanese",
+      "zxx" => "No linguistic content",
+      "other" => "Other",
+      ""    => "No linguistic content",
+  }
 end

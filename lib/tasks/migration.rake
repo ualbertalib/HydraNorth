@@ -4,24 +4,8 @@ require 'tasks/migration/migration_logger'
 require 'pdf-reader'
 require 'open3'
 require 'htmlentities'
-require 'tasks/migration/migration_constants'
+require 'tasks/constants/common_constants'
 
-  LANG = {
-      "eng" => "English",
-      "en" => "English",
-      "en_US" => "English",
-      "fre" => "French",
-      "spa" => "Spanish",
-      "chi" => "Chinese",
-      "ger" => "German",
-      "ita" => "Italian",
-      "rus" => "Russian",
-      "ukr" => "Ukrainian",
-      "jpn" => "Japanese",
-      "zxx" => "No linguistic content",
-      "other" => "Other",
-      ""    => "No linguistic content",
-  }
   #set fedora access URL. replace with fedora username and password
   #test environment will not have access to ERA's fedora
 

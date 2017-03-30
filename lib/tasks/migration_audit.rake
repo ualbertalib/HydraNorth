@@ -2,7 +2,7 @@ require 'fileutils'
 require 'tasks/migration/audit_logger'
 require 'pdf-reader'
 require 'builder'
-require 'tasks/migration/migration_constants'
+require 'tasks/constants/common_constants'
 
   FileUtils::mkdir_p TEMP
 

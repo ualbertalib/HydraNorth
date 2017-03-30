@@ -6,9 +6,9 @@ module RakeHelper
     Rake::Task.define_task(:environment)
   end
 
-  def run_rake_task(task_name, args = nil)
+  def run_rake_task(task_name, args = {})
     Rake::Task[task_name].reenable
-    Rake::Task[task_name].invoke(args)
+    Rake::Task[task_name].invoke(*args)
   end
 
   RSpec.configure do |config|

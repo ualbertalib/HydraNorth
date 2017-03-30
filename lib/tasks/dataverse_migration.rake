@@ -2,7 +2,7 @@ require 'fileutils'
 require 'tasks/migration/migration_logger'
 require 'open3'
 require 'htmlentities'
-require 'tasks/migration/migration_constants'
+require 'tasks/constants/common_constants'
 
 namespace :migration do
 
