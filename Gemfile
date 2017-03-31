@@ -58,6 +58,9 @@ gem 'rest-client'
 
 gem 'noid', '~> 0.8'
 
+# pin this to post-USN-3235-1
+gem 'nokogiri', '~> 1.7.1'
+
 group :test do
   gem "capybara"
   gem "capybara-select2"
