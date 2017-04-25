@@ -55,26 +55,26 @@ namespace :migration do
       MigrationLogger.info "Processing the object #{object_id}"
       #reading the metadata file
       metadata_file = Nokogiri::XML(File.open(file))
-      metadata = metadata_file.xpath("//ddi_to_dcterms", MigrationConstants::NS)
+      metadata = metadata_file.xpath("//ddi_to_dcterms", CommonConstants::NS)
       #get the doi of the object
-      identifier = metadata.xpath("dcterms:identifier", MigrationConstants::NS).text
+      identifier = metadata.xpath("dcterms:identifier", CommonConstants::NS).text
 
       # set the owner id to a generic dataverse account (currently with dit.application.test@ualberta.ca email address)
       owner_id = "dit.application.test@ualberta.ca"
 
-      title = metadata.xpath("dcterms:title", MigrationConstants::NS).text
-      identifier = metadata.xpath("dcterms:identifier", MigrationConstants::NS).text
-      creators = metadata.xpath("dcterms:creator/text()", MigrationConstants::NS).map(&:to_s) if metadata.xpath("dcterms:creator", MigrationConstants::NS)
-      subjects = metadata.xpath("dcterms:subject/text()",MigrationConstants::NS).map(&:to_s)
-      description = metadata.xpath("dcterms:description/text()",MigrationConstants::NS).map(&:to_s)
-      publisher = metadata.xpath("dcterms:publisher/text()",MigrationConstants::NS).text if metadata.xpath("dcterms:publisher", MigrationConstants::NS)
+      title = metadata.xpath("dcterms:title", CommonConstants::NS).text
+      identifier = metadata.xpath("dcterms:identifier", CommonConstants::NS).text
+      creators = metadata.xpath("dcterms:creator/text()", CommonConstants::NS).map(&:to_s) if metadata.xpath("dcterms:creator", CommonConstants::NS)
+      subjects = metadata.xpath("dcterms:subject/text()",CommonConstants::NS).map(&:to_s)
+      description = metadata.xpath("dcterms:description/text()",CommonConstants::NS).map(&:to_s)
+      publisher = metadata.xpath("dcterms:publisher/text()",CommonConstants::NS).text if metadata.xpath("dcterms:publisher", CommonConstants::NS)
       description = HTMLEntities.new.decode(description.join("")) if description
-      date = metadata.xpath("dcterms:created",MigrationConstants::NS).text
+      date = metadata.xpath("dcterms:created",CommonConstants::NS).text
       year_created = date[/(\d\d\d\d)/,0] unless date.nil? || date.blank?
       type = "Dataset"
-      spatials = metadata.xpath("dcterms:spatial/text()",MigrationConstants::NS).map(&:to_s)
-      temporals = metadata.xpath("dcterms:temporal/text()", MigrationConstants::NS).map(&:to_s)
-      rights = metadata.xpath("dcterms:rights/text()", MigrationConstants::NS).map(&:to_s).join(" ")
+      spatials = metadata.xpath("dcterms:spatial/text()",CommonConstants::NS).map(&:to_s)
+      temporals = metadata.xpath("dcterms:temporal/text()", CommonConstants::NS).map(&:to_s)
+      rights = metadata.xpath("dcterms:rights/text()", CommonConstants::NS).map(&:to_s).join(" ")
 
       # create the depositor
       depositor = User.find_by_email(owner_id)

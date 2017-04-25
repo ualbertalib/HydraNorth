@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'fileutils'
 require 'tasks/migration/audit_logger'
 require 'pdf-reader'
@@ -74,61 +75,61 @@ namespace :migration do
       metadata = Nokogiri::XML(File.open(file))
 
       #get the uuid of the object
-      uuid = metadata.at_xpath("foxml:digitalObject/@PID", MigrationConstants::NS).value
+      uuid = metadata.at_xpath("foxml:digitalObject/@PID", CommonConstants::NS).value
 
       #get the owner ids
-      owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", MigrationConstants::NS).map{ |node| node.to_s.gsub(/\s+/,"").split(',')}.flatten
+      owner_ids = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#ownerId')]/@VALUE", CommonConstants::NS).map{ |node| node.to_s.gsub(/\s+/,"").split(',')}.flatten
 
       #get the item state
-      item_state = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#state')]/@VALUE", MigrationConstants::NS).to_s
+      item_state = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'model#state')]/@VALUE", CommonConstants::NS).to_s
 
       #get the modifiedDate
-      date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", MigrationConstants::NS).to_s
+      date_modified_string = metadata.xpath("//foxml:objectProperties/foxml:property[contains(@NAME, 'view#lastModifiedDate')]/@VALUE", CommonConstants::NS).to_s
       date_modified = DateTime.strptime(date_modified_string, '%Y-%m-%dT%H:%M:%S.%N%Z') unless date_modified_string.nil?
 
       AuditLogger.info "Get the current version of DCQ"
-      dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", MigrationConstants::NS).last
+      dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", CommonConstants::NS).last
       #get metadata from the lastest version of DCQ
       if !dc_version
         AuditLogger.fatal "No DCQ datastream available"
 	      next
       end
-      title = dc_version.xpath("dcterms:title", MigrationConstants::NS).text
-      creators = dc_version.xpath("dcterms:creator/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("dcterms:creator", MigrationConstants::NS)
-      contributors = dc_version.xpath("dcterms:contributor/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("dcterms:contributor",MigrationConstants::NS)
-      subjects = dc_version.xpath("dcterms:subject/text()",MigrationConstants::NS).map(&:text)
-      description = dc_version.xpath("dcterms:description",MigrationConstants::NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
-      date = dc_version.xpath("dcterms:created",MigrationConstants::NS).text
-      type = dc_version.xpath("dcterms:type",MigrationConstants::NS).text
-      format = dc_version.xpath("dcterms:format",MigrationConstants::NS).text
-      language = dc_version.xpath("dcterms:language",MigrationConstants::NS).text
-      spatials = dc_version.xpath("dcterms:spatial/text()",MigrationConstants::NS).map(&:text) if dc_version.xpath("dcterms:spatial", MigrationConstants::NS)
-      temporals = dc_version.xpath("dcterms:temporal/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("dcterms:temporal", MigrationConstants::NS)
-      fedora3handle = dc_version.xpath("ualterms:fedora3handle",MigrationConstants::NS).text
-      fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", MigrationConstants::NS).text
-      trid = dc_version.xpath("ualterms:trid", MigrationConstants::NS).text() if dc_version.xpath("ualterms:trid", MigrationConstants::NS)
-      ser = dc_version.xpath("ualterms:ser",MigrationConstants::NS).text() if dc_version.xpath("ualterms:ser", MigrationConstants::NS)
+      title = dc_version.xpath("dcterms:title", CommonConstants::NS).text
+      creators = dc_version.xpath("dcterms:creator/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("dcterms:creator", CommonConstants::NS)
+      contributors = dc_version.xpath("dcterms:contributor/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("dcterms:contributor",CommonConstants::NS)
+      subjects = dc_version.xpath("dcterms:subject/text()",CommonConstants::NS).map(&:text)
+      description = dc_version.xpath("dcterms:description",CommonConstants::NS).text.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')
+      date = dc_version.xpath("dcterms:created",CommonConstants::NS).text
+      type = dc_version.xpath("dcterms:type",CommonConstants::NS).text
+      format = dc_version.xpath("dcterms:format",CommonConstants::NS).text
+      language = dc_version.xpath("dcterms:language",CommonConstants::NS).text
+      spatials = dc_version.xpath("dcterms:spatial/text()",CommonConstants::NS).map(&:text) if dc_version.xpath("dcterms:spatial", CommonConstants::NS)
+      temporals = dc_version.xpath("dcterms:temporal/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("dcterms:temporal", CommonConstants::NS)
+      fedora3handle = dc_version.xpath("ualterms:fedora3handle",CommonConstants::NS).text
+      fedora3uuid = dc_version.xpath("ualterms:fedora3uuid", CommonConstants::NS).text
+      trid = dc_version.xpath("ualterms:trid", CommonConstants::NS).text() if dc_version.xpath("ualterms:trid", CommonConstants::NS)
+      ser = dc_version.xpath("ualterms:ser",CommonConstants::NS).text() if dc_version.xpath("ualterms:ser", CommonConstants::NS)
 
       #for thesis objects
-      abstract = dc_version.xpath("dcterms:abstract", MigrationConstants::NS).text() if dc_version.xpath("dcterms:abstract", MigrationConstants::NS)
-      date_accepted = dc_version.xpath("dcterms:dateAccepted", MigrationConstants::NS).text() unless dc_version.xpath("dcterms:dateAccepted", MigrationConstants::NS).blank?
-      date_accepted ||= dc_version.xpath("dcterms:dateaccepted", MigrationConstants::NS).text() if dc_version.xpath("dcterms:dateaccepted", MigrationConstants::NS)
-      date_submitted = dc_version.xpath("dcterms:dateSubmitted", MigrationConstants::NS).text() unless dc_version.xpath("dcterms:dateSubmitted", MigrationConstants::NS).blank?
-      date_submitted ||= dc_version.xpath("dcterms:datesubmitted", MigrationConstants::NS).text() if dc_version.xpath("dcterms:datesubmitted", MigrationConstants::NS)
-      is_version_of = dc_version.xpath("dcterms:isVersionOf", MigrationConstants::NS).text() unless dc_version.xpath("dcterms:isVersionOf", MigrationConstants::NS).blank?
-      is_version_of ||= dc_version.xpath("dcterms:isversionof", MigrationConstants::NS).text() if dc_version.xpath("dcterms:isversionof", MigrationConstants::NS)
-      graduation_date = dc_version.xpath("ualterms:graduationdate", MigrationConstants::NS).text() if dc_version.xpath("ualterms:graduationdate", MigrationConstants::NS)
-      specialization = dc_version.xpath("ualterms:specialization", MigrationConstants::NS).text() if dc_version.xpath("ualterms:specialization", MigrationConstants::NS)
-      supervisors = dc_version.xpath("marcrel:ths/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("marcrel:ths", MigrationConstants::NS)
-      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("ualterms:thesiscommitteemember/text()", MigrationConstants::NS)
-      departments = dc_version.xpath("vivo:AcademicDepartment/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("vivo:AcademicDepartment", MigrationConstants::NS)
-      thesis_name = dc_version.xpath("bibo:ThesisDegree", MigrationConstants::NS).text() if dc_version.xpath("bibo:ThesisDegree", MigrationConstants::NS)
-      thesis_level = dc_version.xpath("ualterms:thesislevel", MigrationConstants::NS).text() if dc_version.xpath("ualterms:thesislevel", MigrationConstants::NS)
-      alternative_titles = dc_version.xpath("dcterms:alternative/text()", MigrationConstants::NS).map(&:text) if dc_version.xpath("dcterms:alternative", MigrationConstants::NS)
-      proquest = dc_version.xpath("ualterms:proquest", MigrationConstants::NS).text() if dc_version.xpath("ualterms:proquest", MigrationConstants::NS)
-      unicorn = dc_version.xpath("ualterms:unicorn", MigrationConstants::NS).text() if dc_version.xpath("ualterms:unicorn", MigrationConstants::NS)
-      degree_grantor = dc_version.xpath("marcrel:dgg", MigrationConstants::NS).text() if dc_version.xpath("marcrel:dgg", MigrationConstants::NS)
-      dissertant = dc_version.xpath("marcrel:dis", MigrationConstants::NS).text() if dc_version.xpath("marcrel:dis", MigrationConstants::NS)
+      abstract = dc_version.xpath("dcterms:abstract", CommonConstants::NS).text() if dc_version.xpath("dcterms:abstract", CommonConstants::NS)
+      date_accepted = dc_version.xpath("dcterms:dateAccepted", CommonConstants::NS).text() unless dc_version.xpath("dcterms:dateAccepted", CommonConstants::NS).blank?
+      date_accepted ||= dc_version.xpath("dcterms:dateaccepted", CommonConstants::NS).text() if dc_version.xpath("dcterms:dateaccepted", CommonConstants::NS)
+      date_submitted = dc_version.xpath("dcterms:dateSubmitted", CommonConstants::NS).text() unless dc_version.xpath("dcterms:dateSubmitted", CommonConstants::NS).blank?
+      date_submitted ||= dc_version.xpath("dcterms:datesubmitted", CommonConstants::NS).text() if dc_version.xpath("dcterms:datesubmitted", CommonConstants::NS)
+      is_version_of = dc_version.xpath("dcterms:isVersionOf", CommonConstants::NS).text() unless dc_version.xpath("dcterms:isVersionOf", CommonConstants::NS).blank?
+      is_version_of ||= dc_version.xpath("dcterms:isversionof", CommonConstants::NS).text() if dc_version.xpath("dcterms:isversionof", CommonConstants::NS)
+      graduation_date = dc_version.xpath("ualterms:graduationdate", CommonConstants::NS).text() if dc_version.xpath("ualterms:graduationdate", CommonConstants::NS)
+      specialization = dc_version.xpath("ualterms:specialization", CommonConstants::NS).text() if dc_version.xpath("ualterms:specialization", CommonConstants::NS)
+      supervisors = dc_version.xpath("marcrel:ths/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("marcrel:ths", CommonConstants::NS)
+      committee_members = dc_version.xpath("ualterms:thesiscommitteemember/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("ualterms:thesiscommitteemember/text()", CommonConstants::NS)
+      departments = dc_version.xpath("vivo:AcademicDepartment/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("vivo:AcademicDepartment", CommonConstants::NS)
+      thesis_name = dc_version.xpath("bibo:ThesisDegree", CommonConstants::NS).text() if dc_version.xpath("bibo:ThesisDegree", CommonConstants::NS)
+      thesis_level = dc_version.xpath("ualterms:thesislevel", CommonConstants::NS).text() if dc_version.xpath("ualterms:thesislevel", CommonConstants::NS)
+      alternative_titles = dc_version.xpath("dcterms:alternative/text()", CommonConstants::NS).map(&:text) if dc_version.xpath("dcterms:alternative", CommonConstants::NS)
+      proquest = dc_version.xpath("ualterms:proquest", CommonConstants::NS).text() if dc_version.xpath("ualterms:proquest", CommonConstants::NS)
+      unicorn = dc_version.xpath("ualterms:unicorn", CommonConstants::NS).text() if dc_version.xpath("ualterms:unicorn", CommonConstants::NS)
+      degree_grantor = dc_version.xpath("marcrel:dgg", CommonConstants::NS).text() if dc_version.xpath("marcrel:dgg", CommonConstants::NS)
+      dissertant = dc_version.xpath("marcrel:dis", CommonConstants::NS).text() if dc_version.xpath("marcrel:dis", CommonConstants::NS)
       dissertant = creators.first if type == "Thesis" && (dissertant.nil? || dissertant.blank?)
 
       #calculated year_created based on date_created or date_accepted
@@ -138,7 +139,7 @@ namespace :migration do
         year_created = date[/(\d\d\d\d)/,0]
       end
 
-      ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", MigrationConstants::NS)
+      ds_datastreams =  metadata.xpath("//foxml:datastream[starts-with(@ID, 'DS')]", CommonConstants::NS)
       case
       when ds_datastreams.length > 0
         original_filename =""
@@ -147,16 +148,16 @@ namespace :migration do
         if ds_datastreams.count > 1
           ds_datastreams.each do |ds|
             ds_num = ds.attribute('ID')
-            ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", MigrationConstants::NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
-            file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", MigrationConstants::NS)
+            ds_subver= ds.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", CommonConstants::NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
+            file_version = ds.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", CommonConstants::NS)
 
             original_filename = file_version.attribute('LABEL').to_s
             original_deposit_time = file_version.attribute('CREATED').to_s
           end
         else
 	      ds_num = ds_datastreams.attribute('ID')
-	      ds_subver= ds_datastreams.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", MigrationConstants::NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
-	      file_version = ds_datastreams.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", MigrationConstants::NS)
+	      ds_subver= ds_datastreams.xpath("foxml:datastreamVersion[starts-with(@ID, #{ds_num})]/@ID", CommonConstants::NS).map {|i| i.to_s[/DS\d+\.?(\d*)/, 1].to_i}.sort.last
+	      file_version = ds_datastreams.at_xpath("foxml:datastreamVersion[contains(@ID, concat(#{ds_num},'.',#{ds_subver}))]", CommonConstants::NS)
 
 	      original_filename = file_version.attribute('LABEL').to_s
           original_deposit_time = file_version.attribute('CREATED').to_s
@@ -168,7 +169,7 @@ namespace :migration do
 
 
       # get the license metadata
-      license_node = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'LICENSE.')]", MigrationConstants::NS).last
+      license_node = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'LICENSE.')]", CommonConstants::NS).last
       if license_node.nil?
         AuditLogger.fatal "NO License datastream available: #{uuid}"
       else
@@ -229,18 +230,18 @@ namespace :migration do
       end
 
       #get the relsext metadata
-      relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",MigrationConstants::NS).last
-      collections = relsext_version.xpath("memberof:isMemberOfCollection/@rdf:resource", MigrationConstants::NS).map{ |node| node.value.split("/")[1] }
-      communities = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", MigrationConstants::NS).map {|node| node.value.split("/")[1] }
-      user = relsext_version.at_xpath("userns:userId", MigrationConstants::NS).text() if relsext_version.at_xpath("userns:userId", MigrationConstants::NS)
-      submitter = relsext_version.at_xpath("userns:submitterId", MigrationConstants::NS).text() if relsext_version.at_xpath("userns:submitterId", MigrationConstants::NS)
+      relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT.')]//rdf:Description",CommonConstants::NS).last
+      collections = relsext_version.xpath("memberof:isMemberOfCollection/@rdf:resource", CommonConstants::NS).map{ |node| node.value.split("/")[1] }
+      communities = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", CommonConstants::NS).map {|node| node.value.split("/")[1] }
+      user = relsext_version.at_xpath("userns:userId", CommonConstants::NS).text() if relsext_version.at_xpath("userns:userId", CommonConstants::NS)
+      submitter = relsext_version.at_xpath("userns:submitterId", CommonConstants::NS).text() if relsext_version.at_xpath("userns:submitterId", CommonConstants::NS)
 
       dark_repository = false
       ccid_protected = false
       embargoed = false
 
-      node = relsext_version.xpath("memberof:isPartOf/@rdf:resource", MigrationConstants::NS) if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", MigrationConstants::NS)
-      if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", MigrationConstants::NS)
+      node = relsext_version.xpath("memberof:isPartOf/@rdf:resource", CommonConstants::NS) if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", CommonConstants::NS)
+      if relsext_version.at_xpath("memberof:isPartOf/@rdf:resource", CommonConstants::NS)
         children = node.children
         if children.count > 1
           children.each do |element|
@@ -267,7 +268,7 @@ namespace :migration do
         end
       end
 
-      embargoed_date = relsext_version.at_xpath("userns:embargoedDate", MigrationConstants::NS).text() if relsext_version.at_xpath("userns:embargoedDate", MigrationConstants::NS)
+      embargoed_date = relsext_version.at_xpath("userns:embargoedDate", CommonConstants::NS).text() if relsext_version.at_xpath("userns:embargoedDate", CommonConstants::NS)
 
       # set the depositor
       if submitter
@@ -463,11 +464,11 @@ namespace :migration do
 	     }
        end
 
-       if @generic_file.language != LANG.fetch(language)
-         AuditLogger.info "language: #{@generic_file.language}^#{LANG.fetch(language)}"
+       if @generic_file.language != CommonConstants::LANG.fetch(language)
+         AuditLogger.info "language: #{@generic_file.language}^#{CommonConstants::LANG.fetch(language)}"
 	     xml.language {
 	     xml.object_ @generic_file.language
-	     xml.xml_ LANG.fetch(language)
+	     xml.xml_ CommonConstants::LANG.fetch(language)
 	     }
        end
 
@@ -807,7 +808,7 @@ namespace :migration do
         metadata = Nokogiri::XML(File.open(file))
 
         #get the uuid of the object
-        uuid = metadata.at_xpath("foxml:digitalObject/@PID", MigrationConstants::NS).value
+        uuid = metadata.at_xpath("foxml:digitalObject/@PID", CommonConstants::NS).value
         AuditLogger.info "UUID of the collection #{uuid}"
 
         xml.uuid('uuid' => uuid) {
@@ -817,11 +818,11 @@ namespace :migration do
         collection_attributes[:fedora3uuid] = uuid
         #get the relsext info from the data stream
 
-        relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT')]//foxml:xmlContent//rdf:Description", MigrationConstants::NS).last
+        relsext_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'RELS-EXT')]//foxml:xmlContent//rdf:Description", CommonConstants::NS).last
 
         #get metadata from the latest version of Relsext
-        model = relsext_version.xpath("hasmodel:hasModel/@rdf:resource", MigrationConstants::NS).text
-        memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", MigrationConstants::NS).map {|node| node.value.split("/")[1] }
+        model = relsext_version.xpath("hasmodel:hasModel/@rdf:resource", CommonConstants::NS).text
+        memberof  = relsext_version.xpath("memberof:isMemberOf/@rdf:resource", CommonConstants::NS).map {|node| node.value.split("/")[1] }
         communities =[]
         if model == "info:fedora/ir:COLLECTION"
           memberof.each do |uuid|
@@ -880,12 +881,12 @@ namespace :migration do
 
   def collection_dcq(metadata)
     #get the current version of DCQ
-    dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", MigrationConstants::NS).last
+    dc_version = metadata.xpath("//foxml:datastreamVersion[contains(@ID, 'DCQ.')]//foxml:xmlContent/dc", CommonConstants::NS).last
     collection_attributes = {}
-    collection_attributes[:title] = dc_version.xpath("dcterms:title", MigrationConstants::NS).text
-    collection_attributes[:creator] = dc_version.xpath("dcterms:creator", MigrationConstants::NS).text
-    collection_attributes[:description] = dc_version.xpath("dcterms:description",MigrationConstants::NS).text
-    era_identifiers = dc_version.xpath("dcterms:identifier/text()", MigrationConstants::NS).map(&:text)
+    collection_attributes[:title] = dc_version.xpath("dcterms:title", CommonConstants::NS).text
+    collection_attributes[:creator] = dc_version.xpath("dcterms:creator", CommonConstants::NS).text
+    collection_attributes[:description] = dc_version.xpath("dcterms:description",CommonConstants::NS).text
+    era_identifiers = dc_version.xpath("dcterms:identifier/text()", CommonConstants::NS).map(&:text)
     era_identifiers.each {|id| collection_attributes[:fedora3handle] = id if id.match(/handle/)} unless era_identifiers.nil?
 
     return collection_attributes
