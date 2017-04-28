@@ -9,17 +9,18 @@ INGEST_REPORTS = "lib/tasks/ingests/reports/"
 
 namespace :batch do
   desc "batch ingest from a csv file - used by ERA Admin and ERA Assistants"
-  task :ingest_csv, [:manifest, :batch_dir, :investigation_id, :mode] => :environment do |t, args|
+  task :ingest_csv, [:manifest, :batchfiles_location, :investigation_id, :mode] => :environment do |t, args|
     begin
       BatchIngestLogger.info "**************START: Batch ingest started ***************************"
       manifest = args.manifest
-      batch_dir = args.batch_dir
+      batchfiles_location = args.batchfiles_location
       mode = args.mode
       investigation_id = args.investigation_id
       BatchIngestLogger.fatal "Invalid ingest mode #{mode}, should be either ingest or update." unless mode == "update" || mode == "ingest"
       if File.exist?(manifest)
         json = convert_csv_json(manifest)
-        ingest(json, batch_dir, investigation_id, mode)
+        noid_list = ingest(json, batchfiles_location, mode)
+        generate_ingest_report(noid_list, investigation_id) 
       else
         BatchIngestLogger.fatal "Invalid file #{file}"
       end
@@ -38,9 +39,21 @@ namespace :batch do
     return json
   end
 
-  def ingest(json, batch_dir, investigation_id, mode)
-    report = File.open(INGEST_REPORTS+"/investigation"+investigation_id+"-"+Time.now.strftime('%Y-%m-%d_%H-%M-%S')+".csv", 'a+')
-    report.puts "#{investigation_id}, #{Time.now}"
+  
+  def generate_ingest_report(noid_list, investigation_id)
+    time = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+    File.open("#{INGEST_REPORTS}/investigation_#{investigation_id}_#{time}.csv", 'a+') do |report|
+      report.puts "url|citation|title|doi|noid"
+      report.puts "investigation_id: #{investigation_id}, ingest time:  #{Time.now}"
+      noid_list.each do |noid|
+        gf = GenericFile.find(noid)
+        report.puts "#{Rails.application.routes.url_helpers.generic_file_url(gf.id)}|#{gf.is_version_of}|#{gf.title}|#{gf.doi_permanent_url}|#{gf.id}" 
+      end
+    end
+  end
+
+  def ingest(json, batchfiles_location, mode)
+    noid_list=[]
     json.each do |metadata|
       begin
         next if metadata.empty?
@@ -65,7 +78,7 @@ namespace :batch do
         @gf.permissions_attributes = set_coowners(coowners) if coowners && coowners.count > 0
         if mode == "ingest" 
           BatchIngestLogger.info("Retrieve the files for the object") 
-          file_location = batch_dir+file_attributes["file_location"]
+          file_location = batchfiles_location+file_attributes["file_location"]
           if File.exist?(file_location)
             mime_type = MIME::Types.of(file_location).first.to_s
             content = File.open(file_location)
@@ -95,10 +108,10 @@ namespace :batch do
 
         @gf.creator = file_attributes["creator"] if file_attributes["creator"]
         @gf.save
+        noid_list << @gf.id
         BatchIngestLogger.info "Generic File saved: id #{@gf.id}"
         BatchIngestLogger.info "Add file #{@gf.id} to community #{file_attributes["belongsToCommunities"]} and collection #{file_attributes["hasCollectionId"]} - #{file_attributes["hasCollection"]}"
 
-        report.puts "#{@gf.id}, #{@gf.is_version_of}, #{@gf.title}, #{@gf.creator}"
       rescue Exception => e
         puts "FAILED: Item #{file_attributes["title"]}: #{file_attributes["file_name"]} ingest!"
         puts e.message
@@ -110,7 +123,7 @@ namespace :batch do
         next
       end
     end
-    report.close
+    return noid_list
   end
 
   def set_depositor(owner_id)
@@ -149,6 +162,7 @@ namespace :batch do
   end
   def read_metadata(metadata)
     BatchIngestLogger.info "Get the metadata for the object"
+    metadata.update(metadata){ |k,v| v.to_s.gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')}
     file_attributes = {}
     file_attributes['noid'] = metadata[:noid] if metadata[:noid]
     file_attributes['file_location'] = metadata[:file_location] if metadata[:file_location]
@@ -156,15 +170,15 @@ namespace :batch do
     file_attributes['file_name'] = file_name
     file_attributes['resource_type'] = [metadata[:item_type]] if metadata[:item_type]
     file_attributes['owner_id'] = metadata[:owner_id].split("|") if metadata[:owner_id]
-    file_attributes['hasCollectionId'] = [metadata[:collection_noid], metadata[:collection_noid_2], metadata[:collection_noid_3]].compact
-    file_attributes['belongsToCommunity'] = [metadata[:community_noid],metadata[:community_noid_2], metadata[:collection_noid_3]].compact
+    file_attributes['hasCollectionId'] = [metadata[:collection_noid], metadata[:collection_noid_2], metadata[:collection_noid_3]].compact.delete_if(&:empty?)
+    file_attributes['belongsToCommunity'] = [metadata[:community_noid],metadata[:community_noid_2], metadata[:collection_noid_3]].compact.delete_if(&:empty?)
     file_attributes['is_version_of'] = metadata[:is_version_of] if metadata[:is_version_of]
     file_attributes['source'] = metadata[:source] if metadata[:source]
     file_attributes['title'] = [metadata[:title]] if metadata[:title]
     file_attributes['relation']= metadata[:relation] if metadata[:relation]
     file_attributes['creator'] = metadata[:creator].split("|") if metadata[:creator]
     file_attributes['contributor'] = metadata[:contributor].split("|") if metadata[:contributor]
-    file_attributes['description'] = [metadata[:description].gsub(/"/, '\"').gsub(/\n/,' ').gsub(/\t/,' ')] if metadata[:description]
+    file_attributes['description'] = [metadata[:description]] if metadata[:description]
     file_attributes['subject'] = metadata[:subject].split("|") if metadata[:subject]
     file_attributes['license'] = metadata[:license] if metadata[:license]
     file_attributes['rights'] = metadata[:rights] if metadata[:rights]
