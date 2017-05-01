@@ -81,9 +81,8 @@ group :development, :test do
   gem "jettywrapper"
   gem "factory_girl_rails"
   gem 'brakeman', require: false
-  gem "pry"
-  gem "pry-remote"
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'ruby-prof'
 end
 
