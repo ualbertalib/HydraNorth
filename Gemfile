@@ -8,6 +8,7 @@ gem 'aasm-active_fedora'
 gem 'ezid-client'
 
 gem 'resque'
+gem 'redis'
 
 # Avoid cannot load such file -- google/api_client
 gem 'google-api-client', '~> 0.7.1'
