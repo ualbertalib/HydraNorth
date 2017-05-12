@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Migration rake tasks", type: :task do
+  skip do
   before(:all) do
     load_rake_environment('tasks/migration')
   end
@@ -30,6 +31,8 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      @file.delete
+      @collection.delete
       cleanup_jetty
     end
 
@@ -72,6 +75,8 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      @file.delete
+      @collection.delete
       cleanup_jetty
     end
 
@@ -106,6 +111,9 @@ describe "Migration rake tasks", type: :task do
       @file = GenericFile.find(id)
     end
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @collection.delete
       cleanup_jetty
     end
 
@@ -145,6 +153,9 @@ describe "Migration rake tasks", type: :task do
 
     end
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
     it "item should have all thesis related metadata field" do
@@ -196,6 +207,9 @@ describe "Migration rake tasks", type: :task do
 
     end
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
 
@@ -230,6 +244,9 @@ describe "Migration rake tasks", type: :task do
       @file = GenericFile.find(id)
     end
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @collection.delete
       cleanup_jetty
     end
 
@@ -263,6 +280,9 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
 
@@ -296,8 +316,13 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
+
+    subject { @file }
 
     it "item should have private visibility" do
       expect(@file.visibility).to eq "restricted"
@@ -329,6 +354,9 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
 
@@ -364,6 +392,9 @@ describe "Migration rake tasks", type: :task do
     end
 
     after(:each) do
+      Rake::Task["migration:eraitem"].reenable
+      @file.delete
+      @community.delete
       cleanup_jetty
     end
 
@@ -411,5 +442,5 @@ describe "Migration rake tasks", type: :task do
       expect(@generic_file.read_groups).to eq [Hydra::AccessControls::AccessRight::PERMISSION_TEXT_VALUE_PUBLIC, Hydranorth::AccessControls::InstitutionalVisibility::UNIVERSITY_OF_ALBERTA]
     end
   end
-
+end
 end
