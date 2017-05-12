@@ -8,6 +8,7 @@ class GenericFile < ActiveFedora::Base
   include Hydranorth::GenericFile::DOI
   include Hydranorth::GenericFile::DOIStates
   include Hydranorth::GenericFile::Era1Stats
+  include Hydranorth::GenericFile::Preservation
 
   # override the default indexer from Sufia
   def self.indexer
