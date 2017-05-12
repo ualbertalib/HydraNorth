@@ -1,6 +1,0 @@
-development:
-  queue_name: 'dev:pmpy_queue'
-test:
-  queue_name: 'test:pmpy_queue'
-production:
-  queue_name: 'prod:pmpy_queue'

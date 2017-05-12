@@ -1,6 +1,6 @@
 module Hydranorth::PreservationQueue
 
-  QUEUE_NAME = YAML.load(File.read('config/preservation.yml'))[Rails.env]['queue_name']
+  QUEUE_NAME = Rails.application.secrets.preservation_queue_name
 
   def queue
     $queue ||= ConnectionPool.new({size: 1, timeout: 5}) { Redis.new }
