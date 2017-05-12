@@ -230,6 +230,7 @@ describe GenericFile, :type => :model do
     after(:all) do
       $redis.del Hydranorth::PreservationQueue::QUEUE_NAME
       Timecop.return
+      cleanup_jetty
     end
 
     it 'should add the noid with the correct score for a new item to the preservation queue' do

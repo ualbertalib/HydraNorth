@@ -8,7 +8,7 @@ describe "hydranorth:bulk_preserve_generic_files", type: :task do
   let!(:file) do
     FactoryGirl.build(:generic_file, title: ["Foo"],) do |work|
       work.apply_depositor_metadata('dittest@ualberta.ca')
-      work.save(validate: false)
+      work.save
     end
   end
 
