@@ -9,7 +9,14 @@ module Hydranorth
         private
 
         def push_noid_for_preservation
-          Hydranorth::PreservationQueue.preserve(self.id)
+          res = Hydranorth::PreservationQueue.preserve(self.id)
+          Rails.logger.warn("Could not preserve #{self.id}") unless res == true
+          # TODO: <removed temporarily> log to external service iff res != true
+          return true
+        rescue StandardError
+          # we trap errors in writing to the Redis queue in order to avoid crashing the save process
+          # for the user. TODO: This should raise any errors to an external notificaiton service
+          return true
         end
       end
     end
