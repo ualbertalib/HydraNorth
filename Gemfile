@@ -45,7 +45,7 @@ gem "devise-guests", "~> 0.3"
 gem "omniauth-shibboleth"
 
 # clamav ruby bindings
-# gem "clamav"
+gem "clamav"
 
 # for migration reading the license file
 gem "pdf-reader", require: false
