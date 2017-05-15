@@ -45,7 +45,7 @@ gem "devise-guests", "~> 0.3"
 gem "omniauth-shibboleth"
 
 # clamav ruby bindings
-gem "clamav"
+# gem "clamav"
 
 # for migration reading the license file
 gem "pdf-reader", require: false
@@ -57,6 +57,9 @@ gem 'sitemap', git: 'https://github.com/ualbertalib/rails-sitemap.git'
 gem 'rest-client'
 
 gem 'noid', '~> 0.8'
+
+# pin this to post-USN-3271-1
+gem 'nokogiri', '~> 1.7.2'
 
 group :test do
   gem "capybara"
@@ -78,9 +81,8 @@ group :development, :test do
   gem "jettywrapper"
   gem "factory_girl_rails"
   gem 'brakeman', require: false
-  gem "pry"
-  gem "pry-remote"
   gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'ruby-prof'
 end
 

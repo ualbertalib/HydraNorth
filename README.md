@@ -107,8 +107,9 @@ Batch ingest
 - ```rake hydranorth:update_special_itemtype``` will update the resource type "report" to "computing science technical report" if this item is a member of "technical report". In order for the rake task to work, the collection has to be migrated already and exist in the system.
 - ```rake hydranorth:characterize``` will push all the items to the characterize resque pool for characterization, and thumbnail creation. This should be done after a complete fresh migration - as currently the migration job disables the resque jobs for faster completion.
   - **note: ```rake hydranorth:characterize_some['filename']``` will push the items in the given list to the characterize resque job. **
-- **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['lib/tasks/batch/ERA_batch_ingest.csv','lib/tasks/batch/files_and_metadata/']```
+- **batch:ingest_csv** is used by ERA Admin and ERA Assistants to batch ingest from a csv file. Takes the csv file and a directory where the referenced files exist. use: ```rake batch:ingest_csv['batchData.csv','directory_where_batchFiles_lives','investigation_id','ingest_mode']```
   - **note: collections and communities dependencies must exist.**
+  - **note: manifest file is batchData.csv created by the ERA Support team. PDFs will be in batchFiles directory. The location (parent dir) of batchFiles is used in the rake task. Both need to be copied to the app server. Investigation id is the id number used by the ERA Support team for reporting purpose. Ingest mode include 'ingest' and 'update'. Ingest mode will generate new object. Update mode will update existing objects. The manifest should include 'noid'***
 
 Ingest Dataverse Metadata
 ---
