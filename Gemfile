@@ -63,6 +63,8 @@ gem 'noid', '~> 0.8'
 # pin this to post-USN-3271-1
 gem 'nokogiri', '~> 1.7.2'
 
+gem 'rollbar'
+
 group :test do
   gem "capybara"
   gem "capybara-select2"
