@@ -203,6 +203,19 @@ body.home h4{
 	text-decoration: none;
 	color: #efefef;
 }
+#era-av{
+	margin-top:50px;
+	padding:0 43px;
+}
+#era-av span.line{
+	display:block;
+	font-size:14px;
+	margin-bottom:-4px;
+}
+#era-av span.glyphicon{
+	font-size:11px;
+	margin-left:4px;
+}
 #query-button{
 	margin-top: 0;
 	z-index:2000;
