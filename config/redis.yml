@@ -4,6 +4,11 @@ development:
 test:
   host: localhost
   port: 6379
+
+# environment variable REDIS_URL can be configured to contain all information needed to connect to redis server
+# e.g. redis://:p4ssw0rd@10.0.1.1:6380/15, which include the URL, username/password as required, port number, db etc
+
+staging:
+  url: <%= ENV['REDIS_URL'] %>
 production:
-  host: localhost
-  port: 6379
+  url: <%= ENV['REDIS_URL'] %>
