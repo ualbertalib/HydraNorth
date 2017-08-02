@@ -63,13 +63,10 @@ Hydranorth::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   #devise config
-  config.action_mailer.default_url_options = { :host => 'era-test.library.ualberta.ca' }
+  config.action_mailer.default_url_options = {:host => Rails.application.secrets.devise_mailer_url }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 25 }
-  config.action_mailer.default :from => 'dittest@ualberta'
-
-  #contact for config
-  config.contact_email = 'dittest@ualberta.ca'
+  config.action_mailer.default :from => Rails.application.secrets.devise_email
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -86,4 +83,4 @@ Hydranorth::Application.configure do
 end
 
 # Required when using Rails.application.routes.url_helpers from outside the request/response life cycle (models, jobs, lib)
-Rails.application.routes.default_url_options = { host: 'era-test.library.ualberta.ca', port: 443, protocol: 'https' }
+Rails.application.routes.default_url_options = { host: Rails.application.secrets.default_url_host, port: 443, protocol: 'https' }

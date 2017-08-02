@@ -1,12 +1,11 @@
+default: &default
+  adapter: Rails.application.secrets.blacklight_adapter
+  url: Rails.application.secrets.solr_url
 development:
-  adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/development" %>
+  <<: *default
 test:
-  adapter: solr
-  url: <%= ENV['SOLR_TEST_URL'] || "http://127.0.0.1:8983/solr/test" %>
+  <<: *default
 staging:
-  adapter: solr
-  url: <%= ENV['SOLR_URL'] %>
+  <<: *default
 production:
-  adapter: solr
-  url: <%= ENV['SOLR_URL'] %>
+  <<: *default

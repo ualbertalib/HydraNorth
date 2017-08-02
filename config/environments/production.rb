@@ -46,7 +46,7 @@ Hydranorth::Application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
@@ -64,13 +64,10 @@ Hydranorth::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   #devise config
-  config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.devise_mailer_url }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 25 }
-  config.action_mailer.default :from => 'hydranorth@mailinator.com'
-
-  #contact for config
-  config.contact_email = 'hydranorth@mailinator.com'
+  config.action_mailer.default :from => Rails.application.secrets.devise_email
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -87,4 +84,4 @@ Hydranorth::Application.configure do
 end
 
 # Required when using Rails.application.routes.url_helpers from outside the request/response life cycle (models, jobs, lib)
-Rails.application.routes.default_url_options = { host: 'era.library.ualberta.ca', port: 443, protocol: 'https' }
+Rails.application.routes.default_url_options = { host: Rails.application.secrets.default_url_host, port: 443, protocol: 'https' }

@@ -1,9 +1,10 @@
-# This is a sample config file that points to a solr server for each environment
+default: &default
+  url: Rails.application.secrets.solr_url
 development:
-  url: <%= ENV['SOLR_URL'] || 'http://localhost:8983/solr/development' %>
+  <<: *default
 test:
-  url: <%= ENV['SOLR_TEST_URL'] || 'http://localhost:8983/solr/test' %>
+  <<: *default
 staging:
-  url: ENV['SOLR_URL']
+  <<: *default
 production:
-  url: ENV['SOLR_URL']
+  <<: *default

@@ -7,10 +7,9 @@
 #   privkey_path: GOOGLE_OAUTH_PRIVATE_KEY_PATH
 #   privkey_secret: GOOGLE_OAUTH_PRIVATE_KEY_SECRET
 #   client_email: GOOGLE_OAUTH_CLIENT_EMAIL
-
 analytics:
-  app_name: My App Name
-  app_version: 0.0.1
-  privkey_path: /tmp/privkey.p12
-  privkey_secret: s00pers3kr1t
-  client_email: oauth@example.org
+  app_name: Rails.application.secrets.ga_app_name
+  app_version: Rails.application.secrets.ga_app_version
+  privkey_path: Rails.application.secrets.ga_privkey_path
+  privkey_secret: Rails.application.secrets.ga_privkey_secret
+  client_email: Rails.application.secrets.ga_email
