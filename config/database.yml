@@ -49,6 +49,6 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 staging:
-  url: <%= ENV['DATABASE_URL'] %>
+  url: Rails.application.secrets.database_url
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  url: Rails.application.secrets.database_url
