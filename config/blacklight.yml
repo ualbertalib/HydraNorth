@@ -1,6 +1,6 @@
 default: &default
-  adapter: Rails.application.secrets.blacklight_adapter
-  url: Rails.application.secrets.solr_url
+  adapter: <%= Rails.application.secrets.blacklight_adapter %>
+  url: <%= Rails.application.secrets.solr_url %>
 development:
   <<: *default
 test:

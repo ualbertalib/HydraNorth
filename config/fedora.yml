@@ -1,8 +1,8 @@
 default: &default
-  user: Rails.application.secrets.fedora_user
-  password: Rails.application.secrets.fedora_password
-  url: Rails.application.secrets.fedora_url
-  base_path: Rails.application.secrets.fedora_basepath
+  user: <%= Rails.application.secrets.fedora_user %>
+  password: <%= Rails.application.secrets.fedora_password %>
+  url: <%= Rails.application.secrets.fedora_url %>
+  base_path: <%= Rails.application.secrets.fedora_basepath %>
 development:
   <<: *default
 test:

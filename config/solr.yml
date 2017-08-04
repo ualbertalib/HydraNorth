@@ -1,5 +1,5 @@
 default: &default
-  url: Rails.application.secrets.solr_url
+  url: <%= Rails.application.secrets.solr_url %>
 development:
   <<: *default
 test:
