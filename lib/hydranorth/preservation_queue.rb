@@ -5,7 +5,7 @@ module Hydranorth::PreservationQueue
   QUEUE_NAME = Rails.application.secrets.preservation_queue_name
 
   def queue
-    $queue ||= ConnectionPool.new({size: 1, timeout: 5}) { Redis.new }
+    $queue ||= ConnectionPool.new({size: 1, timeout: 5}) { Redis.current }
   end
 
   def preserve(noid)
