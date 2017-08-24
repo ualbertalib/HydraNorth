@@ -7,4 +7,7 @@
 User-agent: *
 Disallow: /catalog
 
+User-agent: *
+Disallow: /files/*/stats
+
 Sitemap: https://era.library.ualberta.ca/sitemap.xml
