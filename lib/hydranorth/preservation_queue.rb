@@ -1,7 +1,5 @@
 module Hydranorth::PreservationQueue
 
-  class PreservationError < StandardError; end
-
   QUEUE_NAME = Rails.application.secrets.preservation_queue_name
 
   def queue
