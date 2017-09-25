@@ -214,6 +214,103 @@ describe GenericFile, :type => :model do
     end
   end
 
+  describe 'callbacks for preservation' do
+    let(:generic_file) do
+      FactoryGirl.build(:generic_file, title: ['Test Title'], creator: ['John Doe'], resource_type: ['Book']) do |gf|
+                          gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+                          gf.apply_depositor_metadata('ditest@example.com')
+                        end
+    end
+
+    before(:each) do
+      # clear out the test preservation queue for consistent results
+      $redis.del Hydranorth::PreservationQueue::QUEUE_NAME
+    end
+
+    after(:all) do
+      $redis.del Hydranorth::PreservationQueue::QUEUE_NAME
+      Timecop.return
+      cleanup_jetty
+    end
+
+    it 'should add the noid with the correct score for a new item to the preservation queue' do
+      now = Time.now
+      Timecop.freeze(now)
+
+
+      generic_file.save
+
+      noid, score = $redis.zrange(Hydranorth::PreservationQueue::QUEUE_NAME, 0, -1, with_scores: true)[0]
+
+      expect(noid).to eq generic_file.id
+      expect(score).to be_within(0.5).of now.to_f
+
+      Timecop.return
+    end
+
+    it 'should end up with the queue only having a noid once after multiple saves of the same item' do
+      now = Time.now
+      Timecop.freeze(now)
+
+      generic_file.save
+
+      intermediate_save_time = now + 1.minute
+      Timecop.travel(intermediate_save_time)
+      generic_file.save
+
+      final_save_time = intermediate_save_time + 3.minutes
+      Timecop.travel(final_save_time)
+      generic_file.save
+
+      queue_count = $redis.zcard Hydranorth::PreservationQueue::QUEUE_NAME
+      expect(queue_count).to eq 1
+
+      noid, score = $redis.zrange(Hydranorth::PreservationQueue::QUEUE_NAME, 0, -1, with_scores: true)[0]
+      expect(noid).to eq generic_file.id
+      expect(score).to be_within(0.5).of final_save_time.to_f
+
+      Timecop.return
+    end
+
+    it 'should end up with noids in the queue in the correct temporal order' do
+      files = []
+      4.times do
+        files << FactoryGirl.build(:generic_file) do |gf|
+          gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+          gf.apply_depositor_metadata('ditest@example.com')
+        end
+      end
+
+      now = Time.now
+      Timecop.freeze(now)
+
+      # this is all maybe a bit too "there's nothing up my sleeve" about noid orders, but c'est la vie
+      files = files.shuffle
+
+      files[0].save
+
+      now += 2.minutes
+      Timecop.travel(now)
+      files[3].save
+
+      now -= 6.minutes
+      Timecop.travel(now)
+      files[1].save
+
+      now += 2.hours
+      Timecop.travel(now)
+      files[2].save
+
+      save_order = [files[1], files[0], files[3], files[2]]
+
+      queue = $redis.zrange(Hydranorth::PreservationQueue::QUEUE_NAME, 0, -1, with_scores: false)
+
+      expect(save_order.map(&:id)).to match_array(queue)
+      Timecop.return
+    end
+
+  end
+
   describe 'callbacks for doi' do
     include ActiveJob::TestHelper
 

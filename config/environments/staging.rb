@@ -1,6 +1,5 @@
 Hydranorth::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -29,7 +28,7 @@ Hydranorth::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -64,7 +63,7 @@ Hydranorth::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   #devise config
-  config.action_mailer.default_url_options = { :host => Rails.application.secrets.devise_mailer_url }
+  config.action_mailer.default_url_options = {:host => Rails.application.secrets.devise_mailer_url }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 25 }
   config.action_mailer.default :from => Rails.application.secrets.devise_email
@@ -80,7 +79,7 @@ Hydranorth::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
+  # config.active_record.dump_schema_after_migration = false
 end
 
 # Required when using Rails.application.routes.url_helpers from outside the request/response life cycle (models, jobs, lib)

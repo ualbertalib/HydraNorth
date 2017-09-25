@@ -33,6 +33,11 @@ class User < ActiveRecord::Base
     )
   end
 
+  # For masking the ID that we send to rollbar
+  def id_as_hash
+   Digest::SHA2.hexdigest("#{Rails.application.secrets.secret_key_base}_#{id}")
+  end
+
   # for some reason, Sufia::User#name titleize's the user's display name.
   # (https://github.com/projecthydra/sufia/blob/master/sufia-models/app/models/concerns/sufia/user.rb#L96)
   # Shadow the method to undo this, so that "Raymond Luxury-Yacht" isn't

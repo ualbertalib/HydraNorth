@@ -1,1 +1,1 @@
- "*": 1
+ "*": <%= Rails.application.secrets.resque_workers %>

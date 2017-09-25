@@ -8,6 +8,8 @@ gem 'aasm-active_fedora'
 gem 'ezid-client'
 
 gem 'resque'
+gem 'redis'
+gem 'connection_pool'
 
 # Avoid cannot load such file -- google/api_client
 gem 'google-api-client', '~> 0.7.1'
@@ -60,6 +62,8 @@ gem 'noid', '~> 0.8'
 
 # pin this to post-USN-3424-1
 gem 'nokogiri', '~> 1.8.1'
+
+gem 'rollbar'
 
 group :test do
   gem "capybara"
