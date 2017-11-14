@@ -1,6 +1,6 @@
 include GenericFileHelper
 
-Sitemap::Generator.instance.load(host: 'era.library.ualberta.ca') do
+Sitemap::Generator.instance.load(host: 'era.library.ualberta.ca', protocol: 'https') do
   path :root, priority: 1, change_frequency: 'weekly'
   read_group = Solrizer.solr_name('read_access_group', :symbol)
   solr_rsp = ActiveFedora::SolrService.instance.conn.get "select", :params => {:q => Solrizer.solr_name('read_access_group', :symbol)+':public', :fl => "id,#{Solrizer.solr_name('active_fedora_model', :stored_sortable)}"} 
